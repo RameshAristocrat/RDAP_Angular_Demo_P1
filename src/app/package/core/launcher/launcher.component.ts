@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { OktaAuthService } from '../okta-auth/okta-auth-service';
 
 @Component({
   selector: 'app-launcher',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LauncherComponent implements OnInit {
 
-  constructor() { }
+  constructor(private okta: OktaAuthService) { }
 
   ngOnInit(): void {
+    this.okta.handleAuthentication();
   }
 
 }

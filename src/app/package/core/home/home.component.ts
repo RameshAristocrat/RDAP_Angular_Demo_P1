@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { OktaAuthService } from '../okta-auth/okta-auth-service';
 import { SidenavService } from '../side-menu-bar/sidenav.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { SidenavService } from '../side-menu-bar/sidenav.service';
 })
 export class HomeComponent implements OnInit {
   public onSideNavChange: boolean;
-  constructor(private _sidenavService: SidenavService) {
+  constructor(private _sidenavService: SidenavService,private okta: OktaAuthService) {
     this._sidenavService.sideNavState$.subscribe( res => {
       console.log(res)
       this.onSideNavChange = res;
@@ -16,6 +17,7 @@ export class HomeComponent implements OnInit {
    }
 
   ngOnInit(): void {
+ 
   }
   sideNavClose(){
     this._sidenavService.sideNavState$.subscribe( res => {
