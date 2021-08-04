@@ -32,6 +32,7 @@ import {
   MatSnackBarVerticalPosition,
 } from '@angular/material/snack-bar';
 import { RdapSharedConfigSetuptableAddeditComponent } from './core-shared-components/rdap-shared-config-setuptable-addedit/rdap-shared-config-setuptable-addedit.component';
+import { RdapSharedIgxGridSearchResultComponent } from './core-shared-components/rdap-shared-igx-grid-search-result/rdap-shared-igx-grid-search-result.component';
 @NgModule({
   declarations: [
     LoginFooterComponent,
@@ -46,6 +47,7 @@ import { RdapSharedConfigSetuptableAddeditComponent } from './core-shared-compon
     RdapSharedConfigSearchComponent,
     RdapSharedBreadcrumbComponent,
     RdapSharedConfigSetuptableAddeditComponent,
+    RdapSharedIgxGridSearchResultComponent,
   ],
   imports: [
     FormsModule,
@@ -65,12 +67,14 @@ import { RdapSharedConfigSetuptableAddeditComponent } from './core-shared-compon
   SideMenuBarComponent,
   RdapSharedConfigSearchComponent,
   RdapSharedBreadcrumbComponent,
-  RdapSharedConfigSetuptableAddeditComponent
+  RdapSharedConfigSetuptableAddeditComponent,
+  RdapSharedIgxGridSearchResultComponent
   ],
   entryComponents:[
     RdapSharedConfigSearchComponent,
     RdapSharedBreadcrumbComponent,
-    RdapSharedConfigSetuptableAddeditComponent
+    RdapSharedConfigSetuptableAddeditComponent,
+    RdapSharedIgxGridSearchResultComponent
   ],
   providers: [],
   bootstrap: []

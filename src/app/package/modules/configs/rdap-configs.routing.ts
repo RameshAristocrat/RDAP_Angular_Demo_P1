@@ -22,26 +22,105 @@ const routes: Routes = [
                 component: RdapConfigCommonAddEditComponent,
                 }]
             }, {
-                path: "versionsearch",
+                path: "version",
+                //component: RdapConfigCommonSearchComponent,
+                children:[{
+                    path: "search",
                 component: RdapConfigCommonSearchComponent,
+                },{
+                    path: "add",
+                component: RdapConfigCommonAddEditComponent,
+                }]
             }, {
-                path: "eppsearch",
+                path: "epp",
+                //component: RdapConfigCommonSearchComponent,
+                children:[{
+                    path: "search",
                 component: RdapConfigCommonSearchComponent,
+                },{
+                    path: "add",
+                component: RdapConfigCommonAddEditComponent,
+                }]
             }, {
-                path: "poolsearch",
+                path: "pool",
+               // component: RdapConfigCommonSearchComponent,
+                children:[{
+                    path: "search",
                 component: RdapConfigCommonSearchComponent,
+                },{
+                    path: "add",
+                component: RdapConfigCommonAddEditComponent,
+                }]
             }, {
-                path: "regionsearch",
+                path: "region",
+               // component: RdapConfigCommonSearchComponent,
+                children:[{
+                    path: "search",
                 component: RdapConfigCommonSearchComponent,
+                },{
+                    path: "add",
+                component: RdapConfigCommonAddEditComponent,
+                }]
             }, {
-                path: "prodcat1search",
+                path: "status1",
+                //component: RdapConfigCommonSearchComponent,
+                children:[{
+                    path: "search",
                 component: RdapConfigCommonSearchComponent,
+                },{
+                    path: "add",
+                component: RdapConfigCommonAddEditComponent,
+                }]
             }, {
-                path: "prodcat2search",
+                path: "status2",
+                //component: RdapConfigCommonSearchComponent,
+                children:[{
+                    path: "search",
                 component: RdapConfigCommonSearchComponent,
+                },{
+                    path: "add",
+                component: RdapConfigCommonAddEditComponent,
+                }]
             }, {
-                path: "prodcat3search",
+                path: "status3",
+                //component: RdapConfigCommonSearchComponent,
+                children:[{
+                    path: "search",
                 component: RdapConfigCommonSearchComponent,
+                },{
+                    path: "add",
+                component: RdapConfigCommonAddEditComponent,
+                }]
+            }, {
+                path: "prodcat1",
+                //component: RdapConfigCommonSearchComponent,
+                children:[{
+                    path: "search",
+                component: RdapConfigCommonSearchComponent,
+                },{
+                    path: "add",
+                component: RdapConfigCommonAddEditComponent,
+                }]
+            }, {
+                path: "prodcat2",
+                //component: RdapConfigCommonSearchComponent,
+                children:[{
+                    path: "search",
+                component: RdapConfigCommonSearchComponent,
+                },{
+                    path: "add",
+                component: RdapConfigCommonAddEditComponent,
+                }]
+            }, {
+                path: "prodcat3",
+               // component: RdapConfigCommonSearchComponent,
+                children:[{
+                    path: "search",
+                component: RdapConfigCommonSearchComponent,
+                },{
+                    path: "add",
+                component: RdapConfigCommonAddEditComponent,
+                }]
             }, {
                 path: "channeltype",
                 //component: RdapConfigCommonSearchComponent,

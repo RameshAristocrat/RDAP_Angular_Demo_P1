@@ -49,3 +49,16 @@ table {
   width: 10%;background-color: #300c46;color:white 
 }
 
+:host::ng-deep .igx-paginator__select{
+  display: none !important;
+}
+
+
+:host {
+  ::ng-deep {
+      .igx-grid__td {
+          font-size: 0.7rem;
+          min-height: 0.8rem;
+  }
+}
+}

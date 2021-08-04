@@ -43,7 +43,13 @@ export class OktaAuthService {
   }
 
   async isAuthenticated() {
-     console.log(this.oktaAuth.token.parseFromUrl());
+      this.oktaAuth.isAuthenticated().then(val=>{
+        console.log(val)
+        if(val==true){
+            this.handleAuthentication();
+            console.log(this.oktaAuth.token.parseFromUrl());
+        }
+    })
     // Checks if there is a current accessToken in the TokenManger.
     return !!(await this.oktaAuth.tokenManager.get('accessToken'));
   }

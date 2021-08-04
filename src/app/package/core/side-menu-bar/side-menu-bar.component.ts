@@ -60,6 +60,14 @@ export class SideMenuBarComponent implements OnInit {
     },{
       name: 'EPP', link:'/main/config/setuptable/epp/search', icon: 'cloud',type:'SC',header:'0'
     },{
+      name: 'Region', link:'/main/config/setuptable/region/search', icon: 'cloud',type:'SC',header:'0'
+    },{
+      name: 'Prodcat1', link:'/main/config/setuptable/prodcat1/search', icon: 'cloud',type:'SC',header:'0'
+    },{
+      name: 'Prodcat2', link:'/main/config/setuptable/prodcat2/search', icon: 'cloud',type:'SC',header:'0'
+    },{
+      name: 'Prodcat3', link:'/main/config/setuptable/prodcat3/search', icon: 'cloud',type:'SC',header:'0'
+    },{
       name: 'Transaction', link:'/main/expinreq/pinrequest', icon: 'paid',type:'C',header:'0'
     }]},
     {name: 'Rework', link:'some-link', icon: 'all_inclusive',type:'P',header:'0',submenu:[{

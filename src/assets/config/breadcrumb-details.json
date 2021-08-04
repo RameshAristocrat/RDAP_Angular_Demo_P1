@@ -16,65 +16,101 @@
     "label": "Configs",
     "url": "/main/launcher"
   }]
-}, {
+},{
   "page": "studio",
   "details": [{
     "label": "Studio",
-    "url": "/main/config/setuptable/studiosearch"
+    "url": "/main/config/setuptable/studio/search"
+  }, {
+    "label": "Studio",
+    "url": "/main/config/setuptable/studio/add"
+  }, {
+    "label": "Studio",
+    "url": "/main/config/setuptable/studio/edit"
   }]
-}, {
-  "page": "versionsearch",
+},{
+  "page": "version",
   "details": [{
     "label": "Version",
-    "url": "/main/config/setuptable/versionsearch"
+    "url": "/main/config/setuptable/version/search"
+  }, {
+    "label": "Version",
+    "url": "/main/config/setuptable/version/add"
+  }, {
+    "label": "Version",
+    "url": "/main/config/setuptable/version/edit"
   }]
-}, {
-  "page": "eppsearch",
+},{
+  "page": "epp",
   "details": [{
-    "label": "EPP Ref",
-    "url": "/main/config/setuptable/eppsearch"
+    "label": "EPP",
+    "url": "/main/config/setuptable/epp/search"
+  }, {
+    "label": "EPP",
+    "url": "/main/config/setuptable/epp/add"
+  }, {
+    "label": "EPP",
+    "url": "/main/config/setuptable/epp/edit"
   }]
-}, {
-  "page": "poolsearch",
+},{
+  "page": "pool",
   "details": [{
     "label": "Pool",
-    "url": "/main/config/setuptable/poolsearch"
+    "url": "/main/config/setuptable/pool/search"
+  }, {
+    "label": "Pool",
+    "url": "/main/config/setuptable/pool/add"
+  }, {
+    "label": "Pool",
+    "url": "/main/config/setuptable/pool/edit"
   }]
-}, {
-  "page": "regionsearch",
+},{
+  "page": "region",
   "details": [{
     "label": "Region",
-    "url": "/main/config/setuptable/regionsearch"
+    "url": "/main/config/setuptable/region/search"
+  }, {
+    "label": "Region",
+    "url": "/main/config/setuptable/region/add"
+  }, {
+    "label": "Region",
+    "url": "/main/config/setuptable/region/edit"
   }]
-}, {
-  "page": "devtype1search",
-  "details": [{
-    "label": "Dev Type1",
-    "url": "/main/config/setuptable/devtype1search"
-  }]
-}, {
-  "page": "devtype2search",
-  "details": [{
-    "label": "Dev Type2 / Class",
-    "url": "/main/config/setuptable/devtype2search"
-  }]
-}, {
-  "page": "prodcat1search",
+},{
+  "page": "prodcat1",
   "details": [{
     "label": "Prodcat1",
-    "url": "/main/config/setuptable/prodcat1search"
+    "url": "/main/config/setuptable/prodcat1/search"
+  }, {
+    "label": "Prodcat1",
+    "url": "/main/config/setuptable/prodcat1/add"
+  }, {
+    "label": "Prodcat1",
+    "url": "/main/config/setuptable/prodcat1/edit"
   }]
-}, {
-  "page": "prodcat2search",
+},{
+  "page": "prodcat2",
   "details": [{
     "label": "Prodcat2",
-    "url": "/main/config/setuptable/prodcat2search"
+    "url": "/main/config/setuptable/prodcat2/search"
+  }, {
+    "label": "Prodcat2",
+    "url": "/main/config/setuptable/prodcat2/add"
+  }, {
+    "label": "Prodcat2",
+    "url": "/main/config/setuptable/prodcat2/edit"
   }]
-}, {
-  "page": "prodcat3search",
+},{
+  "page": "prodcat3",
   "details": [{
     "label": "Prodcat3",
-    "url": "/main/config/setuptable/prodcat3search"
+    "url": "/main/config/setuptable/prodcat3/search"
+  }, {
+    "label": "Prodcat3",
+    "url": "/main/config/setuptable/prodcat3/add"
+  }, {
+    "label": "Prodcat3",
+    "url": "/main/config/setuptable/prodcat3/edit"
   }]
 }, {
   "page": "channeltype",
@@ -195,6 +231,42 @@
   }, {
     "label": "Quarter",
     "url": "/main/config/setuptable/quarter/edit"
+  }]
+},{
+  "page": "status1",
+  "details": [{
+    "label": "Status1",
+    "url": "/main/config/setuptable/status1/search"
+  }, {
+    "label": "Status1",
+    "url": "/main/config/setuptable/status1/add"
+  }, {
+    "label": "Status1",
+    "url": "/main/config/setuptable/status1/edit"
+  }]
+},{
+  "page": "status2",
+  "details": [{
+    "label": "Status2",
+    "url": "/main/config/setuptable/status2/search"
+  }, {
+    "label": "Status2",
+    "url": "/main/config/setuptable/status2/add"
+  }, {
+    "label": "Status2",
+    "url": "/main/config/setuptable/status2/edit"
+  }]
+},{
+  "page": "status3",
+  "details": [{
+    "label": "Status3",
+    "url": "/main/config/setuptable/status3/search"
+  }, {
+    "label": "Status3",
+    "url": "/main/config/setuptable/status3/add"
+  }, {
+    "label": "Status3",
+    "url": "/main/config/setuptable/status3/edit"
   }]
 },{
   "page": "expinreq",

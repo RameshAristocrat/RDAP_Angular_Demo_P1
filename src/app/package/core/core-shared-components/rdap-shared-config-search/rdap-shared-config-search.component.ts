@@ -64,6 +64,9 @@ export class RdapSharedConfigSearchComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
+  public searchFilterData;
+  searchGridData:any;
+  appString:any;
 
   constructor(private httpClient: HttpClient, location: Location, private _router: Router,
      public fb: FormBuilder,private _snackBar: MatSnackBar) {
@@ -79,6 +82,10 @@ export class RdapSharedConfigSearchComponent implements OnInit {
       this.configdata = data;
       this.getFormData();
     });
+    this.appString=[];
+    this.httpClient.get("assets/config/app-string.json").subscribe(data => {
+      this.appString = data;
+    })
   }
 
   ngAfterViewInit() {
@@ -90,7 +97,7 @@ export class RdapSharedConfigSearchComponent implements OnInit {
   }
   getFormData() {
     this.formSelectApiData = [];
-    if (this.route.match("studio")) {
+    if (this.route.match("studio") && this.route.match("studio").length > 0) {
       this.formName = "studioSearchForm";
       this.configdata[0].master.filter(x => {
         this.routedata = x.studio;
@@ -98,7 +105,7 @@ export class RdapSharedConfigSearchComponent implements OnInit {
         this.griddata = this.routedata[0].api[0];
       });
       this.createFormControl();
-    } else if (this.routeName == "versionsearch") {
+    } else if (this.route.match("version") && this.route.match("version").length > 0) {
       this.formName = "versionSearchForm";
       this.configdata[0].master.filter(x => {
         this.routedata = x.version;
@@ -106,7 +113,7 @@ export class RdapSharedConfigSearchComponent implements OnInit {
         this.griddata = this.routedata[0].api[0];
       });
       this.createFormControl();
-    }else if (this.routeName == "eppsearch") {
+    }else if (this.route.match("epp") && this.route.match("epp").length > 0) {
       this.formName = "eppSearchForm";
       this.configdata[0].master.filter(x => {
         this.routedata = x.EPP;
@@ -114,7 +121,7 @@ export class RdapSharedConfigSearchComponent implements OnInit {
         this.griddata = this.routedata[0].api[0];
       });
       this.createFormControl();
-    }else if (this.routeName == "regionsearch") {
+    }else if (this.route.match("region") && this.route.match("region").length > 0) {
       this.formName = "regionSearchForm";
       this.configdata[0].master.filter(x => {
         this.routedata = x.region;
@@ -122,10 +129,58 @@ export class RdapSharedConfigSearchComponent implements OnInit {
         this.griddata = this.routedata[0].api[0];
       });
       this.createFormControl();
-    }else if (this.routeName == "poolsearch") {
+    }else if (this.route.match("pool") && this.route.match("pool").length > 0) {
       this.formName = "poolSearchForm";
       this.configdata[0].master.filter(x => {
         this.routedata = x.pool;
+        this.formdata = this.routedata[0].fieldprop;
+        this.griddata = this.routedata[0].api[0];
+      });
+      this.createFormControl();
+    }else if (this.route.match("prodcat1") && this.route.match("prodcat1").length > 0) {
+      this.formName = "prodcat1SearchForm";
+      this.configdata[0].master.filter(x => {
+        this.routedata = x.prodcat1;
+        this.formdata = this.routedata[0].fieldprop;
+        this.griddata = this.routedata[0].api[0];
+      });
+      this.createFormControl();
+    }else if (this.route.match("prodcat2") && this.route.match("prodcat2").length > 0) {
+      this.formName = "prodcat2SearchForm";
+      this.configdata[0].master.filter(x => {
+        this.routedata = x.prodcat2;
+        this.formdata = this.routedata[0].fieldprop;
+        this.griddata = this.routedata[0].api[0];
+      });
+      this.createFormControl();
+    }else if (this.route.match("prodcat3") && this.route.match("prodcat3").length > 0) {
+      this.formName = "prodcat3SearchForm";
+      this.configdata[0].master.filter(x => {
+        this.routedata = x.prodcat3;
+        this.formdata = this.routedata[0].fieldprop;
+        this.griddata = this.routedata[0].api[0];
+      });
+      this.createFormControl();
+    }else if (this.route.match("status1") && this.route.match("status1").length > 0) {
+      this.formName = "status1SearchForm";
+      this.configdata[0].master.filter(x => {
+        this.routedata = x.status1;
+        this.formdata = this.routedata[0].fieldprop;
+        this.griddata = this.routedata[0].api[0];
+      });
+      this.createFormControl();
+    }else if (this.route.match("status2") && this.route.match("status2").length > 0) {
+      this.formName = "status2SearchForm";
+      this.configdata[0].master.filter(x => {
+        this.routedata = x.status2;
+        this.formdata = this.routedata[0].fieldprop;
+        this.griddata = this.routedata[0].api[0];
+      });
+      this.createFormControl();
+    }else if (this.route.match("status3") && this.route.match("status3").length > 0) {
+      this.formName = "status3SearchForm";
+      this.configdata[0].master.filter(x => {
+        this.routedata = x.status3;
         this.formdata = this.routedata[0].fieldprop;
         this.griddata = this.routedata[0].api[0];
       });
@@ -223,33 +278,46 @@ export class RdapSharedConfigSearchComponent implements OnInit {
     if (this.searchform.invalid) {
       return;
     }
-    this.formdata.forEach((x, index) => {
-      if (isEmptyString(this.searchform.get(x.formcontrolname).value)) {
-        setTimeout(() => {
-          this.openSnackBar("Enter " + x.label + " !!");
-          errorFlag = true;
-        }, count * (this.timeOut + 500));
-        count++;
-      }
-      this.formGroupArr.push({ key: x.formcontrolname, value: this.searchform.get(x.formcontrolname).value });
-    });
-    this.httpClient.get(this.griddata.api).subscribe(data => {
+    // this.formdata.forEach((x, index) => {
+    //   if (isEmptyString(this.searchform.get(x.formcontrolname).value)) {
+    //     setTimeout(() => {
+    //       this.openSnackBar("Enter " + x.label + " !!");
+    //       errorFlag = true;
+    //     }, count * (this.timeOut + 500));
+    //     count++;
+    //   }
+    //   this.formGroupArr.push({ key: x.formcontrolname, value: this.searchform.get(x.formcontrolname).value });
+    // });
+    // this.httpClient.get(this.griddata.api).subscribe(data => {
+    //   this.gridsource.push(data);
+    //   this.gridsource.filter(x => {
+    //     x.filter(y => {
+    //       if(this.route.match(y.pagename)){
+    //         this.tempFilterData = y.data;
+    //       };
+    //     })
+    //   })
+    //   if (this.tempFilterData) {
+    //   Object.keys(this.tempFilterData[0]).forEach(x =>{
+    //     this.displayedColumns.push(x);
+    //     this.loopGridContent.push({"title":x,"data":("element."+x)});
+    //   });
+    // }
+    // });
+    // this.onSearchSumbit.emit(this.formGroupArr);
+    this.searchGridData=[];
+    this.gridsource = [];
+    this.httpClient.get("assets/config/search-data-mockup.json").subscribe(data => {
       this.gridsource.push(data);
       this.gridsource.filter(x => {
         x.filter(y => {
-          if(this.route.match(y.pagename)){
-            this.tempFilterData = y.data;
+          if("studio" == y.pagename){
+            this.searchGridData= y.data;
+            console.log("this.searchGridData= y",this.searchGridData);
           };
         })
-      })
-      if (this.tempFilterData) {
-      Object.keys(this.tempFilterData[0]).forEach(x =>{
-        this.displayedColumns.push(x);
-        this.loopGridContent.push({"title":x,"data":("element."+x)});
       });
-    }
     });
-    this.onSearchSumbit.emit(this.formGroupArr);
   }
   public checkError = (controlName: string, errorName: string) => {
     return this.searchform.controls[controlName].hasError(errorName);
