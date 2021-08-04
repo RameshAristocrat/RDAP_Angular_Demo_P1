@@ -48,8 +48,7 @@ const oktaConfig = {
     ReactiveFormsModule,
     CoreModule,
     CommonModule,
-    HttpClientModule,
-   // OktaAuthModule,
+    HttpClientModule
   ],
   providers: [SidenavService,
     //{ provide: OKTA_CONFIG, useValue: oktaConfig }
@@ -58,4 +57,5 @@ const oktaConfig = {
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

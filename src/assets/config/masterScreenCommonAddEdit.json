@@ -698,6 +698,408 @@
         "url": "",
         "param": [{}]
       }]
+    }],
+    "version": [{
+      "fieldprop": [{
+          "formcontrolname": "versionname",
+          "label": "Version",
+          "type": "text",
+          "api": "",
+          "required": "required",
+          "placeholder": "Enter Channel Type",
+          "action": "",
+          "pipe": ""
+        },
+        {
+          "formcontrolname": "versiondesc",
+          "label": "Description",
+          "type": "textarea",
+          "api": "",
+          "required": null,
+          "placeholder": "Enter Description",
+          "action": "",
+          "pipe": ""
+        },
+        {
+          "formcontrolname": "versiondesclong",
+          "label": "Description Long",
+          "type": "textarea",
+          "api": "",
+          "required": null,
+          "placeholder": "Enter Description Long",
+          "action": "",
+          "pipe": ""
+        }, {
+          "formcontrolname": "listsequencename",
+          "label": "List Sequence",
+          "type": "text",
+          "api": "",
+          "required": "required",
+          "placeholder": "Enter List Sequence",
+          "action": "",
+          "pipe": ""
+        }
+      ],
+      "api": [{
+        "api": "assets/config/grid-data.json",
+        "apidata": "",
+        "url": "",
+        "param": [{}]
+      }]
+    }],    
+    "status1": [{
+      "fieldprop": [{
+          "formcontrolname": "status1name",
+          "label": "Status1",
+          "type": "text",
+          "api": "",
+          "required": null,
+          "placeholder": "Enter Status1",
+          "action": "",
+          "pipe": ""
+        },
+        {
+          "formcontrolname": "status1desc",
+          "label": "Description",
+          "type": "textarea",
+          "api": "",
+          "required": null,
+          "placeholder": "Enter Description",
+          "action": "",
+          "pipe": ""
+        },
+        {
+          "formcontrolname": "status1desclong",
+          "label": "Description Long",
+          "type": "textarea",
+          "api": "",
+          "required": null,
+          "placeholder": "Enter Description Long",
+          "action": "",
+          "pipe": ""
+        }, {
+          "formcontrolname": "listsequencename",
+          "label": "List Sequence",
+          "type": "text",
+          "api": "",
+          "required": "required",
+          "placeholder": "Enter List Sequence",
+          "action": "",
+          "pipe": ""
+        }
+      ],
+      "api": [{
+        "api": "assets/config/grid-data.json",
+        "apidata": "",
+        "url": "",
+        "param": [{}]
+      }]
+    }],
+    "status2": [{
+      "fieldprop": [{
+          "formcontrolname": "status2name",
+          "label": "Status2",
+          "type": "text",
+          "api": "",
+          "required": null,
+          "placeholder": "Enter Status2",
+          "action": "",
+          "pipe": ""
+        },
+        {
+          "formcontrolname": "status2desc",
+          "label": "Description",
+          "type": "textarea",
+          "api": "",
+          "required": null,
+          "placeholder": "Enter Description",
+          "action": "",
+          "pipe": ""
+        },
+        {
+          "formcontrolname": "status2desclong",
+          "label": "Description Long",
+          "type": "textarea",
+          "api": "",
+          "required": null,
+          "placeholder": "Enter Description Long",
+          "action": "",
+          "pipe": ""
+        }, {
+          "formcontrolname": "status1",
+          "label": "Status1",
+          "type": "select",
+          "api": "assets/config/pool.json",
+          "apidata": "",
+          "required": "required",
+          "placeholder": "Select Status1",
+          "action": "",
+          "pipe": "",
+          "bindname": "name",
+          "clearable": false,
+          "virtualScroll": true,
+          "multiple": false
+        }
+      ],
+      "api": [{
+        "api": "assets/config/grid-data.json",
+        "apidata": "",
+        "url": "",
+        "param": [{}]
+      }]
+    }],
+    "status3": [{
+      "fieldprop": [{
+          "formcontrolname": "status3name",
+          "label": "Status3",
+          "type": "text",
+          "api": "",
+          "required": null,
+          "placeholder": "Enter Status3",
+          "action": "",
+          "pipe": ""
+        },
+        {
+          "formcontrolname": "status3desc",
+          "label": "Description",
+          "type": "textarea",
+          "api": "",
+          "required": null,
+          "placeholder": "Enter Description",
+          "action": "",
+          "pipe": ""
+        },
+        {
+          "formcontrolname": "status3desclong",
+          "label": "Description Long",
+          "type": "textarea",
+          "api": "",
+          "required": null,
+          "placeholder": "Enter Description Long",
+          "action": "",
+          "pipe": ""
+        }, {
+          "formcontrolname": "status2",
+          "label": "Status2",
+          "type": "select",
+          "api": "assets/config/pool.json",
+          "apidata": "",
+          "required": "required",
+          "placeholder": "Select Status2",
+          "action": "",
+          "pipe": "",
+          "bindname": "name",
+          "clearable": false,
+          "virtualScroll": true,
+          "multiple": false
+        }
+      ],
+      "api": [{
+        "api": "assets/config/grid-data.json",
+        "apidata": "",
+        "url": "",
+        "param": [{}]
+      }]
+    }],
+    "prodcat1": [{
+      "fieldprop": [{
+          "formcontrolname": "prodcat1name",
+          "label": "Prodcat1",
+          "type": "text",
+          "api": "",
+          "required": "required",
+          "placeholder": "Enter Channel Type",
+          "action": "",
+          "pipe": ""
+        },
+        {
+          "formcontrolname": "prodcat1desc",
+          "label": "Description",
+          "type": "textarea",
+          "api": "",
+          "required": null,
+          "placeholder": "Enter Description",
+          "action": "",
+          "pipe": ""
+        },
+        {
+          "formcontrolname": "prodcat1desclong",
+          "label": "Description Long",
+          "type": "textarea",
+          "api": "",
+          "required": null,
+          "placeholder": "Enter Description Long",
+          "action": "",
+          "pipe": ""
+        }, {
+          "formcontrolname": "listsequencename",
+          "label": "List Sequence",
+          "type": "text",
+          "api": "",
+          "required": "required",
+          "placeholder": "Enter List Sequence",
+          "action": "",
+          "pipe": ""
+        }
+      ],
+      "api": [{
+        "api": "assets/config/grid-data.json",
+        "apidata": "",
+        "url": "",
+        "param": [{}]
+      }]
+    }],
+    "prodcat2": [{
+      "fieldprop": [{
+          "formcontrolname": "prodcat2name",
+          "label": "Prodcat2",
+          "type": "text",
+          "api": "",
+          "required": null,
+          "placeholder": "Enter Prodcat2",
+          "action": "",
+          "pipe": ""
+        },
+        {
+          "formcontrolname": "prodcat2desc",
+          "label": "Description",
+          "type": "textarea",
+          "api": "",
+          "required": null,
+          "placeholder": "Enter Description",
+          "action": "",
+          "pipe": ""
+        },
+        {
+          "formcontrolname": "prodcat2desclong",
+          "label": "Description Long",
+          "type": "textarea",
+          "api": "",
+          "required": null,
+          "placeholder": "Enter Description Long",
+          "action": "",
+          "pipe": ""
+        }, {
+          "formcontrolname": "prodcat1",
+          "label": "Prodcat1",
+          "type": "select",
+          "api": "assets/config/pool.json",
+          "apidata": "",
+          "required": null,
+          "placeholder": "Select Prodcat1",
+          "action": "",
+          "pipe": "",
+          "bindname": "name",
+          "clearable": false,
+          "virtualScroll": true,
+          "multiple": false
+        }, {
+          "formcontrolname": "listsequencename",
+          "label": "List Sequence",
+          "type": "text",
+          "api": "",
+          "required": "required",
+          "placeholder": "Enter List Sequence",
+          "action": "",
+          "pipe": ""
+        }
+      ],
+      "api": [{
+        "api": "assets/config/grid-data.json",
+        "apidata": "",
+        "url": "",
+        "param": [{}]
+      }]
+    }],
+    "prodcat3": [{
+      "fieldprop": [{
+          "formcontrolname": "prodcat3name",
+          "label": "Prodcat3",
+          "type": "text",
+          "api": "",
+          "required": null,
+          "placeholder": "Enter Prodcat3",
+          "action": "",
+          "pipe": ""
+        },
+        {
+          "formcontrolname": "prodcat3desc",
+          "label": "Description",
+          "type": "textarea",
+          "api": "",
+          "required": null,
+          "placeholder": "Enter Description",
+          "action": "",
+          "pipe": ""
+        },
+        {
+          "formcontrolname": "prodcat3desclong",
+          "label": "Description Long",
+          "type": "textarea",
+          "api": "",
+          "required": null,
+          "placeholder": "Enter Description Long",
+          "action": "",
+          "pipe": ""
+        }, {
+          "formcontrolname": "prodcat2",
+          "label": "Prodcat2",
+          "type": "select",
+          "api": "assets/config/pool.json",
+          "apidata": "",
+          "required": null,
+          "placeholder": "Select Prodcat2",
+          "action": "",
+          "pipe": "",
+          "bindname": "name",
+          "clearable": false,
+          "virtualScroll": true,
+          "multiple": false
+        }, {
+          "formcontrolname": "devefforttype",
+          "label": "Dev Effort Type",
+          "type": "select",
+          "api": "assets/config/pool.json",
+          "apidata": "",
+          "required": null,
+          "placeholder": "Select Dev Effort Type",
+          "action": "",
+          "pipe": "",
+          "bindname": "name",
+          "clearable": false,
+          "virtualScroll": true,
+          "multiple": false
+        }, {
+          "formcontrolname": "devcomplexity",
+          "label": "Dev Complexity",
+          "type": "select",
+          "api": "assets/config/pool.json",
+          "apidata": "",
+          "required": null,
+          "placeholder": "Select Dev Complexity",
+          "action": "",
+          "pipe": "",
+          "bindname": "name",
+          "clearable": false,
+          "virtualScroll": true,
+          "multiple": false
+        }, {
+          "formcontrolname": "listsequencename",
+          "label": "List Sequence",
+          "type": "text",
+          "api": "",
+          "required": "required",
+          "placeholder": "Enter List Sequence",
+          "action": "",
+          "pipe": ""
+        }
+      ],
+      "api": [{
+        "api": "assets/config/grid-data.json",
+        "apidata": "",
+        "url": "",
+        "param": [{}]
+      }]
     }]
   }]
 }]

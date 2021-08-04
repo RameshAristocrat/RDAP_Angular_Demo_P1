@@ -1,0 +1,14 @@
+<div class="grid__wrapper" *ngIf="searchGridData.length>0">
+    <igx-grid igxPreventDocumentScroll #grid1 id="grid1" [data]="data" [paging]="true" [perPage]="10"
+     [rowHeight]="25"
+     height="auto"
+      width="100%" 
+      [allowFiltering]="true">
+      <igx-paginator [perPage]="10"></igx-paginator>
+      <igx-column *ngFor="let c of columndata" [sortable]="true" [width]="c.width" [filterable]="true" [field]="c.field" [header]="c.title|titlecase" [dataType]="c.type">
+        <ng-template *ngIf="c.field == 'document'" igxCell let-cell="cell" let-val>
+            <a>{{val}}</a>
+        </ng-template>
+    </igx-column>
+    </igx-grid>
+</div>

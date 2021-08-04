@@ -1,6 +1,6 @@
 html, body {
   height: 100%;
-  overflow: hidden !important;
+  //overflow: hidden !important;
 }
 
 p {
@@ -9,13 +9,14 @@ p {
   
   .main_content {
     width:100%; 
-    height: calc(100vh - 100%); 
+    //height: calc(100vh - 100%); 
     background: #efefef;
-    padding-top: 15%;
+    padding-top: 9%;
+    overflow: auto;
   }
-  :host::ng-deep.mat-drawer-content{
-    margin-top: -4%;
-  }
+  // :host::ng-deep.mat-drawer-content{
+  //  margin-top: -4%;
+  // }
   .scrollbar-thin {
     scrollbar-width: thin;
     overflow-y: scroll;

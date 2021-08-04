@@ -9,7 +9,9 @@ import { SidenavService } from '../side-menu-bar/sidenav.service';
 })
 export class HomeComponent implements OnInit {
   public onSideNavChange: boolean;
+  clientheight:number;
   constructor(private _sidenavService: SidenavService,private okta: OktaAuthService) {
+    this.clientheight = document.documentElement.clientHeight;
     this._sidenavService.sideNavState$.subscribe( res => {
       console.log(res)
       this.onSideNavChange = res;

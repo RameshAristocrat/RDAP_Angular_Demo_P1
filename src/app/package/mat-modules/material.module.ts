@@ -35,6 +35,14 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import { MatButtonToggleModule } from "@angular/material/button-toggle";
 import {MatDividerModule} from '@angular/material/divider';
 import { GoogleChartsModule } from 'angular-google-charts';
+import { IgxGridModule } from "igniteui-angular";
+import { 
+	IgxButtonModule,
+	IgxIconModule,
+	IgxInputGroupModule,
+	IgxRippleModule,
+	IgxChipsModule
+ } from "igniteui-angular";
 import { MatNativeDateModule} from "@angular/material/core";
 import { NgSelectModule } from "@ng-select/ng-select";
 import { FormsModule } from '@angular/forms';
@@ -76,6 +84,12 @@ import { FormsModule } from '@angular/forms';
     MatButtonToggleModule,
     MatDividerModule,
     GoogleChartsModule,
+    IgxGridModule,
+    IgxButtonModule,
+    IgxIconModule,
+    IgxInputGroupModule,
+    IgxRippleModule,
+    IgxChipsModule,
     //AngularFontAwesomeModule
     //NativeDateAdapter
     NgSelectModule,
@@ -114,6 +128,12 @@ import { FormsModule } from '@angular/forms';
     MatButtonToggleModule,
     MatDividerModule,
     GoogleChartsModule,
+    IgxGridModule,
+    IgxButtonModule,
+    IgxIconModule,
+    IgxInputGroupModule,
+    IgxRippleModule,
+    IgxChipsModule,
     //FontAwesomeModule
     //NativeDateAdapter
     NgSelectModule,

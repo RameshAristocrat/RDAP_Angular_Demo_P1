@@ -169,6 +169,54 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
         this.griddata = this.routedata[0].api[0];
       });
       this.createFormControl();
+    }else if (this.route.match("status1") && this.route.match("status1").length > 0) {
+      this.formName = "status1SearchForm";
+      this.configdata[0].master.filter(x => {
+        this.routedata = x.status1;
+        this.formdata = this.routedata[0].fieldprop;
+        this.griddata = this.routedata[0].api[0];
+      });
+      this.createFormControl();
+    }else if (this.route.match("status2") && this.route.match("status2").length > 0) {
+      this.formName = "status2SearchForm";
+      this.configdata[0].master.filter(x => {
+        this.routedata = x.status2;
+        this.formdata = this.routedata[0].fieldprop;
+        this.griddata = this.routedata[0].api[0];
+      });
+      this.createFormControl();
+    }else if (this.route.match("status3") && this.route.match("status3").length > 0) {
+      this.formName = "status3SearchForm";
+      this.configdata[0].master.filter(x => {
+        this.routedata = x.status3;
+        this.formdata = this.routedata[0].fieldprop;
+        this.griddata = this.routedata[0].api[0];
+      });
+      this.createFormControl();
+    }else if (this.route.match("prodcat1") && this.route.match("prodcat1").length > 0) {
+      this.formName = "prodcat1SearchForm";
+      this.configdata[0].master.filter(x => {
+        this.routedata = x.prodcat1;
+        this.formdata = this.routedata[0].fieldprop;
+        this.griddata = this.routedata[0].api[0];
+      });
+      this.createFormControl();
+    }else if (this.route.match("prodcat2") && this.route.match("prodcat2").length > 0) {
+      this.formName = "prodcat2SearchForm";
+      this.configdata[0].master.filter(x => {
+        this.routedata = x.prodcat2;
+        this.formdata = this.routedata[0].fieldprop;
+        this.griddata = this.routedata[0].api[0];
+      });
+      this.createFormControl();
+    }else if (this.route.match("prodcat3") && this.route.match("prodcat3").length > 0) {
+      this.formName = "prodcat3SearchForm";
+      this.configdata[0].master.filter(x => {
+        this.routedata = x.prodcat3;
+        this.formdata = this.routedata[0].fieldprop;
+        this.griddata = this.routedata[0].api[0];
+      });
+      this.createFormControl();
     }
   }
 
