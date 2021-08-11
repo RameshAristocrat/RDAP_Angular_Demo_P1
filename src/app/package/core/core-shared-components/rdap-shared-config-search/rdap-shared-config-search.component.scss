@@ -8,10 +8,42 @@
     }
 }
 
+:host::ng-deep.fieldset {
+width: 181px !important;
+}
+
 .mat-card-title{
     font-size: 16px;
 }
 
+.customselect select {
+  width: 100%;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none !important;
+  border-color:white !important;
+  outline: none;
+}
+
+select,option {
+  text-align: center;
+  text-align-last: center;
+  /* webkit*/
+}
+option {
+  padding-left: 20%;
+}
+select:active, select:hover {
+  outline: none
+}
+
+select,option{
+  border-color: white;
+}
+
+select#xyz{
+outline: none;
+}
 table {
     width: 100%;
     table-layout: fixed;

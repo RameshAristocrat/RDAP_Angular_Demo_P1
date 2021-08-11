@@ -1,0 +1,81 @@
+[
+    {
+        "environment": "local",
+        "prod": [
+            {
+                "oktaconfig": [
+                    {
+                        "clientid": "0oa9t7ifubUwIhATi357",
+                        "issuer": "https://aristocrat.okta.com",
+                        "loginredirecturi": "http://sydc-appdev-01:8080/main/launcher",
+                        "logoutredirecturi": "http://sydc-appdev-01:8080",
+                        "scope": [
+                            "openid",
+                            "email"
+                        ]
+                    }
+                ],
+                "apibaseurl": [
+                    {}
+                ]
+            }
+        ],
+        "dev": [
+            {
+                "oktaconfig": [
+                    {
+                        "clientid": "0oa1croj4yjrsRSR75d7",
+                        "issuer": "https://dev-88037208.okta.com",
+                        "loginredirecturi": "http://sydc-appdev-01:8080/main/launcher",
+                        "logoutredirecturi": "http://sydc-appdev-01:8080",
+                        "scope": [
+                            "openid",
+                            "email"
+                        ]
+                    }
+                ],
+                "apibaseurl": [
+                    {}
+                ]
+            }
+        ],
+        "uat": [
+            {
+                "oktaconfig": [
+                    {
+                        "clientid": "0oa1croj4yjrsRSR75d7",
+                        "issuer": "https://dev-88037208.okta.com",
+                        "loginredirecturi": "http://sydc-appdev-01:8080/main/launcher",
+                        "logoutredirecturi": "http://sydc-appdev-01:8080",
+                        "scope": [
+                            "openid",
+                            "email"
+                        ]
+                    }
+                ],
+                "apibaseurl": [
+                    {}
+                ]
+            }
+        ],
+        "local": [
+            {
+                "oktaconfig": [
+                    {
+                        "clientid": "0oa1croj4yjrsRSR75d7",
+                        "issuer": "https://dev-88037208.okta.com",
+                        "loginredirecturi": "http://bg4ws1619:8080/main/launcher",
+                        "logoutredirecturi": "http://bg4ws1619:8080",
+                        "scope": [
+                            "openid",
+                            "email"
+                        ]
+                    }
+                ],
+                "apibaseurl": [
+                    {}
+                ]
+            }
+        ]
+    }
+]
