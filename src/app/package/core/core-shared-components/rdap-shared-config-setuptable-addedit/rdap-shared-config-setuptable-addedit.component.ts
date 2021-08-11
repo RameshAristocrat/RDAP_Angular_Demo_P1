@@ -217,6 +217,22 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
         this.griddata = this.routedata[0].api[0];
       });
       this.createFormControl();
+    }else if (this.route.match("epp") && this.route.match("epp").length > 0) {
+      this.formName = "eppSearchForm";
+      this.configdata[0].master.filter(x => {
+        this.routedata = x.epp;
+        this.formdata = this.routedata[0].fieldprop;
+        this.griddata = this.routedata[0].api[0];
+      });
+      this.createFormControl();
+    }else if (this.route.match("version") && this.route.match("version").length > 0) {
+      this.formName = "versionSearchForm";
+      this.configdata[0].master.filter(x => {
+        this.routedata = x.version;
+        this.formdata = this.routedata[0].fieldprop;
+        this.griddata = this.routedata[0].api[0];
+      });
+      this.createFormControl();
     }
   }
 

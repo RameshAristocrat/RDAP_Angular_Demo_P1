@@ -3,44 +3,52 @@
         <div class="col-lg-12">
             <form *ngIf="searchform" action="" [formGroup]="searchform">
                 <div class="row">
-                    <div class="col-lg-4 form-group" *ngFor="let item of formdata;">
-                        <mat-form-field *ngIf="item.type =='text'">
-                            <mat-label>
-                                {{item.label}}
-                                <span style="color: red;" *ngIf="item.required == 'required'"
-                                    class="compulsary-mark">*</span>
-                            </mat-label>
-                            <input type="text" matInput name='{{item.controlname}}'
-                                formControlName="{{item.formcontrolname}}" [disabled]="false" />
-                            <mat-error *ngIf="checkError(item.formcontrolname, item.required)">
-                                {{item.label}} required</mat-error>
-                        </mat-form-field>
-                        <mat-form-field *ngIf="item.type =='textarea'">
-                            <mat-label>
-                                {{item.label}}
-                                <span style="color: red;" *ngIf="item.required == 'required'"
-                                    class="compulsary-mark">*</span>
-                            </mat-label>
-                            <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize"
-                                cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5" name="{{item.controlname}}"
-                                formControlName="{{item.formcontrolname}}"
-                                placeholder="{{item.placeholder}}"></textarea>
-                            <mat-error *ngIf="checkError(item.formcontrolname, item.required)">
-                                {{item.label}} required</mat-error>
-                        </mat-form-field>
-                        <div class="form-group" *ngIf="item.type =='select'">
-                            <fieldset class="form-group">
-                                <ng-select labelForId="{{item.label}}" [items]="item.apidata" placeholder="{{item.placeholder}}"
-                                    bindLabel="{{item.bindname}}" formControlName="{{item.formcontrolname}}"
-                                    [clearable]="item.clearable" [virtualScroll]="item.virtualScroll"
-                                    [multiple]="item.multiple" appendTo="body" required>
-                                    <ng-template ng-option-tmp let-item="item">
-                                        {{item.name}}
-                                    </ng-template>
-                                </ng-select>
-                            </fieldset>
-                            <!-- <mat-error *ngIf="item.type =='select' && checkError(item.formcontrolname, item.required)">
-                                {{item.label}} required</mat-error> -->
+                    <div class="col-lg-3 form-group" *ngFor="let item of formdata;">
+                        <div class="row">
+                            <div class="col">
+                                <mat-form-field *ngIf="item.type =='text'">
+                                    <mat-label>
+                                        {{item.label}}
+                                        <span style="color: red;" *ngIf="item.required == 'required'"
+                                            class="compulsary-mark">*</span>
+                                    </mat-label>
+                                    <input type="text" matInput name='{{item.controlname}}'
+                                        formControlName="{{item.formcontrolname}}" [disabled]="false" />
+                                    <mat-error *ngIf="checkError(item.formcontrolname, item.required)">
+                                        {{item.label}} required</mat-error>
+                                </mat-form-field>
+                                <mat-form-field *ngIf="item.type =='textarea'">
+                                    <mat-label>
+                                        {{item.label}}
+                                        <span style="color: red;" *ngIf="item.required == 'required'"
+                                            class="compulsary-mark">*</span>
+                                    </mat-label>
+                                    <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+                                        cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5" name="{{item.controlname}}"
+                                        formControlName="{{item.formcontrolname}}"
+                                        placeholder="{{item.placeholder}}"></textarea>
+                                    <mat-error *ngIf="checkError(item.formcontrolname, item.required)">
+                                        {{item.label}} required</mat-error>
+                                </mat-form-field>
+                                <fieldset style="width: 181px;" *ngIf="item.type =='select'">
+                                    <ng-select labelForId="{{item.label}}" [items]="item.apidata"
+                                        placeholder="{{item.placeholder}}" bindLabel="{{item.bindname}}"
+                                        formControlName="{{item.formcontrolname}}" [clearable]="item.clearable"
+                                        [virtualScroll]="item.virtualScroll" [multiple]="item.multiple" appendTo="body"
+                                        required>
+                                        <ng-template ng-option-tmp let-item="item">
+                                            {{item.name}}
+                                        </ng-template>
+                                    </ng-select>
+                                </fieldset>
+                            </div>
+                            <div class="col text-left customselect">
+                                <select>
+                                    <option style="text-align: center;"><</option>
+                                    <option style="text-align: center;">></option>
+                                    <option style="text-align: center;">=</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -59,7 +67,8 @@
         <span>Search Results</span>
     </mat-card-title>
     <mat-card-content>
-            <app-rdap-shared-igx-grid-search-result [searchGridData]="searchGridData" [appString]="appString"></app-rdap-shared-igx-grid-search-result>           
+        <app-rdap-shared-igx-grid-search-result [searchGridData]="searchGridData" [appString]="appString">
+        </app-rdap-shared-igx-grid-search-result>
     </mat-card-content>
     <mat-card-actions style="text-align: left;">
         <button mat-raised-button style="width: 10%;background-color: #300c46;color:white"

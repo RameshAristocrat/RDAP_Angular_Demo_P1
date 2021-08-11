@@ -32,11 +32,9 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.oktaAuthserv.$isAuthenticated.subscribe(val =>{
-      debugger
       this.isAuthenticated = val
     });
     if(!this.isAuthenticated){
-      debugger
       //this.oktaAuthserv.login('/login')
     }else{
     }
