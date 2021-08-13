@@ -17,11 +17,9 @@ width: 181px !important;
 }
 
 .customselect select {
-  width: 100%;
   -moz-appearance: none;
   -webkit-appearance: none;
   appearance: none !important;
-  border-color:white !important;
   outline: none;
 }
 
@@ -30,20 +28,20 @@ select,option {
   text-align-last: center;
   /* webkit*/
 }
-option {
-  padding-left: 20%;
-}
-select:active, select:hover {
-  outline: none
-}
+// option {
+//   padding-left: 20%;
+// }
+// select:active, select:hover {
+//   outline: none
+// }
 
-select,option{
-  border-color: white;
-}
+// select,option{
+//   border-color: white;
+// }
 
-select#xyz{
-outline: none;
-}
+// select#xyz{
+// outline: none;
+// }
 table {
     width: 100%;
     table-layout: fixed;
@@ -94,3 +92,34 @@ table {
   }
 }
 }
+.selectWrapper{
+  border-radius:50%;
+  display:inline-block;
+  overflow:hidden;
+  background:#cccccc;
+  border:1px solid #cccccc;
+}
+.selectBoxSearch{
+  width:25px;
+  height:25px;
+  border:0px;
+  outline:none;
+  text-align:center;
+  border-radius: 50%;
+  background-color: #300c46;
+  color: white;
+  font-size: 14px;
+}
+.selectBoxLogic{
+  width:25px;
+  height:25px;
+  border:0px;
+  outline:none;
+  text-align:center;
+  border-radius: 50%;
+  background-color: #e50f7c;
+  color: white;
+  font-size: 10px;
+}
+
+//#e50f7c

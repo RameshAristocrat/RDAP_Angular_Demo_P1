@@ -3,14 +3,15 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { OktaAuth, IDToken, AccessToken } from '@okta/okta-auth-js';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({providedIn: 'root'})
 export class OktaAuthService {
-  public CLIENT_ID="0oa1croj4yjrsRSR75d7";
-  public ISSUER="https://dev-88037208.okta.com";
-  public LOGIN_REDIRECT_URI="https://sydc-appdev-01:8083/main/launcher";
-  public LOGOUT_REDIRECT_URI="https://sydc-appdev-01:8083";
-  public SCOPE=['openid','email'];
+  public CLIENT_ID=environment.oktaconfig.CLIENT_ID;
+  public ISSUER=environment.oktaconfig.ISSUER;
+  public LOGIN_REDIRECT_URI=environment.oktaconfig.LOGIN_REDIRECT_URI;
+  public LOGOUT_REDIRECT_URI=environment.oktaconfig.LOGOUT_REDIRECT_URI;
+  public SCOPE=environment.oktaconfig.SCOPE;
   //public oktaAuth:OktaAuth;
   public oktaConfigDetails:any;
   oktaAuth = new OktaAuth({

@@ -73,6 +73,20 @@
 								"with": "src/environments/environment.qa.ts"
 							  }
 							]
+						  },"dev": {
+							"fileReplacements": [
+							  {
+								"replace": "src/environments/environment.ts",
+								"with": "src/environments/environment.dev.ts"
+							  }
+							]
+						  },"stag": {
+							"fileReplacements": [
+							  {
+								"replace": "src/environments/environment.ts",
+								"with": "src/environments/environment.stag.ts"
+							  }
+							]
 						  }
 					},
 					"defaultConfiguration": ""
@@ -88,6 +102,12 @@
 						},
 						"qa": {
 							"browserTarget": "RDAP:build:qa"
+						},
+						"dev": {
+							"browserTarget": "RDAP:build:dev"
+						},
+						"stag": {
+							"browserTarget": "RDAP:build:stag"
 						}
 					}
 				},
@@ -141,6 +161,12 @@
 						},
 						"qa": {
 							"devServerTarget": "RDAP:serve:qa"
+						},
+						"dev": {
+							"devServerTarget": "RDAP:serve:dev"
+						},
+						"stag": {
+							"devServerTarget": "RDAP:serve:stag"
 						}
 					}
 				}

@@ -1,13 +1,13 @@
 export const environment = {
     production: false,
-    qa:true,
+    qa:false,
     dev:false,
-    stag:false,
+    stag:true,
     oktaconfig: { 
       CLIENT_ID: "0oa1croj4yjrsRSR75d7", 
       ISSUER: "https://dev-88037208.okta.com", 
-      LOGIN_REDIRECT_URI: "https://sydc-appdev-01:8083/main/launcher", 
-      LOGOUT_REDIRECT_URI: "https://sydc-appdev-01:8083", 
+      LOGIN_REDIRECT_URI: "https://sydc-appdev-01:8082/main/launcher", 
+      LOGOUT_REDIRECT_URI: "https://sydc-appdev-01:8082", 
       SCOPE: ['openid','email'] 
   }
   };
