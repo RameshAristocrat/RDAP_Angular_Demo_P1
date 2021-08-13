@@ -6,33 +6,39 @@ import { HttpClient } from '@angular/common/http';
 
 @Injectable({providedIn: 'root'})
 export class OktaAuthService {
-  public CLIENT_ID:string;
-  public ISSUER:string;
-  public LOGIN_REDIRECT_URI:string;
-  public LOGOUT_REDIRECT_URI:string;
-  public SCOPE:string[];
-  public oktaAuth:OktaAuth;
+  public CLIENT_ID="0oa1croj4yjrsRSR75d7";
+  public ISSUER="https://dev-88037208.okta.com";
+  public LOGIN_REDIRECT_URI="https://sydc-appdev-01:8083/main/launcher";
+  public LOGOUT_REDIRECT_URI="https://sydc-appdev-01:8083";
+  public SCOPE=['openid','email'];
+  //public oktaAuth:OktaAuth;
   public oktaConfigDetails:any;
-
+  oktaAuth = new OktaAuth({
+    clientId: this.CLIENT_ID,
+    issuer:  this.ISSUER,
+    redirectUri:  this.LOGIN_REDIRECT_URI,
+    pkce: true,
+    scopes:this.SCOPE
+  });
   $isAuthenticated: Observable<boolean>;
   private observer?: Observer<boolean>;
   constructor(private router: Router,private httpClient: HttpClient) {
-    this.oktaConfigDetails=[];
-    this.httpClient.get("assets/config/appconfig.json").subscribe(data => {
-      console.log(data[0][data[0].environment][0].oktaconfig[0]);
-      this.oktaConfigDetails = data[0][data[0].environment][0].oktaconfig[0];
-      this.oktaAuth = new OktaAuth({
-        clientId: this.oktaConfigDetails.clientid,
-        issuer:  this.oktaConfigDetails.issuer,
-        redirectUri:  this.oktaConfigDetails.loginredirecturi,
-        pkce: true,
-        scopes:this.oktaConfigDetails.scope
-      });
-      this.$isAuthenticated = new Observable((observer: Observer<boolean>) => {
-        this.observer = observer;
-        this.isAuthenticated().then(val => {
-          observer.next(val);
-        });
+    //this.oktaConfigDetails=[];
+    // this.httpClient.get("assets/config/appconfig.json").subscribe(data => {
+    //   console.log(data[0][data[0].environment][0].oktaconfig[0]);
+    //   this.oktaConfigDetails = data[0][data[0].environment][0].oktaconfig[0];
+    //   this.oktaAuth = new OktaAuth({
+    //     clientId: this.oktaConfigDetails.clientid,
+    //     issuer:  this.oktaConfigDetails.issuer,
+    //     redirectUri:  this.oktaConfigDetails.loginredirecturi,
+    //     pkce: true,
+    //     scopes:this.oktaConfigDetails.scope
+    //   });
+    // });
+    this.$isAuthenticated = new Observable((observer: Observer<boolean>) => {
+      this.observer = observer;
+      this.isAuthenticated().then(val => {
+        observer.next(val);
       });
     });
   }

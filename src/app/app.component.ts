@@ -20,6 +20,7 @@
 import { Component, OnInit } from '@angular/core';
 import { OktaAuthService } from '../app/package/core/okta-auth/okta-auth-service';
 import { OktaAuth, IDToken, AccessToken } from '@okta/okta-auth-js';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -28,9 +29,14 @@ import { OktaAuth, IDToken, AccessToken } from '@okta/okta-auth-js';
 export class AppComponent implements OnInit {
   title = 'okta-app';
   isAuthenticated: boolean = false;
-  constructor(public oktaAuthserv: OktaAuthService) {}
+  constructor(public oktaAuthserv: OktaAuthService) {
+    
+    //console.log("Environment",env);
+  }
 
   ngOnInit(): void {
+    debugger
+    console.log("environment",environment);
     this.oktaAuthserv.$isAuthenticated.subscribe(val =>{
       this.isAuthenticated = val
     });

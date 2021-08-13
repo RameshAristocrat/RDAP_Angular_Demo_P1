@@ -3,8 +3,14 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --host bg4ws1619  --port 8080 --ssl true --disable-host-check",
-    "build": "ng build",
+    "start:prod": " ng serve --host sydc-appdev-01  --port 8080 --configuration=prod --ssl true --disable-host-check",
+    "start:dev": " ng serve --host sydc-appdev-01  --port 8081 --configuration=dev --ssl true --disable-host-check",
+    "start:stag": " ng serve --host sydc-appdev-01  --port 8082 --configuration=stag --ssl true --disable-host-check",
+    "start:qa": " ng serve --host sydc-appdev-01  --port 8083 --configuration=qa --ssl true --disable-host-check",
+    "build:prod": "ng build --prod",
+    "build:dev": "ng build --dev",
+    "build:stag": "ng build --stag",
+    "build:qa": "ng build --qa",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -51,7 +57,9 @@
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~12.0.3",
+    "@angular-builders/custom-webpack": "^12.1.0",
+    "@angular-builders/dev-server": "^7.3.1",
+    "@angular-devkit/build-angular": "^12.0.5",
     "@angular/cli": "~12.0.3",
     "@angular/compiler-cli": "~12.0.3",
     "@igniteui/angular-schematics": "~12.1.810",
