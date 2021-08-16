@@ -36,7 +36,7 @@ export class RdapSharedConfigSearchComponent implements OnInit {
   verticalPosition: MatSnackBarVerticalPosition = 'top';
 
   @Output() onSearchSumbit = new EventEmitter<any>();
-
+  public panelOpenState=true;
   public configdata;
   public routedata;
   public formdata;

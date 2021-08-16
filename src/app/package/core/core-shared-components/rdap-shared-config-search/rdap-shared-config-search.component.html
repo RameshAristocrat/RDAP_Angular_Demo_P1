@@ -1,75 +1,69 @@
-<mat-card style="margin-bottom:2%;">
-    <mat-card-content>
-        <div class="col-lg-12">
-            <form *ngIf="searchform" action="" [formGroup]="searchform">
-                <div class="row">
-                    <div class="col-lg-3 form-group" *ngFor="let item of formdata;">
-                        <div class="row">
-                            <div class="col">
-                                <mat-form-field *ngIf="item.type =='text'">
-                                    <mat-label>
-                                        {{item.label}}
-                                        <span style="color: red;" *ngIf="item.required == 'required'"
-                                            class="compulsary-mark">*</span>
-                                    </mat-label>
-                                    <input type="text" matInput name='{{item.controlname}}'
-                                        formControlName="{{item.formcontrolname}}" [disabled]="false" />
-                                    <mat-error *ngIf="checkError(item.formcontrolname, item.required)">
-                                        {{item.label}} required</mat-error>
-                                </mat-form-field>
-                                <mat-form-field *ngIf="item.type =='textarea'">
-                                    <mat-label>
-                                        {{item.label}}
-                                        <span style="color: red;" *ngIf="item.required == 'required'"
-                                            class="compulsary-mark">*</span>
-                                    </mat-label>
-                                    <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize"
-                                        cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5" name="{{item.controlname}}"
-                                        formControlName="{{item.formcontrolname}}"
-                                        placeholder="{{item.placeholder}}"></textarea>
-                                    <mat-error *ngIf="checkError(item.formcontrolname, item.required)">
-                                        {{item.label}} required</mat-error>
-                                </mat-form-field>
-                                <fieldset style="width: 181px;" *ngIf="item.type =='select'">
-                                    <ng-select labelForId="{{item.label}}" [items]="item.apidata"
-                                        placeholder="{{item.placeholder}}" bindLabel="{{item.bindname}}"
-                                        formControlName="{{item.formcontrolname}}" [clearable]="item.clearable"
-                                        [virtualScroll]="item.virtualScroll" [multiple]="item.multiple" appendTo="body"
-                                        required>
-                                        <ng-template ng-option-tmp let-item="item">
-                                            {{item.name}}
-                                        </ng-template>
-                                    </ng-select>
-                                </fieldset>
+<mat-accordion>
+    <mat-expansion-panel [expanded]="true" (opened)="panelOpenState = true"
+    (closed)="panelOpenState = false">
+    <mat-expansion-panel-header>
+        <mat-panel-title style="font-weight:410;font-size: 14px;">
+        Search Filter
+        </mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-card>
+        <mat-card-content>
+                <form *ngIf="searchform" action="" [formGroup]="searchform">
+                    <div class="row">
+                        <div class="col-lg-3 form-group" *ngFor="let item of formdata;">
+                            <div *ngIf="(item.type =='text') || (item.type =='textarea')">
+                                <label>{{item.label}}</label>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <!-- <span class="input-group-text" id="basic-addon1">@</span> -->
+                                        <select class="form-control input-group-text">
+                                            <option style="text-align: center;">....Az....</option>
+                                            <option style="text-align: center;">Az....</option>
+                                            <option style="text-align: center;">....Az</option>
+                                            <option style="text-align: center;">=</option>
+                                            <option style="text-align: center;">
+                                                <</option>
+                                            <option style="text-align: center;">></option>
+                                        </select>
+                                    </div>
+                                    <input formControlName="{{item.formcontrolname}}" type="text" class="form-control"
+                                        placeholder="{{item.placeholder}}" aria-label="{{placeholder}}" aria-describedby="basic-addon1">
+                                </div>
                             </div>
-                            <div class="col text-left customselect" style="width: 10px;">
-                                <select class="selectBoxSearch">
-                                    <option style="text-align: center;"><</option>
-                                    <option style="text-align: center;">></option>
-                                    <option style="text-align: center;"><></option>
-                                    <option style="text-align: center;">=</option>
+                            <div *ngIf="item.type =='select'">
+                                <label>{{item.label}}</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <select class="form-control input-group-text">
+                                        <option style="text-align: center;">....Az....</option>
+                                        <option style="text-align: center;">Az....</option>
+                                        <option style="text-align: center;">....Az</option>
+                                        <option style="text-align: center;">=</option>
+                                        <option style="text-align: center;">
+                                            <</option>
+                                        <option style="text-align: center;">></option>
+                                    </select>
+                                </div>
+                                <select class="form-control" formControlName="{{item.formcontrolname}}" id="inputGroupSelect01">
+                                  <option value="" hidden selected><span style="color: rgb(199, 199, 199);">{{item.placeholder}}</span></option>
+                                  <option value="1" *ngFor="let opitem of  item.apidata;">{{opitem.name}}</option>
                                 </select>
-                            </div>
-                            <div class="col text-left customselect" style="width: 10px;">
-                                <select class="selectBoxLogic">
-                                    <option style="text-align: center;">AND</option>
-                                    <option style="text-align: center;">OR</option>
-                                </select>
+                              </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </form>
-        </div>
-    </mat-card-content>
-    <mat-card-actions style="text-align: left;" *ngIf="searchform">
-        <button mat-raised-button style="width: 10%;background-color: #300c46;color:white" (click)="submit()"
-            [disabled]="!searchform.valid"
-            [ngClass]="{'errorbtn':!searchform.valid, 'successbtn': searchform.valid}">Search</button>
-        <button mat-raised-button style="width: 10%;background-color: #300c46;color:white">Reset</button>
-    </mat-card-actions>
-</mat-card>
-<mat-card *ngIf="searchGridData">
+                </form>
+        </mat-card-content>
+        <mat-card-actions style="text-align: left;" *ngIf="searchform">
+            <button mat-raised-button style="width: 10%;background-color: #300c46;color:white" (click)="submit()"
+                [disabled]="!searchform.valid"
+                [ngClass]="{'errorbtn':!searchform.valid, 'successbtn': searchform.valid}">Search</button>
+            <button mat-raised-button style="width: 10%;background-color: #300c46;color:white">Reset</button>
+        </mat-card-actions>
+    </mat-card>
+</mat-expansion-panel>
+</mat-accordion>
+<mat-card *ngIf="searchGridData" style="margin-top: 2%;">
     <mat-card-title>
         <span>Search Results</span>
     </mat-card-title>
