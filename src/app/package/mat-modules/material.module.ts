@@ -35,7 +35,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import { MatButtonToggleModule } from "@angular/material/button-toggle";
 import {MatDividerModule} from '@angular/material/divider';
 import { GoogleChartsModule } from 'angular-google-charts';
-import { IgxGridModule } from "igniteui-angular";
+import { IgxCsvExporterService, IgxGridModule } from "igniteui-angular";
 import { 
 	IgxButtonModule,
 	IgxIconModule,
@@ -46,9 +46,11 @@ import {
 import { MatNativeDateModule} from "@angular/material/core";
 import { NgSelectModule } from "@ng-select/ng-select";
 import { FormsModule } from '@angular/forms';
+import { IgxExcelExporterService } from "igniteui-angular";
 @NgModule({
   declarations: [],
-  providers: [
+  providers: [IgxExcelExporterService,
+    IgxCsvExporterService
    // { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } }
   ],
   imports: [

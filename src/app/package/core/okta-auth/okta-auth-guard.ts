@@ -7,6 +7,8 @@ export class OktaAuthGuard implements CanActivate {
   constructor(private okta: OktaAuthService, private router: Router) {}
 
   async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    console.log("token app component", JSON.parse(localStorage.getItem("okta-token-storage")));
+    console.log("is Auth app component", JSON.parse(localStorage.getItem("okta-auth-flag")));
     const authenticated = await this.okta.isAuthenticated();
     if (authenticated) { return true; }
 

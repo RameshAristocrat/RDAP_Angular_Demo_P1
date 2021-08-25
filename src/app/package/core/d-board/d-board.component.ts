@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
+import { OktaAuthService } from '../okta-auth/okta-auth-service';
 
 @Component({
   selector: 'app-d-board',
@@ -29,7 +30,10 @@ export class DBoardComponent {
     })
   );
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  constructor(private breakpointObserver: BreakpointObserver,private okta: OktaAuthService) {
+    debugger
+    this.okta.handleAuthentication();
+  }
 
   chartData = {
     type: 'ComboChart',

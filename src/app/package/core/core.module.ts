@@ -33,6 +33,7 @@ import {
 } from '@angular/material/snack-bar';
 import { RdapSharedConfigSetuptableAddeditComponent } from './core-shared-components/rdap-shared-config-setuptable-addedit/rdap-shared-config-setuptable-addedit.component';
 import { RdapSharedIgxGridSearchResultComponent } from './core-shared-components/rdap-shared-igx-grid-search-result/rdap-shared-igx-grid-search-result.component';
+import { CallbackComponent } from './callback/callback.component';
 @NgModule({
   declarations: [
     LoginFooterComponent,
@@ -48,6 +49,7 @@ import { RdapSharedIgxGridSearchResultComponent } from './core-shared-components
     RdapSharedBreadcrumbComponent,
     RdapSharedConfigSetuptableAddeditComponent,
     RdapSharedIgxGridSearchResultComponent,
+    CallbackComponent,
   ],
   imports: [
     FormsModule,

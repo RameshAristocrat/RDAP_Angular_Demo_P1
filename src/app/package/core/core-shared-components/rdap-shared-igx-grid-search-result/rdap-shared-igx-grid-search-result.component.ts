@@ -1,7 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, ChangeDetectorRef, Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
-import { IgxGridComponent } from 'igniteui-angular';
+import { IgxExcelExporterService, IgxGridComponent } from 'igniteui-angular';
 import { DATA } from '../../../../../assets/config/customers';
+import {
+  CsvFileTypes,
+  IColumnExportingEventArgs,
+  IGridToolbarExportEventArgs,
+  IgxCsvExporterOptions,
+  IgxExcelExporterOptions,
+  IgxExporterOptionsBase
+} from 'igniteui-angular';
 @Component({
   selector: 'app-rdap-shared-igx-grid-search-result',
   templateUrl: './rdap-shared-igx-grid-search-result.component.html',
@@ -18,7 +26,8 @@ export class RdapSharedIgxGridSearchResultComponent implements OnInit, AfterView
   //@Input() panelOpenState: any;
   @Input() searchGridData: any;
   @Input() appString:any;
-  constructor(private httpClient: HttpClient,private cdr: ChangeDetectorRef) { 
+  @Input() exportfilename:string;
+  constructor(private httpClient: HttpClient,private cdr: ChangeDetectorRef,private excelExportService: IgxExcelExporterService) { 
     this.appString=[];
     this.httpClient.get("assets/config/app-string.json").subscribe(y => {
       this.appString = y;
@@ -38,6 +47,29 @@ export class RdapSharedIgxGridSearchResultComponent implements OnInit, AfterView
     //this.grid.selectColumns(['City', 'PostalCode']);
     //this.cdr.detectChanges();
   }
+  public exportButtonHandler() {
+    this.excelExportService.export(this.grid, new IgxExcelExporterOptions("ExportedDataFile"));
+  }
+  public configureExport(args: IGridToolbarExportEventArgs) {
+    // You can customize the exporting from this event
+    const options: IgxExporterOptionsBase = args.options ;
+    options.fileName = this.exportfilename;
+
+    if (options instanceof IgxExcelExporterOptions) {
+        const excelOptions = options as IgxExcelExporterOptions;
+        excelOptions.columnWidth = 10;
+    } else {
+        const csvOptions = options as IgxCsvExporterOptions;
+        csvOptions.fileType = CsvFileTypes.TSV;
+        csvOptions.valueDelimiter = '\t';
+    }
+
+    args.exporter.columnExporting.subscribe((columnArgs: IColumnExportingEventArgs) => {
+        // Don't export image fields
+        // columnArgs.cancel = columnArgs.header === 'Athlete' ||
+        //                     columnArgs.header === 'Country';
+    });
+}
 public gridDataLoad(){
   this.columndata=[];
   this.loopGridContent=[];
@@ -45,7 +77,7 @@ public gridDataLoad(){
     Object.keys(this.searchGridData[0]).forEach(x =>{
       this.appString.filter(g =>{
         if(x==g.modelname){
-          this.columndata.push({ field:x, title:g.title, width: "150px", height:"10px", type: "string", pinned: true });
+          this.columndata.push({ field:x, title:g.title, width: "150px", height:"10px", type: "string", pinned: true, hidden:g.gridcolflag});
         }
       });
      this.loopGridContent.push({"title":x,"data":("element."+x)});

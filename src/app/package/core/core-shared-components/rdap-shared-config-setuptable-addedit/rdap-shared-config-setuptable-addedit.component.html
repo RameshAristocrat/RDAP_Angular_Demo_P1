@@ -32,7 +32,7 @@
                             [virtualScroll]="item.virtualScroll" [multiple]="item.multiple" appendTo="body"
                             required>
                             <ng-template ng-option-tmp let-item="item">
-                                {{item.name}}
+                                {{item.description}}
                             </ng-template>
                         </ng-select>
                         <mat-checkbox id='{{item.controlname}}' *ngIf="item.type =='checkbox'" labelPosition="after">

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { animateText, onSideNavChange } from '../animation/animation';
 import { SidenavService } from './sidenav.service';
 interface Page {
@@ -29,46 +30,47 @@ export class SideMenuBarComponent implements OnInit {
   public pages: Page[] = [
      {name: 'Manage PIN', link:'some-link', icon: 'lock',type:'P',header:'0',submenu:[
        //{
-    //   name: 'Master', link:'/main/expinreq/pinrequest', icon: 'grade',type:'C',header:'0'
+    //   name: 'Master', link:'/home/expinreq/pinrequest', icon: 'grade',type:'C',header:'0'
     // },
     {
-      name: 'Studio', link:'/main/config/setuptable/studio/search', icon: 'admin_panel_settings',type:'SC',header:'0'
+      name: 'Region', link:'/home/config/setuptable/region/search', icon: 'cloud',type:'SC',header:'0'
     },{
-      name: 'Market', link:'/main/config/setuptable/market/search', icon: 'room_preferences',type:'SC',header:'0'
+      name: 'Market', link:'/home/config/setuptable/market/search', icon: 'room_preferences',type:'SC',header:'0'
+    },
+    {
+      name: 'Studio', link:'/home/config/setuptable/studio/search', icon: 'admin_panel_settings',type:'SC',header:'0'
     },{
-      name: 'Channel Type', link:'/main/config/setuptable/channeltype/search', icon: 'verified',type:'SC',header:'0'
+      name: 'Channel Type', link:'/home/config/setuptable/channeltype/search', icon: 'verified',type:'SC',header:'0'
     },{
-      name: 'Channel', link:'/main/config/setuptable/channel/search', icon: 'thumb_up',type:'SC',header:'0'
+      name: 'Channel', link:'/home/config/setuptable/channel/search', icon: 'thumb_up',type:'SC',header:'0'
     },{
-      name: 'Cabinets', link:'/main/config/setuptable/cabinets/search', icon: 'event',type:'SC',header:'0'
+      name: 'Cabinets', link:'/home/config/setuptable/cabinets/search', icon: 'event',type:'SC',header:'0'
     },{
-      name: 'Dev Effort Type', link:'/main/config/setuptable/devefforttype/search', icon: 'lightbulb',type:'SC',header:'0'
+      name: 'Dev Effort Type', link:'/home/config/setuptable/devefforttype/search', icon: 'lightbulb',type:'SC',header:'0'
     },{
-      name: 'Dev Complexity', link:'/main/config/setuptable/devcomplexity/search', icon: 'highlight_off',type:'SC',header:'0'
+      name: 'Dev Complexity', link:'/home/config/setuptable/devcomplexity/search', icon: 'highlight_off',type:'SC',header:'0'
     },{
-      name: 'Gravity', link:'/main/config/setuptable/gravity/search', icon: 'task_alt',type:'SC',header:'0'
+      name: 'Gravity', link:'/home/config/setuptable/gravity/search', icon: 'task_alt',type:'SC',header:'0'
     },{
-      name: 'Dev Type1', link:'/main/config/setuptable/devtype1/search', icon: 'question_answer',type:'SC',header:'0'
+      name: 'Dev Type1', link:'/home/config/setuptable/devtype1/search', icon: 'question_answer',type:'SC',header:'0'
     },{
-      name: 'Dev Type2', link:'/main/config/setuptable/devtype2/search', icon: 'room_preferences',type:'SC',header:'0'
+      name: 'Dev Type2', link:'/home/config/setuptable/devtype2/search', icon: 'room_preferences',type:'SC',header:'0'
     },{
-      name: 'Dev Type2', link:'/main/config/setuptable/devtype2/search', icon: 'room_preferences',type:'SC',header:'0'
+      name: 'Dev Type2', link:'/home/config/setuptable/devtype2/search', icon: 'room_preferences',type:'SC',header:'0'
     },{
-      name: 'Version', link:'/main/config/setuptable/version/search', icon: 'text_snippet',type:'SC',header:'0'
+      name: 'Version', link:'/home/config/setuptable/version/search', icon: 'text_snippet',type:'SC',header:'0'
     },{
-      name: 'Quarter', link:'/main/config/setuptable/quarter/search', icon: 'text_snippet',type:'SC',header:'0'
+      name: 'Quarter', link:'/home/config/setuptable/quarter/search', icon: 'text_snippet',type:'SC',header:'0'
     },{
-      name: 'EPP', link:'/main/config/setuptable/epp/search', icon: 'cloud',type:'SC',header:'0'
+      name: 'EPP', link:'/home/config/setuptable/epp/search', icon: 'cloud',type:'SC',header:'0'
     },{
-      name: 'Region', link:'/main/config/setuptable/region/search', icon: 'cloud',type:'SC',header:'0'
+      name: 'Prodcat1', link:'/home/config/setuptable/prodcat1/search', icon: 'cloud',type:'SC',header:'0'
     },{
-      name: 'Prodcat1', link:'/main/config/setuptable/prodcat1/search', icon: 'cloud',type:'SC',header:'0'
+      name: 'Prodcat2', link:'/home/config/setuptable/prodcat2/search', icon: 'cloud',type:'SC',header:'0'
     },{
-      name: 'Prodcat2', link:'/main/config/setuptable/prodcat2/search', icon: 'cloud',type:'SC',header:'0'
+      name: 'Prodcat3', link:'/home/config/setuptable/prodcat3/search', icon: 'cloud',type:'SC',header:'0'
     },{
-      name: 'Prodcat3', link:'/main/config/setuptable/prodcat3/search', icon: 'cloud',type:'SC',header:'0'
-    },{
-      name: 'Transaction', link:'/main/expinreq/pinrequest', icon: 'paid',type:'C',header:'0'
+      name: 'Transaction', link:'/home/expinreq/pinrequest', icon: 'paid',type:'C',header:'0'
     }]},
     {name: 'Rework', link:'some-link', icon: 'all_inclusive',type:'P',header:'0',submenu:[{
       name: 'Master', link:'some-link', icon: 'work',type:'C',header:'0'
@@ -95,7 +97,7 @@ export class SideMenuBarComponent implements OnInit {
     {name: 'System Setup', link:'some-link', icon: 'phonelink_setup',type:'P',header:'0',submenu:[]},
     
   ]
-  constructor(private _sidenavService: SidenavService) { }
+  constructor(private _sidenavService: SidenavService,private _router:Router) { }
 
   ngOnInit(): void {
   }
@@ -125,6 +127,10 @@ export class SideMenuBarComponent implements OnInit {
       this.linkText = this.sideNavState;
     }, 200)
     this._sidenavService.sideNavState$.next(this.sideNavState)
+  }
+  async navlistRedirect(url) {
+    debugger
+    await this._router.navigateByUrl(url);
   }
 
 }

@@ -3,9 +3,18 @@
      [rowHeight]="25"
      height="auto"
       width="100%" 
-      [allowFiltering]="true">
+      [allowFiltering]="true"
+      (toolbarExporting)="configureExport($event)">
+      <igx-grid-toolbar>
+        <igx-grid-toolbar-actions>
+            <igx-grid-toolbar-exporter [exportExcel]="true" [exportCSV]="true" filename="{{exportfilename}}">
+            </igx-grid-toolbar-exporter>
+        </igx-grid-toolbar-actions>
+    </igx-grid-toolbar>
       <igx-paginator [perPage]="10"></igx-paginator>
-      <igx-column *ngFor="let c of columndata" [sortable]="true" [width]="c.width" [filterable]="true" [field]="c.field" [header]="c.title|titlecase" [dataType]="c.type">
+      <igx-column *ngFor="let c of columndata" [sortable]="true" [width]="c.width" 
+      [filterable]="true" [field]="c.field" [header]="c.title|titlecase" [dataType]="c.type"
+      [hidden]="c.hidden">
         <ng-template *ngIf="c.field == 'document'" igxCell let-cell="cell" let-val>
             <a>{{val}}</a>
         </ng-template>

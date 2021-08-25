@@ -16,14 +16,8 @@
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <!-- <span class="input-group-text" id="basic-addon1">@</span> -->
-                                        <select class="form-control input-group-text">
-                                            <option style="text-align: center;">....Az....</option>
-                                            <option style="text-align: center;">Az....</option>
-                                            <option style="text-align: center;">....Az</option>
-                                            <option style="text-align: center;">=</option>
-                                            <option style="text-align: center;">
-                                                <</option>
-                                            <option style="text-align: center;">></option>
+                                        <select class="form-control input-group-text" formControlName="{{item.searchcriteria.formcontrolname}}">
+                                            <option  style="text-align: center;" value="{{opitem.id}}" *ngFor="let opitem of stringSearchCriteria[0];">{{opitem.value}}</option>
                                         </select>
                                     </div>
                                     <input formControlName="{{item.formcontrolname}}" type="text" class="form-control"
@@ -34,19 +28,13 @@
                                 <label>{{item.label}}</label>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                    <select class="form-control input-group-text">
-                                        <option style="text-align: center;">....Az....</option>
-                                        <option style="text-align: center;">Az....</option>
-                                        <option style="text-align: center;">....Az</option>
-                                        <option style="text-align: center;">=</option>
-                                        <option style="text-align: center;">
-                                            <</option>
-                                        <option style="text-align: center;">></option>
+                                    <select class="form-control input-group-text" formControlName="{{item.searchcriteria.formcontrolname}}">
+                                        <option  style="text-align: center;" value="{{opitem.id}}" *ngFor="let opitem of numberSearchCriteria[0];">{{opitem.value}}</option>
                                     </select>
                                 </div>
-                                <select class="form-control" formControlName="{{item.formcontrolname}}" id="inputGroupSelect01">
+                                <select class="form-control" formControlName="{{item.formcontrolname}}">
                                   <option value="" hidden selected><span style="color: rgb(199, 199, 199);">{{item.placeholder}}</span></option>
-                                  <option value="1" *ngFor="let opitem of  item.apidata;">{{opitem.name}}</option>
+                                  <option value="{{opitem.id}}" *ngFor="let opitem of  item.apidata;">{{opitem.description}}</option>
                                 </select>
                               </div>
                             </div>
@@ -68,7 +56,7 @@
         <span>Search Results</span>
     </mat-card-title>
     <mat-card-content>
-        <app-rdap-shared-igx-grid-search-result [searchGridData]="searchGridData" [appString]="appString">
+        <app-rdap-shared-igx-grid-search-result [exportfilename]="exportfilename" [searchGridData]="searchGridData" [appString]="appString">
         </app-rdap-shared-igx-grid-search-result>
     </mat-card-content>
     <mat-card-actions style="text-align: left;">

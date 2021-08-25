@@ -9,6 +9,7 @@ export const environment = {
       LOGIN_REDIRECT_URI: "https://sydc-appdev-01:8082/main/launcher", 
       LOGOUT_REDIRECT_URI: "https://sydc-appdev-01:8082", 
       SCOPE: ['openid','email'] 
-  }
+  },
+  baseapiurl:"http://localhost:8501/"
   };
   
