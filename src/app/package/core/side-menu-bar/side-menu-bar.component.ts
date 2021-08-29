@@ -39,7 +39,8 @@ export class SideMenuBarComponent implements OnInit {
     },
     {
       name: 'Studio', link:'/home/config/setuptable/studio/search', icon: 'admin_panel_settings',type:'SC',header:'0'
-    },{
+    }
+    ,{
       name: 'Channel Type', link:'/home/config/setuptable/channeltype/search', icon: 'verified',type:'SC',header:'0'
     },{
       name: 'Channel', link:'/home/config/setuptable/channel/search', icon: 'thumb_up',type:'SC',header:'0'
@@ -71,7 +72,8 @@ export class SideMenuBarComponent implements OnInit {
       name: 'Prodcat3', link:'/home/config/setuptable/prodcat3/search', icon: 'cloud',type:'SC',header:'0'
     },{
       name: 'Transaction', link:'/home/expinreq/pinrequest', icon: 'paid',type:'C',header:'0'
-    }]},
+    }
+  ]},
     {name: 'Rework', link:'some-link', icon: 'all_inclusive',type:'P',header:'0',submenu:[{
       name: 'Master', link:'some-link', icon: 'work',type:'C',header:'0'
     },{
@@ -129,7 +131,6 @@ export class SideMenuBarComponent implements OnInit {
     this._sidenavService.sideNavState$.next(this.sideNavState)
   }
   async navlistRedirect(url) {
-    debugger
     await this._router.navigateByUrl(url);
   }
 

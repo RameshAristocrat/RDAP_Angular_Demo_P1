@@ -551,6 +551,51 @@
         "param": [{}]
       }]
     }],
+    "region": [{
+      "fieldprop": [{
+        "formcontrolname": "regionname",
+        "field":"region",
+        "label": "Region",
+        "type": "text",
+        "fieldtype":"string",
+        "api": "",
+        "required": "required",
+        "placeholder": "Enter Market",
+        "action": "",
+        "pipe": ""
+      },
+      {
+        "formcontrolname": "regiondesc",
+        "field":"description",
+        "label": "Description",
+        "type": "textarea",
+        "fieldtype":"string",
+        "api": "",
+        "required": null,
+        "placeholder": "Enter Description",
+        "action": "",
+        "pipe": ""
+      },
+      {
+        "formcontrolname": "regiondesclong",
+        "field":"descrLong",
+        "label": "Description Long",
+        "type": "textarea",
+        "fieldtype":"string",
+        "api": "",
+        "required": null,
+        "placeholder": "Enter Description Long",
+        "action": "",
+        "pipe": ""
+      }
+      ],
+      "api": [{
+        "api": "assets/config/grid-data.json",
+        "apidata": "",
+        "url": "",
+        "param": [{}]
+      }]
+    }],
     "studio": [{
       "fieldprop": [{
           "formcontrolname": "studioname",

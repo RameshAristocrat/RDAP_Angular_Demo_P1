@@ -12,6 +12,9 @@ import { RdMasterApiService } from 'src/app/package/api/apiservice/masterApiServ
 import { environment } from "src/environments/environment";
 import { filterModel, searchParamModel } from 'src/app/package/api/model/param/searchParam';
 import { marketmodel } from 'src//app/package/api/model/master/rd_model_market';
+import * as masteraddeditdata from 'src/assets/config/masterScreenCommonAddEdit';
+import { RdSpinnerService } from 'src/app/package/infoservice/spinnerservice/rd-spinner.service';
+import { SnackbarInfoService } from 'src/app/package/infoservice/snackbarservice/snackbar.service';
 @Component({
   selector: 'app-rdap-shared-config-setuptable-addedit',
   templateUrl: './rdap-shared-config-setuptable-addedit.component.html',
@@ -28,6 +31,8 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
   public routedata;
   public formdata;
   public griddata;
+  public editflag;
+  public addflag;
 
   timeOut = 500;
 
@@ -46,6 +51,8 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
   transactionFlag = "A";
   public baseApi;
   public addUrl;
+  public getMasterDataUrl;
+  public editFieldProp;
   searchParam: searchParamModel;
   filterparam: filterModel;
   filterparamarr: filterModel[];
@@ -53,8 +60,8 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
   addParam: any;
   addParamArr: any[];
   fieldprop: string;
-  commonmodel: any[];
-
+  commonviewmodel: any[];
+  selMasterDetails: any;
   public marketmodelobj: marketmodel;
   public marketmodelarr: marketmodel[];
   //= ['select', 'position'];
@@ -65,28 +72,29 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
 
-  constructor(private httpClient: HttpClient, location: Location, router: Router,
-    public fb: FormBuilder, private _snackBar: MatSnackBar, private masterApiService: RdMasterApiService) {
+  constructor(private httpClient: HttpClient, private location: Location, private router: Router,
+    public fb: FormBuilder, private _snackBar: MatSnackBar, 
+    private masterApiService: RdMasterApiService, private spinner:RdSpinnerService,private snackbarInfoService:SnackbarInfoService) {
     this.baseApi = environment.baseapiurl;
-    router.events.subscribe((val) => {
-      if (location.path() != '') {
-        this.route = location.path();
-        if (this.route.match("add").length) {
+    this.router.events.subscribe((val) => {
+      if (this.location.path() != '') {
+        this.route = this.location.path();
+        if (this.route.match("add")) {
           this.transactionFlag = "A";
-        } else if (this.route.match("edit").length) {
+        } else if (this.route && this.route.match("edit")) {
           this.transactionFlag = "E";
-        } else if (this.route.match("view").length) {
-          this.transactionFlag = "v";
+        } else if (this.route && this.route.match("view")) {
+          this.transactionFlag = "V";
         }
         this.routeName = this.route.split('/')[this.route.split('/').length - 1];
       } else {
         this.route = 'Home'
       }
     });
-    this.httpClient.get("assets/config/masterScreenCommonAddEdit.json").subscribe(data => {
-      this.configdata = data;
-      this.getFormData();
-    });
+    // this.httpClient.get("assets/config/masterScreenCommonAddEdit.json").subscribe(data => {
+    //   this.configdata = data;
+    //   this.getFormData();
+    // });
   }
 
   // ngAfterViewInit() {
@@ -95,10 +103,72 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
   // }
 
   ngOnInit(): void {
+    this.spinner.show();
+    this.router.events.subscribe((val) => {
+      if (this.location.path() != '') {
+        this.route = this.location.path();
+        if (this.route.match("add").length) {
+          this.transactionFlag = "A";
+          this.addflag=true;
+          this.editflag=false;
+        } else if (this.route && this.route.match("edit").length) {
+          this.transactionFlag = "E";
+          this.addflag=false;
+          this.editflag=true;
+        } else if (this.route && this.route.match("view").length) {
+          this.transactionFlag = "V";
+          this.addflag=false;
+          this.editflag=false;
+        }
+        this.routeName = this.route.split('/')[this.route.split('/').length - 1];
+      } else {
+        this.route = 'Home'
+      }
+    });
+    if (masteraddeditdata.masteraddedit) {
+      this.configdata = masteraddeditdata.masteraddedit;
+      this.getFormData();
+    }
   }
   getFormData() {
     this.formSelectApiData = [];
-    if (this.route.match("channeltype") && this.route.match("channeltype").length) {
+    this.editFieldProp="";
+    let masterDataId;
+    if (this.route && this.route.match("market") && this.route.match("market").length > 0) {
+      this.formName = "marketSearchForm";
+      this.configdata[0].master.filter(x => {
+        this.routedata = x.market;
+        this.formdata = this.routedata[0].fieldprop;
+        this.griddata = this.routedata[0].api[0];
+        this.addUrl = this.baseApi + this.routedata[0].addApi[0].url;
+        this.getMasterDataUrl = this.baseApi+this.routedata[0].editApi[0].url;
+        this.editFieldProp=this.routedata[0].editApi[0].fieldprop;
+      });
+      this.createFormControl();
+      if (this.transactionFlag == "V") {
+        this.selMasterDetails = JSON.parse(localStorage.getItem("selMasterViewData"));
+        masterDataId = this.selMasterDetails.added[0][this.editFieldProp];
+        this.getMasterDataUrl=this.getMasterDataUrl+"/"+masterDataId;
+        this.getMasterDataById(this.getMasterDataUrl);
+      }
+    } else if (this.route && this.route.match("region") && this.route.match("region").length > 0) {
+      this.formName = "regionSearchForm";
+      this.configdata[0].master.filter(x => {
+        this.routedata = x.region;
+        this.formdata = this.routedata[0].fieldprop;
+        this.griddata = this.routedata[0].api[0];
+        this.addUrl = this.baseApi + this.routedata[0].addApi[0].url;
+        this.getMasterDataUrl = this.baseApi+this.routedata[0].editApi[0].url;
+        this.editFieldProp=this.routedata[0].editApi[0].fieldprop;
+      });
+      this.createFormControl();
+      if (this.transactionFlag == "V") {
+        this.selMasterDetails = JSON.parse(localStorage.getItem("selMasterViewData"));
+        masterDataId = this.selMasterDetails.added[0][this.editFieldProp];
+        this.getMasterDataUrl=this.getMasterDataUrl+"/"+masterDataId;
+        this.getMasterDataById(this.getMasterDataUrl);
+      }
+    } else if (this.route && this.route.match("channeltype") && this.route.match("channeltype").length) {
       this.formName = "channeltypeSearchForm";
       this.configdata[0].master.filter(x => {
         this.routedata = x.channeltype;
@@ -106,7 +176,7 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
         this.griddata = this.routedata[0].api[0];
       });
       this.createFormControl();
-    } else if (this.route.match("cabinets") && this.route.match("cabinets").length) {
+    } else if (this.route && this.route.match("cabinets") && this.route.match("cabinets").length) {
       this.formName = "cabinetsSearchForm";
       this.configdata[0].master.filter(x => {
         this.routedata = x.cabinets;
@@ -114,7 +184,7 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
         this.griddata = this.routedata[0].api[0];
       });
       this.createFormControl();
-    } else if (this.route.match("channel") && this.route.match("channel").length) {
+    } else if (this.route && this.route.match("channel") && this.route.match("channel").length) {
       this.formName = "channelSearchForm";
       this.configdata[0].master.filter(x => {
         this.routedata = x.channel;
@@ -122,7 +192,7 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
         this.griddata = this.routedata[0].api[0];
       });
       this.createFormControl();
-    } else if (this.route.match("devefforttype") && this.route.match("devefforttype").length) {
+    } else if (this.route && this.route.match("devefforttype") && this.route.match("devefforttype").length) {
       this.formName = "devefforttypeSearchForm";
       this.configdata[0].master.filter(x => {
         this.routedata = x.devefforttype;
@@ -130,7 +200,7 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
         this.griddata = this.routedata[0].api[0];
       });
       this.createFormControl();
-    } else if (this.route.match("devcomplexity") && this.route.match("devcomplexity").length > 0) {
+    } else if (this.route && this.route.match("devcomplexity") && this.route.match("devcomplexity").length > 0) {
       this.formName = "devcomplexitySearchForm";
       this.configdata[0].master.filter(x => {
         this.routedata = x.devcomplexity;
@@ -138,7 +208,7 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
         this.griddata = this.routedata[0].api[0];
       });
       this.createFormControl();
-    } else if (this.route.match("gravity") && this.route.match("gravity").length > 0) {
+    } else if (this.route && this.route.match("gravity") && this.route.match("gravity").length > 0) {
       this.formName = "gravitySearchForm";
       this.configdata[0].master.filter(x => {
         this.routedata = x.gravity;
@@ -146,7 +216,7 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
         this.griddata = this.routedata[0].api[0];
       });
       this.createFormControl();
-    } else if (this.route.match("devtype1") && this.route.match("devtype1").length > 0) {
+    } else if (this.route && this.route.match("devtype1") && this.route.match("devtype1").length > 0) {
       this.formName = "devtype1SearchForm";
       this.configdata[0].master.filter(x => {
         this.routedata = x.devtype1;
@@ -154,7 +224,7 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
         this.griddata = this.routedata[0].api[0];
       });
       this.createFormControl();
-    } else if (this.route.match("devtype2") && this.route.match("devtype2").length > 0) {
+    } else if (this.route && this.route.match("devtype2") && this.route.match("devtype2").length > 0) {
       this.formName = "devtype2SearchForm";
       this.configdata[0].master.filter(x => {
         this.routedata = x.devtype2;
@@ -162,16 +232,7 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
         this.griddata = this.routedata[0].api[0];
       });
       this.createFormControl();
-    } else if (this.route.match("market") && this.route.match("market").length > 0) {
-      this.formName = "marketSearchForm";
-      this.configdata[0].master.filter(x => {
-        this.routedata = x.market;
-        this.formdata = this.routedata[0].fieldprop;
-        this.griddata = this.routedata[0].api[0];
-        this.addUrl = this.baseApi + this.routedata[0].addApi[0].url;
-      });
-      this.createFormControl();
-    } else if (this.route.match("studio") && this.route.match("studio").length > 0) {
+    } else if (this.route && this.route.match("studio") && this.route.match("studio").length > 0) {
       this.formName = "studioSearchForm";
       this.configdata[0].master.fiter(x => {
         this.routedata = x.studio;
@@ -179,7 +240,7 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
         this.griddata = this.routedata[0].api[0];
       });
       this.createFormControl();
-    } else if (this.route.match("quarter") && this.route.match("quarter").length > 0) {
+    } else if (this.route && this.route.match("quarter") && this.route.match("quarter").length > 0) {
       this.formName = "quarterSearchForm";
       this.configdata[0].master.filter(x => {
         this.routedata = x.quarter;
@@ -187,7 +248,7 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
         this.griddata = this.routedata[0].api[0];
       });
       this.createFormControl();
-    } else if (this.route.match("status1") && this.route.match("status1").length > 0) {
+    } else if (this.route && this.route.match("status1") && this.route.match("status1").length > 0) {
       this.formName = "status1SearchForm";
       this.configdata[0].master.filter(x => {
         this.routedata = x.status1;
@@ -195,7 +256,7 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
         this.griddata = this.routedata[0].api[0];
       });
       this.createFormControl();
-    } else if (this.route.match("status2") && this.route.match("status2").length > 0) {
+    } else if (this.route && this.route.match("status2") && this.route.match("status2").length > 0) {
       this.formName = "status2SearchForm";
       this.configdata[0].master.filter(x => {
         this.routedata = x.status2;
@@ -203,7 +264,7 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
         this.griddata = this.routedata[0].api[0];
       });
       this.createFormControl();
-    } else if (this.route.match("status3") && this.route.match("status3").length > 0) {
+    } else if (this.route && this.route.match("status3") && this.route.match("status3").length > 0) {
       this.formName = "status3SearchForm";
       this.configdata[0].master.filter(x => {
         this.routedata = x.status3;
@@ -211,7 +272,7 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
         this.griddata = this.routedata[0].api[0];
       });
       this.createFormControl();
-    } else if (this.route.match("prodcat1") && this.route.match("prodcat1").length > 0) {
+    } else if (this.route && this.route.match("prodcat1") && this.route.match("prodcat1").length > 0) {
       this.formName = "prodcat1SearchForm";
       this.configdata[0].master.filter(x => {
         this.routedata = x.prodcat1;
@@ -219,7 +280,7 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
         this.griddata = this.routedata[0].api[0];
       });
       this.createFormControl();
-    } else if (this.route.match("prodcat2") && this.route.match("prodcat2").length > 0) {
+    } else if (this.route && this.route.match("prodcat2") && this.route.match("prodcat2").length > 0) {
       this.formName = "prodcat2SearchForm";
       this.configdata[0].master.filter(x => {
         this.routedata = x.prodcat2;
@@ -227,7 +288,7 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
         this.griddata = this.routedata[0].api[0];
       });
       this.createFormControl();
-    } else if (this.route.match("prodcat3") && this.route.match("prodcat3").length > 0) {
+    } else if (this.route && this.route.match("prodcat3") && this.route.match("prodcat3").length > 0) {
       this.formName = "prodcat3SearchForm";
       this.configdata[0].master.filter(x => {
         this.routedata = x.prodcat3;
@@ -235,7 +296,7 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
         this.griddata = this.routedata[0].api[0];
       });
       this.createFormControl();
-    } else if (this.route.match("epp") && this.route.match("epp").length > 0) {
+    } else if (this.route && this.route.match("epp") && this.route.match("epp").length > 0) {
       this.formName = "eppSearchForm";
       this.configdata[0].master.filter(x => {
         this.routedata = x.epp;
@@ -243,7 +304,7 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
         this.griddata = this.routedata[0].api[0];
       });
       this.createFormControl();
-    } else if (this.route.match("version") && this.route.match("version").length > 0) {
+    } else if (this.route && this.route.match("version") && this.route.match("version").length > 0) {
       this.formName = "versionSearchForm";
       this.configdata[0].master.filter(x => {
         this.routedata = x.version;
@@ -258,39 +319,52 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
     return this.searchform.controls[controlName].hasError(errorName);
   }
   submit() {
+    this.spinner.show();
     this.addParamArr = [];
-    // let fieldproptemp;
-    // if (this.route.match("market") && this.route.match("market").length > 0) {
-    //   this.marketmodelarr=[];
-    //   this.marketmodelobj;
-    //   console.log(this.marketmodelobj);
-    // }
+    this.commonviewmodel = [];
+    let successFlag=false;
+    let redirectUrl="";
+    this.commonviewmodel.push({});
+    this.formdata.forEach((x, index) => {
+      Object.assign(this.commonviewmodel[0], { [x.field]: "" });
+    });
     this.formdata.forEach((x, index) => {
       this.fieldprop = x.field;
       this.addParam = {};
       if ((x.type == "text") && _isNotEmptyString(this.searchform.get(x.formcontrolname).value)) {
         if (x.fieldtype == "number") {
-          this.addParamArr[this.fieldprop] = Number(this.searchform.get(x.formcontrolname).value);
+          Object.assign(this.commonviewmodel[0], { [x.field]: Number(this.searchform.get(x.formcontrolname).value)});
         } else if (x.fieldtype == "boolean") {
-          this.addParamArr[this.fieldprop] = Boolean(this.searchform.get(x.formcontrolname).value);
+          Object.assign(this.commonviewmodel[0], { [x.field]: Boolean(this.searchform.get(x.formcontrolname).value)});
         } else if (x.fieldtype == "string") {
-          this.addParamArr[this.fieldprop] = this.searchform.get(x.formcontrolname).value;
+          Object.assign(this.commonviewmodel[0], { [x.field]: this.searchform.get(x.formcontrolname).value});
         }
       } else if ((x.type == "select") && _isNotEmptyVal(this.searchform.get(x.formcontrolname).value)) {
-        this.addParamArr[this.fieldprop] = (this.searchform.get(x.formcontrolname).value)["id"];
+        Object.assign(this.commonviewmodel[0], { [x.field]: Number((this.searchform.get(x.formcontrolname).value))});
       } else if (x.type == "textarea") {
-        this.addParamArr[this.fieldprop] = this.searchform.get(x.formcontrolname).value;
+        Object.assign(this.commonviewmodel[0], { [x.field]: this.searchform.get(x.formcontrolname).value});
+      } else if (x.type == "checkbox") {
+        Object.assign(this.commonviewmodel[0], { [x.field]: Boolean(this.searchform.get(x.formcontrolname).value)});
       }
     });
-    this.addParamArr["isactive"] = true;
-    console.log(this.addParamArr);
-    debugger
-    console.log(this.commonmodel);
-    this.marketmodelarr=[];
-    this.marketmodelarr = this.addParamArr;
-    this.masterApiService.masterAdd(this.addUrl, this.marketmodelarr).subscribe(x => {
-      this.searchGridData = x.data;
-    });
+    if(this.transactionFlag=='A'){
+      this.masterApiService.masterAdd(this.addUrl, this.commonviewmodel[0]).subscribe(x => {
+        successFlag=x.isSuccess;
+        if(x.isSuccess){
+          this.snackbarInfoService.openSucessSnackBar(x.message);
+          this.cancel();
+        }
+      });
+    }else if(this.transactionFlag=='V'){
+      this.masterApiService.masterUpdate(this.getMasterDataUrl, this.commonviewmodel[0]).subscribe(x => {
+        successFlag=x.isSuccess;
+        if(x.isSuccess){
+          this.snackbarInfoService.openSucessSnackBar(x.message);
+          this.cancel();
+        }
+      });
+    }
+    this.spinner.hide();
   };
   submitold() {
     this.formGroupArr = [];
@@ -310,7 +384,6 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
         setTimeout(() => {
           this.openSnackBar("Enter " + x.label + " !!");
           errorFlag = true;
-          //this.searchform.get(x.formcontrolname).validator
         }, count * (this.timeOut + 500));
         count++;
       }
@@ -343,6 +416,8 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
           x.apidata = data;
         });
         frmgrp[x.formcontrolname] = new FormControl();
+      }if (x.type == "checkbox") {
+        frmgrp[x.formcontrolname] = new FormControl(true);
       } else {
         if (x.required == "required") {
           frmgrp[x.formcontrolname] = new FormControl('', Validators.required);
@@ -353,6 +428,7 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
 
     });
     this.searchform = new FormGroup(frmgrp);
+    this.spinner.hide();
   }
   openSnackBar(errormsg: string) {
     this._snackBar.open(errormsg, 'X', {
@@ -362,5 +438,59 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
       panelClass: ['warn-snackbar']
     });
   }
-
+  getMasterDataById(url){
+    this.spinner.show();
+    this.masterApiService.getMasterDataById(url).subscribe(data => {
+      //x.apidata = data;
+      console.log("getMasterDataById",data);
+      this.setViewFormControl(data.data);
+    });
+  }
+  setViewFormControl(editFormData) {
+    this.formdata.forEach((x, index) => {
+      if ((x.type == "text")||(x.type == "textarea")) {
+        if (x.fieldtype == "number") {
+          this.searchform.controls[x.formcontrolname].setValue(Number(editFormData[x.field]));
+          //this.searchform.controls[x.formcontrolname].disable();
+        } else if (x.fieldtype == "boolean") {
+          this.searchform.controls[x.formcontrolname].setValue(Boolean(editFormData[x.field]));
+          //this.searchform.controls[x.formcontrolname].disable();
+        } else if (x.fieldtype == "string") {
+          this.searchform.controls[x.formcontrolname].setValue(editFormData[x.field]);
+          //this.searchform.controls[x.formcontrolname].disable();
+        }
+      } else if ((x.type == "select")) {
+        (this.searchform.get(x.formcontrolname) as FormControl).setValue(editFormData[x.field]);
+        //this.searchform.controls[x.formcontrolname].setValue(Number(editFormData[x.field]));
+        //this.searchform.controls[x.formcontrolname].disable();
+      } else if (x.type == "checkbox") {
+        this.searchform.controls[x.formcontrolname].setValue(Boolean(editFormData[x.field]));
+        //this.searchform.controls[x.formcontrolname].disable();
+      }
+      
+    });
+    this.spinner.hide();
+  };
+delete(){
+  this.spinner.show();
+  console.log(this.getMasterDataUrl);
+  this.masterApiService.deleteMasterDataById(this.getMasterDataUrl).subscribe(data => {
+    console.log(this.getMasterDataUrl);
+    if(data.isSuccess){
+      this.snackbarInfoService.openSucessSnackBar(data.message);
+    }
+    this.cancel();
+  });
+  this.spinner.hide();
+}
+  cancel(){
+    let tempUrl;
+    if(this.transactionFlag=="V" || this.transactionFlag=="E"){
+      tempUrl = this.route.replace('view', 'search');
+    }
+    if(this.transactionFlag=="A"){
+      tempUrl = this.route.replace('add', 'search');
+    }
+    this.router.navigate([tempUrl.toString()]);
+  }
 }

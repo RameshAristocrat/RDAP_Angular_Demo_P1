@@ -24,7 +24,6 @@ export class RdApiMasterRegionService {
 
   }
   public regionSearch(): Observable<any> {
-    debugger
     let idToken = JSON.parse(localStorage.getItem("okta-token-storage"));
     this.httpOption = {
       headers : new HttpHeaders({

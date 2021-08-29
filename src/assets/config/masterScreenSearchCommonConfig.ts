@@ -8,22 +8,39 @@ export const configJsonData = [
                 {
                   formcontrolname:"studioname",
                   label:"Studio",
+                  field:"Studio",
                   type:"text",
                   api:"",
                   required:"required",
                   placeholder:"Enter Studio",
                   action:"",
-                  pipe:""
+                  pipe:"",
+                  searchcriteria:
+                  {
+                    formcontrolname:"studionamesrccriteria"
+                  }
                 },
                 {
                   formcontrolname:"studiodesc",
                   label:"Description",
+                  field:"Description",
                   type:"textarea",
                   api:"",
                   required: false,
                   placeholder:"Enter Description",
                   action:"",
-                  pipe:""
+                  pipe:"",
+                  searchcriteria:
+                  {
+                    formcontrolname:"studiodescsrccriteria"
+                  }
+                }
+              ],
+              searchApi: [
+                {
+                  url:"Studio/search",
+                  method:"post",
+                  data: null
                 }
               ],
               api: [
@@ -74,7 +91,7 @@ export const configJsonData = [
                 {
                   formcontrolname:"pool",
                   label:"Pool",
-                  field:"PoolId",
+                  field:"Pool",
                   type:"select",
                   api:"Pool/ddl",
                   apidata:"",
@@ -94,7 +111,7 @@ export const configJsonData = [
                 {
                   formcontrolname:"region",
                   label:"Region",
-                  field:"RegionId",
+                  field:"Region",
                   type:"select",
                   api:"Region/ddl",
                   apidata:"",
@@ -114,7 +131,7 @@ export const configJsonData = [
                 {
                   formcontrolname:"gravity",
                   label:"Gravity",
-                  field:"GravityId",
+                  field:"Gravity",
                   type:"select",
                   api:"Gravity/ddl",
                   apidata:"",
@@ -162,7 +179,11 @@ export const configJsonData = [
                   required: false,
                   placeholder:"Enter Version",
                   action:"",
-                  pipe:""
+                  pipe:"",
+                  searchcriteria:
+                  {
+                    formcontrolname:"versionnamesrccriteria"
+                  }
                 },
                 {
                   formcontrolname:"versiondesc",
@@ -172,7 +193,18 @@ export const configJsonData = [
                   required: false,
                   placeholder:"Enter Description",
                   action:"",
-                  pipe:""
+                  pipe:"",
+                  searchcriteria:
+                  {
+                    formcontrolname:"versiondescsrccriteria"
+                  }
+                }
+              ],
+              searchApi: [
+                {
+                  url:"version/search",
+                  method:"post",
+                  data: null
                 }
               ],
               api: [
@@ -198,7 +230,11 @@ export const configJsonData = [
                   required: false,
                   placeholder:"Enter EPP Ref",
                   action:"",
-                  pipe:""
+                  pipe:"",
+                  searchcriteria:
+                  {
+                    formcontrolname:"eppnamesrccriteria"
+                  }
                 },
                 {
                   formcontrolname:"eppdesc",
@@ -208,7 +244,18 @@ export const configJsonData = [
                   required: false,
                   placeholder:"Enter Description",
                   action:"",
-                  pipe:""
+                  pipe:"",
+                  searchcriteria:
+                  {
+                    formcontrolname:"eppdescsrccriteria"
+                  }
+                }
+              ],
+              searchApi: [
+                {
+                  url:"epp/search",
+                  method:"post",
+                  data: null
                 }
               ],
               api: [

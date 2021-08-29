@@ -15,8 +15,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RdapConfigMarketSearchComponent } from './setup-tables/rdap-config-market-search/rdap-config-market-search.component';
 import { RdapConfigCommonSearchComponent } from './setup-tables/rdap-config-common-search/rdap-config-common-search.component';
 import { RdapConfigCommonAddEditComponent } from './setup-tables/rdap-config-common-add-edit/rdap-config-common-add-edit.component';
+import { RdapConfigCommonViewComponent } from './setup-tables/rdap-config-common-view/rdap-config-common-view.component';
 @NgModule({
-    declarations: [RdapConfigStudioSearchComponent, SetupTableHomeComponent, RdapConfigMarketSearchComponent, RdapConfigCommonSearchComponent, RdapConfigCommonAddEditComponent],
+    declarations: [RdapConfigStudioSearchComponent, SetupTableHomeComponent, RdapConfigMarketSearchComponent, RdapConfigCommonSearchComponent, RdapConfigCommonAddEditComponent, RdapConfigCommonViewComponent],
     imports:[
       FormsModule,
       ReactiveFormsModule,

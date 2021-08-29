@@ -41,11 +41,6 @@ export class RdMasterApiService {
     );
   }
   public masterAdd(url:string, addparam:any): Observable<any> {
-    console.log(url);
-    console.log(addparam);
-    Object.keys(addparam).forEach(x=>{
-      this.marketmodel[x]=addparam[x];
-    })
     let idToken = JSON.parse(localStorage.getItem("okta-token-storage"));
     this.httpOption = {
       headers: new HttpHeaders({
@@ -53,8 +48,24 @@ export class RdMasterApiService {
         "Authorization": "Bearer " + idToken.idToken.idToken
       })
     }
-    console.log(this.marketmodel);
-    return this.https.post<any>(url, this.marketmodel, this.httpOption).pipe(
+    return this.https.post<any>(url,addparam,this.httpOption).pipe(
+      catchError((error) => {
+        console.log(error);
+        return throwError({
+          error,
+        });
+      })
+    );
+  }
+  public masterUpdate(url:string, addparam:any): Observable<any> {
+    let idToken = JSON.parse(localStorage.getItem("okta-token-storage"));
+    this.httpOption = {
+      headers: new HttpHeaders({
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + idToken.idToken.idToken
+      })
+    }
+    return this.https.put<any>(url,addparam,this.httpOption).pipe(
       catchError((error) => {
         console.log(error);
         return throwError({
@@ -73,6 +84,42 @@ export class RdMasterApiService {
       })
     }
     return this.https.get<any>(url, this.httpOption).pipe(
+      catchError((error) => {
+        console.log(error);
+        return throwError({
+          error,
+        });
+      })
+    );
+  }
+
+  public getMasterDataById(url):Observable<any>{
+    let idToken = JSON.parse(localStorage.getItem("okta-token-storage"));
+    this.httpOption = {
+      headers: new HttpHeaders({
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + idToken.idToken.idToken
+      })
+    }
+    return this.https.get<any>(url, this.httpOption).pipe(
+      catchError((error) => {
+        console.log(error);
+        return throwError({
+          error,
+        });
+      })
+    );
+  }
+
+  public deleteMasterDataById(url):Observable<any>{
+    let idToken = JSON.parse(localStorage.getItem("okta-token-storage"));
+    this.httpOption = {
+      headers: new HttpHeaders({
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + idToken.idToken.idToken
+      })
+    }
+    return this.https.delete<any>(url, this.httpOption).pipe(
       catchError((error) => {
         console.log(error);
         return throwError({

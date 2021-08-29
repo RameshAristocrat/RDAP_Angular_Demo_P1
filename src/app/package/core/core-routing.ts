@@ -8,6 +8,11 @@ import { DBoardComponent } from './d-board/d-board.component';
 import { DatatableComponent } from './components/datatable/datatable.component';
 import { OktaAuthGuard } from './okta-auth/okta-auth-guard';
 import { CallbackComponent } from './callback/callback.component';
+import { SetupTableHomeComponent } from '../modules/configs/setup-tables/setup-table-home/setup-table-home.component';
+import { RdapConfigCommonAddEditComponent } from '../modules/configs/setup-tables/rdap-config-common-add-edit/rdap-config-common-add-edit.component';
+import { RdapConfigCommonSearchComponent } from '../modules/configs/setup-tables/rdap-config-common-search/rdap-config-common-search.component';
+import { RdapConfigCommonViewComponent } from '../modules/configs/setup-tables/rdap-config-common-view/rdap-config-common-view.component';
+
 
 const routes: Routes = [
   {
@@ -35,11 +40,64 @@ const routes: Routes = [
           ),
       },
       {
-        path: "config",
+        path: "configold",
         loadChildren: () =>
           import("../modules/configs/rdap-configs.module").then(
             (m) => m.RdapConfigModule
           ),
+      },{
+        path: "config/setuptable",
+        component: SetupTableHomeComponent,
+        children: [
+            {
+                path: "region",
+                //component: RdapConfigCommonSearchComponent,
+                children:[{
+                    path: "search",
+                component: RdapConfigCommonSearchComponent,
+                },{
+                    path: "add",
+                component: RdapConfigCommonAddEditComponent,
+                },{
+                  path: "edit",
+              component: RdapConfigCommonAddEditComponent,
+              },{
+                  path: "view",
+              component: RdapConfigCommonAddEditComponent,
+              }]
+            },{
+              path: "market",
+              //component: RdapConfigCommonSearchComponent,
+              children:[{
+                  path: "search",
+              component: RdapConfigCommonSearchComponent,
+              },{
+                  path: "add",
+              component: RdapConfigCommonAddEditComponent,
+              },{
+                  path: "edit",
+              component: RdapConfigCommonAddEditComponent,
+              },{
+                path: "view",
+            component: RdapConfigCommonAddEditComponent,
+            }]
+          },{
+            path: "studio",
+            //component: RdapConfigCommonSearchComponent,
+            children:[{
+                path: "search",
+            component: RdapConfigCommonSearchComponent,
+            },{
+                path: "add",
+            component: RdapConfigCommonAddEditComponent,
+            },{
+                path: "edit",
+            component: RdapConfigCommonAddEditComponent,
+            },{
+              path: "view",
+          component: RdapConfigCommonAddEditComponent,
+          }]
+        }]
       }]
   }, {
     path: "tool",

@@ -1,4 +1,4 @@
-import { NgModule } from "@angular/core";
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { MatButtonModule } from "@angular/material/button";
 import { MatInputModule } from "@angular/material/input";
@@ -35,18 +35,19 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import { MatButtonToggleModule } from "@angular/material/button-toggle";
 import {MatDividerModule} from '@angular/material/divider';
 import { GoogleChartsModule } from 'angular-google-charts';
-import { IgxCsvExporterService, IgxGridModule } from "igniteui-angular";
+import { IgxCsvExporterService, IgxGridModule } from "@infragistics/igniteui-angular";
 import { 
 	IgxButtonModule,
 	IgxIconModule,
 	IgxInputGroupModule,
 	IgxRippleModule,
 	IgxChipsModule
- } from "igniteui-angular";
+ } from "@infragistics/igniteui-angular";
 import { MatNativeDateModule} from "@angular/material/core";
 import { NgSelectModule } from "@ng-select/ng-select";
 import { FormsModule } from '@angular/forms';
-import { IgxExcelExporterService } from "igniteui-angular";
+import { IgxExcelExporterService } from "@infragistics/igniteui-angular";
+import { NgxSpinnerModule } from "ngx-spinner";
 @NgModule({
   declarations: [],
   providers: [IgxExcelExporterService,
@@ -92,11 +93,13 @@ import { IgxExcelExporterService } from "igniteui-angular";
     IgxInputGroupModule,
     IgxRippleModule,
     IgxChipsModule,
+    NgxSpinnerModule,
     //AngularFontAwesomeModule
     //NativeDateAdapter
     NgSelectModule,
     FormsModule
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   exports: [
     MatButtonModule,
     MatInputModule,
@@ -136,6 +139,7 @@ import { IgxExcelExporterService } from "igniteui-angular";
     IgxInputGroupModule,
     IgxRippleModule,
     IgxChipsModule,
+    NgxSpinnerModule,
     //FontAwesomeModule
     //NativeDateAdapter
     NgSelectModule,

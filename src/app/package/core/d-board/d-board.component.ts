@@ -31,7 +31,6 @@ export class DBoardComponent {
   );
 
   constructor(private breakpointObserver: BreakpointObserver,private okta: OktaAuthService) {
-    debugger
     this.okta.handleAuthentication();
   }
 

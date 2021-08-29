@@ -17,7 +17,7 @@
                                     <div class="input-group-prepend">
                                         <!-- <span class="input-group-text" id="basic-addon1">@</span> -->
                                         <select class="form-control input-group-text" formControlName="{{item.searchcriteria.formcontrolname}}">
-                                            <option  style="text-align: center;" value="{{opitem.id}}" *ngFor="let opitem of stringSearchCriteria[0];">{{opitem.value}}</option>
+                                            <option  style="text-align: center;" value="{{opitem.id}}" *ngFor="let opitem of stringSearchCriteria;">{{opitem.value}}</option>
                                         </select>
                                     </div>
                                     <input formControlName="{{item.formcontrolname}}" type="text" class="form-control"
@@ -29,12 +29,12 @@
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <select class="form-control input-group-text" formControlName="{{item.searchcriteria.formcontrolname}}">
-                                        <option  style="text-align: center;" value="{{opitem.id}}" *ngFor="let opitem of numberSearchCriteria[0];">{{opitem.value}}</option>
+                                        <option  style="text-align: center;" value="{{opitem.id}}" *ngFor="let opitem of stringSearchCriteria;">{{opitem.value}}</option>
                                     </select>
                                 </div>
                                 <select class="form-control" formControlName="{{item.formcontrolname}}">
                                   <option value="" hidden selected><span style="color: rgb(199, 199, 199);">{{item.placeholder}}</span></option>
-                                  <option value="{{opitem.id}}" *ngFor="let opitem of  item.apidata;">{{opitem.description}}</option>
+                                  <option value="{{opitem.description}}" *ngFor="let opitem of  item.apidata;">{{opitem.description}}</option>
                                 </select>
                               </div>
                             </div>
@@ -46,7 +46,8 @@
             <button mat-raised-button style="width: 10%;background-color: #300c46;color:white" (click)="submit()"
                 [disabled]="!searchform.valid"
                 [ngClass]="{'errorbtn':!searchform.valid, 'successbtn': searchform.valid}">Search</button>
-            <button mat-raised-button style="width: 10%;background-color: #300c46;color:white">Reset</button>
+            <button mat-raised-button style="width: 10%;background-color: #300c46;color:white"
+            (click)="reset()">Reset</button>
         </mat-card-actions>
     </mat-card>
 </mat-expansion-panel>
@@ -56,13 +57,15 @@
         <span>Search Results</span>
     </mat-card-title>
     <mat-card-content>
-        <app-rdap-shared-igx-grid-search-result [exportfilename]="exportfilename" [searchGridData]="searchGridData" [appString]="appString">
+        <app-rdap-shared-igx-grid-search-result [exportfilename]="exportfilename" 
+        [searchGridData]="searchGridData" [appString]="appString" (onSelGridRowData)="onSelGridRowData($event)">
         </app-rdap-shared-igx-grid-search-result>
     </mat-card-content>
     <mat-card-actions style="text-align: left;">
         <button mat-raised-button style="width: 10%;background-color: #300c46;color:white"
-            (click)="submit()">Open</button>
-        <button mat-raised-button style="width: 10%;background-color: #300c46;color:white">Cancel</button>
+            (click)="viewrecord(route)">Open</button>
+        <button mat-raised-button style="width: 10%;background-color: #300c46;color:white"
+        (click)="cancel('/home/dashboard')">Cancel</button>
         <button mat-raised-button style="width: 20%;background-color: #300c46;color:white" *ngIf="route"
             (click)="addnewrecord(route)">Add New Record</button>
     </mat-card-actions>

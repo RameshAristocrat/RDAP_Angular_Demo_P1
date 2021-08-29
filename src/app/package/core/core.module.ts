@@ -34,6 +34,7 @@ import {
 import { RdapSharedConfigSetuptableAddeditComponent } from './core-shared-components/rdap-shared-config-setuptable-addedit/rdap-shared-config-setuptable-addedit.component';
 import { RdapSharedIgxGridSearchResultComponent } from './core-shared-components/rdap-shared-igx-grid-search-result/rdap-shared-igx-grid-search-result.component';
 import { CallbackComponent } from './callback/callback.component';
+import { RdapSharedConfigSetuptableViewComponent } from './core-shared-components/rdap-shared-config-setuptable-view/rdap-shared-config-setuptable-view.component';
 @NgModule({
   declarations: [
     LoginFooterComponent,
@@ -50,6 +51,7 @@ import { CallbackComponent } from './callback/callback.component';
     RdapSharedConfigSetuptableAddeditComponent,
     RdapSharedIgxGridSearchResultComponent,
     CallbackComponent,
+    RdapSharedConfigSetuptableViewComponent,
   ],
   imports: [
     FormsModule,
@@ -70,13 +72,15 @@ import { CallbackComponent } from './callback/callback.component';
   RdapSharedConfigSearchComponent,
   RdapSharedBreadcrumbComponent,
   RdapSharedConfigSetuptableAddeditComponent,
-  RdapSharedIgxGridSearchResultComponent
+  RdapSharedIgxGridSearchResultComponent,
+  RdapSharedConfigSetuptableViewComponent
   ],
   entryComponents:[
     RdapSharedConfigSearchComponent,
     RdapSharedBreadcrumbComponent,
     RdapSharedConfigSetuptableAddeditComponent,
-    RdapSharedIgxGridSearchResultComponent
+    RdapSharedIgxGridSearchResultComponent,
+    RdapSharedConfigSetuptableViewComponent
   ],
   providers: [],
   bootstrap: []

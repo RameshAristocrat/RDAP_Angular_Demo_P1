@@ -54,3 +54,6 @@ color: white;
   :host::ng-deep.mat-expansion-indicator::after{
       color: white;
   }
+:host::ng-deep.mat-expansion-indicator{
+  display:none;
+}

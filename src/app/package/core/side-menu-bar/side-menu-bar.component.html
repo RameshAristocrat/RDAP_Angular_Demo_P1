@@ -20,10 +20,12 @@
                     <mat-icon style="padding-right:5px;" >{{item?.icon}}</mat-icon>
                     <span [@animateText]="linkText ? 'show' : 'hide'">{{ item?.name }} </span>
                 </mat-expansion-panel-header>
+                
                 <mat-nav-list>
                     <a mat-list-item (click)="navlistRedirect(subitem.link)" *ngFor="let subitem of item.submenu" style="color: white;background-color:#300c46;">
-                      <!-- <a mat-list-item routerLink="{{subitem.link}}" style="color: white;background-color:#300c46;"> -->                       
-                        <span style="padding-right:5px;color: white;background-color:#300c46;" [@animateText]="linkText ? 'show' : 'hide'"><mat-icon style="padding-right:5px;" >{{subitem?.icon}}</mat-icon>{{ subitem?.name }} </span>
+                      <!-- <a mat-list-item routerLink="{{subitem.link}}" style="color: white;background-color:#300c46;"> --> 
+                        <mat-icon style="padding-right:5px;color: white;background-color:#300c46;" >{{subitem?.icon}}</mat-icon>                      
+                        <span style="padding-right:5px;color: white;background-color:#300c46;" [@animateText]="linkText ? 'show' : 'hide'">{{ subitem?.name }} </span>
                       <!-- </a>   -->
                       </a>
                 </mat-nav-list>

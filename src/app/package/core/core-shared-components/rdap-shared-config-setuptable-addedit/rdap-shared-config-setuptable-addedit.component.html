@@ -27,7 +27,7 @@
                                     {{item.label}} required</mat-error>
                         </mat-form-field>
                         <ng-select id='{{item.controlname}}' *ngIf="item.type =='select'" [items]="item.apidata"
-                            placeholder="{{item.placeholder}}" bindLabel="{{item.bindname}}"
+                            placeholder="{{item.placeholder}}" bindLabel="{{item.bindname}}" bindValue="{{item.bindvalue}}"
                             formControlName="{{item.formcontrolname}}" [clearable]="item.clearable"
                             [virtualScroll]="item.virtualScroll" [multiple]="item.multiple" appendTo="body"
                             required>
@@ -35,7 +35,7 @@
                                 {{item.description}}
                             </ng-template>
                         </ng-select>
-                        <mat-checkbox id='{{item.controlname}}' *ngIf="item.type =='checkbox'" labelPosition="after">
+                        <mat-checkbox formControlName="{{item.formcontrolname}}" id='{{item.controlname}}' *ngIf="item.type =='checkbox'" labelPosition="after">
                             {{item.label}}
                         </mat-checkbox>
                         <label style="background-color: rgb(161, 161, 161);color: rgb(0, 0, 0);" id='{{item.innercontrol[0].controlname}}' *ngIf="item.innercontrol && item.innercontrol[0].type =='label'">
@@ -50,11 +50,13 @@
             (click)="submit()" 
             [disabled]="!searchform.valid" 
             [ngClass]="{'errorbtn':!searchform.valid, 'successbtn': searchform.valid}"
-            *ngIf="((transactionFlag=='A')||(transactionFlag=='E'))">Save</button>
+            *ngIf="((transactionFlag=='A')||(transactionFlag=='V'))">Save</button>
         <button mat-raised-button style="width: 10%;background-color: #300c46;color:white"
+        (click)="cancel()" 
         >Cancel</button>
         <button mat-raised-button style="width: 10%;background-color: #300c46;color:white"
-        *ngIf="transactionFlag=='D'"
+        *ngIf="transactionFlag=='V'"
+        (click)="delete()" 
         >Delete</button>
     </mat-card-actions>
 </mat-card>

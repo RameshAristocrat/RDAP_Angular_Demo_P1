@@ -26,7 +26,6 @@ export class OktaAuthService {
   constructor(private router: Router, private httpClient: HttpClient) {
     console.log("env file loaded",environment.oktaconfig);
     console.log("OKTA LOGIN_REDIRECT_URI",this.LOGIN_REDIRECT_URI);
-    debugger
     this.$isAuthenticated = new Observable((observer: Observer<boolean>) => {
       this.observer = observer;
       this.isAuthenticated().then(val => {
@@ -77,10 +76,6 @@ export class OktaAuthService {
   // }
 
   async logout(){
-    //debugger
-    // this.cookies.deleteAll("oktaAuth_cookie");
-    // this.cookies.deleteAll("okta-oauth-nonce");
-    // this.cookies.deleteAll("okta-oauth-state");
     localStorage.clear();
     sessionStorage.clear();
     this.deleteAllCookies();
