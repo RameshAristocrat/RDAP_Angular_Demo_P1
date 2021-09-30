@@ -1,10 +1,14 @@
+import { isNull } from "@igniteui/material-icons-extended";
+
 export const masteraddedit = [{
   master: [{
     channeltype: [{
       fieldprop: [{
         formcontrolname: "channeltypename",
+        field: "channeltype",
         label: "Channel Type",
         type: "text",
+        fieldtype: "string",
         api: "",
         required: "required",
         placeholder: "Enter Channel Type",
@@ -13,8 +17,10 @@ export const masteraddedit = [{
       },
       {
         formcontrolname: "channeltypedesc",
+        field: "description",
         label: "Description",
         type: "textarea",
+        fieldtype: "string",
         api: "",
         required: null,
         placeholder: "Enter Description",
@@ -23,8 +29,10 @@ export const masteraddedit = [{
       },
       {
         formcontrolname: "channeltypedesclong",
+        field: "descrLong",
         label: "Description Long",
         type: "textarea",
+        fieldtype: "string",
         api: "",
         required: null,
         placeholder: "Enter Description Long",
@@ -32,15 +40,29 @@ export const masteraddedit = [{
         pipe: ""
       }, {
         formcontrolname: "listsequencename",
+        field: "listseq",
         label: "List Sequence",
         type: "text",
+        fieldtype: "string",
         api: "",
-        required: "required",
+        required: null,
         placeholder: "Enter List Sequence",
         action: "",
         pipe: ""
       }
+      ], addApi: [
+        {
+          url: "channeltype",
+          method: "post",
+          data: null
+        }
       ],
+      editApi:[{
+        url: "channeltype",
+        method: "post",
+        data: null,
+        fieldprop:"channeltypeId"
+      }],
       api: [{
         api: "assets/config/grid-data.json",
         apidata: "",
@@ -51,8 +73,10 @@ export const masteraddedit = [{
     channel: [{
       fieldprop: [{
         formcontrolname: "channelname",
+        field: "channel",
         label: "Channel",
         type: "text",
+        fieldtype: "string",
         api: "",
         required: "required",
         placeholder: "Enter Channel",
@@ -61,8 +85,10 @@ export const masteraddedit = [{
       },
       {
         formcontrolname: "channeldesc",
+        field: "description",
         label: "Description",
         type: "textarea",
+        fieldtype: "string",
         api: "",
         required: null,
         placeholder: "Enter Description",
@@ -71,8 +97,10 @@ export const masteraddedit = [{
       },
       {
         formcontrolname: "channeldesclong",
+        field: "descrLong",
         label: "Description Long",
         type: "textarea",
+        fieldtype: "string",
         api: "",
         required: null,
         placeholder: "Enter Description Long",
@@ -80,15 +108,70 @@ export const masteraddedit = [{
         pipe: ""
       }, {
         formcontrolname: "listsequencename",
+        field: "listseq",
         label: "List Sequence",
         type: "text",
+        fieldtype: "string",
         api: "",
-        required: "required",
+        required: null,
         placeholder: "Enter List Sequence",
         action: "",
         pipe: ""
-      }
+      }, {
+        formcontrolname: "marketgrid",
+        field: "marketIds",
+        label: "Market",
+        type: "grid",
+        required: null,
+        ddldata:null,
+        api:"Market/ddl",
+        griddatafield:"marketGridData",
+        columndata:[{ field:"id", title:"ID", width: "150px", height: "10px", type: "string", pinned: true, hidden: true },
+        { field:"description", title:"Market", width: "150px", height: "10px", type: "string", pinned: true, hidden: false },
+        { field:"description2", title:"Description", width: "150px", height: "10px", type: "string", pinned: true, hidden: false }]
+      }, {
+        formcontrolname: "channeltypegrid",
+        field: "channeltypeIds",
+        label: "Channel Type",
+        type: "grid",
+        required: null,
+        ddldata:null,
+        api:"Channeltype/ddl",
+        griddatafield:"channeltypeGridData",
+        columndata:[{ field:"id", title:"ID", width: "150px", height: "10px", type: "string", pinned: true, hidden: true },
+        { field:"description", title:"Channel Type", width: "150px", height: "10px", type: "string", pinned: true, hidden: false },
+        { field:"description2", title:"Description", width: "150px", height: "10px", type: "string", pinned: true, hidden: false }]
+      }],addApi: [
+        {
+          url: "channel",
+          method: "post",
+          data: null
+        }
       ],
+      editApi:[{
+        url: "channel",
+        method: "post",
+        data: null,
+        fieldprop:"channelId"
+      }],
+      gridApi:[{
+        channeltype:{
+          url: "Channeltype/ddl",
+        method: "get",
+        data: null,
+        field:[{name:"id",flag:"true",type:"string"},
+        {name:"description",flag:"true",type:"string"},
+        {name:"description2",flag:"true",type:"string"}]
+        },
+        market:{
+          url: "market/ddl",
+        method: "get",
+        data: null,
+        field:[{name:"id",flag:"true",type:"string"},
+        {name:"description",flag:"true",type:"string"},
+        {name:"description2",flag:"true",type:"string"}]
+        }
+      }],
       api: [{
         api: "assets/config/grid-data.json",
         apidata: "",
@@ -99,8 +182,10 @@ export const masteraddedit = [{
     cabinets: [{
       fieldprop: [{
         formcontrolname: "cabinetsname",
+        field: "cabinet",
         label: "Cabinets",
         type: "text",
+        fieldtype: "string",
         api: "",
         required: "required",
         placeholder: "Enter Cabinets",
@@ -109,8 +194,10 @@ export const masteraddedit = [{
       },
       {
         formcontrolname: "cabinetsdesc",
+        field: "description",
         label: "Description",
         type: "textarea",
+        fieldtype: "string",
         api: "",
         required: null,
         placeholder: "Enter Description",
@@ -119,8 +206,10 @@ export const masteraddedit = [{
       },
       {
         formcontrolname: "cabinetsdesclong",
+        field: "descrLong",
         label: "Description Long",
         type: "textarea",
+        fieldtype: "string",
         api: "",
         required: null,
         placeholder: "Enter Description Long",
@@ -128,24 +217,45 @@ export const masteraddedit = [{
         pipe: ""
       }, {
         formcontrolname: "listsequencename",
+        field: "listseq",
         label: "List Sequence",
         type: "text",
+        fieldtype: "string",
         api: "",
-        required: "required",
+        required: null,
         placeholder: "Enter List Sequence",
         action: "",
         pipe: ""
-      }, {
-        formcontrolname: "activename",
-        label: "Active",
-        type: "text",
-        api: "",
-        required: "required",
-        placeholder: "Enter Active",
+      },{
+        formcontrolname: "chkactive",
+        field: "isactive",
+        label: "IsActive",
+        type: "checkbox",
+        fieldtype: "boolean",
+        api: "assets/config/pool.json",
+        apidata: "",
+        required: null,
+        placeholder: "Select Active",
         action: "",
-        pipe: ""
+        pipe: "",
+        bindname: "name",
+        clearable: false,
+        virtualScroll: true,
+        multiple: false
       }
+      ],addApi: [
+        {
+          url: "cabinet",
+          method: "post",
+          data: null
+        }
       ],
+      editApi:[{
+        url: "cabinet",
+        method: "post",
+        data: null,
+        fieldprop:"cabinetId"
+      }],
       api: [{
         api: "assets/config/grid-data.json",
         apidata: "",
@@ -156,18 +266,22 @@ export const masteraddedit = [{
     devefforttype: [{
       fieldprop: [{
         formcontrolname: "devefforttypename",
+        field: "devefforttype",
         label: "Dev Effort Type",
         type: "text",
+        fieldtype: "string",
         api: "",
-        required: "required",
+        required: null,
         placeholder: "Enter Dev Effort Type",
         action: "",
         pipe: ""
       },
       {
         formcontrolname: "devefforttypedesc",
+        field: "description",
         label: "Description",
         type: "textarea",
+        fieldtype: "string",
         api: "",
         required: null,
         placeholder: "Enter Description",
@@ -176,15 +290,45 @@ export const masteraddedit = [{
       },
       {
         formcontrolname: "devefforttypedesclong",
+        field: "descrLong",
         label: "Description Long",
         type: "textarea",
+        fieldtype: "string",
         api: "",
         required: null,
         placeholder: "Enter Description Long",
         action: "",
         pipe: ""
+      },{
+        formcontrolname: "chkactive",
+        field: "isactive",
+        label: "IsActive",
+        type: "checkbox",
+        fieldtype: "boolean",
+        api: "assets/config/pool.json",
+        apidata: "",
+        required: null,
+        placeholder: "Select Active",
+        action: "",
+        pipe: "",
+        bindname: "name",
+        clearable: false,
+        virtualScroll: true,
+        multiple: false
       }
+      ], addApi: [
+        {
+          url: "devefforttype",
+          method: "post",
+          data: null
+        }
       ],
+      editApi:[{
+        url: "devefforttype",
+        method: "post",
+        data: null,
+        fieldprop:"devefforttypeId"
+      }],
       api: [{
         api: "assets/config/grid-data.json",
         apidata: "",
@@ -195,18 +339,22 @@ export const masteraddedit = [{
     devcomplexity: [{
       fieldprop: [{
         formcontrolname: "devcomplexityname",
+        field: "devcomplexity",
         label: "Dev Complexity",
         type: "text",
+        fieldtype: "string",
         api: "",
-        required: "required",
+        required: null,
         placeholder: "Enter Dev Complexity",
         action: "",
         pipe: ""
       },
       {
         formcontrolname: "devcomplexitydesc",
+        field: "description",
         label: "Description",
         type: "textarea",
+        fieldtype: "string",
         api: "",
         required: null,
         placeholder: "Enter Description",
@@ -215,15 +363,45 @@ export const masteraddedit = [{
       },
       {
         formcontrolname: "devcomplexitydesclong",
+        field: "descrLong",
         label: "Description Long",
         type: "textarea",
+        fieldtype: "string",
         api: "",
         required: null,
         placeholder: "Enter Description Long",
         action: "",
         pipe: ""
+      },{
+        formcontrolname: "chkactive",
+        field: "isactive",
+        label: "IsActive",
+        type: "checkbox",
+        fieldtype: "boolean",
+        api: "assets/config/pool.json",
+        apidata: "",
+        required: null,
+        placeholder: "Select Active",
+        action: "",
+        pipe: "",
+        bindname: "name",
+        clearable: false,
+        virtualScroll: true,
+        multiple: false
       }
+      ], addApi: [
+        {
+          url: "devcomplexity",
+          method: "post",
+          data: null
+        }
       ],
+      editApi:[{
+        url: "devcomplexity",
+        method: "post",
+        data: null,
+        fieldprop:"devcomplexityId"
+      }],
       api: [{
         api: "assets/config/grid-data.json",
         apidata: "",
@@ -234,8 +412,10 @@ export const masteraddedit = [{
     gravity: [{
       fieldprop: [{
         formcontrolname: "gravityname",
+        field: "gravity",
         label: "Gravity",
         type: "text",
+        fieldtype: "string",
         api: "",
         required: "required",
         placeholder: "Enter Gravity",
@@ -244,8 +424,10 @@ export const masteraddedit = [{
       },
       {
         formcontrolname: "gravitydesc",
+        field:"description",
         label: "Description",
         type: "textarea",
+        fieldtype: "string",
         api: "",
         required: null,
         placeholder: "Enter Description",
@@ -254,15 +436,56 @@ export const masteraddedit = [{
       },
       {
         formcontrolname: "gravitydesclong",
+        field:"descrLong",
         label: "Description Long",
         type: "textarea",
+        fieldtype: "string",
         api: "",
         required: null,
         placeholder: "Enter Description Long",
         action: "",
         pipe: ""
+      }, {
+        formcontrolname: "gravitylistseq",
+        field: "listseq",
+        label: "List Sequence",
+        fieldtype:"number",
+        type: "text",
+        api: "",
+        required: null,
+        placeholder: "Enter List Sequence",
+        action: "",
+        pipe: ""
+      },{
+        formcontrolname: "gravityisactive",
+        field: "isactive",
+        label: "IsActive",
+        type: "checkbox",
+        fieldtype:"boolean",
+        api: "assets/config/pool.json",
+        apidata: "",
+        required: null,
+        placeholder: "Select Active",
+        action: "",
+        pipe: "",
+        bindname: "name",
+        clearable: false,
+        virtualScroll: true,
+        multiple: false
       }
+      ], addApi: [
+        {
+          url: "gravity",
+          method: "post",
+          data: null
+        }
       ],
+      editApi:[{
+        url: "gravity",
+        method: "post",
+        data: null,
+        fieldprop:"gravityId"
+      }],
       api: [{
         api: "assets/config/grid-data.json",
         apidata: "",
@@ -302,10 +525,12 @@ export const masteraddedit = [{
         pipe: ""
       }, {
         formcontrolname: "listsequencename",
+        field: "listseq",
         label: "List Sequence",
         type: "text",
+        fieldtype: "string",
         api: "",
-        required: "required",
+        required: null,
         placeholder: "Enter List Sequence",
         action: "",
         pipe: ""
@@ -469,7 +694,7 @@ export const masteraddedit = [{
         type: "text",
         fieldtype: "number",
         api: "",
-        required: "required",
+        required: null,
         placeholder: "Enter List Sequence",
         action: "",
         pipe: ""
@@ -481,7 +706,7 @@ export const masteraddedit = [{
         type: "text",
         fieldtype: "number",
         api: "",
-        required: "required",
+        required: null,
         placeholder: "Enter Avg Apprv Delay",
         action: "",
         pipe: ""
@@ -494,7 +719,7 @@ export const masteraddedit = [{
         fieldtype: "number",
         api: "DevType2/ddl",
         apidata: "",
-        required: "required",
+        required: null,
         placeholder: "Select Dev Type",
         action: "",
         pipe: "",
@@ -527,7 +752,7 @@ export const masteraddedit = [{
         type: "text",
         fieldtype: "number",
         api: "",
-        required: "required",
+        required: null,
         placeholder: "Enter Add Dev Effort Days",
         action: "",
         pipe: ""
@@ -539,7 +764,7 @@ export const masteraddedit = [{
         type: "text",
         fieldtype: "number",
         api: "",
-        required: "required",
+        required: null,
         placeholder: "Enter Phasing Plan Item",
         action: "",
         pipe: ""
@@ -745,14 +970,15 @@ export const masteraddedit = [{
           action: "",
           pipe: ""
         }]
-      },
-      {
+      },{
         formcontrolname: "chkactive",
-        label: "Active",
+        field: "isactive",
+        label: "IsActive",
         type: "checkbox",
+        fieldtype: "boolean",
         api: "assets/config/pool.json",
         apidata: "",
-        required: "required",
+        required: null,
         placeholder: "Select Active",
         action: "",
         pipe: "",
@@ -762,10 +988,12 @@ export const masteraddedit = [{
         multiple: false
       }, {
         formcontrolname: "listsequencename",
+        field: "listseq",
         label: "List Sequence",
         type: "text",
+        fieldtype: "string",
         api: "",
-        required: "required",
+        required: null,
         placeholder: "Enter List Sequence",
         action: "",
         pipe: ""
@@ -838,10 +1066,12 @@ export const masteraddedit = [{
         multiple: false
       }, {
         formcontrolname: "listsequencename",
+        field: "listseq",
         label: "List Sequence",
         type: "text",
+        fieldtype: "string",
         api: "",
-        required: "required",
+        required: null,
         placeholder: "Enter List Sequence",
         action: "",
         pipe: ""
@@ -886,10 +1116,12 @@ export const masteraddedit = [{
         pipe: ""
       }, {
         formcontrolname: "listsequencename",
+        field: "listseq",
         label: "List Sequence",
         type: "text",
+        fieldtype: "string",
         api: "",
-        required: "required",
+        required: null,
         placeholder: "Enter List Sequence",
         action: "",
         pipe: ""
@@ -905,8 +1137,10 @@ export const masteraddedit = [{
     status1: [{
       fieldprop: [{
         formcontrolname: "status1name",
+        field: "status1",
         label: "Status1",
         type: "text",
+        fieldtype: "string",
         api: "",
         required: null,
         placeholder: "Enter Status1",
@@ -915,8 +1149,10 @@ export const masteraddedit = [{
       },
       {
         formcontrolname: "status1desc",
+        field: "description",
         label: "Description",
-        type: "textarea",
+        type: "text",
+        fieldtype: "string",
         api: "",
         required: null,
         placeholder: "Enter Description",
@@ -925,24 +1161,69 @@ export const masteraddedit = [{
       },
       {
         formcontrolname: "status1desclong",
-        label: "Description Long",
-        type: "textarea",
+        field: "descrLong",
+        label: "Status1",
+        type: "text",
+        fieldtype: "string",
         api: "",
         required: null,
         placeholder: "Enter Description Long",
         action: "",
         pipe: ""
+      },
+      {
+        formcontrolname: "status1includeplan",
+        field: "includeplan",
+        label: "Include Plan",
+        type: "text",
+        fieldtype: "string",
+        api: "",
+        required: null,
+        placeholder: "Enter Include Plan",
+        action: "",
+        pipe: ""
       }, {
         formcontrolname: "listsequencename",
+        field: "listseq",
         label: "List Sequence",
         type: "text",
+        fieldtype: "string",
         api: "",
-        required: "required",
+        required: null,
         placeholder: "Enter List Sequence",
         action: "",
         pipe: ""
+      },{
+        formcontrolname: "chkactive",
+        field: "isactive",
+        label: "IsActive",
+        type: "checkbox",
+        fieldtype: "boolean",
+        api: "assets/config/pool.json",
+        apidata: "",
+        required: null,
+        placeholder: "Select Active",
+        action: "",
+        pipe: "",
+        bindname: "name",
+        clearable: false,
+        virtualScroll: true,
+        multiple: false
       }
       ],
+      addApi: [
+        {
+          url: "status1",
+          method: "post",
+          data: null
+        }
+      ],
+      editApi:[{
+        url: "status1",
+        method: "post",
+        data: null,
+        fieldprop:"status1Id"
+      }],
       api: [{
         api: "assets/config/grid-data.json",
         apidata: "",
@@ -953,8 +1234,10 @@ export const masteraddedit = [{
     status2: [{
       fieldprop: [{
         formcontrolname: "status2name",
+        field: "status2",
         label: "Status2",
         type: "text",
+        fieldtype: "string",
         api: "",
         required: null,
         placeholder: "Enter Status2",
@@ -963,8 +1246,10 @@ export const masteraddedit = [{
       },
       {
         formcontrolname: "status2desc",
+        field: "description",
         label: "Description",
         type: "textarea",
+        fieldtype: "string",
         api: "",
         required: null,
         placeholder: "Enter Description",
@@ -973,21 +1258,54 @@ export const masteraddedit = [{
       },
       {
         formcontrolname: "status2desclong",
+        field: "descrLong",
         label: "Description Long",
         type: "textarea",
+        fieldtype: "string",
         api: "",
         required: null,
         placeholder: "Enter Description Long",
         action: "",
         pipe: ""
-      }, {
+      },
+      {
         formcontrolname: "status1",
+        field: "status1Id",
         label: "Status1",
         type: "select",
-        api: "assets/config/pool.json",
+        fieldtype: "number",
+        api: "status1/ddl",
         apidata: "",
         required: "required",
         placeholder: "Select Status1",
+        action: "",
+        pipe: "",
+        bindname: "description",
+        bindvalue:"id",
+        clearable: false,
+        virtualScroll: true,
+        multiple: false
+      },{
+        formcontrolname: "listsequencename",
+        field: "listseq",
+        label: "List Sequence",
+        type: "text",
+        fieldtype: "string",
+        api: "",
+        required: null,
+        placeholder: "Enter List Sequence",
+        action: "",
+        pipe: ""
+      },{
+        formcontrolname: "chkactive",
+        field: "isactive",
+        label: "IsActive",
+        type: "checkbox",
+        fieldtype: "boolean",
+        api: "assets/config/pool.json",
+        apidata: "",
+        required: null,
+        placeholder: "Select Active",
         action: "",
         pipe: "",
         bindname: "name",
@@ -996,6 +1314,19 @@ export const masteraddedit = [{
         multiple: false
       }
       ],
+      addApi: [
+        {
+          url: "status2",
+          method: "post",
+          data: null
+        }
+      ],
+      editApi:[{
+        url: "status2",
+        method: "post",
+        data: null,
+        fieldprop:"status2Id"
+      }],
       api: [{
         api: "assets/config/grid-data.json",
         apidata: "",
@@ -1006,8 +1337,10 @@ export const masteraddedit = [{
     status3: [{
       fieldprop: [{
         formcontrolname: "status3name",
+        field: "status3",
         label: "Status3",
         type: "text",
+        fieldtype: "string",
         api: "",
         required: null,
         placeholder: "Enter Status3",
@@ -1016,8 +1349,10 @@ export const masteraddedit = [{
       },
       {
         formcontrolname: "status3desc",
+        field: "description",
         label: "Description",
         type: "textarea",
+        fieldtype: "string",
         api: "",
         required: null,
         placeholder: "Enter Description",
@@ -1026,21 +1361,54 @@ export const masteraddedit = [{
       },
       {
         formcontrolname: "status3desclong",
+        field: "descrLong",
         label: "Description Long",
         type: "textarea",
+        fieldtype: "string",
         api: "",
         required: null,
         placeholder: "Enter Description Long",
         action: "",
         pipe: ""
-      }, {
+      },
+      {
         formcontrolname: "status2",
+        field: "status2Id",
         label: "Status2",
         type: "select",
-        api: "assets/config/pool.json",
+        fieldtype: "number",
+        api: "status2/ddl",
         apidata: "",
         required: "required",
         placeholder: "Select Status2",
+        action: "",
+        pipe: "",
+        bindname: "description",
+        bindvalue:"id",
+        clearable: false,
+        virtualScroll: true,
+        multiple: false
+      },{
+        formcontrolname: "listsequencename",
+        field: "listseq",
+        label: "List Sequence",
+        type: "text",
+        fieldtype: "string",
+        api: "",
+        required: null,
+        placeholder: "Enter List Sequence",
+        action: "",
+        pipe: ""
+      },{
+        formcontrolname: "chkactive",
+        field: "isactive",
+        label: "IsActive",
+        type: "checkbox",
+        fieldtype: "boolean",
+        api: "assets/config/pool.json",
+        apidata: "",
+        required: null,
+        placeholder: "Select Active",
         action: "",
         pipe: "",
         bindname: "name",
@@ -1049,6 +1417,19 @@ export const masteraddedit = [{
         multiple: false
       }
       ],
+      addApi: [
+        {
+          url: "status3",
+          method: "post",
+          data: null
+        }
+      ],
+      editApi:[{
+        url: "status3",
+        method: "post",
+        data: null,
+        fieldprop:"status3Id"
+      }],
       api: [{
         api: "assets/config/grid-data.json",
         apidata: "",
@@ -1059,8 +1440,10 @@ export const masteraddedit = [{
     prodcat1: [{
       fieldprop: [{
         formcontrolname: "prodcat1name",
+        field: "prodcat1",
         label: "Prodcat1",
         type: "text",
+        fieldtype: "string",
         api: "",
         required: "required",
         placeholder: "Enter Channel Type",
@@ -1069,8 +1452,10 @@ export const masteraddedit = [{
       },
       {
         formcontrolname: "prodcat1desc",
+        field: "description",
         label: "Description",
-        type: "textarea",
+        type: "text",
+        fieldtype: "string",
         api: "",
         required: null,
         placeholder: "Enter Description",
@@ -1079,8 +1464,10 @@ export const masteraddedit = [{
       },
       {
         formcontrolname: "prodcat1desclong",
+        field: "descrLong",
         label: "Description Long",
         type: "textarea",
+        fieldtype: "string",
         api: "",
         required: null,
         placeholder: "Enter Description Long",
@@ -1088,15 +1475,45 @@ export const masteraddedit = [{
         pipe: ""
       }, {
         formcontrolname: "listsequencename",
+        field: "listseq",
         label: "List Sequence",
         type: "text",
+        fieldtype: "string",
         api: "",
-        required: "required",
+        required: null,
         placeholder: "Enter List Sequence",
         action: "",
         pipe: ""
+      },{
+        formcontrolname: "chkactive",
+        field: "isactive",
+        label: "IsActive",
+        type: "checkbox",
+        fieldtype: "boolean",
+        api: "assets/config/pool.json",
+        apidata: "",
+        required: null,
+        placeholder: "Select Active",
+        action: "",
+        pipe: "",
+        bindname: "name",
+        clearable: false,
+        virtualScroll: true,
+        multiple: false
       }
+      ],addApi: [
+        {
+          url: "prodcat1",
+          method: "post",
+          data: null
+        }
       ],
+      editApi:[{
+        url: "prodcat1",
+        method: "post",
+        data: null,
+        fieldprop:"prodcat1Id"
+      }],
       api: [{
         api: "assets/config/grid-data.json",
         apidata: "",
@@ -1107,8 +1524,10 @@ export const masteraddedit = [{
     prodcat2: [{
       fieldprop: [{
         formcontrolname: "prodcat2name",
+        field: "prodcat2",
         label: "Prodcat2",
         type: "text",
+        fieldtype: "string",
         api: "",
         required: null,
         placeholder: "Enter Prodcat2",
@@ -1117,8 +1536,10 @@ export const masteraddedit = [{
       },
       {
         formcontrolname: "prodcat2desc",
+        field: "description",
         label: "Description",
         type: "textarea",
+        fieldtype: "string",
         api: "",
         required: null,
         placeholder: "Enter Description",
@@ -1127,38 +1548,75 @@ export const masteraddedit = [{
       },
       {
         formcontrolname: "prodcat2desclong",
+        field: "descrLong",
         label: "Description Long",
         type: "textarea",
+        fieldtype: "string",
         api: "",
         required: null,
         placeholder: "Enter Description Long",
         action: "",
         pipe: ""
-      }, {
+      },
+      {
         formcontrolname: "prodcat1",
+        field: "prodcat1Id",
         label: "Prodcat1",
         type: "select",
+        fieldtype: "number",
+        api: "prodcat1/ddl",
+        apidata: "",
+        required: "required",
+        placeholder: "Select Prodcat1",
+        action: "",
+        pipe: "",
+        bindname: "description",
+        bindvalue:"id",
+        clearable: false,
+        virtualScroll: true,
+        multiple: false
+      },{
+        formcontrolname: "listsequencename",
+        field: "listseq",
+        label: "List Sequence",
+        type: "text",
+        fieldtype: "string",
+        api: "",
+        required: null,
+        placeholder: "Enter List Sequence",
+        action: "",
+        pipe: ""
+      },{
+        formcontrolname: "chkactive",
+        field: "isactive",
+        label: "IsActive",
+        type: "checkbox",
+        fieldtype: "boolean",
         api: "assets/config/pool.json",
         apidata: "",
         required: null,
-        placeholder: "Select Prodcat1",
+        placeholder: "Select Active",
         action: "",
         pipe: "",
         bindname: "name",
         clearable: false,
         virtualScroll: true,
         multiple: false
-      }, {
-        formcontrolname: "listsequencename",
-        label: "List Sequence",
-        type: "text",
-        api: "",
-        required: "required",
-        placeholder: "Enter List Sequence",
-        action: "",
-        pipe: ""
       }
       ],
+      addApi: [
+        {
+          url: "prodcat2",
+          method: "post",
+          data: null
+        }
+      ],
+      editApi:[{
+        url: "prodcat2",
+        method: "post",
+        data: null,
+        fieldprop:"prodcat2Id"
+      }],
       api: [{
         api: "assets/config/grid-data.json",
         apidata: "",
@@ -1169,8 +1627,10 @@ export const masteraddedit = [{
     prodcat3: [{
       fieldprop: [{
         formcontrolname: "prodcat3name",
+        field: "prodcat3",
         label: "Prodcat3",
         type: "text",
+        fieldtype: "string",
         api: "",
         required: null,
         placeholder: "Enter Prodcat3",
@@ -1179,8 +1639,10 @@ export const masteraddedit = [{
       },
       {
         formcontrolname: "prodcat3desc",
+        field: "description",
         label: "Description",
         type: "textarea",
+        fieldtype: "string",
         api: "",
         required: null,
         placeholder: "Enter Description",
@@ -1189,66 +1651,111 @@ export const masteraddedit = [{
       },
       {
         formcontrolname: "prodcat3desclong",
+        field: "descrLong",
         label: "Description Long",
         type: "textarea",
+        fieldtype: "string",
         api: "",
         required: null,
         placeholder: "Enter Description Long",
         action: "",
         pipe: ""
-      }, {
+      },
+      {
         formcontrolname: "prodcat2",
+        field: "prodcat2Id",
         label: "Prodcat2",
         type: "select",
-        api: "assets/config/pool.json",
+        fieldtype: "number",
+        api: "prodcat2/ddl",
         apidata: "",
-        required: null,
+        required: "required",
         placeholder: "Select Prodcat2",
         action: "",
         pipe: "",
-        bindname: "name",
+        bindname: "description",
+        bindvalue:"id",
         clearable: false,
         virtualScroll: true,
         multiple: false
-      }, {
+      },
+      {
         formcontrolname: "devefforttype",
-        label: "Dev Effort Type",
+        field: "devefforttypeId",
+        label: "Dev Efforts Type",
         type: "select",
-        api: "assets/config/pool.json",
+        fieldtype: "number",
+        api: "devefforttype/ddl",
         apidata: "",
-        required: null,
-        placeholder: "Select Dev Effort Type",
+        required: "required",
+        placeholder: "Select Dev Efforts Type",
         action: "",
         pipe: "",
-        bindname: "name",
+        bindname: "description",
+        bindvalue:"id",
         clearable: false,
         virtualScroll: true,
         multiple: false
-      }, {
+      },
+      {
         formcontrolname: "devcomplexity",
-        label: "Dev Complexity",
+        field: "devcomplexityId",
+        label: "Devcomplexity",
         type: "select",
-        api: "assets/config/pool.json",
+        fieldtype: "number",
+        api: "devcomplexity/ddl",
         apidata: "",
-        required: null,
-        placeholder: "Select Dev Complexity",
+        required: "required",
+        placeholder: "Select Devcomplexity",
         action: "",
         pipe: "",
-        bindname: "name",
+        bindname: "description",
+        bindvalue:"id",
         clearable: false,
         virtualScroll: true,
         multiple: false
-      }, {
+      },{
         formcontrolname: "listsequencename",
+        field: "listseq",
         label: "List Sequence",
         type: "text",
+        fieldtype: "string",
         api: "",
-        required: "required",
+        required: null,
         placeholder: "Enter List Sequence",
         action: "",
         pipe: ""
+      },{
+        formcontrolname: "chkactive",
+        field: "isactive",
+        label: "IsActive",
+        type: "checkbox",
+        fieldtype: "boolean",
+        api: "assets/config/pool.json",
+        apidata: "",
+        required: null,
+        placeholder: "Select Active",
+        action: "",
+        pipe: "",
+        bindname: "name",
+        clearable: false,
+        virtualScroll: true,
+        multiple: false
       }
       ],
+      addApi: [
+        {
+          url: "prodcat3",
+          method: "post",
+          data: null
+        }
+      ],
+      editApi:[{
+        url: "prodcat3",
+        method: "post",
+        data: null,
+        fieldprop:"prodcat3Id"
+      }],
       api: [{
         api: "assets/config/grid-data.json",
         apidata: "",

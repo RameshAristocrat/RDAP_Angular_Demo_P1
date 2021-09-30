@@ -85,11 +85,14 @@ export const breadcrumb=[{
       label: "Prodcat1",
       url: "/home/config/setuptable/prodcat1/search"
     }, {
-      label: "Prodcat1",
+      label: "Prodcat1 >> Add New Record",
       url: "/home/config/setuptable/prodcat1/add"
     }, {
       label: "Prodcat1",
       url: "/home/config/setuptable/prodcat1/edit"
+    }, {
+      label: "Prodcat1 >> Edit/Delete",
+      url: "/home/config/setuptable/prodcat1/view"
     }]
   },{
     page: "prodcat2",
@@ -97,11 +100,14 @@ export const breadcrumb=[{
       label: "Prodcat2",
       url: "/home/config/setuptable/prodcat2/search"
     }, {
-      label: "Prodcat2",
+      label: "Prodcat2 >> Add New Record",
       url: "/home/config/setuptable/prodcat2/add"
     }, {
       label: "Prodcat2",
       url: "/home/config/setuptable/prodcat2/edit"
+    }, {
+      label: "Prodcat2 >> Edit/Delete",
+      url: "/home/config/setuptable/prodcat2/view"
     }]
   },{
     page: "prodcat3",
@@ -109,11 +115,14 @@ export const breadcrumb=[{
       label: "Prodcat3",
       url: "/home/config/setuptable/prodcat3/search"
     }, {
-      label: "Prodcat3",
+      label: "Prodcat3 >> Add New Record",
       url: "/home/config/setuptable/prodcat3/add"
     }, {
       label: "Prodcat3",
       url: "/home/config/setuptable/prodcat3/edit"
+    }, {
+      label: "Prodcat3 >> Edit/Delete",
+      url: "/home/config/setuptable/prodcat3/view"
     }]
   }, {
     page: "channeltype",
@@ -121,12 +130,15 @@ export const breadcrumb=[{
       label: "Channel Type",
       url: "/home/config/setuptable/channeltype/search"
     }, {
-      label: "Channel Type",
+      label: "Channel Type >> Add",
       url: "/home/config/setuptable/channeltype/add"
     }, {
       label: "Channel Type",
       url: "/home/config/setuptable/channeltype/edit"
-    }]
+    }, {
+        label: "Channel Type >> Edit/Delete",
+        url: "/home/config/setuptable/channeltype/view"
+      }]
   }, {
     page: "channel",
     details: [{
@@ -138,6 +150,9 @@ export const breadcrumb=[{
     }, {
       label: "Channel",
       url: "/home/config/setuptable/channel/edit"
+    }, {
+      label: "Channel",
+      url: "/home/config/setuptable/channel/view"
     }]
   }, {
     page: "devefforttype",
@@ -150,7 +165,10 @@ export const breadcrumb=[{
     }, {
       label: "Dev Effort Type",
       url: "/home/config/setuptable/devefforttype/edit"
-    }]
+    }, {
+        label: "Dev Effort Type >> Edit/Delete",
+        url: "/home/config/setuptable/devefforttype/view"
+      }]
   }, {
     page: "devcomplexity",
     details: [{
@@ -162,7 +180,10 @@ export const breadcrumb=[{
     }, {
       label: "Dev Complexity",
       url: "/home/config/setuptable/devcomplexity/edit"
-    }]
+    }, {
+        label: "Dev Complexity >> Edit/Delete",
+        url: "/home/config/setuptable/devcomplexity/view"
+      }]
   },{
     page: "cabinets",
     details: [{
@@ -174,6 +195,9 @@ export const breadcrumb=[{
     }, {
       label: "Cabinets",
       url: "/home/config/setuptable/cabinets/edit"
+    }, {
+      label: "Cabinets",
+      url: "/home/config/setuptable/cabinets/view"
     }]
   },{
     page: "gravity",
@@ -186,6 +210,9 @@ export const breadcrumb=[{
     }, {
       label: "Gravity",
       url: "/home/config/setuptable/gravity/edit"
+    }, {
+      label: "Gravity",
+      url: "/home/config/setuptable/gravity/view"
     }]
   },{
     page: "devtype1",
@@ -244,36 +271,45 @@ export const breadcrumb=[{
       label: "Status1",
       url: "/home/config/setuptable/status1/search"
     }, {
-      label: "Status1",
+      label: "Status1 >> Add New Record",
       url: "/home/config/setuptable/status1/add"
     }, {
       label: "Status1",
       url: "/home/config/setuptable/status1/edit"
-    }]
+    }, {
+        label: "Status1 >> Edit/Delete",
+        url: "/home/config/setuptable/status1/view"
+      }]
   },{
     page: "status2",
     details: [{
       label: "Status2",
       url: "/home/config/setuptable/status2/search"
     }, {
-      label: "Status2",
+      label: "Status2 >> Add New Record",
       url: "/home/config/setuptable/status2/add"
     }, {
       label: "Status2",
       url: "/home/config/setuptable/status2/edit"
-    }]
+    }, {
+        label: "Status2 >> Edit/Delete",
+        url: "/home/config/setuptable/status2/view"
+      }]
   },{
     page: "status3",
     details: [{
       label: "Status3",
       url: "/home/config/setuptable/status3/search"
     }, {
-      label: "Status3",
+      label: "Status3 >> Add New Record",
       url: "/home/config/setuptable/status3/add"
     }, {
       label: "Status3",
       url: "/home/config/setuptable/status3/edit"
-    }]
+    }, {
+        label: "Status3 >> Edit/Delete",
+        url: "/home/config/setuptable/status3/view"
+      }]
   },{
     page: "expinreq",
     details: [{
@@ -285,6 +321,24 @@ export const breadcrumb=[{
     details: [{
       label: "Extra PIN Request",
       url: "/home/expinreq/pinrequest"
+    }]
+  },{
+    page: "transaction",
+    details: [{
+      label: "Transactions",
+      url: "/home/dashboard"
+    }]
+  },{
+    page: "managepin",
+    details: [{
+      label: "Manage PIN",
+      url: "/home/dashboard"
+    }]
+  },{
+    page: "extrapinrequest",
+    details: [{
+      label: "Extra PIN Request",
+      url: "/home/transaction/managepin/extrapinrequest"
     }]
   }]
   

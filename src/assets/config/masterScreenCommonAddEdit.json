@@ -234,8 +234,10 @@
     "gravity": [{
       "fieldprop": [{
           "formcontrolname": "gravityname",
+          "field":"gravity",
           "label": "Gravity",
           "type": "text",
+          "fieldtype":"string",
           "api": "",
           "required": "required",
           "placeholder": "Enter Gravity",
@@ -244,8 +246,10 @@
         },
         {
           "formcontrolname": "gravitydesc",
+          "field":"description",
           "label": "Description",
           "type": "textarea",
+          "fieldtype":"string",
           "api": "",
           "required": null,
           "placeholder": "Enter Description",
@@ -254,11 +258,25 @@
         },
         {
           "formcontrolname": "gravitydesclong",
+          "field":"descrlong",
           "label": "Description Long",
           "type": "textarea",
+          "fieldtype":"string",
           "api": "",
           "required": null,
           "placeholder": "Enter Description Long",
+          "action": "",
+          "pipe": ""
+        },
+        {
+          "formcontrolname": "gravitylistseq",
+          "field":"listseq",
+          "label": "List Sequence",
+          "type": "textarea",
+          "fieldtype":"string",
+          "api": "",
+          "required": null,
+          "placeholder": "Enter List Sqquence",
           "action": "",
           "pipe": ""
         }

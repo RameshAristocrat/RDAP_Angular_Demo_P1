@@ -38,7 +38,7 @@ export const configJsonData = [
               ],
               searchApi: [
                 {
-                  url:"Studio/search",
+                  url:"studio/search",
                   method:"post",
                   data: null
                 }
@@ -275,23 +275,40 @@ export const configJsonData = [
               fieldprop: [
                 {
                   formcontrolname:"gravityname",
+                  field:"Gravity",
                   label:"Gravity",
                   type:"text",
                   api:"",
-                  required:"required",
+                  required:false,
                   placeholder:"Enter Gravity",
                   action:"",
-                  pipe:""
+                  pipe:"",
+                  searchcriteria:
+                  {
+                    formcontrolname:"gravitynamesrccriteria"
+                  }
                 },
                 {
                   formcontrolname:"gravitydesc",
+                  field:"Description",
                   label:"Description",
                   type:"textarea",
                   api:"",
-                  required: null,
+                  required: false,
                   placeholder:"Enter Description",
                   action:"",
-                  pipe:""
+                  pipe:"",
+                  searchcriteria:
+                  {
+                    formcontrolname:"gravitydescsrccriteria"
+                  }
+                }
+              ],
+              searchApi: [
+                {
+                  url:"gravity/search",
+                  method:"post",
+                  data: null
                 }
               ],
               api: [
@@ -383,6 +400,13 @@ export const configJsonData = [
                   pipe:""
                 }
               ],
+              searchApi: [
+                {
+                  url:"pool/search",
+                  method:"post",
+                  data: null
+                }
+              ],
               api: [
                 {
                   api:"assets/config/grid-data.json",
@@ -417,6 +441,13 @@ export const configJsonData = [
                   placeholder:"Enter Description",
                   action:"",
                   pipe:""
+                }
+              ],
+              searchApi: [
+                {
+                  url:"devtype1/search",
+                  method:"post",
+                  data: null
                 }
               ],
               api: [
@@ -470,6 +501,13 @@ export const configJsonData = [
                   multiple: false
                 }
               ],
+              searchApi: [
+                {
+                  url:"devtype2/search",
+                  method:"post",
+                  data: null
+                }
+              ],
               api: [
                 {
                   api:"assets/config/grid-data.json",
@@ -490,10 +528,14 @@ export const configJsonData = [
                   label:"Channel Type",
                   type:"text",
                   api:"",
-                  required:"required",
+                  required:null,
                   placeholder:"Enter Channel Type",
                   action:"",
-                  pipe:""
+                  pipe:"",
+                  searchcriteria:
+                  {
+                    formcontrolname:"channeltypenamesrccriteria"
+                  }
                 },
                 {
                   formcontrolname:"channeltypedesc",
@@ -503,7 +545,18 @@ export const configJsonData = [
                   required: null,
                   placeholder:"Enter Description",
                   action:"",
-                  pipe:""
+                  pipe:"",
+                  searchcriteria:
+                  {
+                    formcontrolname:"channeltypedescsrccriteria"
+                  }
+                }
+              ],
+              searchApi: [
+                {
+                  url:"channeltype/search",
+                  method:"post",
+                  data: null
                 }
               ],
               api: [
@@ -526,10 +579,14 @@ export const configJsonData = [
                   label:"Cabinets",
                   type:"text",
                   api:"",
-                  required:"required",
+                  required:null,
                   placeholder:"Enter Cabinets",
                   action:"",
-                  pipe:""
+                  pipe:"",
+                  searchcriteria:
+                  {
+                    formcontrolname:"cabinetsnamesrccriteria"
+                  }
                 },
                 {
                   formcontrolname:"cabinetsdesc",
@@ -539,7 +596,18 @@ export const configJsonData = [
                   required: null,
                   placeholder:"Enter Description",
                   action:"",
-                  pipe:""
+                  pipe:"",
+                  searchcriteria:
+                  {
+                    formcontrolname:"cabinetsdescsrccriteria"
+                  }
+                }
+              ],
+              searchApi: [
+                {
+                  url:"Cabinet/search",
+                  method:"post",
+                  data: null
                 }
               ],
               api: [
@@ -559,23 +627,40 @@ export const configJsonData = [
               fieldprop: [
                 {
                   formcontrolname:"channelname",
+                  field:"channel",
                   label:"Channel",
                   type:"text",
                   api:"",
-                  required:"required",
+                  required:null,
                   placeholder:"Enter Channel",
                   action:"",
-                  pipe:""
+                  pipe:"",
+                  searchcriteria:
+                  {
+                    formcontrolname:"channelsrccriteria"
+                  }
                 },
                 {
                   formcontrolname:"channeldesc",
+                  field:"description",
                   label:"Description",
                   type:"textarea",
                   api:"",
                   required: null,
                   placeholder:"Enter Description",
                   action:"",
-                  pipe:""
+                  pipe:"",
+                  searchcriteria:
+                  {
+                    formcontrolname:"channeldescsrccriteria"
+                  }
+                }
+              ],
+              searchApi: [
+                {
+                  url:"channel/search",
+                  method:"post",
+                  data: null
                 }
               ],
               api: [
@@ -598,10 +683,14 @@ export const configJsonData = [
                   label:"Dev Effort Type",
                   type:"text",
                   api:"",
-                  required:"required",
+                  required:null,
                   placeholder:"Enter Dev Effort Type",
                   action:"",
-                  pipe:""
+                  pipe:"",
+                  searchcriteria:
+                  {
+                    formcontrolname:"devefforttypenamesrccriteria"
+                  }
                 },
                 {
                   formcontrolname:"devefforttypedesc",
@@ -611,7 +700,18 @@ export const configJsonData = [
                   required: null,
                   placeholder:"Enter Description",
                   action:"",
-                  pipe:""
+                  pipe:"",
+                  searchcriteria:
+                  {
+                    formcontrolname:"devefforttypedescsrccriteria"
+                  }
+                }
+              ],
+              searchApi: [
+                {
+                  url:"devefforttype/search",
+                  method:"post",
+                  data: null
                 }
               ],
               api: [
@@ -634,10 +734,14 @@ export const configJsonData = [
                   label:"Dev Complexity",
                   type:"text",
                   api:"",
-                  required:"required",
+                  required:null,
                   placeholder:"Enter Dev Complexity",
                   action:"",
-                  pipe:""
+                  pipe:"",
+                  searchcriteria:
+                  {
+                    formcontrolname:"devcomplexitynamesrccriteria"
+                  }
                 },
                 {
                   formcontrolname:"devcomplexitydesc",
@@ -647,7 +751,18 @@ export const configJsonData = [
                   required: null,
                   placeholder:"Enter Description",
                   action:"",
-                  pipe:""
+                  pipe:"",
+                  searchcriteria:
+                  {
+                    formcontrolname:"devcomplexitydescsrccriteria"
+                  }
+                }
+              ],
+              searchApi: [
+                {
+                  url:"devcomplexity/search",
+                  method:"post",
+                  data: null
                 }
               ],
               api: [
@@ -686,6 +801,13 @@ export const configJsonData = [
                   pipe:""
                 }
               ],
+              searchApi: [
+                {
+                  url:"quarter/search",
+                  method:"post",
+                  data: null
+                }
+              ],
               api: [
                 {
                   api:"assets/config/grid-data.json",
@@ -703,23 +825,40 @@ export const configJsonData = [
               fieldprop: [
                 {
                   formcontrolname:"status1name",
+                  field:"status1",
                   label:"Status1",
                   type:"text",
                   api:"",
                   required:"null",
                   placeholder:"Enter Status1",
                   action:"",
-                  pipe:""
+                  pipe:"",
+                  searchcriteria:
+                  {
+                    formcontrolname:"status1namesrccriteria"
+                  }
                 },
                 {
                   formcontrolname:"status1desc",
+                  field:"description",
                   label:"Description",
                   type:"textarea",
                   api:"",
                   required: false,
                   placeholder:"Enter Description",
                   action:"",
-                  pipe:""
+                  pipe:"",
+                  searchcriteria:
+                  {
+                    formcontrolname:"status1descsrccriteria"
+                  }
+                }
+              ],
+              searchApi: [
+                {
+                  url:"status1/search",
+                  method:"post",
+                  data: null
                 }
               ],
               api: [
@@ -739,38 +878,59 @@ export const configJsonData = [
               fieldprop: [
                 {
                   formcontrolname:"status2name",
+                  field:"status2",
                   label:"Status2",
                   type:"text",
                   api:"",
                   required: null,
                   placeholder:"Enter Status2",
                   action:"",
-                  pipe:""
+                  pipe:"",
+                  searchcriteria:
+                  {
+                    formcontrolname:"status2namesrccriteria"
+                  }
                 },
                 {
                   formcontrolname:"status2desc",
+                  field:"description",
                   label:"Description",
                   type:"textarea",
                   api:"",
                   required: null,
                   placeholder:"Enter Description",
                   action:"",
-                  pipe:""
-                },
-                {
+                  pipe:"",
+                  searchcriteria:
+                  {
+                    formcontrolname:"status2descsrccriteria"
+                  }
+                },{
                   formcontrolname:"status1",
                   label:"Status1",
+                  field:"status1",
                   type:"select",
-                  api:"assets/config/pool.json",
+                  api:"Status1/ddl",
                   apidata:"",
-                  required:"required",
+                  required: null,
                   placeholder:"Select Status1",
                   action:"",
                   pipe:"",
                   bindname:"name",
                   clearable: false,
                   virtualScroll: true,
-                  multiple: false
+                  multiple: false,
+                  searchcriteria:
+                  {
+                    formcontrolname:"status1srccriteria"
+                  }
+                }
+              ],
+              searchApi: [
+                {
+                  url:"status2/search",
+                  method:"post",
+                  data: null
                 }
               ],
               api: [
@@ -790,29 +950,39 @@ export const configJsonData = [
               fieldprop: [
                 {
                   formcontrolname:"status3name",
+                  field:"status3",
                   label:"Status3",
                   type:"text",
                   api:"",
                   required: null,
                   placeholder:"Enter Status3",
                   action:"",
-                  pipe:""
+                  pipe:"",
+                  searchcriteria:
+                  {
+                    formcontrolname:"status3namesrccriteria"
+                  }
                 },
                 {
                   formcontrolname:"status3desc",
+                  field:"description",
                   label:"Description",
                   type:"textarea",
                   api:"",
                   required: null,
                   placeholder:"Enter Description",
                   action:"",
-                  pipe:""
-                },
-                {
+                  pipe:"",
+                  searchcriteria:
+                  {
+                    formcontrolname:"status3descsrccriteria"
+                  }
+                },{
                   formcontrolname:"status2",
                   label:"Status2",
+                  field:"status2",
                   type:"select",
-                  api:"assets/config/pool.json",
+                  api:"Status2/ddl",
                   apidata:"",
                   required: null,
                   placeholder:"Select Status2",
@@ -821,7 +991,18 @@ export const configJsonData = [
                   bindname:"name",
                   clearable: false,
                   virtualScroll: true,
-                  multiple: false
+                  multiple: false,
+                  searchcriteria:
+                  {
+                    formcontrolname:"status2srccriteria"
+                  }
+                }
+              ],
+              searchApi: [
+                {
+                  url:"status3/search",
+                  method:"post",
+                  data: null
                 }
               ],
               api: [
@@ -841,23 +1022,39 @@ export const configJsonData = [
               fieldprop: [
                 {
                   formcontrolname:"prodcat1name",
+                  field:"prodcat1",
                   label:"Prodcat1",
                   type:"text",
                   api:"",
                   required: false,
                   placeholder:"Enter Prodcat1",
                   action:"",
-                  pipe:""
+                  pipe:"",
+                  searchcriteria:
+                  {
+                    formcontrolname:"prodcat1namesrccriteria"
+                  }
                 },
                 {
                   formcontrolname:"prodcat1desc",
+                  field:"description",
                   label:"Description",
                   type:"textarea",
                   api:"",
                   required: false,
                   placeholder:"Enter Description",
                   action:"",
-                  pipe:""
+                  pipe:"",
+                  searchcriteria:
+                  {
+                    formcontrolname:"prodcat1descsrccriteria"
+                  }
+                }
+              ],searchApi: [
+                {
+                  url:"prodcat1/search",
+                  method:"post",
+                  data: null
                 }
               ],
               api: [
@@ -877,29 +1074,39 @@ export const configJsonData = [
               fieldprop: [
                 {
                   formcontrolname:"prodcat2name",
+                  field:"prodcat2",
                   label:"Prodcat2",
                   type:"text",
                   api:"",
-                  required: false,
+                  required: null,
                   placeholder:"Enter Prodcat2",
                   action:"",
-                  pipe:""
+                  pipe:"",
+                  searchcriteria:
+                  {
+                    formcontrolname:"prodcat2namesrccriteria"
+                  }
                 },
                 {
                   formcontrolname:"prodcat2desc",
+                  field:"description",
                   label:"Description",
                   type:"textarea",
                   api:"",
-                  required: false,
+                  required: null,
                   placeholder:"Enter Description",
                   action:"",
-                  pipe:""
-                },
-                {
+                  pipe:"",
+                  searchcriteria:
+                  {
+                    formcontrolname:"prodcat2descsrccriteria"
+                  }
+                },{
                   formcontrolname:"prodcat1",
                   label:"Prodcat1",
+                  field:"prodcat1",
                   type:"select",
-                  api:"assets/config/pool.json",
+                  api:"Prodcat1/ddl",
                   apidata:"",
                   required: null,
                   placeholder:"Select Prodcat1",
@@ -908,7 +1115,18 @@ export const configJsonData = [
                   bindname:"name",
                   clearable: false,
                   virtualScroll: true,
-                  multiple: false
+                  multiple: false,
+                  searchcriteria:
+                  {
+                    formcontrolname:"prodcat1srccriteria"
+                  }
+                }
+              ],
+              searchApi: [
+                {
+                  url:"prodcat2/search",
+                  method:"post",
+                  data: null
                 }
               ],
               api: [
@@ -928,38 +1146,59 @@ export const configJsonData = [
               fieldprop: [
                 {
                   formcontrolname:"prodcat3name",
+                  field:"prodcat3",
                   label:"Prodcat3",
                   type:"text",
                   api:"",
-                  required: false,
+                  required: null,
                   placeholder:"Enter Prodcat3",
                   action:"",
-                  pipe:""
+                  pipe:"",
+                  searchcriteria:
+                  {
+                    formcontrolname:"prodcat3namesrccriteria"
+                  }
                 },
                 {
                   formcontrolname:"prodcat3desc",
+                  field:"description",
                   label:"Description",
                   type:"textarea",
                   api:"",
-                  required: false,
+                  required: null,
                   placeholder:"Enter Description",
                   action:"",
-                  pipe:""
-                },
-                {
+                  pipe:"",
+                  searchcriteria:
+                  {
+                    formcontrolname:"prodcat3descsrccriteria"
+                  }
+                },{
                   formcontrolname:"prodcat2",
                   label:"Prodcat2",
+                  field:"prodcat2",
                   type:"select",
-                  api:"assets/config/pool.json",
+                  api:"prodcat2/ddl",
                   apidata:"",
                   required: null,
-                  placeholder:"Select Prodcat2",
+                  placeholder:"Select prodcat2",
                   action:"",
                   pipe:"",
                   bindname:"name",
                   clearable: false,
                   virtualScroll: true,
-                  multiple: false
+                  multiple: false,
+                  searchcriteria:
+                  {
+                    formcontrolname:"prodcat2srccriteria"
+                  }
+                }
+              ],
+              searchApi: [
+                {
+                  url:"prodcat3/search",
+                  method:"post",
+                  data: null
                 }
               ],
               api: [

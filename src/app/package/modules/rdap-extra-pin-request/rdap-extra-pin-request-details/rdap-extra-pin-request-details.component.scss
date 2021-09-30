@@ -1,5 +1,6 @@
 .mat-form-field{
     width: 100%;
+    font-size: 12px;
 }
 
 :host::ng-deep .mat-form-field {
@@ -7,3 +8,11 @@
         margin-top: 0.9em !important;
     }
 }
+
+:host::ng-deep .mat-input-element{
+    font-size: 12px;
+}
+
+input, select, textarea, label, ng-select, matInput {
+    font-size: 12px;
+    }

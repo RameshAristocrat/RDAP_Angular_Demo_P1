@@ -1,3 +1,23 @@
+.navbarcls{
+  height:10vh;
+  /*Or fixed pixel unit*/
+  //background-color: green;
+ }
+ .footercls{
+  height:5vh;
+  /*Or fixed pixel unit*/
+  //background-color: black;
+ }
+ section {
+   height: calc(80vh);
+   /* - Height: calc(100vh - (navheight + footer))
+      - Over flow y make the dive scrollable 
+   when it exceed the fixed height*/
+   overflow: hidden;
+   transition: all 0.5s;
+   //background-color: yellow;
+ }
+
 html, body {
   height: 100%;
   //overflow: hidden !important;
@@ -8,15 +28,11 @@ p {
   }
   
   .main_content {
-    width:100%; 
-    //height: calc(100vh - 100%); 
+    width:100%;  
     background: #efefef;
-    padding-top: 9%;
+    //padding-top: 9%;
     overflow: auto;
   }
-  // :host::ng-deep.mat-drawer-content{
-  //  margin-top: -4%;
-  // }
   .scrollbar-thin {
     scrollbar-width: thin;
     overflow-y: scroll;
@@ -25,4 +41,8 @@ p {
   -webkit-box-shadow: 0px 0px 15px 5px rgba(173,173,173,1);
   -moz-box-shadow: 0px 0px 15px 5px rgba(173,173,173,1);
   box-shadow: 0px 0px 15px 5px rgba(173,173,173,1);  
+}
+//mat-drawer-content mat-sidenav-content
+:host::ng-deep .mat-drawer-content .mat-sidenav-content{
+  margin-top: 3% !important;
 }

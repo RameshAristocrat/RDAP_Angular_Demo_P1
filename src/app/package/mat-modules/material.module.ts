@@ -41,7 +41,11 @@ import {
 	IgxIconModule,
 	IgxInputGroupModule,
 	IgxRippleModule,
-	IgxChipsModule
+	IgxChipsModule,
+  IgxActionStripModule,
+	IgxFocusModule,
+  IgxDropDownModule,
+  IgxRadioModule
  } from "@infragistics/igniteui-angular";
 import { MatNativeDateModule} from "@angular/material/core";
 import { NgSelectModule } from "@ng-select/ng-select";
@@ -93,6 +97,10 @@ import { NgxSpinnerModule } from "ngx-spinner";
     IgxInputGroupModule,
     IgxRippleModule,
     IgxChipsModule,
+    IgxActionStripModule,
+    IgxFocusModule,
+    IgxDropDownModule,
+    IgxRadioModule,
     NgxSpinnerModule,
     //AngularFontAwesomeModule
     //NativeDateAdapter
@@ -139,6 +147,10 @@ import { NgxSpinnerModule } from "ngx-spinner";
     IgxInputGroupModule,
     IgxRippleModule,
     IgxChipsModule,
+    IgxActionStripModule,
+    IgxFocusModule,
+    IgxDropDownModule,
+    IgxRadioModule,
     NgxSpinnerModule,
     //FontAwesomeModule
     //NativeDateAdapter

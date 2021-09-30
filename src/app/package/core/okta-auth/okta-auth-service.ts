@@ -26,6 +26,7 @@ export class OktaAuthService {
   constructor(private router: Router, private httpClient: HttpClient) {
     console.log("env file loaded",environment.oktaconfig);
     console.log("OKTA LOGIN_REDIRECT_URI",this.LOGIN_REDIRECT_URI);
+    debugger
     this.$isAuthenticated = new Observable((observer: Observer<boolean>) => {
       this.observer = observer;
       this.isAuthenticated().then(val => {

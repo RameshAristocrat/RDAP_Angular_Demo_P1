@@ -49,7 +49,6 @@ export class RdapSharedConfigSetuptableViewComponent implements OnInit {
         }
       });
     });
-    //Object.keys(this.selMasterDetails.added[0]);
     console.log(Object.keys(this.selMasterDetails.added[0]))
     console.log("this.selMasterDetails", JSON.parse(localStorage.getItem("selMasterViewData")));
   }

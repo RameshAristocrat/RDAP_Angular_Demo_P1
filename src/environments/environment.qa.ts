@@ -3,6 +3,8 @@ export const environment = {
     qa:true,
     dev:false,
     stag:false,
+    dolly:false,
+    ram:false,
     oktaconfig: { 
       CLIENT_ID: "0oabonwkwwkMzJQJI357", 
       ISSUER: "https://aristocrat.okta.com", 
@@ -10,6 +12,6 @@ export const environment = {
       LOGOUT_REDIRECT_URI: "https://syde-webtst-01:8080", 
       SCOPE: ['openid','email'] 
   },
-  baseapiurl:"https://sydc-appdev-01:7777/api/v1/"
+  baseapiurl:"https://syde-apptst-01:7777/api/v1/"
   };
   

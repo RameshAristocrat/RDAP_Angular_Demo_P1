@@ -72,6 +72,25 @@
 								"replace": "src/environments/environment.ts",
 								"with": "src/environments/environment.qa.ts"
 							  }
+							],
+							"optimization": true,
+							"outputHashing": "all",
+							"sourceMap": false,
+							"namedChunks": false,
+							"extractLicenses": true,
+							"vendorChunk": false,
+							"buildOptimizer": true,
+							"budgets": [
+								{
+									"type": "initial",
+									"maximumWarning": "4mb",
+									"maximumError": "10mb"
+								},
+								{
+									"type": "anyComponentStyle",
+									"maximumWarning": "12kb",
+									"maximumError": "20kb"
+								}
 							]
 						  },"dev": {
 							"fileReplacements": [
@@ -87,6 +106,20 @@
 								"with": "src/environments/environment.stag.ts"
 							  }
 							]
+						  },"dolly": {
+							"fileReplacements": [
+							  {
+								"replace": "src/environments/environment.ts",
+								"with": "src/environments/environment.dolly.ts"
+							  }
+							]
+						  },"ram": {
+							"fileReplacements": [
+							  {
+								"replace": "src/environments/environment.ts",
+								"with": "src/environments/environment.ram.ts"
+							  }
+							]
 						  }
 					},
 					"defaultConfiguration": ""
@@ -94,7 +127,9 @@
 				"serve": {
 					"builder": "@angular-devkit/build-angular:dev-server",
 					"options": {
-						"browserTarget": "RDAP:build"
+						"browserTarget": "RDAP:build",
+						"sslKey": "C:/certificates/sydc-appdev-01.key",
+						"sslCert": "C:/certificates/sydc-appdev-01.crt"
 					},
 					"configurations": {
 						"production": {
@@ -108,6 +143,12 @@
 						},
 						"stag": {
 							"browserTarget": "RDAP:build:stag"
+						},
+						"dolly": {
+							"browserTarget": "RDAP:build:dolly"
+						},
+						"ram": {
+							"browserTarget": "RDAP:build:ram"
 						}
 					}
 				},
@@ -167,6 +208,12 @@
 						},
 						"stag": {
 							"devServerTarget": "RDAP:serve:stag"
+						},
+						"dolly": {
+							"devServerTarget": "RDAP:serve:dolly"
+						},
+						"ram": {
+							"devServerTarget": "RDAP:serve:ram"
 						}
 					}
 				}

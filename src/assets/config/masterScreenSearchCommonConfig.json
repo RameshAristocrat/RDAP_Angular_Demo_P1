@@ -228,23 +228,40 @@
             "fieldprop": [
               {
                 "formcontrolname": "gravityname",
+                "field":"Gravity",
                 "label": "Gravity",
                 "type": "text",
                 "api": "",
-                "required": "required",
+                "required": false,
                 "placeholder": "Enter Gravity",
                 "action": "",
-                "pipe": ""
+                "pipe": "",
+                "searchcriteria":
+                {
+                  "formcontrolname": "gravitynamesrccriteria"
+                }
               },
               {
                 "formcontrolname": "gravitydesc",
+                "field":"Description",
                 "label": "Description",
                 "type": "textarea",
                 "api": "",
-                "required": null,
+                "required": false,
                 "placeholder": "Enter Description",
                 "action": "",
-                "pipe": ""
+                "pipe": "",
+                "searchcriteria":
+                {
+                  "formcontrolname": "gravitydescsrccriteria"
+                }
+              }
+            ],
+            "searchApi": [
+              {
+                "url": "gravity/search",
+                "method": "post",
+                "data": null
               }
             ],
             "api": [

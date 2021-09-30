@@ -12,7 +12,7 @@ import { SetupTableHomeComponent } from '../modules/configs/setup-tables/setup-t
 import { RdapConfigCommonAddEditComponent } from '../modules/configs/setup-tables/rdap-config-common-add-edit/rdap-config-common-add-edit.component';
 import { RdapConfigCommonSearchComponent } from '../modules/configs/setup-tables/rdap-config-common-search/rdap-config-common-search.component';
 import { RdapConfigCommonViewComponent } from '../modules/configs/setup-tables/rdap-config-common-view/rdap-config-common-view.component';
-
+import { RDAPExtraPINRequestComponent } from '../modules/rdap-extra-pin-request/rdap-extra-pin-request.component';
 
 const routes: Routes = [
   {
@@ -97,7 +97,202 @@ const routes: Routes = [
               path: "view",
           component: RdapConfigCommonAddEditComponent,
           }]
+        },{
+          path: "channeltype",
+          //component: RdapConfigCommonSearchComponent,
+          children:[{
+              path: "search",
+          component: RdapConfigCommonSearchComponent,
+          },{
+              path: "add",
+          component: RdapConfigCommonAddEditComponent,
+          },{
+              path: "edit",
+          component: RdapConfigCommonAddEditComponent,
+          },{
+            path: "view",
+        component: RdapConfigCommonAddEditComponent,
         }]
+      },{
+        path: "channel",
+        //component: RdapConfigCommonSearchComponent,
+        children:[{
+            path: "search",
+        component: RdapConfigCommonSearchComponent,
+        },{
+            path: "add",
+        component: RdapConfigCommonAddEditComponent,
+        },{
+            path: "edit",
+        component: RdapConfigCommonAddEditComponent,
+        },{
+          path: "view",
+      component: RdapConfigCommonAddEditComponent,
+      }]
+    },{
+      path: "cabinets",
+      //component: RdapConfigCommonSearchComponent,
+      children:[{
+          path: "search",
+      component: RdapConfigCommonSearchComponent,
+      },{
+          path: "add",
+      component: RdapConfigCommonAddEditComponent,
+      },{
+          path: "edit",
+      component: RdapConfigCommonAddEditComponent,
+      },{
+        path: "view",
+    component: RdapConfigCommonAddEditComponent,
+    }]
+  },{
+    path: "devefforttype",
+    //component: RdapConfigCommonSearchComponent,
+    children:[{
+        path: "search",
+    component: RdapConfigCommonSearchComponent,
+    },{
+        path: "add",
+    component: RdapConfigCommonAddEditComponent,
+    },{
+        path: "edit",
+    component: RdapConfigCommonAddEditComponent,
+    },{
+      path: "view",
+  component: RdapConfigCommonAddEditComponent,
+  }]
+},{
+  path: "devcomplexity",
+  //component: RdapConfigCommonSearchComponent,
+  children:[{
+      path: "search",
+  component: RdapConfigCommonSearchComponent,
+  },{
+      path: "add",
+  component: RdapConfigCommonAddEditComponent,
+  },{
+      path: "edit",
+  component: RdapConfigCommonAddEditComponent,
+  },{
+    path: "view",
+component: RdapConfigCommonAddEditComponent,
+}]
+},{
+  path: "status1",
+  //component: RdapConfigCommonSearchComponent,
+  children:[{
+      path: "search",
+  component: RdapConfigCommonSearchComponent,
+  },{
+      path: "add",
+  component: RdapConfigCommonAddEditComponent,
+  },{
+      path: "edit",
+  component: RdapConfigCommonAddEditComponent,
+  },{
+    path: "view",
+component: RdapConfigCommonAddEditComponent,
+}]
+},{
+  path: "status2",
+  //component: RdapConfigCommonSearchComponent,
+  children:[{
+    path: "search",
+component: RdapConfigCommonSearchComponent,
+},{
+    path: "add",
+component: RdapConfigCommonAddEditComponent,
+},{
+    path: "edit",
+component: RdapConfigCommonAddEditComponent,
+},{
+  path: "view",
+component: RdapConfigCommonAddEditComponent,
+}]
+},{
+  path: "status3",
+  //component: RdapConfigCommonSearchComponent,
+  children:[{
+      path: "search",
+  component: RdapConfigCommonSearchComponent,
+  },{
+      path: "add",
+  component: RdapConfigCommonAddEditComponent,
+  },{
+      path: "edit",
+  component: RdapConfigCommonAddEditComponent,
+  },{
+    path: "view",
+component: RdapConfigCommonAddEditComponent,
+}]
+},{
+  path: "gravity",
+  //component: RdapConfigCommonSearchComponent,
+  children:[{
+      path: "search",
+  component: RdapConfigCommonSearchComponent,
+  },{
+      path: "add",
+  component: RdapConfigCommonAddEditComponent,
+  },{
+      path: "edit",
+  component: RdapConfigCommonAddEditComponent,
+  },{
+    path: "view",
+component: RdapConfigCommonAddEditComponent,
+}]
+},{
+  path: "prodcat1",
+  //component: RdapConfigCommonSearchComponent,
+  children:[{
+      path: "search",
+  component: RdapConfigCommonSearchComponent,
+  },{
+      path: "add",
+  component: RdapConfigCommonAddEditComponent,
+  },{
+      path: "edit",
+  component: RdapConfigCommonAddEditComponent,
+  },{
+    path: "view",
+component: RdapConfigCommonAddEditComponent,
+}]
+},{
+  path: "prodcat2",
+  //component: RdapConfigCommonSearchComponent,
+  children:[{
+      path: "search",
+  component: RdapConfigCommonSearchComponent,
+  },{
+      path: "add",
+  component: RdapConfigCommonAddEditComponent,
+  },{
+      path: "edit",
+  component: RdapConfigCommonAddEditComponent,
+  },{
+    path: "view",
+component: RdapConfigCommonAddEditComponent,
+}]
+},{
+  path: "prodcat3",
+  //component: RdapConfigCommonSearchComponent,
+  children:[{
+      path: "search",
+  component: RdapConfigCommonSearchComponent,
+  },{
+      path: "add",
+  component: RdapConfigCommonAddEditComponent,
+  },{
+      path: "edit",
+  component: RdapConfigCommonAddEditComponent,
+  },{
+    path: "view",
+component: RdapConfigCommonAddEditComponent,
+}]
+}]
+      },{
+        path: "transaction/managepin/extrapinrequest",
+        component:RDAPExtraPINRequestComponent,
       }]
   }, {
     path: "tool",

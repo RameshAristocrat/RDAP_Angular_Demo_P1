@@ -16,6 +16,14 @@ interface SubPage{
     icon: string;
     type:string;
     header:string;
+    level1:Level1[];
+}
+interface Level1{
+  link: string;
+    name: string;
+    icon: string;
+    type:string;
+    header:string;
 }
 @Component({
   selector: 'app-side-menu-bar',
@@ -29,70 +37,76 @@ export class SideMenuBarComponent implements OnInit {
 
   public pages: Page[] = [
      {name: 'Manage PIN', link:'some-link', icon: 'lock',type:'P',header:'0',submenu:[
-       //{
-    //   name: 'Master', link:'/home/expinreq/pinrequest', icon: 'grade',type:'C',header:'0'
-    // },
-    {
-      name: 'Region', link:'/home/config/setuptable/region/search', icon: 'cloud',type:'SC',header:'0'
-    },{
-      name: 'Market', link:'/home/config/setuptable/market/search', icon: 'room_preferences',type:'SC',header:'0'
-    },
-    {
-      name: 'Studio', link:'/home/config/setuptable/studio/search', icon: 'admin_panel_settings',type:'SC',header:'0'
-    }
-    ,{
-      name: 'Channel Type', link:'/home/config/setuptable/channeltype/search', icon: 'verified',type:'SC',header:'0'
-    },{
-      name: 'Channel', link:'/home/config/setuptable/channel/search', icon: 'thumb_up',type:'SC',header:'0'
-    },{
-      name: 'Cabinets', link:'/home/config/setuptable/cabinets/search', icon: 'event',type:'SC',header:'0'
-    },{
-      name: 'Dev Effort Type', link:'/home/config/setuptable/devefforttype/search', icon: 'lightbulb',type:'SC',header:'0'
-    },{
-      name: 'Dev Complexity', link:'/home/config/setuptable/devcomplexity/search', icon: 'highlight_off',type:'SC',header:'0'
-    },{
-      name: 'Gravity', link:'/home/config/setuptable/gravity/search', icon: 'task_alt',type:'SC',header:'0'
-    },{
-      name: 'Dev Type1', link:'/home/config/setuptable/devtype1/search', icon: 'question_answer',type:'SC',header:'0'
-    },{
-      name: 'Dev Type2', link:'/home/config/setuptable/devtype2/search', icon: 'room_preferences',type:'SC',header:'0'
-    },{
-      name: 'Dev Type2', link:'/home/config/setuptable/devtype2/search', icon: 'room_preferences',type:'SC',header:'0'
-    },{
-      name: 'Version', link:'/home/config/setuptable/version/search', icon: 'text_snippet',type:'SC',header:'0'
-    },{
-      name: 'Quarter', link:'/home/config/setuptable/quarter/search', icon: 'text_snippet',type:'SC',header:'0'
-    },{
-      name: 'EPP', link:'/home/config/setuptable/epp/search', icon: 'cloud',type:'SC',header:'0'
-    },{
-      name: 'Prodcat1', link:'/home/config/setuptable/prodcat1/search', icon: 'cloud',type:'SC',header:'0'
-    },{
-      name: 'Prodcat2', link:'/home/config/setuptable/prodcat2/search', icon: 'cloud',type:'SC',header:'0'
-    },{
-      name: 'Prodcat3', link:'/home/config/setuptable/prodcat3/search', icon: 'cloud',type:'SC',header:'0'
-    },{
-      name: 'Transaction', link:'/home/expinreq/pinrequest', icon: 'paid',type:'C',header:'0'
-    }
+      {
+        name: 'Master', link:'some-link', icon: 'cloud',type:'SC',header:'0',level1:[    {
+          name: 'Region', link:'/home/config/setuptable/region/search', icon: 'cloud',type:'SC',header:'0'
+        },{
+          name: 'Market', link:'/home/config/setuptable/market/search', icon: 'room_preferences',type:'SC',header:'0'
+        },
+        {
+          name: 'Studio', link:'/home/config/setuptable/studio/search', icon: 'admin_panel_settings',type:'SC',header:'0'
+        }
+        ,{
+          name: 'Channel Type', link:'/home/config/setuptable/channeltype/search', icon: 'verified',type:'SC',header:'0'
+        },{
+          name: 'Channel', link:'/home/config/setuptable/channel/search', icon: 'thumb_up',type:'SC',header:'0'
+        },{
+          name: 'Cabinets', link:'/home/config/setuptable/cabinets/search', icon: 'event',type:'SC',header:'0'
+        },{
+          name: 'Status1', link:'/home/config/setuptable/status1/search', icon: 'event',type:'SC',header:'0'
+        },{
+          name: 'Status2', link:'/home/config/setuptable/status2/search', icon: 'event',type:'SC',header:'0'
+        },{
+          name: 'Status3', link:'/home/config/setuptable/status3/search', icon: 'event',type:'SC',header:'0'
+        },{
+          name: 'Dev Effort Type', link:'/home/config/setuptable/devefforttype/search', icon: 'lightbulb',type:'SC',header:'0'
+        },{
+          name: 'Dev Complexity', link:'/home/config/setuptable/devcomplexity/search', icon: 'highlight_off',type:'SC',header:'0'
+        },{
+          name: 'Gravity', link:'/home/config/setuptable/gravity/search', icon: 'task_alt',type:'SC',header:'0'
+        },{
+          name: 'Dev Type1', link:'/home/config/setuptable/devtype1/search', icon: 'question_answer',type:'SC',header:'0'
+        },{
+          name: 'Dev Type2', link:'/home/config/setuptable/devtype2/search', icon: 'room_preferences',type:'SC',header:'0'
+        },{
+          name: 'Dev Type2', link:'/home/config/setuptable/devtype2/search', icon: 'room_preferences',type:'SC',header:'0'
+        },{
+          name: 'Version', link:'/home/config/setuptable/version/search', icon: 'text_snippet',type:'SC',header:'0'
+        },{
+          name: 'Quarter', link:'/home/config/setuptable/quarter/search', icon: 'text_snippet',type:'SC',header:'0'
+        },{
+          name: 'EPP', link:'/home/config/setuptable/epp/search', icon: 'cloud',type:'SC',header:'0'
+        },{
+          name: 'Prodcat1', link:'/home/config/setuptable/prodcat1/search', icon: 'cloud',type:'SC',header:'0'
+        },{
+          name: 'Prodcat2', link:'/home/config/setuptable/prodcat2/search', icon: 'cloud',type:'SC',header:'0'
+        },{
+          name: 'Prodcat3', link:'/home/config/setuptable/prodcat3/search', icon: 'cloud',type:'SC',header:'0'
+        }]
+      },
+      {
+        name: 'Extra Pin Request', link:'/home/expinreq/pinrequest', icon: 'paid',type:'SC',header:'0',level1:[]
+      }
   ]},
     {name: 'Rework', link:'some-link', icon: 'all_inclusive',type:'P',header:'0',submenu:[{
-      name: 'Master', link:'some-link', icon: 'work',type:'C',header:'0'
+      name: 'Master', link:'some-link', icon: 'work',type:'C',header:'0',level1:[]
     },{
-      name: 'Transaction', link:'some-link', icon: 'paid',type:'C',header:'0'
+      name: 'Transaction', link:'some-link', icon: 'paid',type:'C',header:'0',level1:[]
     }]},
     {name: 'Change Request', link:'some-link', icon: 'published_with_changes',type:'P',header:'0',submenu:[{
-      name: 'Master', link:'some-link', icon: 'work',type:'C',header:'0'
+      name: 'Master', link:'some-link', icon: 'work',type:'C',header:'0',level1:[]
     },{
-      name: 'Transaction', link:'some-link', icon: 'paid',type:'C',header:'0'
+      name: 'Transaction', link:'some-link', icon: 'paid',type:'C',header:'0',level1:[]
     }]},
     {name: 'Delay Notification', link:'some-link', icon: 'circle_notifications',type:'P',header:'0',submenu:[{
-      name: 'Master', link:'some-link', icon: 'work',type:'C',header:'0'
+      name: 'Master', link:'some-link', icon: 'work',type:'C',header:'0',level1:[]
     },{
-      name: 'Transaction', link:'some-link', icon: 'paid',type:'C',header:'0'
+      name: 'Transaction', link:'some-link', icon: 'paid',type:'C',header:'0',level1:[]
     }]},
     {name: 'Transfer Approval', link:'some-link', icon: 'receipt_long',type:'P',header:'0',submenu:[{
-      name: 'Master', link:'some-link', icon: 'work',type:'C',header:'0'
+      name: 'Master', link:'some-link', icon: 'work',type:'C',header:'0',level1:[]
     },{
-      name: 'Transaction', link:'some-link', icon: 'paid',type:'C',header:'0'
+      name: 'Transaction', link:'some-link', icon: 'paid',type:'C',header:'0',level1:[]
     }]},
     {name: 'User Authorization', link:'some-link', icon: 'supervised_user_circle',type:'P',header:'0',submenu:[]},
     {name: 'Auditing ', link:'some-link', icon: 'admin_panel_settings',type:'P',header:'0',submenu:[]},

@@ -14,6 +14,6 @@ export class RdSpinnerService {
   hide(){
     setTimeout(() => {
       this.spinner.hide();
-    }, 5000);
+    }, 1000);
   }
 }

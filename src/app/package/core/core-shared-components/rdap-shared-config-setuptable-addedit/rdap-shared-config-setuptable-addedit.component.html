@@ -1,62 +1,185 @@
 <mat-card style="margin-bottom:2%;">
     <mat-card-content>
-        <div class="col-lg-12">
-            <form *ngIf="searchform" action="" [formGroup]="searchform" (ngSubmit)="submit()">
-                <div class="row">
-                    <div class="col-lg-4 form-group" *ngFor="let item of formdata;">
-                        <mat-form-field *ngIf="item.type =='text'">
-                            <mat-label>
-                                {{item.label}}
-                                <span class="compulsary-mark"></span>
-                            </mat-label>
-                            <input id='{{item.controlname}}'  type="text" matInput name='{{item.controlname}}'
-                                formControlName="{{item.formcontrolname}}" [disabled]="false" />
-                                <mat-error *ngIf="checkError(item.formcontrolname, item.required)">
-                                    {{item.label}} required</mat-error>
-                        </mat-form-field>
-                        <mat-form-field *ngIf="item.type =='textarea'">
-                            <mat-label>
-                                {{item.label}}
-                                <span class="compulsary-mark"></span>
-                            </mat-label>
-                            <textarea id='{{item.controlname}}'  matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize"
-                                cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5" name="{{item.controlname}}"
-                                formControlName="{{item.formcontrolname}}" placeholder="{{item.placeholder}}"
-                                ></textarea>
-                                <mat-error *ngIf="checkError(item.formcontrolname, item.required)">
-                                    {{item.label}} required</mat-error>
-                        </mat-form-field>
-                        <ng-select id='{{item.controlname}}' *ngIf="item.type =='select'" [items]="item.apidata"
-                            placeholder="{{item.placeholder}}" bindLabel="{{item.bindname}}" bindValue="{{item.bindvalue}}"
-                            formControlName="{{item.formcontrolname}}" [clearable]="item.clearable"
-                            [virtualScroll]="item.virtualScroll" [multiple]="item.multiple" appendTo="body"
-                            required>
-                            <ng-template ng-option-tmp let-item="item">
-                                {{item.description}}
-                            </ng-template>
-                        </ng-select>
-                        <mat-checkbox formControlName="{{item.formcontrolname}}" id='{{item.controlname}}' *ngIf="item.type =='checkbox'" labelPosition="after">
-                            {{item.label}}
-                        </mat-checkbox>
-                        <label style="background-color: rgb(161, 161, 161);color: rgb(0, 0, 0);" id='{{item.innercontrol[0].controlname}}' *ngIf="item.innercontrol && item.innercontrol[0].type =='label'">
-                            {{item.innercontrol[0].label}}</label>
+        <form *ngIf="searchform" action="" [formGroup]="searchform" (ngSubmit)="submit()">
+            <mat-tab-group class="mat-elevation-z4" style="background-color: #ffff;border-radius: 4px;">
+                <mat-tab class="mat-elevation-z4"  style="overflow:hidden !important;">
+                    <ng-template mat-tab-label>
+                        <span class="material-icons-outlined">
+                            control_point
+                        </span>
+                        <span>
+                            Basic Details
+                        </span>
+                    </ng-template>
+                    <div style="padding-left: 2%;padding-right: 2%;padding-bottom: 2%;padding-top:2%;">
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <mat-label  style="position: relative;left:96%;z-index:999999999;height: 0px;
+                                top: -1rem;">
+                                    <span class="material-icons-outlined">
+                                        visibility
+                                    </span>
+                                </mat-label>
+                                <div class="col-lg-4 form-group" *ngFor="let item of formdata;">
+                                    <mat-form-field *ngIf="item.type =='text'">
+                                        <mat-label>
+                                            {{item.label}}
+                                            <span class="compulsary-mark"></span>
+                                        </mat-label>
+                                        <input id='{{item.controlname}}' type="text" matInput
+                                            name='{{item.controlname}}' formControlName="{{item.formcontrolname}}"
+                                            [disabled]="false" />
+                                        <mat-error *ngIf="checkError(item.formcontrolname, item.required)">
+                                            {{item.label}} required</mat-error>
+                                    </mat-form-field>
+                                    <mat-form-field *ngIf="item.type =='textarea'">
+                                        <mat-label>
+                                            {{item.label}}
+                                            <span class="compulsary-mark"></span>
+                                        </mat-label>
+                                        <textarea id='{{item.controlname}}' matInput cdkTextareaAutosize
+                                            #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+                                            cdkAutosizeMaxRows="5" name="{{item.controlname}}"
+                                            formControlName="{{item.formcontrolname}}"
+                                            placeholder="{{item.placeholder}}"></textarea>
+                                        <mat-error *ngIf="checkError(item.formcontrolname, item.required)">
+                                            {{item.label}} required</mat-error>
+                                    </mat-form-field>
+                                    <ng-select id='{{item.controlname}}'
+                                        *ngIf="item.type =='select' && item.required == 'required'"
+                                        [items]="item.apidata" placeholder="{{item.placeholder}}"
+                                        bindLabel="{{item.bindname}}" bindValue="{{item.bindvalue}}"
+                                        formControlName="{{item.formcontrolname}}" [clearable]="item.clearable"
+                                        [virtualScroll]="item.virtualScroll" [multiple]="item.multiple" appendTo="body"
+                                        required>
+                                        <ng-template ng-option-tmp let-item="item">
+                                            {{item.description}}
+                                        </ng-template>
+                                    </ng-select>
+                                    <ng-select id='{{item.controlname}}'
+                                        *ngIf="item.type =='select' && item.required == null" [items]="item.apidata"
+                                        placeholder="{{item.placeholder}}" bindLabel="{{item.bindname}}"
+                                        bindValue="{{item.bindvalue}}" formControlName="{{item.formcontrolname}}"
+                                        [clearable]="item.clearable" [virtualScroll]="item.virtualScroll"
+                                        [multiple]="item.multiple" appendTo="body">
+                                        <ng-template ng-option-tmp let-item="item">
+                                            {{item.description}}
+                                        </ng-template>
+                                    </ng-select>
+                                    <mat-checkbox formControlName="{{item.formcontrolname}}" id='{{item.controlname}}'
+                                        *ngIf="item.type =='checkbox'" labelPosition="after">
+                                        {{item.label}}
+                                    </mat-checkbox>
+                                    <label style="background-color: rgb(161, 161, 161);color: rgb(0, 0, 0);"
+                                        id='{{item.innercontrol[0].controlname}}'
+                                        *ngIf="item.innercontrol && item.innercontrol[0].type =='label'">
+                                        {{item.innercontrol[0].label}}</label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                </mat-tab>
+                <div *ngFor="let rowitem of formdata;">
+                    <mat-tab class="mat-elevation-z4" *ngIf="rowitem.type =='grid'">
+                        <ng-template mat-tab-label>
+                            <span class="material-icons-outlined">
+                                note_add
+                            </span>
+                            <span>
+                                {{rowitem.label}}
+                            </span>
+                        </ng-template>
+                        <app-rdap-shared-config-dynamic-igx-grid 
+                        *ngIf="transactionFlag=='A'"
+                        [commongridmodel]="commongridmodel" 
+                        [rowitem]="rowitem"
+                        [griddata]="data"
+                        [mode]="transactionFlag"
+                        (commongridmodelrow)="commongridmodelFun($event)">
+                            
+                        </app-rdap-shared-config-dynamic-igx-grid>
+                        <app-rdap-shared-config-dynamic-igx-grid 
+                        *ngIf="(transactionFlag=='V' || transactionFlag=='U') && data.isSuccess"
+                        [commongridmodel]="commongridmodel" 
+                        [rowitem]="rowitem"
+                        [griddata]="data"
+                        [mode]="transactionFlag"
+                        (commongridmodelrow)="commongridmodelFun($event)">
+                            
+                        </app-rdap-shared-config-dynamic-igx-grid>
+                        <!-- <div class="grid__wrapper">
+                            <igx-grid #grid id="grid" [primaryKey]="'pid'" [data]="data" *ngIf="rowitem.type =='grid'"
+                            width="100%" [rowEditable]="true" igxOverlayOutlet [autoGenerate]="false">
+                            <igx-column *ngFor="let c of rowitem.columndata" [width]="c.width" [field]="c.field"
+                                [header]="c.title|titlecase" [dataType]="c.type" [editable]="true"
+                                [cellClasses]="speedClasses" [hidden]="c.hidden">
+                                <ng-template igxCellEditor
+                                    *ngIf="((c.field=='description') && (rowitem.field =='channeltypeIds'))"
+                                    let-cell="cell" let-value>
+                                    <igx-select #select (selectionChanging)="onchangeSelect($event, cell, data, rowitem.field)">
+                                        <igx-select-item *ngFor="let item of channeltypeddldata" [value]="item">
+                                            {{ item.description }}
+                                        </igx-select-item>
+                                    </igx-select>
+                                </ng-template>
+                                <ng-template igxCellEditor
+                                    *ngIf="((c.field=='description') && (rowitem.field =='regionIds'))" let-cell="cell"
+                                    let-value>
+                                    <igx-select #select (selectionChanging)="onchangeSelect($event, cell, data, rowitem.field)">
+                                        <igx-select-item *ngFor="let item of regionddldata" [value]="item">
+                                            {{ item.description }}
+                                        </igx-select-item>
+                                    </igx-select>
+                                </ng-template>
+                                <ng-template igxCellEditor
+                                    *ngIf="((c.field=='description') && (rowitem.field =='marketIds'))" let-cell="cell"
+                                    let-value>
+                                    <igx-select #select (selectionChanging)="onchangeSelect($event, cell, data, rowitem.field)">
+                                        <igx-select-item *ngFor="let item of marketddldata" [value]="item">
+                                            {{ item.description }}
+                                        </igx-select-item>
+                                    </igx-select>
+                                </ng-template>
+                            </igx-column>
+                            <igx-action-strip #actionstrip>
+                                <igx-grid-editing-actions [addRow]="true"></igx-grid-editing-actions>
+                            </igx-action-strip>
+                        </igx-grid>
+                        </div> -->
+                    </mat-tab>
                 </div>
-            </form>
-        </div>
+            </mat-tab-group>
+        </form>
     </mat-card-content>
-    <mat-card-actions style="text-align: left;" *ngIf="searchform">
-        <button mat-raised-button
+    <mat-card-actions style="text-align: left;" *ngIf="searchform && transactionFlag=='A'">
+        <button mat-raised-button (click)="submit()" [disabled]="!searchform.valid"
+            [ngClass]="{'errorbtn':!searchform.valid, 'successbtn': searchform.valid}"
+            *ngIf="((transactionFlag=='A'))">Save</button>
+        <button mat-raised-button style="width: 10%;background-color: #300c46;color:white"
+            (click)="cancel()">Back</button>
+    </mat-card-actions>
+    <mat-card-actions style="text-align: left;" *ngIf="searchform && transactionFlag=='U'">
+        <!-- <button mat-raised-button
             (click)="submit()" 
             [disabled]="!searchform.valid" 
             [ngClass]="{'errorbtn':!searchform.valid, 'successbtn': searchform.valid}"
-            *ngIf="((transactionFlag=='A')||(transactionFlag=='V'))">Save</button>
+            *ngIf="(transactionFlag=='AN')">Save</button>
+            <button mat-raised-button
+            (click)="submit()" 
+            [disabled]="true" 
+            [ngClass]="{'errorbtn':searchform.valid, 'successbtn': !searchform.valid}">Save</button> -->
         <button mat-raised-button style="width: 10%;background-color: #300c46;color:white"
-        (click)="cancel()" 
-        >Cancel</button>
+            (click)="cancel()">Back</button>
+        <button mat-raised-button style="width: 20%;background-color: #300c46;color:white" (click)="addNewRecord()">Add
+            New Record</button>
+    </mat-card-actions>
+    <mat-card-actions style="text-align: left;" *ngIf="searchform && transactionFlag=='V'">
+        <button mat-raised-button (click)="submit()" [disabled]="!searchform.valid"
+            [ngClass]="{'errorbtn':!searchform.valid, 'successbtn': searchform.valid}"
+            *ngIf="((transactionFlag=='V'))">Save</button>
         <button mat-raised-button style="width: 10%;background-color: #300c46;color:white"
-        *ngIf="transactionFlag=='V'"
-        (click)="delete()" 
-        >Delete</button>
+            (click)="cancel()">Back</button>
+        <button mat-raised-button style="width: 10%;background-color: #300c46;color:white" *ngIf="transactionFlag=='V'"
+            (click)="delete()">Delete</button>
     </mat-card-actions>
 </mat-card>

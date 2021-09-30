@@ -8,10 +8,10 @@ export class SnackbarInfoService {
   sucessHorizontalPosition: MatSnackBarHorizontalPosition = 'right';
   sucessVerticalPosition: MatSnackBarVerticalPosition = 'top';
   constructor(private _snackBar: MatSnackBar) { }
-  durationInSeconds = 7;
+  durationInSeconds = 0;
   openSucessSnackBar(info) {
     this._snackBar.open(info,'', {
-      duration: this.durationInSeconds * 1000,
+      duration: this.durationInSeconds * 500,
       horizontalPosition: this.sucessHorizontalPosition,
       verticalPosition: this.sucessVerticalPosition
     });

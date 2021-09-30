@@ -125,4 +125,9 @@ export class RdapSharedIgxGridSearchResultComponent implements OnInit, AfterView
       args.cancel = true;
     }
   }
+
+  public update(event, cell) {
+    console.log(event);
+    console.log(cell);
+  }
 }

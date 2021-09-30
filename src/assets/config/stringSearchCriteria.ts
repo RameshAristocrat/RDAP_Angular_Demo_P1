@@ -1,9 +1,9 @@
 export const stringSearch=[
-    {id:"Contains",value:"*"},
-    {id:"BeginsWith",value:"Az...."},
-    {id:"EndsWith",value:".....Az"},
-    {id:"Equal",value:"="},
-    {id:"NotEqual",value:"!="},
-    {id:"Between",value:"<>"},
-    {id:"In",value:"in"}
+    {id:"Contains",value:"Contains"},
+    {id:"BeginsWith",value:"Begins With"},
+    {id:"EndsWith",value:"Ends With"},
+    {id:"Equal",value:"Equal To"},
+    {id:"NotEqual",value:"Not Equal To"},
+    {id:"Between",value:"Between"},
+    {id:"In",value:"IN"}
 ]

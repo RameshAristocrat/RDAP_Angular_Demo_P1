@@ -27,6 +27,10 @@ table {
     width: 100%;
     table-layout: fixed;
   }
+
+  input, select, textarea, label, ng-select, matInput {
+    font-size: 12px;
+    }
   
   th, td {
     overflow: hidden;

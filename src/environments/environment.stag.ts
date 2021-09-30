@@ -3,6 +3,8 @@ export const environment = {
     qa:false,
     dev:false,
     stag:true,
+    dolly:false,
+    ram:false,
     oktaconfig: { 
       CLIENT_ID: "0oa1croj4yjrsRSR75d7", 
       ISSUER: "https://dev-88037208.okta.com", 
