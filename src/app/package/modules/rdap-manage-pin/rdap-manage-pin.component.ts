@@ -196,9 +196,7 @@ export class RdapManagePinComponent implements OnInit, OnChanges {
     this.mpauditPermission= [];
     this.mpclarityPermission= [];
     let rolePermissionMockData;
-    debugger
     this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "mpproduct").subscribe(res => {
-     debugger
       if (this.rolepermissionmock == true) {
         this.pagePermission.push(rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionproductmock);
         this.mpproductPermission = rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionproductmock;
