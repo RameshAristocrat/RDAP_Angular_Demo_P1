@@ -13,6 +13,5 @@ export class RdapConfigCommonAddEditComponent implements OnInit {
   ngOnInit(): void {
   }
   submit(event){
-    console.log("event",event);
   }
 }

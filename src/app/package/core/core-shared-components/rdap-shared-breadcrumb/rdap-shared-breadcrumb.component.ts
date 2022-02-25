@@ -17,6 +17,7 @@ export class RdapSharedBreadcrumbComponent implements OnInit {
   breadcrumbdetails: any[];
   route: string;
   routeName: string;
+  tempjoin:any[];
   constructor(private httpClient: HttpClient, private location: Location, private router: Router) {
     this.breadcrumbdetails = [];
     this.router.events.subscribe((val) => {
@@ -25,28 +26,23 @@ export class RdapSharedBreadcrumbComponent implements OnInit {
         this.routeName = this.route.split('/')[this.route.split('/').length - 1];
         if (breadcrumbdata.breadcrumb) {
           this.breadcrumbdetails = breadcrumbdata.breadcrumb;
-          console.log(this.breadcrumbdetails)
           this.breadcrumb();
         }
       } else {
         this.route = 'Home'
         if (breadcrumbdata.breadcrumb) {
           this.breadcrumbdetails = breadcrumbdata.breadcrumb;
-          console.log(this.breadcrumbdetails)
           this.breadcrumb();
         }
       }
     });
     // this.httpClient.get("assets/config/breadcrumb-details.json").subscribe(data => {
-    //   //console.log(data)
     //   this.breadcrumbdetails.push(data);
     //   this.breadcrumb();
     // });
   }
 
   ngOnInit(): void {
-    // console.log(this.breadcrumbarr);
-    // console.log(this.breadcrumbLinksList);
   }
 
   breadcrumb() {
@@ -55,10 +51,8 @@ export class RdapSharedBreadcrumbComponent implements OnInit {
     this.breadcrumbarr = [];
     let tempBreadcrumbDetail = [];
     this.breadcrumbarr.push({ label: "Home", url: "/home/dashboard" });
-    console.log("breadcrumbarr",this.breadcrumbarr)
     if(this.route){
       this.breadcrumbList = this.route.split('/');
-      console.log(this.breadcrumbList)
       this.breadcrumbList = this.breadcrumbList.filter(function (e) {return e != null;});
       this.breadcrumbLinksList = [this.breadcrumbList[0]];
       for (let i = 1; i <= this.breadcrumbList.length; i++) {
@@ -69,11 +63,46 @@ export class RdapSharedBreadcrumbComponent implements OnInit {
           if (this.breadcrumbList[i] == "dashboard") {
             this.breadcrumbarr.push({ label: "Dashboard", url: "/home/dashboard" });
           } else {
+            let finalUrl;
             tempBreadcrumbDetail = this.breadcrumbdetails.filter(x => {
-              console.log(this.breadcrumbList[this.breadcrumbList.length-1]);
               if (x.page == this.breadcrumbList[i]) {
                 if (x.details.length > 1) {
-                  this.breadcrumbarr.push(x.details.filter(x => { return x.url == this.route })[0]);
+                  if(x.page == "extrapinrequest"){
+                    if(this.route.includes('view')){
+                      this.tempjoin = this.route.split('/');
+                      this.tempjoin.splice(- 1, 1);
+                      finalUrl = this.tempjoin.join('/');
+                      
+                      this.breadcrumbarr.push(x.details.filter(x => { return x.url == finalUrl })[0]);
+                    }else{
+                      this.breadcrumbarr.push(x.details.filter(x => { return x.url == this.route })[0]);
+                    }
+                  }
+                  else if(x.page == "reworkrequest"){
+                    if(this.route.includes('view')){
+                      this.tempjoin = this.route.split('/');
+                      this.tempjoin.splice(- 1, 1);
+                      finalUrl = this.tempjoin.join('/');
+                      
+                      this.breadcrumbarr.push(x.details.filter(x => { return x.url == finalUrl })[0]);
+                    }else{
+                      this.breadcrumbarr.push(x.details.filter(x => { return x.url == this.route })[0]);
+                    }
+                  }
+                  else if(x.page == "blanketpinreq"){
+                    if(this.route.includes('view')){
+                      this.tempjoin = this.route.split('/');
+                      this.tempjoin.splice(- 1, 1);
+                      finalUrl = this.tempjoin.join('/');
+                      
+                      this.breadcrumbarr.push(x.details.filter(x => { return x.url == finalUrl })[0]);
+                    }else{
+                      this.breadcrumbarr.push(x.details.filter(x => { return x.url == this.route })[0]);
+                    }
+                  }
+                  else{
+                    this.breadcrumbarr.push(x.details.filter(x => { return x.url == this.route })[0]);
+                  }
                 } else {
                   this.breadcrumbarr.push(x.details[0]);
                 }

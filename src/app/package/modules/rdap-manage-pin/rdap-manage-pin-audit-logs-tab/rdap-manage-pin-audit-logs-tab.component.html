@@ -1,0 +1,19 @@
+
+<form style="padding-left: 2%;padding-right: 2%;min-height: 500px;padding-bottom: 2%;padding-top:2%;">
+    <div class="row">
+        <label>Audit Log</label>
+    </div>
+    <div class="row">
+        <app-rdap-shared-igx-grid-search-result [pagename]="auditlogpagename" [exportfilename]="exportfilename" 
+        [searchGridData]="auditlogdata" [appString]="appString">
+        </app-rdap-shared-igx-grid-search-result>
+    </div>
+    <div class="row">
+        <label>Change Log</label>
+    </div>
+    <div class="row">
+    <app-rdap-shared-igx-grid-search-result [pagename]="changelogpagename" [exportfilename]="exportfilename" 
+    [searchGridData]="changelogdata" [appString]="appString">
+    </app-rdap-shared-igx-grid-search-result>
+</div>
+</form>

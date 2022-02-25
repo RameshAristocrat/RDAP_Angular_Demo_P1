@@ -1,0 +1,123 @@
+<div class="grid-container">
+    <!-- <h1 class="mat-h1">Extra Pin Request</h1> -->
+    <app-rdap-shared-breadcrumb></app-rdap-shared-breadcrumb>
+    <mat-accordion>
+        <mat-expansion-panel [expanded]="true" (opened)="panelOpenState = true"
+        (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+            <mat-panel-title style="font-weight:410;font-size: 14px;">
+            Search Filter
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-card>
+            <mat-card-content>
+                <form *ngIf="filterform" [formGroup]="filterform">
+                    <div class="row">
+                        <div class="col-lg-3 form-group">
+                                <label>Plan Item</label>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <!-- <span class="input-group-text" id="basic-addon1">@</span> -->
+                                        <select class="form-control input-group-text" formControlName="planitemsearchcriteria">
+                                            <option  style="text-align: center;" value="{{opitem.id}}" *ngFor="let opitem of numberSearchCriteria;">{{opitem.value}}</option>
+                                        </select>
+                                    </div>
+                                    <input formControlName="planitem" type="text" class="form-control"
+                                        placeholder="Enter Planitem" aria-label="Enter Planitem" aria-describedby="basic-addon1">
+                                </div>
+                    </div>
+                    <div class="col-lg-3 form-group">
+                        <label>Channel</label>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <!-- <span class="input-group-text" id="basic-addon1">@</span> -->
+                                <select class="form-control input-group-text" formControlName="channelsearchcriteria">
+                                    <option  style="text-align: center;" value="{{opitem.id}}" *ngFor="let opitem of stringSearchCriteria;">{{opitem.value}}</option>
+                                </select>
+                            </div>
+                            <input formControlName="channel" type="text" class="form-control"
+                                placeholder="Enter Channel" aria-label="Enter Channel" aria-describedby="basic-addon1">
+                        </div>
+            </div>
+            <div class="col-lg-3 form-group">
+                <label>Channel Type</label>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <!-- <span class="input-group-text" id="basic-addon1">@</span> -->
+                        <select class="form-control input-group-text" formControlName="channeltypesearchcriteria">
+                            <option  style="text-align: center;" value="{{opitem.id}}" *ngFor="let opitem of stringSearchCriteria;">{{opitem.value}}</option>
+                        </select>
+                    </div>
+                    <input formControlName="channeltype" type="text" class="form-control"
+                        placeholder="Enter Channel Type" aria-label="Enter Channel Type" aria-describedby="basic-addon1">
+                </div>
+    </div>
+    <div class="col-lg-3 form-group">
+        <label>Region</label>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <!-- <span class="input-group-text" id="basic-addon1">@</span> -->
+                <select class="form-control input-group-text" formControlName="regionsearchcriteria">
+                    <option  style="text-align: center;" value="{{opitem.id}}" *ngFor="let opitem of stringSearchCriteria;">{{opitem.value}}</option>
+                </select>
+            </div>
+            <input formControlName="region" type="text" class="form-control"
+                placeholder="Enter Region" aria-label="Enter Region" aria-describedby="basic-addon1">
+        </div>
+</div>
+                    <!-- <div class="col-lg-3 form-group" style="display: none;">
+                            <label>Channel</label>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <select class="form-control input-group-text" formControlName="channelsearchcriteria">
+                                    <option  style="text-align: center;" value="{{opitem.id}}" *ngFor="let opitem of stringSearchCriteria;">{{opitem.value}}</option>
+                                </select>
+                            </div>
+                            <select class="form-control" formControlName="channelId">
+                              <option value="" hidden selected><span style="color: rgb(199, 199, 199);">Select Channel</span></option>
+                              <option value="{{opitem.description}}" *ngFor="let opitem of channelarrobj[0];">{{opitem.description}}</option>
+                            </select>
+                          </div>
+                    </div> -->
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3 form-group">
+                            <label>Market</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <!-- <span class="input-group-text" id="basic-addon1">@</span> -->
+                                    <select class="form-control input-group-text" formControlName="marketsearchcriteria">
+                                        <option  style="text-align: center;" value="{{opitem.id}}" *ngFor="let opitem of stringSearchCriteria;">{{opitem.value}}</option>
+                                    </select>
+                                </div>
+                                <input formControlName="market" type="text" class="form-control"
+                                    placeholder="Enter Market" aria-label="Enter Market" aria-describedby="basic-addon1">
+                            </div>
+                    </div>  
+                    </div>
+                    </form>
+            </mat-card-content>
+            <mat-card-actions style="text-align: left;">
+                <button mat-raised-button style="width: 10%;background-color: #300c46;color:white"
+                (click)="searchSubmit()">Search</button>
+            </mat-card-actions>
+        </mat-card>
+        </mat-expansion-panel>
+        </mat-accordion>
+    <mat-card>
+        <mat-card-content>
+            <app-rdap-shared-igx-grid-search-result [exportfilename]="exportfilename" 
+            [searchGridData]="searchGridData" 
+            [totalCount] = "totalCount"
+            [pagename]="pagename"  [appString]="appString" 
+            (onSelGridRowData)="onSelGridRowData($event)"
+            >
+            <!-- (onPageChangeEvent)="onPageChangeEvent($event)" -->
+            </app-rdap-shared-igx-grid-search-result>
+        </mat-card-content>
+		        <mat-card-actions style="text-align: left;">
+            <button mat-raised-button style="width: 10%;background-color: #300c46;color:white"
+            (click)="viewrecord(route)"  *ngIf="selMasterDetailsData && selMasterDetailsData.newSelection.length > 0">Open</button>
+        </mat-card-actions>
+    </mat-card>
+    </div>

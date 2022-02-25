@@ -16,12 +16,18 @@ import { RdapExtraPinRequestCabinetTypeComponent } from './rdap-extra-pin-reques
 import { configRoutes } from '../configs/rdap-configs.routing';
 import { CoreModule } from '../../core/core.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RdapExtPinReqListComponent } from './rdap-extra-pin-request-list/rdap-ext-pin-req-list/rdap-ext-pin-req-list.component';
+import { RdapExtraPinRequestWorkflowComponent } from './rdap-extra-pin-request-workflow/rdap-extra-pin-request-workflow.component';
+import { RdapExtraPinRequestIndividualWorkflowComponent } from './rdap-extra-pin-request-individual-workflow/rdap-extra-pin-request-individual-workflow.component';
 @NgModule({
   declarations: [RDAPExtraPINRequestComponent,
     RdapExtraPinRequestDetailsComponent,
     RdapExtraPinRequestLinkedPinComponent,
     RdapExtraPinRequestGameTitleComponent,
-    RdapExtraPinRequestCabinetTypeComponent],
+    RdapExtraPinRequestCabinetTypeComponent,
+    RdapExtPinReqListComponent,
+    RdapExtraPinRequestWorkflowComponent,
+    RdapExtraPinRequestIndividualWorkflowComponent],
   imports: [
     FormsModule,
     ReactiveFormsModule,

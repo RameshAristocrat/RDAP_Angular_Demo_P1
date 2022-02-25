@@ -1,26 +1,46 @@
-<div class="grid__wrapper" *ngIf="searchGridData.length>0">
-    <igx-grid igxPreventDocumentScroll #grid1 id="grid1" 
+<div class="grid__wrapper" >
+    <!-- <igx-grid igxPreventDocumentScroll #grid1 id="grid1" 
     [data]="data" 
-    [rowSelection]="'single'" 
-    [paging]="true"
-        [perPage]="10" 
+    [rowSelection]="rowselectionflag" 
         [rowHeight]="25" 
         height="auto" 
         width="100%" 
-        [allowFiltering]="true"
+        [allowFiltering]="filterflag"
         (toolbarExporting)="configureExport($event)"
-        (rowSelected)="handleRowSelection($event)">
-        <igx-grid-toolbar>
-            <igx-grid-toolbar-actions>
+        (rowSelected)="handleRowSelection($event)"
+        [autoGenerate]="autogenFlag"
+        [paging]="true"
+        [pagingMode]="mode" [totalRecords]="totalCount" 
+        (pageChange)="onPageChange($event)"
+        (onPageChangeEvent)="onPageChangeEvent($event)"
+        > -->
+        <igx-grid igxPreventDocumentScroll #grid1 id="grid1" 
+        [data]="data" 
+        [rowSelection]="rowselectionflag" 
+        [rowHeight]="25" 
+        height="auto" 
+        width="100%" 
+        [allowFiltering]="filterflag"
+        (toolbarExporting)="configureExport($event)"
+        (rowSelected)="handleRowSelection($event)"
+        [autoGenerate]="autogenFlag"  [emptyGridMessage]="'No Record Found'"
+        >
+        <igx-grid-toolbar [hidden]="searchGridData.length == 0">
+            <igx-grid-toolbar-actions >
                 <igx-grid-toolbar-exporter [exportExcel]="true" [exportCSV]="true" filename="{{exportfilename}}">
                 </igx-grid-toolbar-exporter>
+                <igx-grid-toolbar-pinning></igx-grid-toolbar-pinning>
             </igx-grid-toolbar-actions>
         </igx-grid-toolbar>
         <igx-paginator [perPage]="10"></igx-paginator>
-        <igx-column *ngFor="let c of columndata" [sortable]="true" [width]="c.width" [filterable]="true"
-            [field]="c.field" [header]="c.title|titlecase" [dataType]="c.type" [hidden]="c.hidden">
+        <igx-column *ngFor="let c of columndata" [sortable]="true" [width]="c.width" [filterable]="c.filter"
+            [field]="c.field" [header]="c.title|titlecase" [dataType]="c.type" 
+            [hidden]="c.hidden" [resizable]="c.resizable" [disablePinning]="c.hidden" [pinned]="c.pinned"> 
             <ng-template *ngIf="c.field == 'document'" igxCell let-cell="cell" let-val>
                 <a>{{val}}</a>
+            </ng-template>
+            <ng-template *ngIf="c.field == 'updateDate'" igxCell let-value>
+                {{ value | date:'dd-MMM-YYYY' }}
             </ng-template>
         </igx-column>
     </igx-grid>

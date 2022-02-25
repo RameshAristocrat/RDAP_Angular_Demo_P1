@@ -52,3 +52,7 @@ table {
 input, select, textarea, label, ng-select, matInput {
   font-size: 12px;
   }
+
+  :host::ng-deep.ng-select{
+    width: 500px;
+  }

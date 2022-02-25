@@ -1,0 +1,370 @@
+<form *ngIf="milestoneform" [formGroup]="milestoneform"
+  style="padding-left: 2%;padding-right: 2%;max-height: 500px;padding-bottom: 2%;padding-top:2%;">
+  <div class="row">
+    <div class="col-lg-4 form-group" required>
+      <!-- <mat-form-field>
+        <label>Market Required Date</label>
+        <input matInput [matDatepicker]="marketreqpicker" appendTo="body"  required
+        (dateChange)="onDateChange($event,'planApprDate')"
+        formControlName="planApprDate">
+        <mat-datepicker-toggle matSuffix [for]="marketreqpicker"></mat-datepicker-toggle>
+        <mat-datepicker #marketreqpicker></mat-datepicker>
+      </mat-form-field> -->
+      <mat-form-field>
+        <mat-label for="milestoneform">Market Required Date </mat-label>
+        <input matInput [matDatepicker]="marketreqpicker" appendTo="body"  required
+        (dateChange)="onDateChange($event,'planApprDate')"
+        formControlName="planApprDate">
+        <mat-datepicker-toggle matSuffix [for]="marketreqpicker"></mat-datepicker-toggle>
+        <mat-datepicker #marketreqpicker></mat-datepicker>
+      </mat-form-field>
+      <small *ngIf="milestoneform.hasError('required', 'planApprDate')"></small>
+    </div>
+    <div class="col-lg-4 form-group">
+      <mat-form-field>
+        <mat-label for="milestoneform">GDB Reqd by</mat-label>
+        <input matInput [matDatepicker]="gdbReqdDatepicker" appendTo="body"
+        (dateChange)="onDateChange($event,'gdbReqdDate')" 
+        formControlName="gdbReqdDate">
+        <mat-datepicker-toggle matSuffix [for]="gdbReqdDatepicker"></mat-datepicker-toggle>
+        <mat-datepicker #gdbReqdDatepicker></mat-datepicker>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 form-group">
+      <mat-form-field>
+        <label>Net Approval Date</label>
+        <input matInput [matDatepicker]="netapprpicker" appendTo="body" 
+        (dateChange)="onDateChange($event,'netApprDate')"
+        formControlName="netApprDate" readonly>
+        <mat-datepicker-toggle matSuffix [for]="netapprpicker" disabled></mat-datepicker-toggle>
+        <mat-datepicker #netapprpicker></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="col-lg-4 form-group">
+      <ng-select            
+      [items]="fyarrobj"
+      placeholder="FY"
+      bindLabel="description2"
+      bindValue="id"
+      [clearable]="false"
+      [virtualScroll]="true"
+      appendTo="body"
+      formControlName="financialyearId"
+      (change)="ddlOnChangeEvent($event,'financialyearId')" >
+      <ng-template ng-option-tmp let-item="item">
+        {{ item.description }}
+      </ng-template>
+      </ng-select>
+    </div>
+    <div class="col-lg-4 form-group">
+      <ng-select         
+      [items]="quarterarrobj"
+      placeholder="Quarter"
+      bindLabel="description2"
+      bindValue="id"
+      [clearable]="false"
+      [virtualScroll]="true"
+      formControlName="quarterId"
+      appendTo="body"
+      (change)="ddlOnChangeEvent($event,'quarterId')">
+      <ng-template ng-option-tmp let-item="item">
+        {{ item.description }}
+      </ng-template>
+      </ng-select>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-1 form-group">
+
+    </div>
+    <div class="col-lg-3 form-group  d-flex justify-content-center">
+      <label style="font-weight: bold;font-size: 12px !important;">Target</label>
+    </div>
+    <div class="col-lg-3 form-group d-flex justify-content-center">
+      <label style="font-weight: bold;font-size: 12px !important;">Estimate</label>
+    </div>
+    <div class="col-lg-3 form-group d-flex justify-content-center">
+      <label style="font-weight: bold;font-size: 12px !important;">Actual</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-1 form-group">
+      <label>Dev Start</label>
+    </div>
+    <div class="col-lg-3 form-group">
+      <mat-form-field>
+        <input matInput [matDatepicker]="devstarttargetpicker" appendTo="body" 
+        (dateChange)="onDateChange($event,'tgtDevStartDate')"
+        formControlName="tgtDevStartDate">
+        <mat-datepicker-toggle matSuffix [for]="devstarttargetpicker"></mat-datepicker-toggle>
+        <mat-datepicker #devstarttargetpicker></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="col-lg-3 form-group">
+      <mat-form-field>
+        <input matInput [matDatepicker]="devstartestimatepicker" appendTo="body"
+        (dateChange)="onDateChange($event,'estDevStartDate')"
+          formControlName="estDevStartDate">
+        <mat-datepicker-toggle matSuffix [for]="devstartestimatepicker"></mat-datepicker-toggle>
+        <mat-datepicker #devstartestimatepicker></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="col-lg-3 form-group">
+      <mat-form-field>
+        <input matInput [matDatepicker]="devstartactualpicker" appendTo="body" 
+        (dateChange)="onDateChange($event,'devStartDate')"
+        formControlName="devStartDate">
+        <mat-datepicker-toggle matSuffix [for]="devstartactualpicker"></mat-datepicker-toggle>
+        <mat-datepicker #devstartactualpicker></mat-datepicker>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-1 form-group">
+      <label>Into GIG</label>
+    </div>
+    <div class="col-lg-3 form-group">
+    </div>
+    <div class="col-lg-3 form-group">
+    </div>
+    <div class="col-lg-3 form-group">
+      <mat-form-field>
+        <input matInput [matDatepicker]="intogigactualpicker" appendTo="body"
+        (dateChange)="onDateChange($event,'intoGigDate')"
+          formControlName="intoGigDate">
+        <mat-datepicker-toggle matSuffix [for]="intogigactualpicker"></mat-datepicker-toggle>
+        <mat-datepicker #intogigactualpicker></mat-datepicker>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-1 form-group">
+      <label>SIT Finish</label>
+    </div>
+    <div class="col-lg-3 form-group">
+    </div>
+    <div class="col-lg-3 form-group">
+    </div>
+    <div class="col-lg-3 form-group">
+      <mat-form-field>
+        <input matInput [matDatepicker]="sitfinishactualpicker" appendTo="body"
+        (dateChange)="onDateChange($event,'presubDate')"
+          formControlName="presubDate">
+        <mat-datepicker-toggle matSuffix [for]="sitfinishactualpicker"></mat-datepicker-toggle>
+        <mat-datepicker #sitfinishactualpicker></mat-datepicker>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-1 form-group">
+      <label>Into QA</label>
+    </div>
+    <div class="col-lg-3 form-group">
+      <mat-form-field>
+        <input matInput [matDatepicker]="tgtIntoCvlDatepicker" appendTo="body" 
+        (dateChange)="onDateChange($event,'tgtIntoCvlDate')"
+        formControlName="tgtIntoCvlDate">
+        <mat-datepicker-toggle matSuffix [for]="tgtIntoCvlDatepicker"></mat-datepicker-toggle>
+        <mat-datepicker #tgtIntoCvlDatepicker></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="col-lg-3 form-group">
+      <mat-form-field>
+        <input matInput [matDatepicker]="estIntoCvlDatelpicker" appendTo="body" 
+        (dateChange)="onDateChange($event,'estIntoCvlDate')"
+        formControlName="estIntoCvlDate">
+        <mat-datepicker-toggle matSuffix [for]="estIntoCvlDatelpicker"></mat-datepicker-toggle>
+        <mat-datepicker #estIntoCvlDatelpicker></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="col-lg-3 form-group">
+      <mat-form-field>
+        <input matInput [matDatepicker]="intoCvlDatepicker" appendTo="body" 
+        (dateChange)="onDateChange($event,'intoCvlDate')"
+        formControlName="intoCvlDate">
+        <mat-datepicker-toggle matSuffix [for]="intoCvlDatepicker"></mat-datepicker-toggle>
+        <mat-datepicker #intoCvlDatepicker></mat-datepicker>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-1 form-group">
+      <label>Pre-comp Finish</label>
+    </div>
+    <div class="col-lg-3 form-group">
+    </div>
+    <div class="col-lg-3 form-group">
+      <mat-form-field>
+        <input matInput [matDatepicker]="precompfinishtargetpicker" appendTo="body"
+        (dateChange)="onDateChange($event,'estPresubDate')"
+          formControlName="estPresubDate">
+        <mat-datepicker-toggle matSuffix [for]="precompfinishtargetpicker"></mat-datepicker-toggle>
+        <mat-datepicker #precompfinishtargetpicker></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="col-lg-3 form-group">
+      <!-- <mat-form-field>
+        <input matInput [matDatepicker]="picker" appendTo="body" formControlName="precompfinishactual">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field> -->
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-1 form-group">
+      <label>Into Compliance</label>
+    </div>
+    <div class="col-lg-3 form-group">
+      <mat-form-field>
+        <input matInput [matDatepicker]="intocompliancetargetpicker" appendTo="body"
+        (dateChange)="onDateChange($event,'tgtIntoSubDate')"
+          formControlName="tgtIntoSubDate">
+        <mat-datepicker-toggle matSuffix [for]="intocompliancetargetpicker"></mat-datepicker-toggle>
+        <mat-datepicker #intocompliancetargetpicker></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="col-lg-3 form-group">
+      <mat-form-field>
+        <input matInput [matDatepicker]="intocomplianceestimatepicker" appendTo="body" 
+        (dateChange)="onDateChange($event,'estIntoSubDate')"
+        formControlName="estIntoSubDate">
+        <mat-datepicker-toggle matSuffix [for]="intocomplianceestimatepicker"></mat-datepicker-toggle>
+        <mat-datepicker #intocomplianceestimatepicker></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="col-lg-3 form-group">
+      <mat-form-field>
+        <input matInput [matDatepicker]="intocomplianceactpicker" appendTo="body" 
+        (dateChange)="onDateChange($event,'intoSubDate')"
+        formControlName="intoSubDate">
+        <mat-datepicker-toggle matSuffix [for]="intocomplianceactpicker"></mat-datepicker-toggle>
+        <mat-datepicker #intocomplianceactpicker></mat-datepicker>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-1 form-group">
+      <label>Submitted</label>
+    </div>
+    <div class="col-lg-3 form-group">
+      <mat-form-field>
+        <input matInput [matDatepicker]="submittedtargetpicker" appendTo="body"
+        (dateChange)="onDateChange($event,'tgtSubDate')"
+          formControlName="tgtSubDate">
+        <mat-datepicker-toggle matSuffix [for]="submittedtargetpicker"></mat-datepicker-toggle>
+        <mat-datepicker #submittedtargetpicker></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="col-lg-3 form-group">
+      <mat-form-field>
+        <input matInput [matDatepicker]="submittedestimatepicker" appendTo="body"
+        (dateChange)="onDateChange($event,'estSubDate')"
+          formControlName="estSubDate">
+        <mat-datepicker-toggle matSuffix [for]="submittedestimatepicker"></mat-datepicker-toggle>
+        <mat-datepicker #submittedestimatepicker></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="col-lg-3 form-group">
+      <mat-form-field>
+        <input matInput [matDatepicker]="submittedactualpicker" appendTo="body"
+        (dateChange)="onDateChange($event,'subDate')"
+          formControlName="subDate">
+        <mat-datepicker-toggle matSuffix [for]="submittedactualpicker"></mat-datepicker-toggle>
+        <mat-datepicker #submittedactualpicker></mat-datepicker>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-1 form-group">
+      <label>Recommended</label>
+    </div>
+    <div class="col-lg-3 form-group">
+    </div>
+    <div class="col-lg-3 form-group">
+      <mat-form-field>
+        <input matInput [matDatepicker]="recommendedestimatepicker" appendTo="body"
+        (dateChange)="onDateChange($event,'estRecDate')"
+          formControlName="estRecDate">
+        <mat-datepicker-toggle matSuffix [for]="recommendedestimatepicker"></mat-datepicker-toggle>
+        <mat-datepicker #recommendedestimatepicker></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="col-lg-3 form-group">
+      <mat-form-field>
+        <input matInput [matDatepicker]="recommendedactualpicker" appendTo="body"
+        (dateChange)="onDateChange($event,'recDate')"
+          formControlName="recDate">
+        <mat-datepicker-toggle matSuffix [for]="recommendedactualpicker"></mat-datepicker-toggle>
+        <mat-datepicker #recommendedactualpicker></mat-datepicker>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-1 form-group">
+      <label>Approved</label>
+    </div>
+    <div class="col-lg-3 form-group">
+      <mat-form-field>
+        <input matInput [matDatepicker]="approvedtargetpicker" appendTo="body" 
+        (dateChange)="onDateChange($event,'tgtApprDate')"
+        formControlName="tgtApprDate">
+        <mat-datepicker-toggle matSuffix [for]="approvedtargetpicker"></mat-datepicker-toggle>
+        <mat-datepicker #approvedtargetpicker></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="col-lg-3 form-group">
+      <mat-form-field>
+        <input matInput [matDatepicker]="approvedestimatepicker" appendTo="body"
+        (dateChange)="onDateChange($event,'estApprDate')"
+          formControlName="estApprDate">
+        <mat-datepicker-toggle matSuffix [for]="approvedestimatepicker"></mat-datepicker-toggle>
+        <mat-datepicker #approvedestimatepicker></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="col-lg-3 form-group">
+      <mat-form-field>
+        <input matInput [matDatepicker]="approvedactualpicker" appendTo="body" 
+        (dateChange)="onDateChange($event,'apprDate')"
+        formControlName="apprDate">
+        <mat-datepicker-toggle matSuffix [for]="approvedactualpicker"></mat-datepicker-toggle>
+        <mat-datepicker #approvedactualpicker></mat-datepicker>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-1 form-group">
+      <label>Released</label>
+    </div>
+    <div class="col-lg-3 form-group">
+      <mat-form-field>
+        <input matInput [matDatepicker]="releasedtargetpicker" appendTo="body" 
+        (dateChange)="onDateChange($event,'tgtReleaseDate')"
+        formControlName="tgtReleaseDate">
+        <mat-datepicker-toggle matSuffix [for]="releasedtargetpicker"></mat-datepicker-toggle>
+        <mat-datepicker #releasedtargetpicker></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="col-lg-3 form-group">
+      <mat-form-field>
+        <input matInput [matDatepicker]="releasedestimatepicker" appendTo="body"
+        (dateChange)="onDateChange($event,'estReleaseDate')"
+          formControlName="estReleaseDate">
+        <mat-datepicker-toggle matSuffix [for]="releasedestimatepicker"></mat-datepicker-toggle>
+        <mat-datepicker #releasedestimatepicker></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="col-lg-3 form-group">
+      <mat-form-field>
+        <input matInput [matDatepicker]="releasedactualpicker" appendTo="body" 
+        (dateChange)="onDateChange($event,'releaseDate')"
+        formControlName="releaseDate">
+        <mat-datepicker-toggle matSuffix [for]="releasedactualpicker"></mat-datepicker-toggle>
+        <mat-datepicker #releasedactualpicker></mat-datepicker>
+      </mat-form-field>
+    </div>
+  </div>
+</form>
+<igx-dialog #FYalert title="Manage PIN: Warning!" message="{{message}}" leftButtonLabel="OK" 
+(leftButtonSelect)="onDialogSubmit($event)"></igx-dialog>

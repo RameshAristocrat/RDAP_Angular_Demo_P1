@@ -13,7 +13,6 @@ export class RdapConfigMarketSearchComponent implements OnInit {
   }
 
   submit(event){
-    console.log("event",event);
   }
 
 }

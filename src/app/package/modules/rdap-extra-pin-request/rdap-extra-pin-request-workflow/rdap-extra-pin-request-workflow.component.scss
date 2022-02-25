@@ -1,0 +1,8 @@
+:host::ng-deep .flowContainer iframe {
+    width: 100%;
+    height: 600px;
+    min-height: 600px;
+    border: none;
+    overflow: hidden;
+    margin-left: 2px !important;
+}

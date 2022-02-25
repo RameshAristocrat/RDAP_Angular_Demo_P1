@@ -1,0 +1,9 @@
+<div class="grid__wrapper">
+    <igx-grid igxPreventDocumentScroll [data]="legendData"  (columnResized)="onResize($event)" [rowHeight] = "35" [autoGenerate]="false" height="350px" width="100%">
+        <igx-column [field]="'DevClass'"  header= " "   [resizable]="false" [width]="'100px'"></igx-column>
+        <igx-column [field]="'Description'" header= " "  [resizable]="false"  [width]="'300px'"></igx-column>
+        <igx-column [field]="'DescriptionLong'" header= " "  [resizable]="false" ></igx-column>
+    </igx-grid>
+  </div>
+
+

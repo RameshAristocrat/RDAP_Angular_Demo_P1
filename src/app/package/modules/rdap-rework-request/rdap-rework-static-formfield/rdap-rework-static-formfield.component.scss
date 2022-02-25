@@ -1,0 +1,13 @@
+.grid__wrapper {
+  margin: 0 auto;
+  padding: 5px;
+}
+// .igx-grid__td span { @include ellipsis(); } 
+// .igx-grid__td span { white-space: nowrap; text-overflow: ellipsis; overflow: hidden; }
+:host{
+  ::ng-deep{
+    .igx-grid__thead{
+      display: none;
+    }
+  }
+}

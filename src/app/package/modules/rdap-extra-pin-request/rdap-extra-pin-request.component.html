@@ -17,7 +17,10 @@
               PIN Details
             </span>
           </ng-template>
-          <app-rdap-extra-pin-request-details></app-rdap-extra-pin-request-details>
+          <app-rdap-extra-pin-request-details *ngIf="!pinId" [pinId]="pinId" (detailsEvent)="detailsEvent($event)">
+          </app-rdap-extra-pin-request-details>
+          <app-rdap-extra-pin-request-details *ngIf="pinId" [pinId]="pinId" (detailsEvent)="detailsEvent($event)">
+          </app-rdap-extra-pin-request-details>
         </mat-tab>
 
         <mat-tab class="mat-elevation-z4">
@@ -29,7 +32,12 @@
               Linked PIN
             </span>
           </ng-template>
-          <app-rdap-extra-pin-request-linked-pin>
+          <app-rdap-extra-pin-request-linked-pin *ngIf="!pinId" [pinId]="pinId"
+            (linkedPinEvent)="linkedPinEvent($event)">
+
+          </app-rdap-extra-pin-request-linked-pin>
+          <app-rdap-extra-pin-request-linked-pin *ngIf="pinId" [pinId]="pinId"
+            (linkedPinEvent)="linkedPinEvent($event)">
 
           </app-rdap-extra-pin-request-linked-pin>
         </mat-tab>
@@ -43,8 +51,9 @@
               Game Title
             </span>
           </ng-template>
-          <app-rdap-extra-pin-request-game-title>
-
+          <app-rdap-extra-pin-request-game-title [actionflag]="actionFlag" [pinId]="pinId"
+           (gametitleEvent)="gametitleEvent($event)"
+          (gametitleBusJustEvent)="gametitleBusJustEvent($event)">
           </app-rdap-extra-pin-request-game-title>
         </mat-tab>
 
@@ -57,27 +66,41 @@
               Cabinet Type
             </span>
           </ng-template>
-          <app-rdap-extra-pin-request-cabinet-type></app-rdap-extra-pin-request-cabinet-type>
+          <app-rdap-extra-pin-request-cabinet-type *ngIf="!pinId" [pinId]="pinId"
+            (cabinetEvent)="cabinetEvent($event)">
+
+          </app-rdap-extra-pin-request-cabinet-type>
+          <app-rdap-extra-pin-request-cabinet-type *ngIf="pinId" [pinId]="pinId"
+            (cabinetEvent)="cabinetEvent($event)">
+
+          </app-rdap-extra-pin-request-cabinet-type>
+
+          <!-- <app-rdap-extra-pin-request-cabinet-type></app-rdap-extra-pin-request-cabinet-type> -->
         </mat-tab>
 
-        <mat-tab class="mat-elevation-z4">
-          <ng-template mat-tab-label>
+        <!-- <mat-tab class="mat-elevation-z4" *ngIf="actionFlag == 'V'">
+          <ng-template mat-tab-label >
             <span class="material-icons-round">
               account_tree
             </span>
-            <span style="padding-left: 10%;">
+            <span (click)="workflowtabclick()" style="padding-left: 10%;">
               Workflow
             </span>
           </ng-template>
           <div class="col-lg-12" style="padding-left: 2%;padding-right:2%">
-            Content 5
+           
+              <div style="padding-left: 2%;padding-right: 2%;min-height: 300px;padding-bottom: 2%;padding-top:2%;" id="flowsDiv" class="flowContainer"></div>
           </div>
-        </mat-tab>
+        </mat-tab> -->
       </mat-tab-group>
     </mat-card-content>
-    <mat-card-actions style="text-align: center;">
-      <button mat-raised-button style="width: 25%;background-color: #300c46;color:white">Extra PIN Request</button>
-      <button mat-raised-button style="width: 25%;background-color: #300c46;color:white">Cancel</button>
+    <mat-card-actions style="text-align:left;">
+      <button mat-raised-button  [disabled]="disableFlag" style="width: 25%;background-color: #300c46;color:white"
+       (click)="extraPinReqSubmit()" *ngIf="actionFlag == 'A'">Extra PIN Request</button>
+      <button mat-raised-button style="width: 10%;background-color: #300c46;color:white"
+      (click)="cancel()">Back</button>
     </mat-card-actions>
   </mat-card>
+  <igx-dialog #alert title="Extra PIN Request" message="{{message}}" leftButtonLabel="OK" 
+  (leftButtonSelect)="onDialogSubmit($event)"></igx-dialog> 
 </div>

@@ -1,54 +1,58 @@
-  .grid-container {
-    margin: 20px;
-  }
-  
+.grid-container {
+  margin: 20px;
+}
 
-  .mat-card {
-    background: #fff;
-    //color: rgb(174 171 171);
+
+.mat-card {
+  background: #fff;
+  //color: rgb(174 171 171);
 }
 
 .mat-card-header .mat-card-title {
-    font-size: 16px;
-    font-weight: 400;
+  font-size: 16px;
+  font-weight: 400;
 }
 
 .mat-form-field{
-    width: 100%;
+  width: 100%;
 }
 
 :host::ng-deep .mat-form-field {
-    .mat-input-element {
-        margin-top: 0.9em !important;
-    }
+  .mat-input-element {
+      margin-top: 0.9em !important;
+  }
 }
 
 table {
-    width: 100%;
-    table-layout: fixed;
-  }
+  width: 100%;
+  table-layout: fixed;
+}
 
-  input, select, textarea, label, ng-select, matInput {
-    font-size: 12px;
-    }
-  
-  th, td {
-    overflow: hidden;
-    width: 100%;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-  th{
-      background-color:rgb(158, 158, 154);;
-      color: white;
-      font-weight: 500;
-      font-size: 14px;
-      height: 50%;
-      text-align: center;
-  }
-  td{
+th, td {
+  overflow: hidden;
+  width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+th{
+    background-color:rgb(158, 158, 154);;
+    color: white;
+    font-weight: 500;
     font-size: 14px;
-  }
-  tr.mat-header-row {
-    height: 30px;
+    height: 50%;
+    text-align: center;
+}
+td{
+  font-size: 14px;
+}
+tr.mat-header-row {
+  height: 30px;
+}
+
+input, select, textarea, label, ng-select, matInput {
+font-size: 12px;
+}
+
+:host::ng-deep.ng-select{
+  width: 500px;
 }

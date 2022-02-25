@@ -1,0 +1,143 @@
+<div class="grid-container">
+    <mat-card>
+        <mat-card-content  class="mat-elevation-z4">
+          <app-rdap-shared-breadcrumb></app-rdap-shared-breadcrumb>
+            <mat-tab-group class="mat-elevation-z4" 
+            style="background-color: #ffff;border-radius: 4px;"
+            #managepinTab (selectedTabChange)="tabChange(managepinTab.selectedIndex)">
+                <mat-tab class="mat-elevation-z4">
+                  <ng-template mat-tab-label>
+                    <span class="material-icons-outlined">
+                      control_point
+                    </span>
+                    <span style="padding-left: 10%;">
+                        Product
+                    </span>
+                  </ng-template>
+                  <app-rdap-manage-pin-product-tab 
+                  *ngIf="viewExtrapinRequestData" 
+                  [planitem]="viewExtrapinRequestData" 
+                  (productEvent)="productEvent($event)"></app-rdap-manage-pin-product-tab>
+                </mat-tab>
+                <mat-tab class="mat-elevation-z4">
+                  <ng-template mat-tab-label>
+                    <span class="material-icons-outlined">
+                      control_point
+                    </span>
+                    <span style="padding-left: 10%;">
+                        Milestone
+                    </span>
+                  </ng-template>
+                  <app-rdap-manage-pin-milestone-tab
+                  *ngIf="viewExtrapinRequestData" 
+                  [planitem]="viewExtrapinRequestData"
+                  [changeflag]="saveflag" 
+                  (milestoneEvent)="milestoneEvent($event)"></app-rdap-manage-pin-milestone-tab>
+                </mat-tab>
+                <mat-tab class="mat-elevation-z4">
+                  <ng-template mat-tab-label>
+                    <span class="material-icons-round">
+                      manage_accounts
+                    </span>
+                    <span style="padding-left: 10%;">
+                      Dependencies
+                    </span>
+                  </ng-template>
+                  <app-rdap-manage-pin-dependencies-tab *ngIf="viewExtrapinRequestData" 
+                  [dependencyInput]="dependencyInput"
+                  (dependencyEvent)="dependencyEvent($event)">
+                </app-rdap-manage-pin-dependencies-tab>
+                </mat-tab>
+                <mat-tab class="mat-elevation-z4">
+                  <ng-template mat-tab-label>
+                    <span class="material-icons-round">
+                      manage_accounts
+                    </span>
+                    <span style="padding-left: 10%;">
+                      Cabinet
+                    </span>
+                  </ng-template>
+                  <app-rdap-manage-pin-cabinet-tab *ngIf="viewExtrapinRequestData" [planitem]="viewExtrapinRequestData" 
+                  (cabinetEvent)="cabinetEvent($event)"></app-rdap-manage-pin-cabinet-tab>
+                </mat-tab>
+                <mat-tab class="mat-elevation-z4">
+                  <ng-template mat-tab-label>
+                    <span class="material-icons-round">
+                      manage_accounts
+                    </span>
+                    <span style="padding-left: 10%;">
+                      Test Details
+                    </span>
+                  </ng-template>
+                  <app-rdap-manage-pin-test-details-tab
+                  *ngIf="viewExtrapinRequestData"
+                  [testdetailsInput]="testdetailsInput" 
+                  (testdetailsEvent)="testdetailsEvent($event)">
+                </app-rdap-manage-pin-test-details-tab>
+                </mat-tab>
+                <mat-tab class="mat-elevation-z4">
+                  <ng-template mat-tab-label>
+                    <span class="material-icons-round">
+                      link
+                    </span>
+                    <span style="padding-left: 10%;">
+                      Set Item
+                    </span>
+                  </ng-template>
+                  <app-rdap-manage-pin-set-items-tab
+                  *ngIf="viewExtrapinRequestData"
+                  [setitemInput]="setitemInput" 
+                  (setItemEvent)="setItemEvent($event)"></app-rdap-manage-pin-set-items-tab>
+                </mat-tab>       
+                <mat-tab class="mat-elevation-z4">
+                  <ng-template mat-tab-label>
+                    <span class="material-icons-round">
+                      sports_esports
+                    </span>
+                    <span style="padding-left: 10%;">
+                     Clarity
+                    </span>
+                  </ng-template>
+                  <app-rdap-manage-pin-clarity
+                  *ngIf="viewExtrapinRequestData" [planitem]="viewExtrapinRequestData" 
+                  (clarityEvent)="clarityEvent($event)"></app-rdap-manage-pin-clarity>
+                </mat-tab> 
+                <mat-tab class="mat-elevation-z4">
+                  <ng-template mat-tab-label>
+                    <span class="material-icons-round">
+                      manage_accounts
+                    </span>
+                    <span style="padding-left: 10%;">
+                      Additional
+                    </span>
+                  </ng-template>
+                  <app-rdap-manage-pin-others-tab *ngIf="viewExtrapinRequestData" 
+                  [planitem]="viewExtrapinRequestData" 
+                  (otherEvent)="otherEvent($event)"></app-rdap-manage-pin-others-tab>
+                </mat-tab>   
+                <mat-tab class="mat-elevation-z4">
+                  <ng-template mat-tab-label>
+                    <span class="material-icons-round">
+                      sports_esports
+                    </span>
+                    <span style="padding-left: 10%;">
+                      Audit Log
+                    </span>
+                  </ng-template>
+                  <app-rdap-manage-pin-audit-logs-tab
+                  *ngIf="viewExtrapinRequestData" [planitem]="viewExtrapinRequestData" 
+                  (auditlogEvent)="auditlogEvent($event)"></app-rdap-manage-pin-audit-logs-tab>
+                </mat-tab>    
+              </mat-tab-group>
+        </mat-card-content>
+        <mat-card-actions style="text-align:center;">
+          <button mat-raised-button style="width: 15%;height:0%;font-size:10px;background-color: #300c46;color:white"
+          (click)="updatemanagepin()">Save</button>
+         <button mat-raised-button style="width: 15%;height:0%;font-size:10px;background-color: #300c46;color:white"
+         (click)="cancel()">Back</button>
+      </mat-card-actions>
+    </mat-card>
+</div>
+<igx-dialog #alert title="Manage PINs" message="{{message}}" leftButtonLabel="OK" 
+(leftButtonSelect)="onDialogSubmit($event)"></igx-dialog>
+<!--Update {{tabname}}-->

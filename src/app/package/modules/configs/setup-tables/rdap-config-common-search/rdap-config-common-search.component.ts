@@ -44,7 +44,6 @@ export class RdapConfigCommonSearchComponent implements OnInit {
   }
 
   submit(event){
-    console.log("event",event);
   }
 
 }

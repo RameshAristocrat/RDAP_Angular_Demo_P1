@@ -33,8 +33,6 @@ export class LoginComponent implements OnInit {
   }
 
   loginData(): void {
-    console.log('loginForm',this.loginForm.value.username);
-    console.log('loginForm',this.loginForm.value.password);
     if(isNotEmptyString(this.loginForm.value.username)&&isNotEmptyString(this.loginForm.value.password)){
       this.router.navigate(["main/launcher"]);
     }    

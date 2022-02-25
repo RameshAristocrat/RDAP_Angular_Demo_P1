@@ -9,7 +9,7 @@
   //background-color: black;
  }
  section {
-   height: calc(80vh);
+   height: calc(100vh);
    /* - Height: calc(100vh - (navheight + footer))
       - Over flow y make the dive scrollable 
    when it exceed the fixed height*/
@@ -45,4 +45,8 @@ p {
 //mat-drawer-content mat-sidenav-content
 :host::ng-deep .mat-drawer-content .mat-sidenav-content{
   margin-top: 3% !important;
+ // overflow: hidden;
+}
+:host::ng-deep .mat-drawer-content{
+  //overflow: hidden !important;
 }

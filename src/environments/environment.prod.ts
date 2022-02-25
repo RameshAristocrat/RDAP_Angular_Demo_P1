@@ -5,6 +5,7 @@ export const environment = {
   stag:false,
   dolly:false,
   ram:false,
+  disha:true,
   oktaconfig: { 
     CLIENT_ID: "0oab4enjwsVF4ZMTM357", 
     ISSUER: "https://aristocrat.okta.com", 
@@ -12,5 +13,25 @@ export const environment = {
     LOGOUT_REDIRECT_URI: "https://sydc-appdev-01:8080", 
     SCOPE: ['openid','email'] 
 },
-baseapiurl:"https://sydc-appdev-01:7070/"
+baseapiurl:"https://sydc-appdev-01:7070/",
+userapiurl:"https://sydc-appdev-01:8888/api/v1/",
+extrapinreqapiurl:"https://sydc-appdev-01:5555/api/v1/",
+    reworkreqestapi:"https://sydc-appdev-01:4444/api/v1/",
+    debuggerflag:true,
+    enablerolepermission:true,
+    enablerolepermissionmock:true,
+    rolepermissionextrapinmock:{
+        isAdd:true,
+        isEdit:true,
+        isDelete:true,
+        isView:true,
+        module:"ExtraPin"
+    },
+    rolepermissionmanagepinmock:{
+        isAdd:true,
+        isEdit:true,
+        isDelete:true,
+        isView:true,
+        module:"ManagePin"
+    }
 };

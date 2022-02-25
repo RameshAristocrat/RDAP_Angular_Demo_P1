@@ -251,6 +251,149 @@ const routes: Routes = [
                     path: "edit",
                 component: RdapConfigCommonAddEditComponent,
                 }]
+            }, {
+                path: "financialyear",
+                //component: RdapConfigCommonSearchComponent,
+                children:[{
+                    path: "search",
+                component: RdapConfigCommonSearchComponent,
+                },{
+                    path: "add",
+                component: RdapConfigCommonAddEditComponent,
+                },{
+                    path: "edit",
+                component: RdapConfigCommonAddEditComponent,
+                }]
+            }, {
+                path: "productbasket",
+                //component: RdapConfigCommonSearchComponent,
+                children:[{
+                    path: "search",
+                component: RdapConfigCommonSearchComponent,
+                },{
+                    path: "add",
+                component: RdapConfigCommonAddEditComponent,
+                },{
+                    path: "edit",
+                component: RdapConfigCommonAddEditComponent,
+                }]
+            }, {
+                path: "productgroup",
+                //component: RdapConfigCommonSearchComponent,
+                children:[{
+                    path: "search",
+                component: RdapConfigCommonSearchComponent,
+                },{
+                    path: "add",
+                component: RdapConfigCommonAddEditComponent,
+                },{
+                    path: "edit",
+                component: RdapConfigCommonAddEditComponent,
+                }]
+            }, {
+                path: "emulation",
+                //component: RdapConfigCommonSearchComponent,
+                children:[{
+                    path: "search",
+                component: RdapConfigCommonSearchComponent,
+                },{
+                    path: "add",
+                component: RdapConfigCommonAddEditComponent,
+                },{
+                    path: "edit",
+                component: RdapConfigCommonAddEditComponent,
+                }]
+            }, {
+                path: "denom",
+                //component: RdapConfigCommonSearchComponent,
+                children:[{
+                    path: "search",
+                component: RdapConfigCommonSearchComponent,
+                },{
+                    path: "add",
+                component: RdapConfigCommonAddEditComponent,
+                },{
+                    path: "edit",
+                component: RdapConfigCommonAddEditComponent,
+                }]
+            }, {
+                path: "theme",
+                //component: RdapConfigCommonSearchComponent,
+                children:[{
+                    path: "search",
+                component: RdapConfigCommonSearchComponent,
+                },{
+                    path: "add",
+                component: RdapConfigCommonAddEditComponent,
+                },{
+                    path: "edit",
+                component: RdapConfigCommonAddEditComponent,
+                }]
+            }, {
+                path: "title",
+                //component: RdapConfigCommonSearchComponent,
+                children:[{
+                    path: "search",
+                component: RdapConfigCommonSearchComponent,
+                },{
+                    path: "add",
+                component: RdapConfigCommonAddEditComponent,
+                },{
+                    path: "edit",
+                component: RdapConfigCommonAddEditComponent,
+                }]
+            }, {
+                path: "risk",
+                //component: RdapConfigCommonSearchComponent,
+                children:[{
+                    path: "search",
+                component: RdapConfigCommonSearchComponent,
+                },{
+                    path: "add",
+                component: RdapConfigCommonAddEditComponent,
+                },{
+                    path: "edit",
+                component: RdapConfigCommonAddEditComponent,
+                }]
+            }, {
+                path: "viridianlaunch",
+                //component: RdapConfigCommonSearchComponent,
+                children:[{
+                    path: "search",
+                component: RdapConfigCommonSearchComponent,
+                },{
+                    path: "add",
+                component: RdapConfigCommonAddEditComponent,
+                },{
+                    path: "edit",
+                component: RdapConfigCommonAddEditComponent,
+                }]
+            }, {
+                path: "studio2",
+                //component: RdapConfigCommonSearchComponent,
+                children:[{
+                    path: "search",
+                component: RdapConfigCommonSearchComponent,
+                },{
+                    path: "add",
+                component: RdapConfigCommonAddEditComponent,
+                },{
+                    path: "edit",
+                component: RdapConfigCommonAddEditComponent,
+                }]
+            }, {
+                path: "studiotype",
+                //component: RdapConfigCommonSearchComponent,
+                children:[{
+                    path: "search",
+                component: RdapConfigCommonSearchComponent,
+                },{
+                    path: "add",
+                component: RdapConfigCommonAddEditComponent,
+                },{
+                    path: "edit",
+                component: RdapConfigCommonAddEditComponent,
+                }]
             }
         ]
     }];

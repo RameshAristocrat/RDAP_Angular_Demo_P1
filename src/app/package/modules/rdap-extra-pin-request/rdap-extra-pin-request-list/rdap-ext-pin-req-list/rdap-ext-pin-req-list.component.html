@@ -1,0 +1,18 @@
+<div class="grid-container">
+    <!-- <h1 class="mat-h1">Extra Pin Request</h1> -->
+    <app-rdap-shared-breadcrumb></app-rdap-shared-breadcrumb>
+    <mat-card>
+        <mat-card-content>
+            <app-rdap-shared-igx-grid-search-result [exportfilename]="exportfilename" 
+            *ngIf="searchGridData"
+            [searchGridData]="searchGridData" [pagename]="pagename"  [appString]="appString" 
+            (onSelGridRowData)="onSelGridRowData($event)" [totalCount] = "totalCount" >
+            <!-- (onPageChangeEvent)="onPageChangeEvent($event)" -->
+            </app-rdap-shared-igx-grid-search-result>
+        </mat-card-content>
+        <mat-card-actions style="text-align: left;">
+            <button mat-raised-button style="width: 10%;background-color: #300c46;color:white"
+            (click)="viewrecord(route)"  *ngIf="selMasterDetailsData && selMasterDetailsData.newSelection.length > 0">Open</button>
+        </mat-card-actions>
+    </mat-card>
+    </div>

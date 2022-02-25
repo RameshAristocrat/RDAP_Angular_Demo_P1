@@ -1,0 +1,23 @@
+<div class="grid__wrapper">
+  <igx-grid igxPreventDocumentScroll [paging]="true" [data]="legendData" displayDensity="compact"
+  [rowHeight] = "30" [autoGenerate]="false" height="220px" width="100%" style="white-space: pre-wrap;">
+      <igx-column [field]="'id'"  header= "Dev Class"   [resizable]="false" [width]="'100px'"></igx-column>
+      <igx-column [field]="'description'" header= "Description " style="white-space: pre-wrap;"   [resizable]="false"  [width]="'300px'"></igx-column>
+      <igx-column [field]="'description2'" header= "Long Description " style="white-space: pre-wrap;"  [resizable]="false" ></igx-column>
+  </igx-grid>
+</div>
+<div class="grid__wrapper">
+    <igx-grid igxPreventDocumentScroll [data]="formFieldDescription1" displayDensity="compact"
+    [rowHeight] = "30" [autoGenerate]="false" height="315px" width="100%">
+        <igx-column [field]="'FileName'" header= " " [resizable]="false" [width]="'350px'"></igx-column>
+        <igx-column [field]="'Description'" header= " " [resizable]="false"></igx-column>
+    </igx-grid>
+  </div>
+  <div class="grid__wrapper">
+    <igx-grid igxPreventDocumentScroll [data]="formFieldDescription2" displayDensity="compact" 
+    [rowHeight] = "30" [autoGenerate]="false" height="130px" width="100%">
+        <igx-column  [field]="'FileName'" header= " "  [resizable]="false" [minWidth]="'100px'" [maxWidth]="'450px'"></igx-column>
+        <igx-column [field]="'Description'" header= " "  [resizable]="false"></igx-column>
+    </igx-grid>
+  </div>
+  

@@ -55,6 +55,22 @@ body { margin: 0; font-family: 'lato', 'arial', sans-serif; }
   @include igx-light-theme($default-palette);
 }
 
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-optgroup, .ng-dropdown-panel .ng-dropdown-panel-items .ng-option{
+  font-size: 10px !important;
+}
+
+.igx-combo__checkbox {
+  display: none !important;
+}
+
+  .igx-drop-down__inner{
+    font-size: 12px !important;
+  }
+
+  .igx-drop-down__list{
+    min-width: 25rem !important;
+  }
+
 $grays-btn-color: igx-color($green-palette, 'grays', 800);
 
 /* autoprefixer grid: on */

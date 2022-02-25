@@ -1,0 +1,13 @@
+:host {
+    ::ng-deep {
+      .ng-select{
+        font-size: 12px;
+        height: 50px !important;
+        padding-bottom: 0.5em !important;
+      }
+    }
+  }
+
+  :host::ng-deep .mat-input-element{
+    font-size: 10px;
+}

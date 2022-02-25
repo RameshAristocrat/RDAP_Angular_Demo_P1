@@ -24,13 +24,17 @@
                                     <mat-form-field *ngIf="item.type =='text'">
                                         <mat-label>
                                             {{item.label}}
-                                            <span class="compulsary-mark"></span>
+                                            <span class="compulsary-mark" *ngIf="item.required">*</span>
                                         </mat-label>
                                         <input id='{{item.controlname}}' type="text" matInput
                                             name='{{item.controlname}}' formControlName="{{item.formcontrolname}}"
-                                            [disabled]="false" />
+                                             />
                                         <mat-error *ngIf="checkError(item.formcontrolname, item.required)">
                                             {{item.label}} required</mat-error>
+                                        <mat-error *ngIf="checkError(item.formcontrolname, 'pattern')">
+                                            {{item.label}} should be a {{item.fieldtype}}.</mat-error> 
+                                        <mat-error *ngIf="checkError(item.formcontrolname, 'maxlength')">
+                                            {{item.label}} can be max {{searchform.controls[item.formcontrolname].errors?.maxlength?.requiredLength}} characters long.</mat-error>         
                                     </mat-form-field>
                                     <mat-form-field *ngIf="item.type =='textarea'">
                                         <mat-label>
@@ -66,10 +70,20 @@
                                             {{item.description}}
                                         </ng-template>
                                     </ng-select>
-                                    <mat-checkbox formControlName="{{item.formcontrolname}}" id='{{item.controlname}}'
+                                    <mat-checkbox formControlName="{{item.formcontrolname}}" 
+                                    id='{{item.controlname}}'
                                         *ngIf="item.type =='checkbox'" labelPosition="after">
                                         {{item.label}}
                                     </mat-checkbox>
+                                    <mat-form-field *ngIf="item.type =='date'" >
+                                        <mat-label>{{item.label}}</mat-label>
+                                        <input matInput 
+                                        [matDatepicker]="picker" 
+                                        formControlName="{{item.formcontrolname}}"
+                                        appendTo="body">
+                                        <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
+                                        <mat-datepicker #picker></mat-datepicker>
+                                      </mat-form-field>
                                     <label style="background-color: rgb(161, 161, 161);color: rgb(0, 0, 0);"
                                         id='{{item.innercontrol[0].controlname}}'
                                         *ngIf="item.innercontrol && item.innercontrol[0].type =='label'">
@@ -183,3 +197,5 @@
             (click)="delete()">Delete</button>
     </mat-card-actions>
 </mat-card>
+<igx-dialog #alert title="" message="{{message}}" leftButtonLabel="OK" 
+(leftButtonSelect)="onDialogSubmit($event)"></igx-dialog> 

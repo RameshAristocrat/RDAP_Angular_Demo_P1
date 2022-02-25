@@ -39,7 +39,6 @@ export class RdapSharedConfigSetuptableViewComponent implements OnInit {
     this.viewdata=[];
     if (appstringdata.appString) {
       this.appString = appstringdata.appString;
-      console.log("this.appString grid", this.appString)
     }
     this.selMasterDetails = JSON.parse(localStorage.getItem("selMasterViewData"));
     Object.keys(this.selMasterDetails.added[0]).forEach(x => {
@@ -49,8 +48,6 @@ export class RdapSharedConfigSetuptableViewComponent implements OnInit {
         }
       });
     });
-    console.log(Object.keys(this.selMasterDetails.added[0]))
-    console.log("this.selMasterDetails", JSON.parse(localStorage.getItem("selMasterViewData")));
   }
 
 }

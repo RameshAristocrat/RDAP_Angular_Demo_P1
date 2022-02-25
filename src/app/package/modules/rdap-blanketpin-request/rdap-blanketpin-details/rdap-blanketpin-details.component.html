@@ -1,0 +1,91 @@
+<form  *ngIf="reworkAttachmentform" [formGroup]="reworkAttachmentform"  style="padding-left: 2%;padding-right: 2%;padding-bottom: 2%;padding-top:2%;">
+  <div class="row" *ngIf="reqstatus === 1">
+  
+    <div class="col-lg-6">
+
+
+
+      <mat-form-field style="width: 100%">
+        <mat-label>Description </mat-label>
+        <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+          cdkAutosizeMaxRows="5"   formControlName="description"></textarea>
+      </mat-form-field>
+
+    </div>
+    <div class="col-lg-4">
+     
+      <input type="file"     formControlName="myFile" (change)="fileuploads($event)" name="file">
+    </div>
+    
+  </div>
+  <br />
+</form>
+
+<div class="grid__wrapper" >
+  <igx-grid
+    igxPreventDocumentScroll
+    #myGrid
+    [data]="filesdata"
+    primaryKey="attachmentId"
+    height="330px"
+    rowSelection="multiple"
+    cellSelection="'none'"
+    [paging]="true">
+   
+    
+    <igx-column field="fileName" header="File Name" ></igx-column>
+    <igx-column field="description" header="Description" ></igx-column>
+    <igx-column field="fileSize" header="File Size" ></igx-column>
+    <igx-column field="filetype" header="File Type" ></igx-column>
+    
+    <igx-column *ngIf="reworkId" field="attachmentId" header="Download" >
+      <ng-template igxCell let-cell="cell">
+          <!-- <a href="https://sydc-appdev-01:4444/api/v1/ReworkAttachment/DownloadFile\{{cell.value}}" target="_blank">
+            
+            <igx-icon>download</igx-icon>
+
+
+          </a> -->
+          <a (click)="goToLink(cell.value)" target="_blank">
+            
+            <igx-icon>download</igx-icon>
+
+
+          </a>
+      </ng-template>
+  </igx-column>
+  <!-- <igx-column *ngIf="reworkId" field="attachmentId" header="Delete"  >
+    <ng-template igxCell let-cell="cell">
+      <button igxButton="icon" (click)="deleteRows($event,cell.value)">
+        <igx-icon>delete</igx-icon>
+      </button>
+    </ng-template>
+</igx-column> -->
+<ng-template igxRowSelector let-rowContext>
+  <div class="row-selector">
+    <span class="row-selector-index">{{ rowContext.index + 1 }}</span>
+    <igx-checkbox
+      class="row-selector-checkbox"
+      [checked]="rowContext.selected"
+      [readonly]="true"
+      disableRipple="true"
+      [disableTransitions]="myGrid.disableTransitions"
+    >
+    </igx-checkbox>
+  </div>
+</ng-template>
+
+  </igx-grid>
+  
+
+
+<mat-card *ngIf="reworkId">
+  <mat-card-actions style="text-align:left;">
+   
+     <button mat-raised-button style="width: 25%;background-color: #300c46;color:white"
+     (click)="downloadselectedfiles()" igxButton="raised">
+    Download selected files</button>
+
+  </mat-card-actions>
+</mat-card>
+</div>

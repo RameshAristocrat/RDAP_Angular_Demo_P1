@@ -1,84 +1,160 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import {SelectionModel} from '@angular/cdk/collections';
-//import {MatTableDataSource} from '';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
-//import{MatPaginator}from '@angular/material/table/pa';
+import { HttpClient } from '@angular/common/http';
+import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
+import { IgxExcelExporterService, IgxGridComponent } from '@infragistics/igniteui-angular';
+import * as appstringdata from 'src/assets/config/app-string';
+import {
+  CsvFileTypes,
+  IColumnExportingEventArgs,
+  IGridToolbarExportEventArgs,
+  IgxCsvExporterOptions,
+  IgxExcelExporterOptions,
+  IgxExporterOptionsBase
+} from '@infragistics/igniteui-angular';
+import { IgxGridCellComponent } from '@infragistics/igniteui-angular/lib/grids/cell.component';
+import { IgxGridRowComponent } from '@infragistics/igniteui-angular/lib/grids/grid/grid-row.component';
+import { RdMasterApiService } from 'src/app/package/api/apiservice/masterApiService';
+import { environment } from 'src/environments/environment';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Helix XT', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helix', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Helix XV', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Helix JK', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Helix OL', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Helix IP', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Helix ER', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Helix WE', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Helix QW', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Helix TY', weight: 20.1797, symbol: 'Ne'},
-  {position: 11, name: 'Helix UI', weight: 10.811, symbol: 'B'},
-  {position: 12, name: 'Helix DR', weight: 12.0107, symbol: 'C'},
-  // {position: 13, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  // {position: 14, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  // {position: 15, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  // {position: 16, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-  // {position: 17, name: 'Boron', weight: 10.811, symbol: 'B'},
-  // {position: 18, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  // {position: 19, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  // {position: 20, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  // {position: 21, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  // {position: 22, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-  // {position: 23, name: 'Boron', weight: 10.811, symbol: 'B'},
-  // {position: 24, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  // {position: 25, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  // {position: 26, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  // {position: 27, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  // {position: 28, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-];
 @Component({
   selector: 'app-rdap-extra-pin-request-cabinet-type',
   templateUrl: './rdap-extra-pin-request-cabinet-type.component.html',
   styleUrls: ['./rdap-extra-pin-request-cabinet-type.component.scss']
 })
-export class RdapExtraPinRequestCabinetTypeComponent implements OnInit {
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  displayedColumns: string[] = ['select', 'name'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
-  selection = new SelectionModel<PeriodicElement>(true, []);
-
-  constructor() { }
-
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+export class RdapExtraPinRequestCabinetTypeComponent implements OnInit,OnChanges {
+  @ViewChild('cabinetgrid', { static: false }) public cabinetgrid: IgxGridComponent;
+  @ViewChild("grid", { static: true }) public grid: IgxGridComponent;
+  public data: any[];
+  public datatemp: any;
+  public searchText = '';
+  public caseSensitive = false;
+  public exactMatch = false;
+  public columndata: any;
+  public loopGridContent;
+  viewExtrapinRequestData:any;
+  extraPinAPi:any;
+  //commongridmodel:any[];
+  public commongridmodel: any;
+  public rowitem: any;
+  public griddata: any;
+  public mode: any;
+  baseApi: string = "";
+  public requesttitlearrobj: any[];
+  public cabinetDdldata: any[];
+  public cabinettypeform: FormGroup;
+  @Input() exportfilename: string;
+  @Input() pinId: string;
+  @Output() cabinetEvent = new EventEmitter<any>();
+  constructor(private httpClient: HttpClient, private cdr: ChangeDetectorRef,
+    private excelExportService: IgxExcelExporterService,
+    private masterApiService: RdMasterApiService,public fb: FormBuilder) {
+    this.baseApi = environment.baseapiurl;
+    this.extraPinAPi = environment.extrapinreqapiurl;
   }
 
- ngOnInit() {
-    //this.dataSource.paginator = this.paginator;
+  public ngAfterViewInit() {
+    //this.cabinetgrid.selectRows([1,2]);
+    // if (this.pinId) {
+    //   this.getRequestPinById();
+    // }
+  }
+  ngOnChanges(data) {
+    if (this.pinId) {
+      this.getRequestPinById();
+    }
   }
 
-  /** Whether the number of selected elements matches the total number of rows. */
-  isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
-    return numSelected === numRows;
+  public buildForm() {
+    this.cabinettypeform = this.fb.group({
+      id: [''],
+    });
+    this.cabinettypeform.get('id').disable({ onlySelf: true });
   }
 
-  /** Selects all rows if they are not all selected; otherwise clear selection. */
-  masterToggle() {
-    this.isAllSelected() ?
-        this.selection.clear() :
-        this.dataSource.data.forEach(row => this.selection.select(row));
+  ngOnInit() {
+    this.requesttitlearrobj = [];
+    this.cabinetDdldata = [];
+    this.data=[];
+    this.masterApiService.masterSearchDDL(this.baseApi + "cabinet/ddl").subscribe(data => {
+      this.requesttitlearrobj.push(data);
+      this.cabinetDdldata = this.requesttitlearrobj[0];
+      this.data=this.cabinetDdldata;
+    //       if (this.pinId) {
+    //   this.getRequestPinById();
+    // }
+    });
+    this.buildForm();
   }
+  getRequestPinById() {
+    //this.spinner.show();
+    if(this.pinId != undefined && this.pinId != 'add')
+    {
 
-  logSelection() {
-    this.selection.selected.forEach(s => console.log(s.name));
+    
+    this.masterApiService.getRequestPinById(this.extraPinAPi + "ExtraPin/" + this.pinId).subscribe(data => {
+      this.viewExtrapinRequestData = data;
+      this.viewExtrapinRequestForm();
+      //this.spinner.hide();
+    });
   }
+  }
+  rendered(){
+    //this.cabinetgrid.selectRows([1,2]);
+    if (this.pinId) {
+      this.getRequestPinById();
+    }
+  }
+  public viewExtrapinRequestForm() {
+    this.cabinetgrid.selectRows(this.viewExtrapinRequestData.data.cabinetIds);
+    this.cabinettypeform.controls["id"].setValue(this.pinId);
+    this.cabinettypeform.get('id').disable({ onlySelf: true });
+    //this.cabinetgrid.read
+  //    this.extrapindetailsform.controls["regionId"].setValue(this.viewExtrapinRequestData.data.regionId);
+  }
+  public configureExport(args: IGridToolbarExportEventArgs) {
+    // You can customize the exporting from this event
+    const options: IgxExporterOptionsBase = args.options;
+    options.fileName = this.exportfilename;
+
+    if (options instanceof IgxExcelExporterOptions) {
+      const excelOptions = options as IgxExcelExporterOptions;
+      excelOptions.columnWidth = 10;
+    } else {
+      const csvOptions = options as IgxCsvExporterOptions;
+      csvOptions.fileType = CsvFileTypes.CSV;
+      csvOptions.valueDelimiter = '\t';
+    }
+
+    args.exporter.columnExporting.subscribe((columnArgs: IColumnExportingEventArgs) => {
+      // Don't export image fields
+      // columnArgs.cancel = columnArgs.header === 'Athlete' ||
+      //                     columnArgs.header === 'Country';
+    });
+  }
+  public handleRowSelection(args) {
+    this.cabinetEvent.emit(args.newSelection);
+  //  this.onSelGridRowData.emit(args);
+    //this.behaviourService.setViewSelectedMasterDetails(args);
+    if (args.added.length && args.added[0] === 3) {
+      args.cancel = true;
+    }
+  }
+  // /** Whether the number of selected elements matches the total number of rows. */
+  // isAllSelected() {
+  //   const numSelected = this.selection.selected.length;
+  //   const numRows = this.dataSource.data.length;
+  //   return numSelected === numRows;
+  // }
+
+  // /** Selects all rows if they are not all selected; otherwise clear selection. */
+  // masterToggle() {
+  //   this.isAllSelected() ?
+  //       this.selection.clear() :
+  //       this.dataSource.data.forEach(row => this.selection.select(row));
+  // }
+
+  // logSelection() {
+  //   this.selection.selected.forEach(s => );
+  // }
 
 }

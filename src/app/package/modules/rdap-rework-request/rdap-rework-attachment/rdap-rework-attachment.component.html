@@ -1,0 +1,108 @@
+<form  *ngIf="reworkAttachmentform" [formGroup]="reworkAttachmentform"  style="padding-left: 2%;padding-right: 2%;padding-bottom: 2%;padding-top:2%;">
+  <div class="row" *ngIf="reqstatus === 1">
+    <div class="col-lg-6">
+      <mat-form-field style="width: 100%">
+        <mat-label>Description </mat-label>
+        <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+          cdkAutosizeMaxRows="5" required maxlength="250"  formControlName="description"></textarea>
+      </mat-form-field>
+    </div>
+    <div class="col-lg-4">
+      <input type="file"     formControlName="myFile"  (change)="fileuploads($event)" name="file">
+    </div>
+  </div>
+  <br />
+</form>
+<igx-dialog #alert title="Rework Attachment" message="{{message}}" leftButtonLabel="OK" 
+    (leftButtonSelect)="onDialogSubmit($event)"></igx-dialog> 
+<div class="grid__wrapper" >
+  
+<!-- 
+
+    <igx-grid igxPreventDocumentScroll *ngIf="!reworkId" #myGrid [data]="filesdata" 
+    [height]="'530px'" [primaryKey]="'attachmentId'" width="100%" [cellSelection]="'none'"
+    rowSelection ="none">
+
+    <igx-column field="fileName" [resizable]="true" header="File Name" ></igx-column>
+    <igx-column field="description" [resizable]="true" header="Description" ></igx-column>
+    <igx-column field="fileSize" [resizable]="true" header="File Size" ></igx-column>
+    <igx-column field="filetype" [resizable]="true" header="File Type" ></igx-column>
+    
+    <igx-column *ngIf="reworkId" [resizable]="true" field="attachmentId" header="Download" >
+      <ng-template igxCell let-cell="cell">
+         
+          <a (click)="goToLink(cell.value)" target="_blank">
+            
+            <igx-icon>download</igx-icon>
+
+
+          </a>
+      </ng-template>
+  </igx-column>
+  <igx-column *ngIf="!reworkId" field="attachmentId" header="Delete"  >
+    <ng-template igxCell let-cell="cell">
+      <button igxButton="icon" (click)="deleteRows($event,cell.value)">
+        <igx-icon>delete</igx-icon>
+      </button>
+    </ng-template>
+</igx-column>
+
+
+  </igx-grid>[height]="'530px'" -->
+  
+
+  <igx-grid igxPreventDocumentScroll  #myGrid [data]="filesdata" 
+  height="auto"  [primaryKey]="'attachmentId'" width="100%" [cellSelection]="'none'"
+  [rowSelection]="selectionMode">
+
+  <igx-column field="fileName" [resizable]="true" header="File Name" ></igx-column>
+  <igx-column field="description" [resizable]="true" header="Description" ></igx-column>
+  <igx-column field="fileSize" [resizable]="true" header="File Size" ></igx-column>
+  <igx-column field="filetype" [resizable]="true" header="File Type" ></igx-column>
+  
+  <igx-column *ngIf="reworkId" [resizable]="true" field="attachmentId" header="Download" >
+    <ng-template igxCell let-cell="cell">
+       
+        <a (click)="goToLink(cell.value)" target="_blank">
+          
+          <igx-icon>download</igx-icon>
+
+
+        </a>
+    </ng-template>
+</igx-column>
+<igx-column *ngIf="!reworkId" field="attachmentId" header="Delete"  >
+  <ng-template igxCell let-cell="cell">
+    <button igxButton="icon" (click)="deleteRows($event,cell.value)">
+      <igx-icon>delete</igx-icon>
+    </button>
+  </ng-template>
+</igx-column>
+
+
+</igx-grid>
+
+
+
+<mat-card >
+<mat-card-actions style="text-align:left;">
+ <div *ngIf="reworkId && showDownloadbtn">
+  <button mat-raised-button style="width: 35%;background-color: #300c46;color:white"
+  (click)="downloadselectedfiles()" igxButton="raised">
+ Download selected files</button>
+ </div>
+  
+
+</mat-card-actions>
+</mat-card>
+
+</div>
+
+
+
+
+
+
+
+
+

@@ -10,7 +10,7 @@ export class SnackbarInfoService {
   constructor(private _snackBar: MatSnackBar) { }
   durationInSeconds = 0;
   openSucessSnackBar(info) {
-    this._snackBar.open(info,'', {
+    this._snackBar.open(info,'X', {
       duration: this.durationInSeconds * 500,
       horizontalPosition: this.sucessHorizontalPosition,
       verticalPosition: this.sucessVerticalPosition

@@ -5,10 +5,24 @@
   <title>RDAP</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    .flowContainer iframe {
+        width: 1000px;
+        height: 1000px;
+        min-height: 800px;
+        border: none;
+        overflow: hidden;
+        margin-left: 100px;
+    }
+</style>
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.4/bluebird.min.js"></script>
+<script src="https://secure.aadcdn.microsoftonline-p.com/lib/0.2.3/js/msal.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://flow.microsoft.com/Content/msflowsdk-1.1.js"></script>
 </head>
 <body class="mat-typography igx-typography" style="background-color: #fff;overflow: hidden;">
   <app-root></app-root>

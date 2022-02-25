@@ -21,11 +21,11 @@ margin-right: 8%;" [ngStyle]="{'height': clientheight+'px'}">
 <section>
   <mat-sidenav-container class="sidenav-container side_nav_shadow" style="
   margin-left: 8%;
-  margin-right: 8%;" [ngStyle]="{'height': (clientheight-110)+'px','padding-top':'1%'}">
+  margin-right: 8%;" [ngStyle]="{'height': (clientheight-60)+'px','padding-top':'1%'}">
     <mat-sidenav class="side_nav_shadow" #leftSidenav mode="side" style="padding-top: 0%;
       color: white;
       background-color: #300c46;">
-      <app-side-menu-bar></app-side-menu-bar>
+      <app-side-menu-bar [permissionIN]="permissiondata"></app-side-menu-bar>
     </mat-sidenav>
     <mat-sidenav-content>
       <div class="main_content" (mouseover)="sideNavClose()">
@@ -34,4 +34,4 @@ margin-right: 8%;" [ngStyle]="{'height': clientheight+'px'}">
     </mat-sidenav-content>
   </mat-sidenav-container>
 </section>
-  <app-footer></app-footer>
+  <!-- <app-footer></app-footer> -->

@@ -1,0 +1,162 @@
+<div class="grid-container">
+    <app-rdap-shared-breadcrumb></app-rdap-shared-breadcrumb>
+    <mat-card>
+    <!-- <mat-card-content class="mat-elevation-z4">
+        <mat-tab-group class="mat-elevation-z4" style="background-color: #ffff;border-radius: 4px;">
+           
+        </mat-tab-group>
+    </mat-card-content> -->
+    <!-- <mat-card-actions style="text-align:right;">
+       <a href="" (click)="downloadMyFile()" target="_blank">
+          
+         Download Template  
+
+        </a>
+       
+      </mat-card-actions> -->
+    <mat-card-actions >
+        <!-- <button mat-raised-button style="width: 25%;background-color: #300c46;color:white"
+         (click)="reworkReqSubmit()" *ngIf="actionFlag == 'A'">Upload excel</button>
+        -->
+        <div class="row">
+        <!-- <div class="col-md-3 form-group" style="text-align:left;">        
+           
+           <mat-label>Upload BlanketPin Excel: </mat-label>
+        </div>  -->
+        <div class="col-md-4 form-group" style="text-align:left;">        
+            <mat-label>Upload Blanket Pin Datasheet: </mat-label> <input type="file" class="form-control" (change)="addfile($event)" 
+            placeholder="Upload file" 
+            accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">        
+         
+         
+        
+        </div> 
+        <div class="col-md-8 form-group" style="text-align:right;">        
+            <a href="" (click)="downloadMyFile()" target="_blank">
+          
+                Download Template  
+       
+               </a>
+         
+        
+        </div> 
+        </div>
+
+      </mat-card-actions>
+      
+      <div class="grid__wrapper" *ngIf="showGrid">
+        <igx-grid igxPreventDocumentScroll #myGrid 
+        
+        [paging]="true"
+        [perPage]="10" 
+        [rowHeight]="25" 
+        [allowFiltering]="true"
+        (columnInit)="onColumnInit($event)"
+        height="auto" 
+        [data]="legendData" 
+        width="100%" >
+        <igx-paginator [perPage]="10"></igx-paginator>
+            
+            <igx-column [field]="'message'" header= "Message"     [width]="auto" [sortable]="true"    [resizable]="true"  ></igx-column>
+            <igx-column *ngIf="submitSuccess" [field]= "'planitem'" header= "Plan Item"     [width]="auto" [sortable]="true"    [resizable]="true"  ></igx-column> 
+            <igx-column [field]="'issueYear'" header= "Issue Year"     [width]="auto" [sortable]="true"    [resizable]="true"  ></igx-column>
+            <!-- <igx-column  [field]= "'pinType'" header= "PIN"     [width]="auto" [sortable]="true"    [resizable]="true"  ></igx-column>
+            <igx-column [field]="'projectRef'" header= "Project#"     [width]="auto" [sortable]="true"    [resizable]="true"  ></igx-column> -->
+            <igx-column [field]="'studios'" header= "Studios"     [width]="auto" [sortable]="true"    [resizable]="true"  ></igx-column>
+            <igx-column [field]="'development'" header= "Developement"     [width]="auto" [sortable]="true"    [resizable]="true"  ></igx-column>
+            <igx-column [field]="'devClass'" header= "DevClass"     [width]="auto" [sortable]="true"    [resizable]="true"  ></igx-column>
+            <igx-column [field]="'family'" header= "Family"     [width]="auto" [sortable]="true"    [resizable]="true"  ></igx-column>
+            <igx-column [field]="'title'" header= "Title"     [width]="auto" [sortable]="true"    [resizable]="true"  ></igx-column>
+            <igx-column [field]="'description'" header= "Description"     [width]="auto" [sortable]="true"    [resizable]="true"  ></igx-column>
+            <igx-column [field]="'channel'" header= "Channel"     [width]="auto" [sortable]="true"    [resizable]="true"  ></igx-column>
+            <igx-column [field]="'channelType'" header= "ChannelType"     [width]="auto" [sortable]="true"    [resizable]="true"  ></igx-column>
+            <igx-column [field]="'region'" header= "Regions"     [width]="auto" [sortable]="true"    [resizable]="true"  ></igx-column>
+            <igx-column [field]="'market'" header= "Market"     [width]="auto" [sortable]="true"    [resizable]="true"  ></igx-column>
+            <igx-column [field]="'XGames'" header= "XGames"     [width]="auto" [sortable]="true"    [resizable]="true"  ></igx-column>
+            <igx-column [field]="'status'" header= "Status"     [width]="auto" [sortable]="true"    [resizable]="true"  ></igx-column>
+            <igx-column [field]="'mrd'" header= "MRD"     [width]="auto" [sortable]="true"    [resizable]="true"  ></igx-column>
+            
+            <igx-column [field]="'ead'" header= "EAD"     [width]="auto" [sortable]="true"    [resizable]="true"  ></igx-column>
+            <igx-column [field]="'tad'" header= "TAD"     [width]="auto" [sortable]="true"    [resizable]="true"  ></igx-column>
+            <!-- <igx-column [field]="'nad'" header= "NAD"     [width]="auto" [sortable]="true"    [resizable]="true"  ></igx-column> 
+            <igx-column [field]="'quarter'" header= "Quarter"     [width]="auto" [sortable]="true"    [resizable]="true"  ></igx-column>
+           
+            <igx-column [field]="'financialYear'" header= "Financial Year"     [width]="auto" [sortable]="true"    [resizable]="true"  ></igx-column>
+           
+            <igx-column [field]="'yearActual'" header= "Year (Actual)"     [width]="auto" [sortable]="true"    [resizable]="true"  ></igx-column> -->
+            
+        </igx-grid>
+      </div>
+
+      <mat-card-actions style="text-align:left;">
+        <button mat-raised-button style="width: 35%;background-color: #300c46;color:white"
+         (click)="blanketpinReqSubmit()" *ngIf="showSubmitButton">Submit Blanketpin Request</button>
+      
+      </mat-card-actions>
+
+
+    </mat-card>
+    <igx-dialog #alert title="Blanketpin Request" message="{{message}}" leftButtonLabel="OK" 
+    (leftButtonSelect)="onDialogSubmit($event)"></igx-dialog>
+    <igx-dialog #finalalert title="Warning!" message="Please make sure that you have checked the data before submitting this batch. Continue (?)" 
+    leftButtonLabel="YES"  rightButtonLabel="NO"
+  (leftButtonSelect)="onDialogSubmitfinalY($event)" (rightButtonSelect)="onDialogSubmitfinalN($event)"
+    
+    
+    
+    ></igx-dialog>
+    
+  </div>
+  
+ 
+  
+
+
+
+
+
+
+
+
+
+  <!-- <div class="grid__wrapper">
+    <igx-grid igxPreventDocumentScroll #grid1 [data]="data | async" [height]="'500px'" width="100%"
+        [autoGenerate]="false" [allowFiltering]="true" [rowStyles]="rowStyles">
+        <igx-column [field]="'Category'" [width]="'120px'"></igx-column>
+        
+        <igx-column [field]="'Change'" [width]="'120px'" dataType="number" [headerClasses]="'headerAlignSyle'">
+            <ng-template igxHeader>
+                <span>Change</span>
+            </ng-template>
+
+            <ng-template igxCell let-val>
+                <div class="currency-badge-container">
+                    <igx-badge *ngIf="val > 0" type="success" position="bottom-right" icon="arrow_upward"
+                        class="badge-left"></igx-badge>
+                    <igx-badge *ngIf="val < 0" type="error" position="bottom-right" icon="arrow_downward"
+                        class="error badge-left"></igx-badge>
+                    <span class="cellAlignSyle" [class.up]="val > 0" [class.down]="val < 0">{{ formatNumber(val)
+                        }}</span>
+                </div>
+            </ng-template>
+        </igx-column>
+        <igx-column [field]="'Change(%)'" [width]="'130px'" dataType="number" [formatter]="formatNumber">
+            <ng-template igxHeader>
+                <span>Change(%)</span>
+            </ng-template>
+        </igx-column>
+        <igx-column [field]="'Change On Year(%)'" [width]="'150px'" dataType="number" [formatter]="formatNumber">
+            <ng-template igxCell let-val>
+                <div class="currency-badge-container">
+                    <igx-badge *ngIf="val > 0" type="success" position="bottom-right" icon="arrow_upward"
+                        class="badge-left"></igx-badge>
+                    <igx-badge *ngIf="val < 0" type="error" position="bottom-right" icon="arrow_downward"
+                        class="error badge-left"></igx-badge>
+                    <span class="cellAlignSyle" [class.up]="val > 0" [class.down]="val < 0">{{ formatNumber(val)
+                        }}%</span>
+                </div>
+            </ng-template>
+        </igx-column>
+           </igx-grid>
+    <br />
+</div> -->

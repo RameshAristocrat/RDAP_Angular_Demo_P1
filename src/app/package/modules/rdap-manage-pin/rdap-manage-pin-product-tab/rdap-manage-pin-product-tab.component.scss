@@ -1,0 +1,71 @@
+input, select, textarea, label, ng-select, igx-date-picker, igx-input-group, matInput, ng-dropdown-panel {
+    font-size: 10px !important;
+    }
+
+    table, th, td {
+        
+      }
+      :host {
+        ::ng-deep{
+          .input.mat-input-element{
+            font-size: 10px !important;
+          }
+        }
+      }
+      th, td {
+        padding: 3px !important;
+      }
+      .mat-form-field{
+        width: 100%;
+        font-size: 10px;
+    }
+    
+    :host::ng-deep .mat-form-field {
+        .mat-input-element {
+            margin-top: 0.9em !important;
+        }
+    }
+    :host::ng-deep .row {
+      height: 50px !important;
+    }
+    :host::ng-deep .mat-input-element{
+        font-size: 10px;
+    }
+    :host::ng-deep .ng-select-container {
+      font-size: 10px !important;
+    }    
+    .colBorder{
+      border: 1px solid rgb(224, 221, 221);
+    }
+    // :host {
+    //   ::ng-deep {
+    //     .ng-select .ng-select-container {
+    //       min-height: 40px;
+    //       padding-bottom: 0em !important;
+    //     }
+    //   }}
+    //   :host {
+    //     ::ng-deep {
+    //       .ng-select.ng-select-single .ng-select-container {
+    //         height: 40px;
+    //         padding-bottom: 0em !important;
+    //       }
+    //     }}
+        :host {
+          ::ng-deep {
+            .ng-select{
+              height: 45px !important;
+              padding-bottom: 0.5em !important;
+            }
+          }
+        }
+
+    //   .igx-typography .igx-input-group__input, .igx-typography .igx-input-group__textarea {
+    //     font-weight: 300 !important;
+    //     font-size: 0.875rem !important;
+    //     font-style: normal;
+    //     letter-spacing: 0.009375rem;
+    //     text-transform: none;
+    //     line-height: 1.5rem;
+    //     margin: 0;
+    // }

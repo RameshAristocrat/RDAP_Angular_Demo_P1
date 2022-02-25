@@ -1,0 +1,92 @@
+@import '~igniteui-angular/lib/core/styles/themes/index';
+@include igx-core();
+$custom-palette: igx-palette(
+    $primary: #300c46,
+    $secondary: #e41c77,
+    $surface: #fff,
+    $error: #ff134a,
+    $success: #4eb862,
+    $warn: #fbb13c,
+    $info: #1377d5,
+    $grays: #000
+);
+@include igx-theme($palette: $custom-palette, $schema: $light-schema, $roundness: null, $elevation: null);
+@include igx-typography($font-family: "Titillium Web", $type-scale: $default-type-scale);
+
+:host::ng-deep .igx-navbar {
+    background:#300c46 !important;
+    padding:0 !important;
+    display: table !important;
+}
+
+@import "src/assets/css/scss/rdap-variables.scss";
+
+.rdaplogo[c-portalFooter_portalFooter] {
+  height: 2.5rem;
+  display: block;
+  margin-left: 0;
+  margin-right: auto;
+  margin-top: -0.8rem;
+}
+
+.rdaptext {
+  height: 2.5rem;
+  display: block;
+  margin-left: 0;
+  margin-right: auto;
+  margin-top: -1.3rem;
+  position: relative;
+}
+
+.rdapcharimg[c-portalFooter_portalFooter] {
+  height: 2.5rem;
+  display: block;
+  margin-left: auto;
+  margin-right: 0;
+}
+// ::ng-deep.mat-form-field-appearance-outline .mat-form-field-infix{
+//     padding:0 0 0 0;
+// }
+.main-header {
+  background: linear-gradient(to right, #300c46 0%, #300c46 100%);
+  height: 50px !important;
+}
+.footerImage[c-portalFooter_portalFooter] {
+    height: 2.5rem;
+    display: block;
+    margin-left: 0;
+    margin-right: auto;
+}
+.headerImage[c-portalFooter_portalFooter]{
+    height: 3.5rem;
+}
+
+
+.mat-form-field-appearance-outline .mat-form-field-outline {
+    color: white!important;
+    background-color: white;
+    border-radius: 3px !important;
+}
+  .material-icons.md-24 { font-size: 24px !important; }
+
+:host::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+  color: white!important;
+  background-color: white;
+  border-radius: 3px;
+}
+a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+:host::ng-deep.mat-form-field-wrapper {
+     padding-bottom: 0em !important;
+ }
+
+ :host::ng-deep.mat-form-field-appearance-outline .mat-form-field-infix {
+  padding: 0 0 0 0;
+}
+
+:host::ng-deep.mat-form-field {
+  font-size: 14px;
+}

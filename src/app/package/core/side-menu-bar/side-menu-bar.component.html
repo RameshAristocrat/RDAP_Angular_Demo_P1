@@ -17,8 +17,8 @@
                   <span style="padding-right:5px;"></span>
                   <span [@animateText]="linkText ? 'show' : 'hide'">{{ subitem?.name }} </span>
                 </mat-expansion-panel-header>
-                <mat-nav-list>
-                  <a mat-list-item (click)="navlistRedirect(level1item.link)" *ngFor="let level1item of subitem.level1"
+                <mat-nav-list  *ngFor="let level1item of subitem.level1">
+                  <a mat-list-item *ngIf="level1item.permissionflag == true" (click)="navlistRedirect(level1item.link)"
                     style="color: white;background-color:#300c46;">
                     <mat-icon style="padding-right:5px;color: white;background-color:#300c46;">{{level1item?.icon}}
                     </mat-icon>
@@ -28,7 +28,7 @@
                   </a>
                 </mat-nav-list>
             </mat-expansion-panel>
-            <mat-nav-list *ngIf="subitem.level1.length==0" style="padding-right:24px">
+            <mat-nav-list *ngIf="subitem.level1.length==0 && subitem.permissionflag == true" style="padding-right:24px">
               <a mat-list-item (click)="navlistRedirect(subitem.link)"
                 style="color: white;background-color:#300c46;">
                 <mat-icon style="padding-right:5px;color: white;background-color:#300c46;">{{subitem?.icon}}

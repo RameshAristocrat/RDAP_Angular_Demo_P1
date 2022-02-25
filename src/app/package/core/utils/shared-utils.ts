@@ -534,7 +534,15 @@ export function removeunwantedHTML(value) {
       })
     : "";
 }
-
+// export function getStrToDate(date){
+//   let response;
+//   let tempDate = moment(date,"YYYY-MM-DD HH:mm Z");
+//   response=tempDate;
+//   return response;
+//   }
+export function getStrToDate(date){
+  return moment.unix(date).format("MM/DD/YYYY");
+}
 export function getUTCFormattedDate(utcTimeStamp) {
   return moment.unix(utcTimeStamp).utc().format("MM/DD/YYYY");
 }

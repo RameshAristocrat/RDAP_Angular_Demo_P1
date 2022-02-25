@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
-import { IgxExcelExporterService, IgxGridComponent } from '@infragistics/igniteui-angular';
+import { GridPagingMode, IgxExcelExporterService, IgxGridComponent } from '@infragistics/igniteui-angular';
 import { DATA } from '../../../../../assets/config/customers';
 import * as appstringdata from 'src/assets/config/app-string';
 import {
@@ -12,6 +12,8 @@ import {
   IgxExporterOptionsBase
 } from '@infragistics/igniteui-angular';
 import { BehaviourSubjectService } from '../../services/behaviour-subject.service';
+import { RdMasterApiService } from 'src/app/package/api/apiservice/masterApiService';
+import { environment } from "src/environments/environment";
 @Component({
   selector: 'app-rdap-shared-igx-grid-search-result',
   templateUrl: './rdap-shared-igx-grid-search-result.component.html',
@@ -19,36 +21,80 @@ import { BehaviourSubjectService } from '../../services/behaviour-subject.servic
 })
 export class RdapSharedIgxGridSearchResultComponent implements OnInit, AfterViewInit, OnChanges {
   @ViewChild('grid1', { static: true }) public grid: IgxGridComponent;
+  public mode = GridPagingMode.Remote;
   public data: any[];
   public searchText = '';
   public caseSensitive = false;
   public exactMatch = false;
   public columndata: any;
   public loopGridContent;
+  public filterflag: any;
+  public rowselectionflag:any
+  public autogenFlag:any;
+  exportdisplay: any;
+  debuggerflag:boolean;
+  public gridHeaderDisplay: Boolean= true;
+
   //@Input() panelOpenState: any;
-  @Input() searchGridData: any;
+  @Input() searchGridData: any[];
+  @Input() totalCount : any ;
   @Input() appString: any;
   @Input() exportfilename: string;
+  @Input() pagename: string;
   @Output() onSelGridRowData = new EventEmitter<any>();
-  constructor(private httpClient: HttpClient, private cdr: ChangeDetectorRef,
+  @Output() onPageChangeEvent = new EventEmitter<any>();
+  constructor(private httpClient: HttpClient, private cdr: ChangeDetectorRef,private masterApiService: RdMasterApiService,
     private excelExportService: IgxExcelExporterService, private behaviourService: BehaviourSubjectService) {
-    // this.appString=[];
+    this.debuggerflag = environment.debuggerflag;
+      // this.appString=[];
     // this.httpClient.get("assets/config/app-string.json").subscribe(y => {
     //   this.appString = y;
     // })
+    //this.totalCount = 100;
   }
 
   ngOnInit(): void {
     this.appString = [];
+    this.exportdisplay = "block";
+    this.filterflag = false;
+    this.autogenFlag = false;
+    this.rowselectionflag = "single";
     if (appstringdata.appString) {
       this.appString = appstringdata.appString;
-      console.log("this.appString grid", this.appString)
+    }
+    if (this.pagename == "managepin-linkedpin" || this.pagename == "managepin-impactedpin") {
+      this.filterflag = false;
+      this.exportdisplay = "none";
+      this.rowselectionflag = "none";
+      this.autogenFlag = false;
+    }else if(this.pagename == "managepintab"){
+      this.filterflag = false;
+      this.exportdisplay = "none";
+      this.rowselectionflag = "none";
+      this.autogenFlag=true;
+    } else {
+      // this.filterflag = true;
+      // this.exportdisplay = "block"
+      // this.rowselectionflag = "single";
+      // this.autogenFlag=false;
     }
     // this.gridDataLoad();   
   }
   ngOnChanges() {
-    if (this.searchGridData.length > 0) {
+    if (this.searchGridData?.length > 0) {
+      if(this.totalCount == undefined)
+      {
+        this.totalCount = this.searchGridData.length;
+      }
       this.gridDataLoad();
+    }
+    else{
+      this.filterflag = false;
+      this.exportdisplay = "none";
+      this.autogenFlag=true;
+      this.data = this.searchGridData;
+      this.columndata = [];
+      this.loopGridContent = [];
     }
     //this.getDoctypeSearchFormData(this.selbasedoctype);
   }
@@ -69,7 +115,7 @@ export class RdapSharedIgxGridSearchResultComponent implements OnInit, AfterView
       excelOptions.columnWidth = 10;
     } else {
       const csvOptions = options as IgxCsvExporterOptions;
-      csvOptions.fileType = CsvFileTypes.TSV;
+      csvOptions.fileType = CsvFileTypes.CSV;
       csvOptions.valueDelimiter = '\t';
     }
 
@@ -82,11 +128,92 @@ export class RdapSharedIgxGridSearchResultComponent implements OnInit, AfterView
   public gridDataLoad() {
     this.columndata = [];
     this.loopGridContent = [];
-    this.data = this.searchGridData;
+    // || this.pagename == "managepinlist"
+    if (this.pagename == "managepintab"
+      || this.pagename == "managepin-linkedpin" || this.pagename == "managepin-impactedpin") {
+      this.filterflag = false;
+      this.exportdisplay = "none";
+    } else {
+      this.filterflag = true;
+      this.exportdisplay = "block"
+    }
+    this.data = this.searchGridData.filter((x, i, a) => x && a.indexOf(x) === i);
+    this.masterApiService.debuggerLog(this.debuggerflag,"this.searchGridData",this.data)
     Object.keys(this.searchGridData[0]).forEach(x => {
       this.appString.filter(g => {
         if (x == g.modelname) {
-          this.columndata.push({ field: x, title: g.title, width: "150px", height: "10px", type: "string", pinned: true, hidden: g.gridcolflag });
+          if(this.pagename == "managepin-linkedpin"){
+            if (x == "planitem") {
+              this.columndata.push({
+                field: x, title: g.title, width: "150px", height: "10px", type: "string", pinned: false, hidden: true
+              });
+            }
+            if (x == "linkedpinno") {
+              this.columndata.push({
+                field: x, title: g.title, width: "150px", height: "10px", type: "string", pinned: false, hidden: g.gridcolflag,
+                resizable: true, filter: this.filterflag
+              });
+            } else {
+              this.columndata.push({
+                field: x, title: g.title, width: "150px", height: "10px", type: "string", pinned: false, hidden: g.gridcolflag,
+                resizable: true, filter: this.filterflag
+              });
+            }
+          }else if(this.pagename == "managepin-impactedpin"){
+            if (x == "planitem") {
+              this.columndata.push({
+                field: x, title: g.title, width: "150px", height: "10px", type: "string", pinned: false, hidden: true,
+                resizable:true
+              });
+            }
+            if (x == "impactedpinno") {
+              this.columndata.push({
+                field: x, title: g.title, width: "150px", height: "10px", type: "string", pinned: false, hidden: g.gridcolflag,
+                resizable: true, filter: this.filterflag
+              });
+            } else {
+              this.columndata.push({
+                field: x, title: g.title, width: "150px", height: "10px", type: "string", pinned: false, hidden: g.gridcolflag,
+                resizable: true, filter: this.filterflag
+              });
+            }
+          }
+          else if(this.pagename == "extrapinreqlist")
+          {
+            
+            if(x == "createdby" || x == "createddate"|| x == "lastupdateddate" || x == "lastupdatedby" )
+            {
+              this.columndata.push({
+                field: x, title: g.title, width: "150px", height: "10px", type: "string", pinned: false, hidden: false,
+                resizable: true, filter: this.filterflag
+              });
+            }
+            else {
+              this.columndata.push({
+                field: x, title: g.title, width: "150px", height: "10px", type: "string", pinned: false, hidden: g.gridcolflag,
+                resizable: true, filter: this.filterflag
+              });
+            }
+          }
+          else if (this.pagename == "auditlog") {
+            this.columndata.push({
+              field: x, title: g.title, width: "150px", height: "10px", type: "string", pinned: false, hidden: g.gridcolflag,
+              resizable: true, filter: this.filterflag
+            });
+          }
+          else{
+            if (x == "planitem") {
+              this.columndata.push({
+                field: x, title: g.title, width: "150px", height: "10px", type: "string", pinned: false, hidden: g.gridcolflag,
+                resizable: true, filter: this.filterflag
+              });
+            } else {
+              this.columndata.push({
+                field: x, title: g.title, width: "150px", height: "10px", type: "string", pinned: false, hidden: g.gridcolflag,
+                resizable: true, filter: this.filterflag
+              });
+            }
+          }
         }
       });
       this.loopGridContent.push({ "title": x, "data": ("element." + x) });
@@ -118,16 +245,17 @@ export class RdapSharedIgxGridSearchResultComponent implements OnInit, AfterView
   }
 
   public handleRowSelection(args) {
-    console.log("args", args);
     this.onSelGridRowData.emit(args);
     this.behaviourService.setViewSelectedMasterDetails(args);
     if (args.added.length && args.added[0] === 3) {
       args.cancel = true;
     }
   }
-
+  public onPageChange(pageNumber: number) {
+    //alert(pageNumber);
+    this.onPageChangeEvent.emit(pageNumber);
+    
+  }
   public update(event, cell) {
-    console.log(event);
-    console.log(cell);
   }
 }

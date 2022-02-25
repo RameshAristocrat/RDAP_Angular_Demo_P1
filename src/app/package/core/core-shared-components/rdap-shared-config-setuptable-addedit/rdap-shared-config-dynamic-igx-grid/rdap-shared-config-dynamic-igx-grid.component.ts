@@ -38,35 +38,24 @@ export class RdapSharedConfigDynamicIgxGridComponent implements OnInit {
     private excelExportService: IgxExcelExporterService) { }
 
   ngOnInit(): void {
-    console.log("rowitem",this.rowitem);
-    console.log("griddata",this.griddata);
-    console.log("mode",this.mode);
-    console.log("commongridmodel",this.commongridmodel);
-    debugger 
     if(this.mode == "U" || this.mode == "V"){
       this.data=[];
       if(this.rowitem.field=="channeltypeIds"){
         this.commongridmodelrow.emit(this.griddata.data.channeltypeIds);
         this.griddata.data.channeltypeIds.forEach(x => {
-          console.log(x);
           let tempData = this.rowitem.ddldata.filter(y => {
             return y.id == x;
           })
-          console.log(tempData);
           this.data.push(tempData[0]);
-          console.log(this.data);
         });
   
       }else if(this.rowitem.field=="marketIds"){
         this.commongridmodelrow.emit(this.griddata.data.marketIds);
         this.griddata.data.marketIds.forEach(x => {
-          console.log(x);
           let tempData = this.rowitem.ddldata.filter(y => {
             return y.id == x;
           })
-          console.log(tempData);
           this.data.push(tempData[0]);
-          console.log(this.data);
         });
       }
     }else{
@@ -74,15 +63,7 @@ export class RdapSharedConfigDynamicIgxGridComponent implements OnInit {
     }
   }
   onchangeSelect(event, cell, data, field){
-    console.log(event);
-    console.log(cell);
-    console.log("cell.grid._data",cell.grid._data);
-    console.log("data",data);
-    console.log("value",event.newSelection.value);
-    console.log(event.newSelection.elementRef.nativeElement.innerText);
-    console.log("this.commongridmodel",this.commongridmodel);
-    console.log(field);
-    debugger
+ 
     // cell.update(event.newSelection.value.description);
     let row: IgxGridRowComponent = cell.row;
     row.cells.forEach(function(cell: IgxGridCellComponent) {
@@ -98,11 +79,10 @@ export class RdapSharedConfigDynamicIgxGridComponent implements OnInit {
     
   });
   this.commongridmodel.filter(x=>{
-    debugger
+ 
     x[field].push(event.newSelection.value["id"]);
   });
   this.commongridmodelrow.emit(this.commongridmodel);
-  console.log("this.commongridmodel",this.commongridmodel);
   }
 
 }

@@ -31,7 +31,8 @@
 							"src/styles.scss",
 							"node_modules/bootstrap/dist/css/bootstrap.min.css"
 						],
-						"scripts": [ "./node_modules/hammerjs/hammer.min.js"],
+						"scripts": [ "./node_modules/hammerjs/hammer.min.js",
+						"src/assets/js/rdap_workflow_msal.js"],
 						"vendorChunk": true,
 						"extractLicenses": false,
 						"buildOptimizer": false,
@@ -88,8 +89,8 @@
 								},
 								{
 									"type": "anyComponentStyle",
-									"maximumWarning": "12kb",
-									"maximumError": "20kb"
+									"maximumWarning": "5mb",
+									"maximumError": "10mb"
 								}
 							]
 						  },"dev": {
@@ -98,6 +99,25 @@
 								"replace": "src/environments/environment.ts",
 								"with": "src/environments/environment.dev.ts"
 							  }
+							],
+							"optimization": true,
+							"outputHashing": "all",
+							"sourceMap": false,
+							"namedChunks": false,
+							"extractLicenses": true,
+							"vendorChunk": false,
+							"buildOptimizer": true,
+							"budgets": [
+								{
+									"type": "initial",
+									"maximumWarning": "4mb",
+									"maximumError": "10mb"
+								},
+								{
+									"type": "anyComponentStyle",
+									"maximumWarning": "5mb",
+									"maximumError": "10mb"
+								}
 							]
 						  },"stag": {
 							"fileReplacements": [
@@ -118,6 +138,13 @@
 							  {
 								"replace": "src/environments/environment.ts",
 								"with": "src/environments/environment.ram.ts"
+							  }
+							]
+						  },"disha": {
+							"fileReplacements": [
+							  {
+								"replace": "src/environments/environment.ts",
+								"with": "src/environments/environment.disha.ts"
 							  }
 							]
 						  }
@@ -149,6 +176,9 @@
 						},
 						"ram": {
 							"browserTarget": "RDAP:build:ram"
+						},
+						"disha": {
+							"browserTarget": "RDAP:build:disha"
 						}
 					}
 				},
@@ -214,6 +244,9 @@
 						},
 						"ram": {
 							"devServerTarget": "RDAP:serve:ram"
+						},
+						"disha": {
+							"devServerTarget": "RDAP:serve:disha"
 						}
 					}
 				}

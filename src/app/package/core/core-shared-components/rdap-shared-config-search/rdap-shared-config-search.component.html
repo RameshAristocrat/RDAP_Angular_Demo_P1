@@ -24,6 +24,19 @@
                                         placeholder="{{item.placeholder}}" aria-label="{{placeholder}}" aria-describedby="basic-addon1">
                                 </div>
                             </div>
+                            <div *ngIf="(item.type =='number')">
+                                <label>{{item.label}}</label>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <!-- <span class="input-group-text" id="basic-addon1">@</span> -->
+                                        <select class="form-control input-group-text" formControlName="{{item.searchcriteria.formcontrolname}}">
+                                            <option  style="text-align: center;" value="{{opitem.id}}" *ngFor="let opitem of numberSearchCriteria;">{{opitem.value}}</option>
+                                        </select>
+                                    </div>
+                                    <input formControlName="{{item.formcontrolname}}" type="text" class="form-control"
+                                        placeholder="{{item.placeholder}}" aria-label="{{placeholder}}" aria-describedby="basic-addon1">
+                                </div>
+                            </div>
                             <div *ngIf="item.type =='select'">
                                 <label>{{item.label}}</label>
                             <div class="input-group mb-3">
@@ -58,15 +71,18 @@
     </mat-card-title>
     <mat-card-content>
         <app-rdap-shared-igx-grid-search-result [exportfilename]="exportfilename" 
-        [searchGridData]="searchGridData" [appString]="appString" (onSelGridRowData)="onSelGridRowData($event)">
-        </app-rdap-shared-igx-grid-search-result>
+        [searchGridData]="searchGridData" [totalCount]="totalCount" [appString]="appString" [pagename]="pagename"
+         (onSelGridRowData)="onSelGridRowData($event)"
+         >
+         <!-- (onPageChangeEvent)="onPageChangeEvent($event)" -->
+    </app-rdap-shared-igx-grid-search-result>
     </mat-card-content>
     <mat-card-actions style="text-align: left;">
         <button mat-raised-button style="width: 10%;background-color: #300c46;color:white"
-            (click)="viewrecord(route)">Open</button>
+            (click)="viewrecord(route)"  *ngIf="selMasterDetailsData && selMasterDetailsData.newSelection.length > 0">Open</button>
         <button mat-raised-button style="width: 10%;background-color: #300c46;color:white"
-        (click)="cancel('/home/dashboard')">Cancel</button>
-        <button mat-raised-button style="width: 20%;background-color: #300c46;color:white" *ngIf="route"
+        (click)="cancel('/home/dashboard')">Back</button>
+        <button mat-raised-button style="width: 20%;background-color: #300c46;color:white"
             (click)="addnewrecord(route)">Add New Record</button>
     </mat-card-actions>
 </mat-card>

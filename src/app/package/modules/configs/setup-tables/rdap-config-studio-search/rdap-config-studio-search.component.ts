@@ -19,7 +19,6 @@ export class RdapConfigStudioSearchComponent implements OnInit {
     // });
   }
   submit(event){
-    console.log("event",event);
   }
 
 }

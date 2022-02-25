@@ -11,7 +11,6 @@ export class BehaviourSubjectService {
 
     // function to pass data to other component
     setViewSelectedMasterDetails(data: any) {
-      debugger
       this.masterDetailsView.next(data);
     }
   

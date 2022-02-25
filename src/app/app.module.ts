@@ -21,6 +21,21 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './package/core/home/home.component';
 import { DBoardComponent } from './package/core/d-board/d-board.component';
+import { RdapManagePinComponent } from './package/modules/rdap-manage-pin/rdap-manage-pin.component';
+import { RdapManagePinListComponent } from './package/modules/rdap-manage-pin/rdap-manage-pin-list/rdap-manage-pin-list.component';
+import { RdapManagePinProductTabComponent } from './package/modules/rdap-manage-pin/rdap-manage-pin-product-tab/rdap-manage-pin-product-tab.component';
+import { RdapManagePinSetItemsTabComponent } from './package/modules/rdap-manage-pin/rdap-manage-pin-set-items-tab/rdap-manage-pin-set-items-tab.component';
+import { RdapManagePinAuditLogsTabComponent } from './package/modules/rdap-manage-pin/rdap-manage-pin-audit-logs-tab/rdap-manage-pin-audit-logs-tab.component';
+import { RdapManagePinDependenciesTabComponent } from './package/modules/rdap-manage-pin/rdap-manage-pin-dependencies-tab/rdap-manage-pin-dependencies-tab.component';
+import { RdapManagePinMilestoneTabComponent } from './package/modules/rdap-manage-pin/rdap-manage-pin-milestone-tab/rdap-manage-pin-milestone-tab.component';
+import { RdapManagePinClarityComponent } from './package/modules/rdap-manage-pin/rdap-manage-pin-clarity/rdap-manage-pin-clarity.component';
+import { RdapManagePinTestDetailsTabComponent } from './package/modules/rdap-manage-pin/rdap-manage-pin-test-details-tab/rdap-manage-pin-test-details-tab.component';
+import { RdapManagePinCabinetTabComponent } from './package/modules/rdap-manage-pin/rdap-manage-pin-cabinet-tab/rdap-manage-pin-cabinet-tab.component';
+import { RdapManagePinOthersTabComponent } from './package/modules/rdap-manage-pin/rdap-manage-pin-others-tab/rdap-manage-pin-others-tab.component';
+import {
+  BlockCopyPasteDirective
+} from 'src/app/package/modules/rdap-shared-components/utils/block-copy-paste.directive';
+
 //import { RdapExtraPinRequestDropdownComponent } from './package/modules/rdap-shared-components/rdap-autocomplete-shared-component/rdap-extra-pin-request-dropdown/rdap-extra-pin-request-dropdown.component';
 //import { RdapSearchSharedComponent } from './package/modules/rdap-shared-components/rdap-search-shared/rdap-search-shared.component';
 //import { StudioComponent } from './package/modules/configs/setup-tables/studio/studio.component';
@@ -35,7 +50,19 @@ const oktaConfig = {
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    BlockCopyPasteDirective,
+    RdapManagePinComponent,
+    RdapManagePinListComponent,
+    RdapManagePinProductTabComponent,
+    RdapManagePinSetItemsTabComponent,
+    RdapManagePinAuditLogsTabComponent,
+    RdapManagePinDependenciesTabComponent,
+    RdapManagePinMilestoneTabComponent,
+    RdapManagePinClarityComponent,
+    RdapManagePinTestDetailsTabComponent,
+    RdapManagePinCabinetTabComponent,
+    RdapManagePinOthersTabComponent
   ],
   imports: [
     BrowserModule,

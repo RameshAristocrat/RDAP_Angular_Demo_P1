@@ -857,7 +857,7 @@
           "label": "Status1",
           "type": "text",
           "api": "",
-          "required": null,
+          "required": "required",
           "placeholder": "Enter Status1",
           "action": "",
           "pipe": ""
@@ -905,7 +905,7 @@
           "label": "Status2",
           "type": "text",
           "api": "",
-          "required": null,
+          "required":"required",
           "placeholder": "Enter Status2",
           "action": "",
           "pipe": ""
@@ -958,7 +958,7 @@
           "label": "Status3",
           "type": "text",
           "api": "",
-          "required": null,
+          "required": "required",
           "placeholder": "Enter Status3",
           "action": "",
           "pipe": ""
@@ -1059,7 +1059,7 @@
           "label": "Prodcat2",
           "type": "text",
           "api": "",
-          "required": null,
+          "required": "required",
           "placeholder": "Enter Prodcat2",
           "action": "",
           "pipe": ""
@@ -1121,7 +1121,7 @@
           "label": "Prodcat3",
           "type": "text",
           "api": "",
-          "required": null,
+          "required": "required",
           "placeholder": "Enter Prodcat3",
           "action": "",
           "pipe": ""

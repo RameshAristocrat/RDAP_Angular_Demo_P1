@@ -42,7 +42,6 @@ export class RdApiMasterGravityService {
     ]}
     return this.https.post<any>(URL, this.param, this.httpOption).pipe(
       catchError((error) => {
-        console.log(error);
         return throwError({
           error,
         });

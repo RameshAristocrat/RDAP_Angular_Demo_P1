@@ -135,6 +135,14 @@ export function getUTCEndTimeStamp(selectedDate) {
   return timeStamp;
 }
 
+
+export function getStrToDate(date){
+let response;
+let tempDate = moment(date,"YYYY-MM-DD HH:mm Z");
+response=tempDate;
+return response;
+}
+
 export function replaceNullByEmptyString(obj) {
   _.forEach(obj, (val, key) => {
     if (_.isUndefined(val) || _.isNull(val)) {

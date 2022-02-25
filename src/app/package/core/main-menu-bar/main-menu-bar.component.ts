@@ -13,7 +13,6 @@ export class MainMenuBarComponent implements OnInit {
   @Input() sidenav: MatSidenav
   ngOnInit(): void {
     // this.modulesList = ModulesList;
-    // console.log(this.modulesList);
   }
 
 }

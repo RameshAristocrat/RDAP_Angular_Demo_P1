@@ -1,0 +1,86 @@
+<form *ngIf="clarityform" [formGroup]="clarityform"
+  style="padding-left: 2%;padding-right: 2%;min-height: 500px; padding-bottom: 0%;padding-top:0%;">
+  <mat-card-content>
+    <div class="row">
+      <div class="col-lg-3 form-group">
+        <mat-form-field>
+          <label>
+            Project
+          </label>
+          <input type="text" matInput name="projectCode" formControlName="projectCode"
+            (change)="ddlOnChangeEvent($event,'projectCode')" />
+        </mat-form-field>
+      </div>
+      <div class="col-lg-3 form-group">
+        <mat-form-field>
+          <label>
+            Plan item
+          </label>
+          <input type="text" matInput name="aliPlanitem" formControlName="aliPlanitem"
+            (change)="ddlOnChangeEvent($event,'aliPlanitem')" />
+        </mat-form-field>
+      </div>
+      <div class="col-lg-3 form-group">
+        <mat-form-field>
+          <label>
+            Actuals
+          </label>
+          <input type="text" matInput name="name" formControlName="actuals" 
+          (change)="ddlOnChangeEvent($event,'actuals')" />
+        </mat-form-field>
+      </div>
+      <div class="col-lg-3 form-group">
+        <mat-form-field>
+          <label>
+            Schedule Start
+          </label>
+          <input matInput [matDatepicker]="precompfinishtargetpicker" appendTo="body"
+           formControlName="scheduleStart" (dateChange)="onDateChange($event,'scheduleStart')">
+          <mat-datepicker-toggle matSuffix [for]="precompfinishtargetpicker"></mat-datepicker-toggle>
+          <mat-datepicker #precompfinishtargetpicker></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6 form-group">
+        <mat-form-field>
+          <label>
+            Name
+          </label>
+          <input type="text" matInput name="name" formControlName="name" 
+          (change)="ddlOnChangeEvent($event,'name')" />
+        </mat-form-field>
+      </div>
+      <div class="col-lg-3 form-group">
+        <mat-form-field>
+          <label>
+            Manager
+          </label>
+          <input type="text" matInput name="name" formControlName="fullName" 
+          (change)="ddlOnChangeEvent($event,'fullName')" />
+        </mat-form-field>
+      </div>
+      <div class="col-lg-3 form-group">
+          <mat-checkbox formControlName="isActive" 
+          (change)="ddlOnChangeEvent($event,'isActive')"><span>
+              IsActive </span></mat-checkbox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6 form-group">
+        <mat-form-field style="width: 100%;">
+          <label>Description</label>
+          <textarea matInput formControlName="description" (change)="ddlOnChangeEvent($event,'description')"></textarea>
+        </mat-form-field>
+      </div>
+      <div class="col-lg-6 form-group">
+        <mat-form-field style="width: 100%;">
+          <label>ALI GDB Remarks</label>
+          <textarea matInput formControlName="aliGdbRemarks" (change)="ddlOnChangeEvent($event,'aliGdbRemarks')"></textarea>
+        </mat-form-field>
+      </div>
+    </div>
+  </mat-card-content>
+</form>
+<igx-dialog #alert title="Manage Product Plan: Warning!" message="{{message}}" leftButtonLabel="OK" 
+      (leftButtonSelect)="onDialogSubmit($event)"></igx-dialog> 
