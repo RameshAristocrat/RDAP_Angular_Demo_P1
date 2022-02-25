@@ -14,15 +14,15 @@ rolepermissionproductmock:{
     module:"product"
 },
 rolepermissionmanagepinmock:{
-    isAdd:false,
+    isAdd:true,
     isEdit:true,
     isDelete:true,
-    isView:false,
+    isView:true,
     module:"managepin"
 },
 rolepermissiondependencymock:{
     isAdd:true,
-    isEdit:false,
+    isEdit:true,
     isDelete:true,
     isView:false,
     module:"dependency"

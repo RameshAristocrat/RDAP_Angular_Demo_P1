@@ -11,6 +11,9 @@ import { RdSpinnerService } from 'src/app/package/infoservice/spinnerservice/rd-
 import { environment } from "src/environments/environment";
 import { Location } from '@angular/common';
 import { SettingsRemote } from '@material-ui/icons';
+import * as rolePermossionMockJs from '../../../../assets/config/rolePermissionMockData';
+import * as rolePermossionMpMaster from '../../../../assets/config/rolePermissionMockForMaster';
+import * as APIindex from '../../api/apiEndpoints/apiIndex';
 @Component({
   selector: 'app-rdap-manage-pin',
   templateUrl: './rdap-manage-pin.component.html',
@@ -143,10 +146,24 @@ export class RdapManagePinComponent implements OnInit, OnChanges {
   setItemFlag: any;
   linkedPinFlag: any;
   impactedPinFlag: any;
-  clarityFlag:any;
+  clarityFlag: any;
   tempjoin: any;
-  debuggerflag:boolean;
+  debuggerflag: boolean;
   emitData: { data: any, flag: boolean };
+  managepin: any;
+  mpproductPermission: any;
+  mpdependencyPermission: any;
+  mpmilestonePermission: any;
+  mpcabinetPermission: any;
+  mptesterPermission: any;
+  mpsetitemPermission: any;
+  mplinkedPermission: any;
+  mpimpactedPermission: any;
+  mpauditPermission: any;
+  mpclarityPermission: any;
+  public pagePermission: any;
+  public rolePermissionEnableFlag: any;
+  public rolepermissionmock: boolean = false;
   constructor(private httpClient: HttpClient, public cdr: ChangeDetectorRef,
     private excelExportService: IgxExcelExporterService, private router: Router,
     private masterApiService: RdMasterApiService, private spinner: RdSpinnerService,
@@ -163,15 +180,133 @@ export class RdapManagePinComponent implements OnInit, OnChanges {
         this.getRequestPinById();
       }
     }
+    this.rolePermissionEnableFlag = environment.enablerolepermission;
+    this.rolepermissionmock = environment.enablerolepermissionmock;
   }
-
+  public getPermissionmpMasterByModule() {
+    this.pagePermission = [];
+    this.mpproductPermission= [];
+    this.mpdependencyPermission= [];
+    this.mpmilestonePermission= [];
+    this.mpcabinetPermission= [];
+    this.mptesterPermission= [];
+    this.mpsetitemPermission= [];
+    this.mplinkedPermission= [];
+    this.mpimpactedPermission= [];
+    this.mpauditPermission= [];
+    this.mpclarityPermission= [];
+    let rolePermissionMockData;
+    debugger
+    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "mpproduct").subscribe(res => {
+     debugger
+      if (this.rolepermissionmock == true) {
+        this.pagePermission.push(rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionproductmock);
+        this.mpproductPermission = rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionproductmock;
+      } else {
+        this.pagePermission.push(res);
+        this.mpproductPermission = res;
+      }
+    });
+    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "mpdependency").subscribe(res => {
+      if (this.rolepermissionmock == true) {
+       // rolePermissionMockData =  rolePermossionMpMaster.rdapRolePermossionMockMaster.filter(x=>x.modulename.toLowerCase() == "mpdependency");
+        this.pagePermission.push(rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissiondependencymock);
+        this.mpdependencyPermission = rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissiondependencymock;
+      } else {
+        this.pagePermission.push(res);
+        this.mpdependencyPermission = res;
+      }
+    });
+    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "mpcabinet").subscribe(res => {
+      if (this.rolepermissionmock == true) {
+        //rolePermissionMockData =  rolePermossionMpMaster.rdapRolePermossionMockMaster.filter(x=>x.modulename.toLowerCase() == "mpcabinet");
+        this.pagePermission.push(rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissioncabinetmock);
+        this.mpcabinetPermission = rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissioncabinetmock;
+      } else {
+        this.pagePermission.push(res);
+        this.mpcabinetPermission = res;
+      }
+    });
+    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "mpmilestone").subscribe(res => {
+      if (this.rolepermissionmock == true) {
+       // rolePermissionMockData =  rolePermossionMpMaster.rdapRolePermossionMockMaster.filter(x=>x.modulename.toLowerCase() == "mpmilestone");
+        this.pagePermission.push(rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionmilestonemock);
+        this.mpmilestonePermission = rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionmilestonemock
+      } else {
+        this.pagePermission.push(res);
+        this.mpmilestonePermission = res;
+      }
+    });
+    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "mplinked").subscribe(res => {
+      if (this.rolepermissionmock == true) {
+        //rolePermissionMockData =  rolePermossionMpMaster.rdapRolePermossionMockMaster.filter(x=>x.modulename.toLowerCase() == "mplinked");
+        this.pagePermission.push(rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionlinkedpinmock);
+        this.mplinkedPermission = rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionlinkedpinmock
+      } else {
+        this.pagePermission.push(res);
+        this.mplinkedPermission = res;
+      }
+    });
+    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "mpimpacted").subscribe(res => {
+      if (this.rolepermissionmock == true) {
+       // rolePermissionMockData =  rolePermossionMpMaster.rdapRolePermossionMockMaster.filter(x=>x.modulename.toLowerCase() == "mpimpacted");
+        this.pagePermission.push(rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionimpactedpinmock);
+        this.mpimpactedPermission = rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionimpactedpinmock
+      } else {
+        this.pagePermission.push(res);
+        this.mpimpactedPermission = res;
+      }
+    });
+    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "mpsetitem").subscribe(res => {
+      if (this.rolepermissionmock == true) {
+       // rolePermissionMockData =  rolePermossionMpMaster.rdapRolePermossionMockMaster.filter(x=>x.modulename.toLowerCase() == "mpsetitem");
+        this.pagePermission.push(rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionsetitemmock);
+        this.mpsetitemPermission = rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionsetitemmock
+      } else {
+        this.pagePermission.push(res);
+        this.mpsetitemPermission = res;
+      }
+    });
+    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "mptester").subscribe(res => {
+      if (this.rolepermissionmock == true) {
+       // rolePermissionMockData =  rolePermossionMpMaster.rdapRolePermossionMockMaster.filter(x=>x.modulename.toLowerCase() == "mptester");
+        this.pagePermission.push(rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissiontesterplanmock);
+        this.mptesterPermission = rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissiontesterplanmock
+      } else {
+        this.pagePermission.push(res);
+        this.mptesterPermission = res;
+      }
+    });
+    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "mpclarity").subscribe(res => {
+      if (this.rolepermissionmock == true) {
+        //rolePermissionMockData =  rolePermossionMpMaster.rdapRolePermossionMockMaster.filter(x=>x.modulename.toLowerCase() == "mpclarity");
+        this.pagePermission.push(rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionclaritymock);
+        this.mpclarityPermission = rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionclaritymock
+      } else {
+        this.pagePermission.push(res);
+        this.mpclarityPermission = res;
+      }
+    });
+    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "mpaudit").subscribe(res => {
+      if (this.rolepermissionmock == true) {
+      //  rolePermissionMockData =  rolePermossionMpMaster.rdapRolePermossionMockMaster.filter(x=>x.modulename.toLowerCase() == "mpaudit");
+        this.pagePermission.push(rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionauditlogmock);
+        this.mpauditPermission = rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionauditlogmock
+      } else {
+        this.pagePermission.push(res);
+        this.mpauditPermission = res;
+      }
+    });
+  }
   ngOnInit(): void {
+    this.getPermissionmpMasterByModule();
     this.tabid = 0;
     this.tabname = "product";
     this.tabAlignment = "left";
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    this.getPermissionmpMasterByModule();
   }
 
   getRequestPinById() {
@@ -237,7 +372,7 @@ export class RdapManagePinComponent implements OnInit, OnChanges {
 
   clarityEvent(data) {
     this.clarityParam = data.data;
-    this.clarityFlag  = data.flag;
+    this.clarityFlag = data.flag;
   }
 
   milestoneEvent(data) {
@@ -283,7 +418,7 @@ export class RdapManagePinComponent implements OnInit, OnChanges {
     this.cdr.detectChanges();
     //this.message = this.viewrecord();
   }
-  updatemanagepin() {    
+  updatemanagepin() {
     this.saveflag = false;
     this.masterApiService.refreshToken();
     let productUpdateUrl = "";
@@ -296,7 +431,7 @@ export class RdapManagePinComponent implements OnInit, OnChanges {
     let impactedPinUrl = "";
     let clarityUrl = "";
     this.spinner.show();
-    if (this.productFlag == true) {
+    if (this.productFlag == true && this.mpproductPermission.isEdit == true) {
       if (this.productParam.channelId != 0 &&
         this.productParam.channeltypeId != 0 &&
         this.productParam.regionId != 0 &&
@@ -307,7 +442,7 @@ export class RdapManagePinComponent implements OnInit, OnChanges {
         this.productParam.marketId != null) {
         productUpdateUrl = this.extraPinAPi + "ManagePin/" + this.pinId;
         this.masterApiService.managePinUpdate(productUpdateUrl, this.productParam).subscribe(data => {
-          this.masterApiService.debuggerLog(this.debuggerflag,"product plan Details Saved Success",data);
+          this.masterApiService.debuggerLog(this.debuggerflag, "product plan Details Saved Success", data);
           if (data.isSuccess) {
             this.productFlag = false;
             this.notificationAlert.open();
@@ -339,10 +474,10 @@ export class RdapManagePinComponent implements OnInit, OnChanges {
       }
 
     }
-    if (this.milestoneFlag == true) {
+    if (this.milestoneFlag == true && this.mpmilestonePermission.isEdit == true) {
       milestoneUpdateUrl = this.extraPinAPi + "PinMilestone/" + this.pinId;
       this.masterApiService.managePinUpdate(milestoneUpdateUrl, this.milestoneParam).subscribe(data => {
-        this.masterApiService.debuggerLog(this.debuggerflag,"milestone Details Saved Success",data);
+        this.masterApiService.debuggerLog(this.debuggerflag, "milestone Details Saved Success", data);
         if (data.isSuccess) {
           this.milestoneFlag = false;
           this.notificationAlert.open();
@@ -354,10 +489,10 @@ export class RdapManagePinComponent implements OnInit, OnChanges {
         }
       });
     }
-    if (this.dependencyFlag == true) {
+    if (this.dependencyFlag == true && this.mpdependencyPermission.isEdit == true) {
       dependencyUrl = this.extraPinAPi + "Dependency/savelist";
       this.masterApiService.masterAdd(dependencyUrl, this.dependencyParam).subscribe(data => {
-        this.masterApiService.debuggerLog(this.debuggerflag,"dependenc Details Saved Success",data);
+        this.masterApiService.debuggerLog(this.debuggerflag, "dependenc Details Saved Success", data);
         this.dependencyInput = { planitem: this.viewExtrapinRequestData, savedata: data }
         if (data.isSuccess) {
           this.dependencyFlag = false;
@@ -371,10 +506,10 @@ export class RdapManagePinComponent implements OnInit, OnChanges {
       });
       // this.cdr.detectChanges();
     }
-    if (this.cabinetFlag == true) {
+    if (this.cabinetFlag == true && this.mpcabinetPermission.isEdit == true) {
       cabinetUrl = this.extraPinAPi + "ManagePinCabinet/savelist";
       this.masterApiService.masterAdd(cabinetUrl, this.cabinetParam).subscribe(data => {
-        this.masterApiService.debuggerLog(this.debuggerflag,"cabinet Details Saved Success",data);
+        this.masterApiService.debuggerLog(this.debuggerflag, "cabinet Details Saved Success", data);
         if (data.isSuccess) {
           this.cabinetFlag = false;
           this.notificationAlert.open();
@@ -386,11 +521,11 @@ export class RdapManagePinComponent implements OnInit, OnChanges {
         }
       });
     }
-    if (this.testerPlanFlag == true) {
+    if (this.testerPlanFlag == true && this.mptesterPermission.isEdit == true) {
       testerPlanUrl = this.extraPinAPi + "testerplan/savelist";
       this.masterApiService.masterAdd(testerPlanUrl, this.testerdetailsParam).subscribe(data => {
         this.testdetailsInput = { planitem: this.viewExtrapinRequestData, savedata: data }
-        this.masterApiService.debuggerLog(this.debuggerflag,"tester plan Details Saved Success",data);
+        this.masterApiService.debuggerLog(this.debuggerflag, "tester plan Details Saved Success", data);
         if (data.isSuccess) {
           this.testerPlanFlag = false;
           this.notificationAlert.open();
@@ -403,10 +538,10 @@ export class RdapManagePinComponent implements OnInit, OnChanges {
       });
       //this.cdr.detectChanges();
     }
-    if (this.setItemFlag == true) {
+    if (this.setItemFlag == true && this.mpsetitemPermission.isEdit == true) {
       setItemUrl = this.extraPinAPi + "ManagePinSetItem/savelist";
       this.masterApiService.masterAdd(setItemUrl, this.setitemParam).subscribe(data => {
-        this.masterApiService.debuggerLog(this.debuggerflag,"Set Item Details Saved Success",data);
+        this.masterApiService.debuggerLog(this.debuggerflag, "Set Item Details Saved Success", data);
         // this.testdetailsInput = { planitem: this.viewExtrapinRequestData, savedata: data }
         if (data.isSuccess) {
           this.setItemFlag = false;
@@ -420,10 +555,10 @@ export class RdapManagePinComponent implements OnInit, OnChanges {
       });
       //this.cdr.detectChanges();
     }
-    if (this.linkedPinFlag == true) {
+    if (this.linkedPinFlag == true && this.mplinkedPermission.isEdit == true) {
       linkedPinUrl = this.extraPinAPi + "LinkedPin/savelist";
       this.masterApiService.masterAdd(linkedPinUrl, this.linkedpinParam).subscribe(data => {
-        this.masterApiService.debuggerLog(this.debuggerflag,"linked Pin Details Saved Success",data);
+        this.masterApiService.debuggerLog(this.debuggerflag, "linked Pin Details Saved Success", data);
         // this.testdetailsInput = { planitem: this.viewExtrapinRequestData, savedata: data }
         if (data.isSuccess) {
           this.linkedPinFlag = false;
@@ -437,10 +572,10 @@ export class RdapManagePinComponent implements OnInit, OnChanges {
       });
       //this.cdr.detectChanges();
     }
-    if (this.impactedPinFlag == true) {
+    if (this.impactedPinFlag == true && this.mpimpactedPermission.isEdit == true) {
       impactedPinUrl = this.extraPinAPi + "ImpactedPin/savelist";
       this.masterApiService.masterAdd(impactedPinUrl, this.impacpinParam).subscribe(data => {
-        this.masterApiService.debuggerLog(this.debuggerflag,"impacted Pin Details Saved Success",data);
+        this.masterApiService.debuggerLog(this.debuggerflag, "impacted Pin Details Saved Success", data);
         // this.testdetailsInput = { planitem: this.viewExtrapinRequestData, savedata: data }
         if (data.isSuccess) {
           this.impactedPinFlag = false;
@@ -454,9 +589,8 @@ export class RdapManagePinComponent implements OnInit, OnChanges {
       });
       //this.cdr.detectChanges();
     }
-    if(this.clarityFlag == true){
-      if(this.clarityParam.projectCode != undefined && this.clarityParam.projectCode != null )
-      {
+    if (this.clarityFlag == true && this.mpclarityPermission.isEdit == true) {
+      if (this.clarityParam.projectCode != undefined && this.clarityParam.projectCode != null) {
         clarityUrl = this.extraPinAPi + "Clarity/" + this.clarityParam.projectCode;
         this.masterApiService.managePinUpdate(clarityUrl, this.clarityParam).subscribe(data => {
           if (data.isSuccess) {
@@ -470,7 +604,7 @@ export class RdapManagePinComponent implements OnInit, OnChanges {
           }
         });
       }
-      
+
     }
     this.spinner.hide();
   }

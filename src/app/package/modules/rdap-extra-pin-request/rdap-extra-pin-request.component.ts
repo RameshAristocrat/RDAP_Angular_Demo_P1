@@ -21,6 +21,8 @@ import { RdSpinnerService } from 'src/app/package/infoservice/spinnerservice/rd-
 import { SnackbarInfoService } from '../../infoservice/snackbarservice/snackbar.service';
 import { isEmptyString } from '../../core/utils/shared-utils';
 import * as APIindex from '../../api/apiEndpoints/apiIndex';
+import * as rolePermossionMock from '../../../../assets/config/rolePermissionMockData';
+import * as rolePermossionMpMaster from '../../../../assets/config/rolePermissionMockForMaster';
 declare function load(): any;
 @Component({
   selector: 'app-rdap-extra-pin-request',
@@ -275,11 +277,8 @@ export class RDAPExtraPINRequestComponent implements OnInit, OnChanges {
   public getPermissionByModule() {
     this.pagePermission = [];
     this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "ExtraPin").subscribe(res => {
-       console.log("Extra PIN permission_Get_By_Module in extrapin home page", res);
-      // console.log("pages", this.pages);
-      // debugger
       if(this.rolepermissionmock == true){
-        this.pagePermission.push(environment.rolepermissionextrapinmock);
+        this.pagePermission.push(rolePermossionMock.rdapRolePermossionMock[0].rolepermissionextrapinmock);
       }else{
         this.pagePermission.push(res);
       }
