@@ -51,7 +51,7 @@
                                     </mat-form-field>
                                     <ng-select id='{{item.controlname}}'
                                         *ngIf="item.type =='select' && item.required == 'required'"
-                                        [items]="item.apidata" placeholder="{{item.placeholder}}"
+                                        [items]="item.apidata" placeholder="{{item.placeholder}}*"
                                         bindLabel="{{item.bindname}}" bindValue="{{item.bindvalue}}"
                                         formControlName="{{item.formcontrolname}}" [clearable]="item.clearable"
                                         [virtualScroll]="item.virtualScroll" [multiple]="item.multiple" appendTo="body"

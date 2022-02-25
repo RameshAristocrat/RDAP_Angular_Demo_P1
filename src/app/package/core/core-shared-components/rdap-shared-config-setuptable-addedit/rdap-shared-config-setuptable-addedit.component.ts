@@ -1249,6 +1249,19 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
     return false;
   } 
 
+  checkDate(): boolean {
+    if(this.searchform.get("financialyearstartdate")?.value && this.searchform.get("financialyearenddate")?.value){
+      const financialyearstartdate = new Date(this.searchform.get("financialyearstartdate")?.value);
+      const financialyearenddate = new Date(this.searchform.get("financialyearenddate")?.value);
+      if(financialyearstartdate.getDate() < financialyearenddate.getDate()){
+        if(financialyearstartdate.getMonth() <= financialyearenddate.getMonth()){
+          return false;
+        }
+      }
+    }
+    return true;
+  } 
+
   submit() {
     this.spinner.show();
     this.addParamArr = [];
@@ -1331,6 +1344,12 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
         let momentObj = moment(dateObj);
         let momentString = momentObj.format('YYYY-MM-DD');
         Object.assign(this.commonviewmodel[0], { [x.field]: momentString });
+        if(this.checkDate()){
+          this.notificationAlert.open();
+          this.message = 'End date should be greater than Start Date.';
+          this.spinner.hide();
+          return;
+        }
       }
     });
     if (this.transactionFlag == 'A') {
@@ -1448,7 +1467,14 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
           }
         });
       } else if (x.type == 'date') {
-        frmgrp[x.formcontrolname] = new FormControl(new Date());
+        if(x.formcontrolname == "financialyearenddate"){
+          let date: Date;
+          date = new Date();
+          frmgrp[x.formcontrolname] = new FormControl(new Date(date.setDate(date.getDate() + 1)));
+        }
+        else{
+          frmgrp[x.formcontrolname] = new FormControl(new Date());
+        }
       } else {
         if (x.required == 'required') {
           frmgrp[x.formcontrolname] = new FormControl('', [Validators.required]);
