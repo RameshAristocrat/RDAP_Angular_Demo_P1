@@ -1,10 +1,10 @@
 export const rdapRolePermossionMock = [{
 rolepermissionextrapinmock:{
-    isAdd:true,
+    isAdd:false,
     isEdit:true,
     isDelete:true,
     isView:false,
-    module:"ExtraPin"
+    module:"extrapin"
 },
 rolepermissionproductmock:{
     isAdd:true,
@@ -14,7 +14,7 @@ rolepermissionproductmock:{
     module:"product"
 },
 rolepermissionmanagepinmock:{
-    isAdd:true,
+    isAdd:false,
     isEdit:true,
     isDelete:true,
     isView:false,
@@ -305,7 +305,7 @@ rolepermissionvirdianlaunchmock:{
     isEdit:true,
     isDelete:true,
     isView:false,
-    module:"virdianlaunch" 
+    module:"viridianlaunch" 
 },
 rolepermissionflagmock:{
     isAdd:true,

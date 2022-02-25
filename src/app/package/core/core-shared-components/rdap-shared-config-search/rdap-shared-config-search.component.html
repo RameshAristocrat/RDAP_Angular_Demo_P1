@@ -79,10 +79,10 @@
     </mat-card-content>
     <mat-card-actions style="text-align: left;">
         <button mat-raised-button style="width: 10%;background-color: #300c46;color:white"
-            (click)="viewrecord(route)"  *ngIf="selMasterDetailsData && selMasterDetailsData.newSelection.length > 0">Open</button>
+            (click)="viewrecord(route)"  *ngIf="selMasterDetailsData && selMasterDetailsData.newSelection.length > 0 && pagePermission.isEdit == true">Open</button>
         <button mat-raised-button style="width: 10%;background-color: #300c46;color:white"
         (click)="cancel('/home/dashboard')">Back</button>
         <button mat-raised-button style="width: 20%;background-color: #300c46;color:white"
-            (click)="addnewrecord(route)">Add New Record</button>
+           *ngIf="pagePermission.isAdd == true" (click)="addnewrecord(route)">Add New Record</button>
     </mat-card-actions>
 </mat-card>

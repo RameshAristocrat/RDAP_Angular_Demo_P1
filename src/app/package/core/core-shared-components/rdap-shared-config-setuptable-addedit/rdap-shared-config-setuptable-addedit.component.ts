@@ -58,6 +58,9 @@ import { IgxGridCellComponent } from 'igniteui-angular/lib/grids/cell.component'
 import { IgxGridRowComponent } from 'igniteui-angular/lib/grids/grid/grid-row.component';
 import * as moment from 'moment';
 import { IgxDialogComponent } from '@infragistics/igniteui-angular';
+import * as rolePermossionMock from '../../../../../assets/config/rolePermissionMockData';
+import * as rolePermossionMpMaster from '../../../../../assets/config/rolePermissionMockForMaster';
+import * as APIindex from '../../../api/apiEndpoints/apiIndex';
 @Component({
   selector: 'app-rdap-shared-config-setuptable-addedit',
   templateUrl: './rdap-shared-config-setuptable-addedit.component.html',
@@ -126,6 +129,9 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
   public marketmodelobj: marketmodel;
   public marketmodelarr: marketmodel[];
   data: any[];
+  public pagePermission: any;
+  public rolePermissionEnableFlag: any;
+  public rolepermissionmock: boolean = false;
   //public data:any[];
 
   @ViewChild(MatSort) sort: MatSort;
@@ -164,6 +170,8 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
         this.route = 'Home';
       }
     });
+    this.rolePermissionEnableFlag = environment.enablerolepermission;
+    this.rolepermissionmock = environment.enablerolepermissionmock;
   }
   public ngAfterViewInit() {
     this.customOverlaySettings = {
@@ -199,6 +207,18 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
       this.getFormData();
     }
   }
+  public getPermissionmpMasterByModule(modulename) {
+    this.pagePermission = [];
+    let rolePermissionMockData;
+    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, modulename).subscribe(res => {
+      if (this.rolepermissionmock == true) {
+        rolePermissionMockData =  rolePermossionMpMaster.rdapRolePermossionMockMaster.filter(x=>x.modulename.toLowerCase() == modulename);
+        this.pagePermission.push(rolePermissionMockData[0].data);
+      } else {
+        this.pagePermission.push(res);
+      }
+    });
+  }
   getFormData() {
     this.formSelectApiData = [];
     this.editFieldProp = '';
@@ -209,6 +229,7 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
       this.route.match('market') &&
       this.route.match('market').length > 0
     ) {
+      this.getPermissionmpMasterByModule("market");
       this.formName = 'marketSearchForm';
       this.configdata[0].master.filter((x) => {
         this.routedata = x.market;
@@ -235,6 +256,7 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
       this.route.match('region') &&
       this.route.match('region').length > 0
     ) {
+      this.getPermissionmpMasterByModule("region");
       this.formName = 'regionSearchForm';
       this.configdata[0].master.filter((x) => {
         this.routedata = x.region;
@@ -261,6 +283,7 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
       this.route.match('channeltype') &&
       this.route.match('channeltype').length
     ) {
+      this.getPermissionmpMasterByModule("channeltype");
       this.formName = 'channeltypeSearchForm';
       this.configdata[0].master.filter((x) => {
         this.routedata = x.channeltype;
@@ -287,6 +310,7 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
       this.route.match('cabinets') &&
       this.route.match('cabinets').length
     ) {
+      this.getPermissionmpMasterByModule("cabinet");
       this.formName = 'cabinetsSearchForm';
       this.configdata[0].master.filter((x) => {
         this.routedata = x.cabinets;
@@ -313,6 +337,7 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
       this.route.match('channel') &&
       this.route.match('channel').length
     ) {
+      this.getPermissionmpMasterByModule("channel");
       this.formName = 'channelSearchForm';
       this.channeltypeddldata = [];
       this.addgriddata = null;
@@ -370,6 +395,7 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
       this.route.match('devefforttype') &&
       this.route.match('devefforttype').length
     ) {
+      this.getPermissionmpMasterByModule("devefforttype");
       this.formName = 'devefforttypeSearchForm';
       this.configdata[0].master.filter((x) => {
         this.routedata = x.devefforttype;
@@ -396,6 +422,7 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
       this.route.match('devcomplexity') &&
       this.route.match('devcomplexity').length > 0
     ) {
+      this.getPermissionmpMasterByModule("devcomplexity");
       this.formName = 'devcomplexitySearchForm';
       this.configdata[0].master.filter((x) => {
         this.routedata = x.devcomplexity;
@@ -422,6 +449,7 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
       this.route.match('gravity') &&
       this.route.match('gravity').length > 0
     ) {
+      this.getPermissionmpMasterByModule("gravity");
       this.formName = 'gravitySearchForm';
       this.configdata[0].master.filter((x) => {
         this.routedata = x.gravity;
@@ -448,6 +476,7 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
       this.route.match('financialyear') &&
       this.route.match('financialyear').length > 0
     ) {
+      this.getPermissionmpMasterByModule("financialyear");
       this.formName = 'financialyearSearchForm';
       this.configdata[0].master.filter((x) => {
         this.routedata = x.financialyear;
@@ -474,6 +503,7 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
       this.route.match('quarter') &&
       this.route.match('quarter').length > 0
     ) {
+      this.getPermissionmpMasterByModule("quarter");
       this.formName = 'quarterSearchForm';
       this.ddldata = [];
       this.configdata[0].master.filter((x) => {
@@ -501,6 +531,7 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
       this.route.match('gamecomplexity') &&
       this.route.match('gamecomplexity').length > 0
     ) {
+      this.getPermissionmpMasterByModule("gamecomplexity");
       this.formName = 'gamecomplexitySearchForm';
       this.configdata[0].master.filter((x) => {
         this.routedata = x.gamecomplexity;
@@ -527,6 +558,7 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
       this.route.match('pool') &&
       this.route.match('pool').length > 0
     ) {
+      this.getPermissionmpMasterByModule("pool");
       this.formName = 'poolSearchForm';
       this.configdata[0].master.filter((x) => {
         this.routedata = x.pool;
@@ -553,6 +585,7 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
       this.route.match('studio2') &&
       this.route.match('studio2').length > 0
     ) {
+      this.getPermissionmpMasterByModule("studio2");
       this.formName = 'studio2SearchForm';
       this.configdata[0].master.filter((x) => {
         this.routedata = x.studio2;
@@ -579,6 +612,7 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
       this.route.match('studiotype') &&
       this.route.match('studiotype').length > 0
     ) {
+      this.getPermissionmpMasterByModule("studiotype");
       this.formName = 'studiotypeSearchForm';
       this.configdata[0].master.filter((x) => {
         this.routedata = x.studiotype;
@@ -605,6 +639,7 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
       this.route.match('studio') &&
       this.route.match('studio').length > 0
     ) {
+      this.getPermissionmpMasterByModule("studio");
       this.formName = 'studioSearchForm';
       this.configdata[0].master.filter((x) => {
         this.routedata = x.studio;
@@ -631,6 +666,7 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
       this.route.match('productbasket') &&
       this.route.match('productbasket').length > 0
     ) {
+      this.getPermissionmpMasterByModule("productbasket");
       this.formName = 'productbasketSearchForm';
       this.configdata[0].master.filter((x) => {
         this.routedata = x.productbasket;
@@ -657,6 +693,7 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
       this.route.match('productgroup') &&
       this.route.match('productgroup').length > 0
     ) {
+      this.getPermissionmpMasterByModule("productgroup");
       this.formName = 'productgroupSearchForm';
       this.configdata[0].master.filter((x) => {
         this.routedata = x.productgroup;
@@ -683,6 +720,7 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
       this.route.match('emulation') &&
       this.route.match('emulation').length > 0
     ) {
+      this.getPermissionmpMasterByModule("emulation");
       this.formName = 'emulationSearchForm';
       this.configdata[0].master.filter((x) => {
         this.routedata = x.emulation;
@@ -709,6 +747,7 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
       this.route.match('denom') &&
       this.route.match('denom').length > 0
     ) {
+      this.getPermissionmpMasterByModule("denom");
       this.formName = 'denomSearchForm';
       this.configdata[0].master.filter((x) => {
         this.routedata = x.denom;
@@ -735,6 +774,7 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
       this.route.match('theme') &&
       this.route.match('theme').length > 0
     ) {
+      this.getPermissionmpMasterByModule("them");
       this.formName = 'themeSearchForm';
       this.configdata[0].master.filter((x) => {
         this.routedata = x.theme;
@@ -761,6 +801,7 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
       this.route.match('title') &&
       this.route.match('title').length > 0
     ) {
+      this.getPermissionmpMasterByModule("title");
       this.formName = 'titleSearchForm';
       this.configdata[0].master.filter((x) => {
         this.routedata = x.title;
@@ -787,6 +828,7 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
       this.route.match('devtype1') &&
       this.route.match('devtype1').length > 0
     ) {
+      this.getPermissionmpMasterByModule("devtype1");
       this.formName = 'devtype1SearchForm';
       this.configdata[0].master.filter((x) => {
         this.routedata = x.devtype1;
@@ -813,6 +855,7 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
       this.route.match('devtype2') &&
       this.route.match('devtype2').length > 0
     ) {
+      this.getPermissionmpMasterByModule("devtype2");
       this.formName = 'devtype2SearchForm';
       this.configdata[0].master.filter((x) => {
         this.routedata = x.devtype2;
@@ -839,6 +882,7 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
       this.route.match('status1') &&
       this.route.match('status1').length > 0
     ) {
+      this.getPermissionmpMasterByModule("status1");
       this.formName = 'status1SearchForm';
       this.configdata[0].master.filter((x) => {
         this.routedata = x.status1;
@@ -865,6 +909,7 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
       this.route.match('status2') &&
       this.route.match('status2').length > 0
     ) {
+      this.getPermissionmpMasterByModule("status2");
       this.formName = 'status2SearchForm';
       this.configdata[0].master.filter((x) => {
         this.routedata = x.status2;
@@ -891,6 +936,7 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
       this.route.match('status3') &&
       this.route.match('status3').length > 0
     ) {
+      this.getPermissionmpMasterByModule("status3");
       this.configdata[0].master.filter((x) => {
         this.routedata = x.status3;
         this.formdata = this.routedata[0].fieldprop;
@@ -916,6 +962,7 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
       this.route.match('prodcat1') &&
       this.route.match('prodcat1').length > 0
     ) {
+      this.getPermissionmpMasterByModule("prodcat1");
       this.formName = 'prodcat1SearchForm';
       this.configdata[0].master.filter((x) => {
         this.routedata = x.prodcat1;
@@ -942,6 +989,7 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
       this.route.match('prodcat2') &&
       this.route.match('prodcat2').length > 0
     ) {
+      this.getPermissionmpMasterByModule("prodcat2");
       this.formName = 'prodcat2SearchForm';
       this.configdata[0].master.filter((x) => {
         this.routedata = x.prodcat2;
@@ -968,6 +1016,7 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
       this.route.match('prodcat3') &&
       this.route.match('prodcat3').length > 0
     ) {
+      this.getPermissionmpMasterByModule("prodcat3");
       this.formName = 'prodcat3SearchForm';
       this.configdata[0].master.filter((x) => {
         this.routedata = x.prodcat3;
@@ -994,6 +1043,7 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
       this.route.match('epp') &&
       this.route.match('epp').length > 0
     ) {
+      this.getPermissionmpMasterByModule("epp_ref");
       this.formName = 'eppSearchForm';
       this.configdata[0].master.filter((x) => {
         this.routedata = x.epp;
@@ -1020,6 +1070,7 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
       this.route.match('version') &&
       this.route.match('version').length > 0
     ) {
+      this.getPermissionmpMasterByModule("version");
       this.formName = 'versionSearchForm';
       this.configdata[0].master.filter((x) => {
         this.routedata = x.version;
@@ -1046,6 +1097,7 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
       this.route.match('risk') &&
       this.route.match('risk').length > 0
     ) {
+      this.getPermissionmpMasterByModule("risk");
       this.formName = 'riskSearchForm';
       this.configdata[0].master.filter((x) => {
         this.routedata = x.risk;
@@ -1072,6 +1124,7 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
       this.route.match('viridianlaunch') &&
       this.route.match('viridianlaunch').length > 0
     ) {
+      this.getPermissionmpMasterByModule("viridianlaunch");
       this.formName = 'viridianlaunchSearchForm';
       this.configdata[0].master.filter((x) => {
         this.routedata = x.viridianlaunch;
@@ -1099,6 +1152,7 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
       this.route.match('vidstep') &&
       this.route.match('vidstep').length > 0
     ) {
+      this.getPermissionmpMasterByModule("videostepper");
       this.formName = 'vidstepSearchForm';
       this.configdata[0].master.filter((x) => {
         this.routedata = x.vidstep;
@@ -1126,6 +1180,7 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
       this.route.match('flag') &&
       this.route.match('flag').length > 0
     ) {
+      this.getPermissionmpMasterByModule("flag");
       this.formName = 'flagSearchForm';
       this.configdata[0].master.filter((x) => {
         this.routedata = x.flag;
@@ -1153,6 +1208,7 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
       this.route.match('complexity') &&
       this.route.match('complexity').length > 0
     ) {
+      this.getPermissionmpMasterByModule("complexity");
       this.formName = 'complexitySearchForm';
       this.configdata[0].master.filter((x) => {
         this.routedata = x.complexity;

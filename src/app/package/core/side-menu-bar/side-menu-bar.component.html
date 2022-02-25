@@ -28,7 +28,8 @@
                   </a>
                 </mat-nav-list>
             </mat-expansion-panel>
-            <mat-nav-list *ngIf="subitem.level1.length==0 && subitem.permissionflag == true" style="padding-right:24px">
+            <mat-nav-list *ngIf="subitem.level1.length==0 && subitem.permissionflag == true"
+             style="padding-right:24px">
               <a mat-list-item (click)="navlistRedirect(subitem.link)"
                 style="color: white;background-color:#300c46;">
                 <mat-icon style="padding-right:5px;color: white;background-color:#300c46;">{{subitem?.icon}}

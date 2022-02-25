@@ -395,7 +395,7 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
           type: 'SC',
           header: '0',
           permissionflag: false,
-          modulename: "ExtraPin",
+          modulename: "extrapin",
           functionality: "add",
           level1: [],
         },
@@ -406,7 +406,7 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
           type: 'SC',
           header: '0',
           permissionflag: false,
-          modulename: "ExtraPin",
+          modulename: "extrapin",
           functionality: "list",
           level1: [],
         }, {
@@ -416,7 +416,7 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
           type: 'SC',
           header: '0',
           permissionflag: false,
-          modulename: "ManagePin",
+          modulename: "managepin",
           functionality: "list",
           level1: [],
         }, {
@@ -847,7 +847,7 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
       // console.log("pages", this.pages);
       // debugger
       if (this.rolepermissionmock == true) {
-        this.pagePermission.push(environment.rolepermissionextrapinmock);
+        this.pagePermission.push(rolePermossionMock.rdapRolePermossionMock[0].rolepermissionextrapinmock);
       } else {
         this.pagePermission.push(res);
       }
@@ -856,7 +856,7 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
         //  console.log("pages", this.pages);
         // debugger
         if (this.rolepermissionmock == true) {
-          this.pagePermission.push(environment.rolepermissionmanagepinmock);
+          this.pagePermission.push(rolePermossionMock.rdapRolePermossionMock[0].rolepermissionmanagepinmock);
         } else {
           this.pagePermission.push(res);
         }
@@ -867,17 +867,17 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
     });
   }
   public ExtraPinModulePermission(permission, pages) {
-    //debuggerp
-    console.log("permission[y.modulename]", permission.filter(x => x.module == "ExtraPin"));
-    let extraPinPermissionData = permission.filter(x => x.module == "ExtraPin")[0];
+    //debugger
+    console.log("permission[y.modulename]", permission.filter(x => x.module.toLowerCase() == "extrapin"));
+    let extraPinPermissionData = permission.filter(x => x.module.toLowerCase() == "extrapin")[0];
     if (this.pages) {
       this.pages.forEach(x => {
-        if (x.modulename == "ManagePin") {
+        if (x.modulename.toLowerCase() == "managepin") {
           x.submenu.forEach(y => {
-            if (y.modulename == "ExtraPin" && y.functionality == "add") {
+            if (y.modulename.toLowerCase() == "extrapin" && y.functionality == "add") {
               y.permissionflag = extraPinPermissionData.isAdd;
             }
-            if (y.modulename == "ExtraPin" && y.functionality == "list") {
+            if (y.modulename.toLowerCase() == "extrapin" && y.functionality == "list") {
               y.permissionflag = extraPinPermissionData.isView;
             }
           })
@@ -888,13 +888,13 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
   }
   public ManagePinModulePermission(permission, pages) {
     //debugger
-    console.log("permission[y.modulename]", permission.filter(x => x.module == "ManagePin"));
-    let managePinPermissionData = permission.filter(x => x.module == "ManagePin")[0];
+    console.log("permission[y.modulename]", permission.filter(x => x.module.toLowerCase() == "managepin"));
+    let managePinPermissionData = permission.filter(x => x.module.toLowerCase() == "managepin")[0];
     if (this.pages) {
       this.pages.forEach(x => {
-        if (x.modulename == "ManagePin") {
+        if (x.modulename.toLowerCase() == "managepin") {
           x.submenu.forEach(y => {
-            if (y.modulename == "ManagePin" && y.functionality == "list") {
+            if (y.modulename.toLowerCase() == "managepin" && y.functionality == "list") {
               y.permissionflag = managePinPermissionData.isView;
             }
           })
@@ -904,7 +904,6 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
     }
   }
   public ManagePinMasterModulePermission(permission, pages, modulename) {
-    debugger
     let managePinMasterPermissionData = permission.filter(x => x.module.toLowerCase() == modulename)[0];
     if (this.pages) {
       this.pages.forEach(x => {
