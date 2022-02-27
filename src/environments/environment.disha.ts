@@ -19,7 +19,7 @@ export const environment = {
     userapiurl:"https://sydc-appdev-01:8888/api/v1/",
     debuggerflag:true,
     enablerolepermission:true,
-    enablerolepermissionmock:true,
+    enablerolepermissionmock:false,
     rolepermissionextrapinmock:{
         isAdd:true,
         isEdit:true,

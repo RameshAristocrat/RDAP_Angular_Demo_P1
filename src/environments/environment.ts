@@ -22,7 +22,7 @@ extrapinreqapiurl:"https://sydc-appdev-01:5555/api/v1/",
 reworkreqestapi:"https://sydc-appdev-01:4444/api/v1/",
 debuggerflag:true,
 enablerolepermission:true,
-enablerolepermissionmock:true,
+enablerolepermissionmock:false,
 rolepermissionextrapinmock:{
     isAdd:true,
     isEdit:true,

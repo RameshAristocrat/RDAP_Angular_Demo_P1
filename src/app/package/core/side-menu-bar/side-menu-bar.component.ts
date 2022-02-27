@@ -448,7 +448,7 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
           header: '0',
           permissionflag: false,
           modulename: "Rework",
-          functionality: "list",
+          functionality: "all",
           level1: [],
         },
         {
@@ -491,7 +491,7 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
           header: '0',
           permissionflag: false,
           modulename: "Master",
-          functionality: "list",
+          functionality: "all",
           level1: [],
         },
         {
@@ -865,6 +865,39 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
         this.ExtraPinModulePermission(this.pagePermission, this.pages);
       });
     });
+    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "workflow").subscribe(res => {
+      //  console.log("Manage PIN permission_Get_By_Module", res);
+      //  console.log("pages", this.pages);
+      // debugger
+      if (this.rolepermissionmock == true) {
+        this.pagePermission.push(rolePermossionMock.rdapRolePermossionMock[0].rolepermissionmpworkflowmock);
+      } else {
+        this.pagePermission.push(res);
+      }
+      this.ManagePinWorkflowModulePermission(this.pagePermission, this.pages);
+    });
+    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "blanketpin").subscribe(res => {
+      //  console.log("Manage PIN permission_Get_By_Module", res);
+      //  console.log("pages", this.pages);
+      // debugger
+      if (this.rolepermissionmock == true) {
+        this.pagePermission.push(rolePermossionMock.rdapRolePermossionMock[0].rolepermissionmpworkflowmock);
+      } else {
+        this.pagePermission.push(res);
+      }
+      this.blanketPinModulePermission(this.pagePermission, this.pages);
+    });
+    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "rework").subscribe(res => {
+      //  console.log("Manage PIN permission_Get_By_Module", res);
+      //  console.log("pages", this.pages);
+      // debugger
+      if (this.rolepermissionmock == true) {
+        this.pagePermission.push(rolePermossionMock.rdapRolePermossionMock[0].rolepermissionmpworkflowmock);
+      } else {
+        this.pagePermission.push(res);
+      }
+      this.reworkModulePermission(this.pagePermission, this.pages);
+    });
   }
   public ExtraPinModulePermission(permission, pages) {
     //debugger
@@ -896,6 +929,62 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
           x.submenu.forEach(y => {
             if (y.modulename.toLowerCase() == "managepin" && y.functionality == "list") {
               y.permissionflag = managePinPermissionData.isView;
+            }
+          })
+        }
+      });
+      console.log("managepin", this.pages);
+    }
+  }
+  public ManagePinWorkflowModulePermission(permission, pages) {
+    //debugger
+    //console.log("permission[y.modulename]", permission.filter(x => x.module.toLowerCase() == "managepin"));
+    let managePinWorkflowPermissionData = permission.filter(x => x.module.toLowerCase() == "workflow")[0];
+    if (this.pages) {
+      this.pages.forEach(x => {
+        if (x.modulename.toLowerCase() == "managepin") {
+          x.submenu.forEach(y => {
+            if (y.modulename.toLowerCase() == "workflow" && y.functionality == "view") {
+              y.permissionflag = managePinWorkflowPermissionData.isView;
+            }
+          })
+        }
+      });
+      console.log("managepin", this.pages);
+    }
+  }
+  public blanketPinModulePermission(permission, pages) {
+    //debugger
+    //console.log("permission[y.modulename]", permission.filter(x => x.module.toLowerCase() == "managepin"));
+    let managePinWorkflowPermissionData = permission.filter(x => x.module.toLowerCase() == "blanketpin")[0];
+    if (this.pages) {
+      this.pages.forEach(x => {
+        if (x.modulename.toLowerCase() == "blanketpin") {
+          x.submenu.forEach(y => {
+            if (y.modulename.toLowerCase() == "blanketpin" && y.functionality == "add") {
+              y.permissionflag = managePinWorkflowPermissionData.isAdd
+            }
+            if (y.modulename.toLowerCase() == "blanketpin" && y.functionality == "list") {
+              y.permissionflag = managePinWorkflowPermissionData.isView            }
+          })
+        }
+      });
+      console.log("managepin", this.pages);
+    }
+  }
+  public reworkModulePermission(permission, pages) {
+    //debugger
+    //console.log("permission[y.modulename]", permission.filter(x => x.module.toLowerCase() == "managepin"));
+    let reworkPermissionData = permission.filter(x => x.module.toLowerCase() == "rework")[0];
+    if (this.pages) {
+      this.pages.forEach(x => {
+        if (x.modulename.toLowerCase() == "rework") {
+          x.submenu.forEach(y => {
+            if (y.modulename.toLowerCase() == "rework" && y.functionality == "add") {
+              y.permissionflag = reworkPermissionData.isAdd;
+            }
+            if (y.modulename.toLowerCase() == "rework" && y.functionality == "list") {
+              y.permissionflag = reworkPermissionData.isView;
             }
           })
         }
