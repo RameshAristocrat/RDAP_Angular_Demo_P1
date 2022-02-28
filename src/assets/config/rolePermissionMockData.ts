@@ -10,7 +10,7 @@ rolepermissionproductmock:{
     isAdd:true,
     isEdit:false,
     isDelete:true,
-    isView:false,
+    isView:true,
     module:"product"
 },
 rolepermissionmanagepinmock:{
@@ -24,63 +24,63 @@ rolepermissiondependencymock:{
     isAdd:true,
     isEdit:true,
     isDelete:true,
-    isView:false,
+    isView:true,
     module:"dependency"
 },
 rolepermissiontesterplanmock:{
-    isAdd:true,
-    isEdit:true,
+    isAdd:false,
+    isEdit:false,
     isDelete:true,
-    isView:false,
+    isView:true,
     module:"testerplan"
 },
 rolepermissionsetitemmock:{
-    isAdd:true,
-    isEdit:true,
+    isAdd:false,
+    isEdit:false,
     isDelete:true,
-    isView:false,
+    isView:true,
     module:"setitem"
 },
 rolepermissioncabinetmock:{
     isAdd:true,
-    isEdit:true,
+    isEdit:false,
     isDelete:true,
-    isView:false,
+    isView:true,
     module:"cabinet"
 },
 rolepermissionmilestonemock:{
-    isAdd:true,
+    isAdd:false,
     isEdit:true,
     isDelete:true,
-    isView:false,
+    isView:true,
     module:"milestone"
 },
 rolepermissionclaritymock:{
     isAdd:true,
-    isEdit:true,
+    isEdit:false,
     isDelete:true,
-    isView:false,
+    isView:true,
     module:"clarity"
 },
 rolepermissionlinkedpinmock:{
     isAdd:true,
-    isEdit:true,
+    isEdit:false,
     isDelete:true,
-    isView:false,
+    isView:true,
     module:"linkedpin"
 },
 rolepermissionimpactedpinmock:{
     isAdd:true,
-    isEdit:true,
+    isEdit:false,
     isDelete:true,
-    isView:false,
+    isView:true,
     module:"impactedpin"
 },
 rolepermissionauditlogmock:{
     isAdd:true,
     isEdit:false,
     isDelete:true,
-    isView:false,
+    isView:true,
     module:"auditlog"
 },
 rolepermissionversionmock:{

@@ -24,7 +24,9 @@ import { SnackbarInfoService } from 'src/app/package/infoservice/snackbarservice
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { Moment } from 'moment';
 import * as moment from 'moment';
-
+import * as rolePermossionMockJs from '../../../../../assets/config/rolePermissionMockData';
+import * as rolePermossionMpMaster from '../../../../../assets/config/rolePermissionMockForMaster';
+import * as APIindex from '../../../api/apiEndpoints/apiIndex';
 @Component({
   selector: 'app-rdap-manage-pin-milestone-tab',
   templateUrl: './rdap-manage-pin-milestone-tab.component.html',
@@ -70,6 +72,20 @@ export class RdapManagePinMilestoneTabComponent implements OnInit,OnChanges {
   valueChangeFlag: boolean;
   emitData: { data: any, flag: false };
   message : any;
+  managepin: any;
+  mpproductPermission: any;
+  mpdependencyPermission: any;
+  mpmilestonePermission: any;
+  mpcabinetPermission: any;
+  mptesterPermission: any;
+  mpsetitemPermission: any;
+  mplinkedPermission: any;
+  mpimpactedPermission: any;
+  mpauditPermission: any;
+  mpclarityPermission: any;
+  public pagePermission: any;
+  public rolePermissionEnableFlag: any;
+  public rolepermissionmock: boolean = false;
   @ViewChild('FYalert', { static: true }) public notificationAlert: IgxDialogComponent;
   @Output() milestoneEvent = new EventEmitter<any>();
   @Input() planitem: any;
@@ -117,6 +133,61 @@ export class RdapManagePinMilestoneTabComponent implements OnInit,OnChanges {
     this.viewExtrapinRequestData = this.planitem;
     this.permissionApi = environment.userapiurl;
     this.IsManagePinAdmin();
+    this.rolePermissionEnableFlag = environment.enablerolepermission;
+    this.rolepermissionmock = environment.enablerolepermissionmock;
+  }
+
+  public getPermissionmpMasterByModule() {
+    this.pagePermission = [];
+    this.mpmilestonePermission= [];
+    let rolePermissionMockData;
+    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "mpmilestone").subscribe(res => {
+      if (this.rolepermissionmock == true) {
+        this.pagePermission.push(rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionmilestonemock);
+        this.mpmilestonePermission = rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionmilestonemock;
+        if(this.mpmilestonePermission.isView == true && this.mpmilestonePermission.isEdit == false){
+          this.isViewOnlyPermission();
+        }
+      } else {
+        this.pagePermission.push(res);
+        this.mpmilestonePermission = res;
+        if(this.mpmilestonePermission.isView == true && this.mpmilestonePermission.isEdit == false){
+          this.isViewOnlyPermission();
+        }
+      }
+    });
+  }
+
+  public isViewOnlyPermission(){
+this.milestoneform.get("planApprDate").disable({ onlySelf: true });
+    this.milestoneform.get("gdbReqdDate").disable({ onlySelf: true });
+    this.milestoneform.get("tgtDevStartDate").disable({ onlySelf: true });
+    this.milestoneform.get("estDevStartDate").disable({ onlySelf: true });
+    this.milestoneform.get("devStartDate").disable({ onlySelf: true });
+    this.milestoneform.get("intoGigDate").disable({ onlySelf: true });
+    this.milestoneform.get("presubDate").disable({ onlySelf: true });
+    this.milestoneform.get("tgtIntoCvlDate").disable({ onlySelf: true });
+    this.milestoneform.get("estIntoCvlDate").disable({ onlySelf: true });
+    this.milestoneform.get("intoCvlDate").disable({ onlySelf: true });
+    this.milestoneform.get("devStartDate").disable({ onlySelf: true });
+    this.milestoneform.get("estSubDate").disable({ onlySelf: true });
+    this.milestoneform.get("estPresubDate").disable({ onlySelf: true });
+    this.milestoneform.get("tgtIntoSubDate").disable({ onlySelf: true });
+    this.milestoneform.get("estIntoSubDate").disable({ onlySelf: true });
+    this.milestoneform.get("intoSubDate").disable({ onlySelf: true });
+    this.milestoneform.get("tgtSubDate").disable({ onlySelf: true });
+    this.milestoneform.get("subDate").disable({ onlySelf: true });
+    this.milestoneform.get("estRecDate").disable({ onlySelf: true });
+    this.milestoneform.get("recDate").disable({ onlySelf: true });
+    this.milestoneform.get("tgtApprDate").disable({ onlySelf: true });
+    this.milestoneform.get("estApprDate").disable({ onlySelf: true });
+    this.milestoneform.get("apprDate").disable({ onlySelf: true });
+    this.milestoneform.get("tgtReleaseDate").disable({ onlySelf: true });
+    this.milestoneform.get("estReleaseDate").disable({ onlySelf: true });
+    this.milestoneform.get("releaseDate").disable({ onlySelf: true });
+    //this.milestoneform.get("financialyearId").disable({ onlySelf: true }financialyearId);
+    //this.milestoneform.get("quarterId").disable({ onlySelf: true }quarterId);
+    this.milestoneform.get("netApprDate").disable({ onlySelf: true });
   }
 
   ngOnInit(): void {
@@ -129,6 +200,7 @@ export class RdapManagePinMilestoneTabComponent implements OnInit,OnChanges {
     //this.milestoneform.controls["financialyearId"].setValue(this.viewExtrapinRequestData.data.financialyearId);
     this.buildForm();
     this.getMilestoneById();
+    this.getPermissionmpMasterByModule();
   }
   ngOnChanges(changes: SimpleChanges) {
     this.buildForm();

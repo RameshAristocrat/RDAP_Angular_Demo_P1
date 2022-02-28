@@ -16,6 +16,9 @@ import { IgxGridRowComponent } from 'igniteui-angular/lib/grids/grid/grid-row.co
 import { IgxGridCellComponent } from 'igniteui-angular/lib/grids/cell.component';
 import { debug } from 'console';
 import * as moment from 'moment';
+import * as rolePermossionMockJs from '../../../../../assets/config/rolePermissionMockData';
+import * as rolePermossionMpMaster from '../../../../../assets/config/rolePermissionMockForMaster';
+import * as APIindex from '../../../api/apiEndpoints/apiIndex';
 @Component({
   selector: 'app-rdap-manage-pin-clarity',
   templateUrl: './rdap-manage-pin-clarity.component.html',
@@ -57,6 +60,20 @@ export class RdapManagePinClarityComponent implements OnInit {
   pagename: any;
   emitData: { data: any, flag: boolean };
   message: string;
+  managepin: any;
+  mpproductPermission: any;
+  mpdependencyPermission: any;
+  mpmilestonePermission: any;
+  mpcabinetPermission: any;
+  mptesterPermission: any;
+  mpsetitemPermission: any;
+  mplinkedPermission: any;
+  mpimpactedPermission: any;
+  mpauditPermission: any;
+  mpclarityPermission: any;
+  public pagePermission: any;
+  public rolePermissionEnableFlag: any;
+  public rolepermissionmock: boolean = false;
   constructor(private httpClient: HttpClient, private cdr: ChangeDetectorRef,
     public fb: FormBuilder, private excelExportService: IgxExcelExporterService, private router: Router,
     private masterApiService: RdMasterApiService, private spinner: RdSpinnerService,
@@ -65,9 +82,44 @@ export class RdapManagePinClarityComponent implements OnInit {
     this.baseApi = environment.baseapiurl;
     this.extraPinAPi = environment.extrapinreqapiurl;
     this.viewExtrapinRequestData = this.planitem;
+    this.rolePermissionEnableFlag = environment.enablerolepermission;
+    this.rolepermissionmock = environment.enablerolepermissionmock;
   }
-
+  public getPermissionmpMasterByModule() {
+    this.pagePermission = [];
+    this.mpclarityPermission= [];
+    let rolePermissionMockData;
+    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "mpclarity").subscribe(res => {
+      if (this.rolepermissionmock == true) {
+        this.pagePermission.push(rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionclaritymock);
+        this.mpclarityPermission = rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionclaritymock;
+        if(this.mpclarityPermission.isView == true && this.mpclarityPermission.isEdit == false){
+          this.isViewOnlyPermission();
+        }
+      } else {
+        this.pagePermission.push(res);
+        this.mpclarityPermission = res;
+        if(this.mpclarityPermission.isView == true && this.mpclarityPermission.isEdit == false){
+          this.isViewOnlyPermission();
+        }
+      }          
+    this.spinner.hide();
+    });
+  }
+  isViewOnlyPermission(){
+    this.clarityform.get("projectCode").disable({ onlySelf: true });
+    this.clarityform.get("name").disable({ onlySelf: true });
+    this.clarityform.get("fullName").disable({ onlySelf: true });
+    this.clarityform.get("aliPlanitem").disable({ onlySelf: true });
+    this.clarityform.get("isActive").disable({ onlySelf: true });
+    this.clarityform.get("actuals").disable({ onlySelf: true });
+    this.clarityform.get("aliGdbRemarks").disable({ onlySelf: true });
+    this.clarityform.get("description").disable({ onlySelf: true });
+    this.clarityform.get("scheduleStart").disable({ onlySelf: true });
+    this.clarityform.get("aliPlanitem").disable({ onlySelf: true });
+  }
   ngOnInit(): void {
+    this.getPermissionmpMasterByModule();
     this.viewExtrapinRequestData = this.planitem;
     this.pinId = this.planitem.data.planitem;
     this.buildForm();

@@ -22,6 +22,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { RdSpinnerService } from 'src/app/package/infoservice/spinnerservice/rd-spinner.service';
 import { SnackbarInfoService } from 'src/app/package/infoservice/snackbarservice/snackbar.service';
 import { Observable, Subject } from 'rxjs-compat';
+import * as rolePermossionMockJs from '../../../../../assets/config/rolePermissionMockData';
+import * as rolePermossionMpMaster from '../../../../../assets/config/rolePermissionMockForMaster';
+import * as APIindex from '../../../api/apiEndpoints/apiIndex';
 
 @Component({
   selector: 'app-rdap-manage-pin-product-tab',
@@ -118,6 +121,10 @@ export class RdapManagePinProductTabComponent implements OnInit {
   notesLong: "",
   gamecomplexityId: 0,
   archType: ""}
+  public pagePermission: any;
+  public rolePermissionEnableFlag: any;
+  public rolepermissionmock: boolean = false;
+  mpproductPermission:any;
   constructor(private httpClient: HttpClient, private router: Router,
     public fb: FormBuilder, private _snackBar: MatSnackBar,
     private masterApiService: RdMasterApiService,
@@ -127,9 +134,32 @@ export class RdapManagePinProductTabComponent implements OnInit {
     this.baseApi = environment.baseapiurl;
     this.extrapinbaseApi = environment.extrapinreqapiurl;
     this.viewExtrapinRequestData = this.planitem;
+    this.rolePermissionEnableFlag = environment.enablerolepermission;
+    this.rolepermissionmock = environment.enablerolepermissionmock;
+  }
+  public getPermissionmpMasterByModule() {
+    this.pagePermission = [];
+    this.mpproductPermission= [];
+    let rolePermissionMockData;
+    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "mpproduct").subscribe(res => {
+      if (this.rolepermissionmock == true) {
+        this.pagePermission.push(rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionproductmock);
+        this.mpproductPermission = rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionproductmock;
+        if(this.mpproductPermission.isView == true && this.mpproductPermission.isEdit == false){
+          this.isViewOnlyPermission();
+        }
+      } else {
+        this.pagePermission.push(res);
+        this.mpproductPermission = res;
+        if(this.mpproductPermission.isView == true && this.mpproductPermission.isEdit == false){
+          this.isViewOnlyPermission();
+        }
+      }
+    });
   }
 
   ngOnInit(): void {
+    this.getPermissionmpMasterByModule();
     this.valueChangeFlag = false;
     this.viewExtrapinRequestData = this.planitem;
     this.buildForm();
@@ -639,5 +669,51 @@ export class RdapManagePinProductTabComponent implements OnInit {
     this.productmodel.gamecomplexityId = this.viewExtrapinRequestData.data.gamecomplexityId;
     this.productmodel.archType = this.viewExtrapinRequestData.data.archType;
     this.productEvent.emit(this.productform);
+  }
+  isViewOnlyPermission(){
+    this.productform.get("archType").disable({ onlySelf: true });
+    this.productform.get("auditTrail").disable({ onlySelf: true });
+    this.productform.get("channelId").disable({ onlySelf: true });
+    this.productform.get("channeltypeId").disable({ onlySelf: true });
+    this.productform.get("cvlIts").disable({ onlySelf: true });
+    this.productform.get("cvlPriorityId").disable({ onlySelf: true });
+    this.productform.get("denomId").disable({ onlySelf: true });
+    this.productform.get("description").disable({ onlySelf: true });
+    this.productform.get("devtype2Id").disable({ onlySelf: true });
+    this.productform.get("eppRefId").disable({ onlySelf: true });
+    this.productform.get("eqUnits").disable({ onlySelf: true });
+   // this.productform.get("financialyearId").disable({ onlySelf: true }financialyearId);
+    this.productform.get("gamecomplexityId").disable({ onlySelf: true });
+    this.productform.get("levelId").disable({ onlySelf: true });
+    this.productform.get("marketId").disable({ onlySelf: true });
+    this.productform.get("marketPriority").disable({ onlySelf: true });
+    this.productform.get("notesCc").disable({ onlySelf: true });
+    this.productform.get("notesLong").disable({ onlySelf: true });
+    this.productform.get("notesShort").disable({ onlySelf: true });
+    this.productform.get("planitem").disable({ onlySelf: true });
+    this.productform.get("platform2Id").disable({ onlySelf: true });
+    this.productform.get("priorityId").disable({ onlySelf: true });
+    this.productform.get("prodcat3Id").disable({ onlySelf: true });
+    this.productform.get("productbasketId").disable({ onlySelf: true });
+    this.productform.get("programno").disable({ onlySelf: true });
+    this.productform.get("projectref").disable({ onlySelf: true });
+    //this.productform.get("quarterId").disable({ onlySelf: true }quarterId);
+    this.productform.get("regionId").disable({ onlySelf: true });
+    this.productform.get("releaseNotes").disable({ onlySelf: true });
+    this.productform.get("revenue").disable({ onlySelf: true });
+    this.productform.get("riskId").disable({ onlySelf: true });
+    this.productform.get("sequenceId").disable({ onlySelf: true });
+    this.productform.get("showId").disable({ onlySelf: true });
+    this.productform.get("status3Id").disable({ onlySelf: true });
+    this.productform.get("studioId").disable({ onlySelf: true });
+    this.productform.get("themeId").disable({ onlySelf: true });
+    this.productform.get("titleId").disable({ onlySelf: true });
+    this.productform.get("versionId").disable({ onlySelf: true });
+    this.productform.get("vidstepId").disable({ onlySelf: true });
+    this.productform.get("viridianlaunchId").disable({ onlySelf: true });    
+    this.productform.get("revenueforecast").disable({ onlySelf: true });
+    this.productform.get("revenuecurrency").disable({ onlySelf: true });
+    this.productform.get("unitsforecast").disable({ onlySelf: true });
+    
   }
 }

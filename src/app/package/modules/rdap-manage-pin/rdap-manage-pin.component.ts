@@ -487,7 +487,7 @@ export class RdapManagePinComponent implements OnInit, OnChanges {
         }
       });
     }
-    if (this.dependencyFlag == true && this.mpdependencyPermission.isEdit == true) {
+    if (this.dependencyFlag == true && this.mpdependencyPermission.isEdit == true || this.mpdependencyPermission.isDelete == true || this.mpdependencyPermission.isAdd == true) {
       dependencyUrl = this.extraPinAPi + "Dependency/savelist";
       this.masterApiService.masterAdd(dependencyUrl, this.dependencyParam).subscribe(data => {
         this.masterApiService.debuggerLog(this.debuggerflag, "dependenc Details Saved Success", data);
@@ -519,7 +519,7 @@ export class RdapManagePinComponent implements OnInit, OnChanges {
         }
       });
     }
-    if (this.testerPlanFlag == true && this.mptesterPermission.isEdit == true) {
+    if (this.testerPlanFlag == true && this.mptesterPermission.isEdit == true || this.mptesterPermission.isDelete == true || this.mptesterPermission.isAdd == true) {
       testerPlanUrl = this.extraPinAPi + "testerplan/savelist";
       this.masterApiService.masterAdd(testerPlanUrl, this.testerdetailsParam).subscribe(data => {
         this.testdetailsInput = { planitem: this.viewExtrapinRequestData, savedata: data }
@@ -536,7 +536,7 @@ export class RdapManagePinComponent implements OnInit, OnChanges {
       });
       //this.cdr.detectChanges();
     }
-    if (this.setItemFlag == true && this.mpsetitemPermission.isEdit == true) {
+    if (this.setItemFlag == true && (this.mpsetitemPermission.isEdit == true || this.mpsetitemPermission.isDelete == true || this.mpsetitemPermission.isAdd == true)) {
       setItemUrl = this.extraPinAPi + "ManagePinSetItem/savelist";
       this.masterApiService.masterAdd(setItemUrl, this.setitemParam).subscribe(data => {
         this.masterApiService.debuggerLog(this.debuggerflag, "Set Item Details Saved Success", data);
@@ -553,7 +553,7 @@ export class RdapManagePinComponent implements OnInit, OnChanges {
       });
       //this.cdr.detectChanges();
     }
-    if (this.linkedPinFlag == true && this.mplinkedPermission.isEdit == true) {
+    if (this.linkedPinFlag == true && (this.mplinkedPermission.isEdit == true || this.mplinkedPermission.isDelete == true || this.mpimpactedPermission.isAdd == true)) {
       linkedPinUrl = this.extraPinAPi + "LinkedPin/savelist";
       this.masterApiService.masterAdd(linkedPinUrl, this.linkedpinParam).subscribe(data => {
         this.masterApiService.debuggerLog(this.debuggerflag, "linked Pin Details Saved Success", data);
@@ -570,7 +570,8 @@ export class RdapManagePinComponent implements OnInit, OnChanges {
       });
       //this.cdr.detectChanges();
     }
-    if (this.impactedPinFlag == true && this.mpimpactedPermission.isEdit == true) {
+    if (this.impactedPinFlag == true && (this.mpimpactedPermission.isEdit == true || this.mpimpactedPermission.isDelete == true
+      || this.mpimpactedPermission.isAdd == true)) {
       impactedPinUrl = this.extraPinAPi + "ImpactedPin/savelist";
       this.masterApiService.masterAdd(impactedPinUrl, this.impacpinParam).subscribe(data => {
         this.masterApiService.debuggerLog(this.debuggerflag, "impacted Pin Details Saved Success", data);

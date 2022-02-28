@@ -15,7 +15,9 @@ import * as appstringdata from 'src/assets/config/app-string';
 import { IgxGridRowComponent } from 'igniteui-angular/lib/grids/grid/grid-row.component';
 import { IgxGridCellComponent } from 'igniteui-angular/lib/grids/cell.component';
 import { debug } from 'console';
-
+import * as rolePermossionMockJs from '../../../../../assets/config/rolePermissionMockData';
+import * as rolePermossionMpMaster from '../../../../../assets/config/rolePermissionMockForMaster';
+import * as APIindex from '../../../api/apiEndpoints/apiIndex';
 @Component({
   selector: 'app-rdap-manage-pin-others-tab',
   templateUrl: './rdap-manage-pin-others-tab.component.html',
@@ -60,6 +62,22 @@ export class RdapManagePinOthersTabComponent implements OnInit, OnChanges {
   emitData: { data: any, flag: boolean, name: any };
   linkedPinaddflag: boolean;
   impactedPinaddflag: boolean;
+  managepin: any;
+  mpproductPermission: any;
+  mpdependencyPermission: any;
+  mpmilestonePermission: any;
+  mpcabinetPermission: any;
+  mptesterPermission: any;
+  mpsetitemPermission: any;
+  mplinkedPermission: any;
+  mpimpactedPermission: any;
+  mpauditPermission: any;
+  mpclarityPermission: any;
+  public pagePermission: any;
+  public rolePermissionEnableFlag: any;
+  public rolepermissionmock: boolean = false;
+  gridlinkeditflag:boolean = false;
+  gridimpactededitflag:boolean = false;
   constructor(private httpClient: HttpClient, private cdr: ChangeDetectorRef,
     private excelExportService: IgxExcelExporterService, private router: Router,
     private masterApiService: RdMasterApiService, private spinner: RdSpinnerService,
@@ -70,9 +88,78 @@ export class RdapManagePinOthersTabComponent implements OnInit, OnChanges {
     this.viewExtrapinRequestData = this.planitem;
     this.linkedPinaddflag = false;
     this.impactedPinaddflag = false;
+    this.rolePermissionEnableFlag = environment.enablerolepermission;
+    this.rolepermissionmock = environment.enablerolepermissionmock;
   }
 
+  public getPermissionmpMasterByModule() {
+    this.pagePermission = [];
+    this.mpdependencyPermission= [];
+    let rolePermissionMockData;
+    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "mplinked").subscribe(res => {
+      if (this.rolepermissionmock == true) {
+        this.pagePermission.push(rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionlinkedpinmock);
+        this.mplinkedPermission = rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionlinkedpinmock;
+        debugger
+        if(this.mplinkedPermission.isView == true && this.mplinkedPermission.isEdit == false){
+          this.isViewOnlyPermission();
+        }
+        if(this.mplinkedPermission.isEdit == true || this.mplinkedPermission.isAdd == true ){
+          this.gridlinkeditflag = true;
+        }else{
+          this.gridlinkeditflag = false
+        }
+      } else {
+        this.pagePermission.push(res);
+        this.mplinkedPermission = res;
+        if(this.mplinkedPermission.isView == true && this.mplinkedPermission.isEdit == false){
+          this.isViewOnlyPermission();
+        }
+        if(this.mplinkedPermission.isEdit == true  || this.mplinkedPermission.isAdd == true ){
+          this.gridlinkeditflag = true;
+        }else{
+          this.gridlinkeditflag = false
+        }
+      } 
+           
+    this.gridDataLoad();    
+    this.spinner.hide();
+    });
+    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "mpimpacted").subscribe(res => {
+      if (this.rolepermissionmock == true) {
+        this.pagePermission.push(rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionimpactedpinmock);
+        this.mpimpactedPermission = rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionimpactedpinmock;
+        debugger
+        if(this.mpimpactedPermission.isView == true && this.mpimpactedPermission.isEdit == false){
+          this.isViewOnlyPermission();
+        }
+        if(this.mpimpactedPermission.isEdit == true || this.mpimpactedPermission.isAdd == true){
+          this.gridimpactededitflag = true;
+        }else{
+          this.gridimpactededitflag = false
+        }
+      } else {
+        this.pagePermission.push(res);
+        this.mpimpactedPermission = res;
+        if(this.mpimpactedPermission.isView == true && this.mpimpactedPermission.isEdit == false){
+          this.isViewOnlyPermission();
+        }
+        if(this.mpimpactedPermission.isEdit == true || this.mpimpactedPermission.isAdd == true){
+          this.gridimpactededitflag = true;
+        }else{
+          this.gridimpactededitflag = false
+        }
+      } 
+           
+    this.gridDataLoad();    
+    this.spinner.hide();
+    });
+  }
+  isViewOnlyPermission(){
+
+  }
   ngOnInit(): void {
+    this.getPermissionmpMasterByModule();
     this.linkedpinpagename = "managepin-linkedpin";
     this.managepinpagename = "managepin-impactedpin";
     this.viewExtrapinRequestData = this.planitem;
@@ -464,9 +551,11 @@ export class RdapManagePinOthersTabComponent implements OnInit, OnChanges {
   }
 
   public addNewLinkGrid(row?): void {
+    debugger
     this.linkedpingrid.beginAddRowByIndex(row.index);
   }
   public addNewImpacGrid(row?): void {
+    debugger
     this.impactedpingrid.beginAddRowByIndex(row.index);
   }
   public deleteLinkpinrow(event) {
@@ -483,7 +572,7 @@ export class RdapManagePinOthersTabComponent implements OnInit, OnChanges {
     this.otherEvent.emit(this.emitData);
   }
   public deleteImpacpinrow(event) {
-
+debugger
     this.impactedpindetailsArrObj = [];
     this.emitData = { data: null, flag: false, name: "impacpinno" }
     if (event.dataRowIndex > -1) {

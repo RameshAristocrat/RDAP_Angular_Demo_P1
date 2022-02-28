@@ -15,7 +15,9 @@ import { IgxGridRowComponent } from '@infragistics/igniteui-angular/lib/grids/gr
 import { RdMasterApiService } from 'src/app/package/api/apiservice/masterApiService';
 import { environment } from 'src/environments/environment';
 import { FormBuilder, FormGroup } from '@angular/forms';
-
+import * as rolePermossionMockJs from '../../../../../assets/config/rolePermissionMockData';
+import * as rolePermossionMpMaster from '../../../../../assets/config/rolePermissionMockForMaster';
+import * as APIindex from '../../../api/apiEndpoints/apiIndex';
 @Component({
   selector: 'app-rdap-manage-pin-cabinet-tab',
   templateUrl: './rdap-manage-pin-cabinet-tab.component.html',
@@ -44,6 +46,21 @@ export class RdapManagePinCabinetTabComponent implements OnInit, OnChanges {
   //public cabinetform: FormGroup;
   pinId: any;
   selcabinetid:any[];
+  managepin: any;
+  mpproductPermission: any;
+  mpdependencyPermission: any;
+  mpmilestonePermission: any;
+  mpcabinetPermission: any;
+  mptesterPermission: any;
+  mpsetitemPermission: any;
+  mplinkedPermission: any;
+  mpimpactedPermission: any;
+  mpauditPermission: any;
+  mpclarityPermission: any;
+  public pagePermission: any;
+  public rolePermissionEnableFlag: any;
+  public rolepermissionmock: boolean = false;
+  gridrowselectionflag: string = "multiple"
   @Input() exportfilename: string;
   @Input() planitem: any;
   @Output() cabinetEvent = new EventEmitter<any>();
@@ -53,6 +70,8 @@ export class RdapManagePinCabinetTabComponent implements OnInit, OnChanges {
     private masterApiService: RdMasterApiService, public fb: FormBuilder) {
     this.baseApi = environment.baseapiurl;
     this.extraPinAPi = environment.extrapinreqapiurl;
+    this.rolePermissionEnableFlag = environment.enablerolepermission;
+    this.rolepermissionmock = environment.enablerolepermissionmock;
   }
 
   public ngAfterViewInit() {
@@ -74,12 +93,11 @@ export class RdapManagePinCabinetTabComponent implements OnInit, OnChanges {
     // this.cabinettypeform.get('id').disable({ onlySelf: true });
   }
 
-  ngOnInit() {
-    this.requesttitlearrobj = [];
-    this.cabinetDdldata = [];
-    this.data = [];
-    this.viewExtrapinRequestData = this.planitem;
-    this.pinId = this.planitem.data.planitem;
+  public getPermissionmpMasterByModule() {
+    debugger
+    this.pagePermission = [];
+    this.mpcabinetPermission= [];
+    let rolePermissionMockData;
     this.masterApiService.masterSearchDDL(this.baseApi + "cabinet/ddl").subscribe(data => {
       this.requesttitlearrobj.push(data);
       this.cabinetDdldata = this.requesttitlearrobj[0];
@@ -88,6 +106,45 @@ export class RdapManagePinCabinetTabComponent implements OnInit, OnChanges {
     });
     this.buildForm();
     this.viewExtrapinRequestForm();
+    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "mpcabinet").subscribe(res => {
+      if (this.rolepermissionmock == true) {
+        this.pagePermission.push(rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissioncabinetmock);
+        this.mpcabinetPermission = rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissioncabinetmock;
+        debugger
+        if(this.mpcabinetPermission.isView == true && this.mpcabinetPermission.isEdit == false){
+          this.isViewOnlyPermission();
+        }
+        if(this.mpcabinetPermission.isEdit == true){
+          this.gridrowselectionflag = "multiple";
+          this.cabinetgrid.rowSelection = "multiple";
+        }else{
+          this.gridrowselectionflag = "single";
+          this.cabinetgrid.rowSelection = "none";
+        }
+      } else {
+        this.pagePermission.push(res);
+        this.mpcabinetPermission = res;
+        if(this.mpcabinetPermission.isView == true && this.mpcabinetPermission.isEdit == false){
+          this.isViewOnlyPermission();
+        }
+        if(this.mpcabinetPermission.isEdit == true){
+          this.gridrowselectionflag = "multiple";
+        }else{
+          this.gridrowselectionflag = "single"
+        }
+      }        
+    });
+  }
+  isViewOnlyPermission(){
+
+  }
+  ngOnInit(): void {
+    this.getPermissionmpMasterByModule();
+    this.requesttitlearrobj = [];
+    this.cabinetDdldata = [];
+    this.data = [];
+    this.viewExtrapinRequestData = this.planitem;
+    this.pinId = this.planitem.data.planitem;
   }
   getRequestPinById() {
     //this.spinner.show();

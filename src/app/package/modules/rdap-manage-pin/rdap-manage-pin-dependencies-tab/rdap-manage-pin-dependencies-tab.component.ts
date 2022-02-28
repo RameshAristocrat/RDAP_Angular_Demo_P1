@@ -18,6 +18,9 @@ import { debug } from 'console';
 import { Pipe, PipeTransform } from '@angular/core';
 import { threadId } from 'worker_threads';
 import { IComboSelectionChangingEventArgs } from '@infragistics/igniteui-angular';
+import * as rolePermossionMockJs from '../../../../../assets/config/rolePermissionMockData';
+import * as rolePermossionMpMaster from '../../../../../assets/config/rolePermissionMockForMaster';
+import * as APIindex from '../../../api/apiEndpoints/apiIndex';
 @Component({
   selector: 'app-rdap-manage-pin-dependencies-tab',
   templateUrl: './rdap-manage-pin-dependencies-tab.component.html',
@@ -70,6 +73,21 @@ export class RdapManagePinDependenciesTabComponent implements OnInit, OnChanges 
   addflag:boolean;
   message:any;
   duplicateplanitemflag:boolean;
+  managepin: any;
+  mpproductPermission: any;
+  mpdependencyPermission: any;
+  mpmilestonePermission: any;
+  mpcabinetPermission: any;
+  mptesterPermission: any;
+  mpsetitemPermission: any;
+  mplinkedPermission: any;
+  mpimpactedPermission: any;
+  mpauditPermission: any;
+  mpclarityPermission: any;
+  public pagePermission: any;
+  public rolePermissionEnableFlag: any;
+  public rolepermissionmock: boolean = false;
+  grideditflag:boolean = false;
   constructor(private httpClient: HttpClient, private cdr: ChangeDetectorRef,
     private excelExportService: IgxExcelExporterService, private router: Router,
     private masterApiService: RdMasterApiService, private spinner: RdSpinnerService,
@@ -80,13 +98,52 @@ export class RdapManagePinDependenciesTabComponent implements OnInit, OnChanges 
     //this.viewExtrapinRequestData = this.setitemInput.planitem;
     this.addflag = false;
     this.duplicateplanitemflag = false;
+    this.rolePermissionEnableFlag = environment.enablerolepermission;
+    this.rolepermissionmock = environment.enablerolepermissionmock;
     this.towns = [
       'New York', 'Washington, D.C.', 'London', 'Berlin', 'Sofia', 'Rome', 'Kiev',
       'Copenhagen', 'Paris', 'Barcelona', 'Vienna', 'Athens', 'Dublin', 'Yerevan',
       'Oslo', 'Helsinki', 'Stockholm', 'Prague', 'Istanbul', 'El Paso', 'Florence', 'Moscow',
       'Jambol', 'Talin', 'Zlatna Panega', 'Queenstown', 'Gabrovo', 'Ugurchin', 'Xanthi'];
   }
+  public getPermissionmpMasterByModule() {
+    this.pagePermission = [];
+    this.mpdependencyPermission= [];
+    let rolePermissionMockData;
+    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "mpdependency").subscribe(res => {
+      if (this.rolepermissionmock == true) {
+        this.pagePermission.push(rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionsetitemmock);
+        this.mpdependencyPermission = rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissiondependencymock;
+        debugger
+        if(this.mpdependencyPermission.isView == true && this.mpdependencyPermission.isEdit == false){
+          this.isViewOnlyPermission();
+        }
+        if(this.mpdependencyPermission.isEdit == true){
+          this.grideditflag = true;
+        }else{
+          this.grideditflag = false
+        }
+      } else {
+        this.pagePermission.push(res);
+        this.mpdependencyPermission = res;
+        if(this.mpdependencyPermission.isView == true && this.mpdependencyPermission.isEdit == false){
+          this.isViewOnlyPermission();
+        }
+        if(this.mpdependencyPermission.isEdit == true){
+          this.grideditflag = true;
+        }else{
+          this.grideditflag = false
+        }
+      }      
+    this.gridDataLoad();    
+    this.spinner.hide();
+    });
+  }
+  isViewOnlyPermission(){
+
+  }
   ngOnInit(): void {
+    this.getPermissionmpMasterByModule();
     this.pagename = "managepintab";
     this.viewExtrapinRequestData = this.dependencyInput.planitem;
     this.pinId = this.viewExtrapinRequestData.data.planitem;

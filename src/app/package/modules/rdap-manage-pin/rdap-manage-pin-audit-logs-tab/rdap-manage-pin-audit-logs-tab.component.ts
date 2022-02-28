@@ -15,7 +15,9 @@ import * as appstringdata from 'src/assets/config/app-string-managepin';
 import { IgxGridRowComponent } from 'igniteui-angular/lib/grids/grid/grid-row.component';
 import { IgxGridCellComponent } from 'igniteui-angular/lib/grids/cell.component';
 import { debug } from 'console';
-
+import * as rolePermossionMockJs from '../../../../../assets/config/rolePermissionMockData';
+import * as rolePermossionMpMaster from '../../../../../assets/config/rolePermissionMockForMaster';
+import * as APIindex from '../../../api/apiEndpoints/apiIndex';
 @Component({
   selector: 'app-rdap-manage-pin-audit-logs-tab',
   templateUrl: './rdap-manage-pin-audit-logs-tab.component.html',
@@ -52,6 +54,20 @@ export class RdapManagePinAuditLogsTabComponent implements OnInit,OnChanges {
   impactedpinUrl:any;
   auditlogUrl:any;
   changelogUrl:any;
+  managepin: any;
+  mpproductPermission: any;
+  mpdependencyPermission: any;
+  mpmilestonePermission: any;
+  mpcabinetPermission: any;
+  mptesterPermission: any;
+  mpsetitemPermission: any;
+  mplinkedPermission: any;
+  mpimpactedPermission: any;
+  mpauditPermission: any;
+  mpclarityPermission: any;
+  public pagePermission: any;
+  public rolePermissionEnableFlag: any;
+  public rolepermissionmock: boolean = false;
   @Output() auditlogEvent = new EventEmitter<any>();
   @Input() planitem: any;
   @Input() saveflag: any;
@@ -66,6 +82,8 @@ export class RdapManagePinAuditLogsTabComponent implements OnInit,OnChanges {
     this.baseApi = environment.baseapiurl;
     this.extraPinAPi = environment.extrapinreqapiurl;
     this.viewExtrapinRequestData = this.planitem;
+    this.rolePermissionEnableFlag = environment.enablerolepermission;
+    this.rolepermissionmock = environment.enablerolepermissionmock;
   }
 
   ngOnInit(): void {

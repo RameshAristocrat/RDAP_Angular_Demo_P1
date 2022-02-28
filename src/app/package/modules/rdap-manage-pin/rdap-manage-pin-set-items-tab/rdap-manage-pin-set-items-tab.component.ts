@@ -15,6 +15,9 @@ import * as appstringdata from 'src/assets/config/app-string';
 import { IgxGridRowComponent } from 'igniteui-angular/lib/grids/grid/grid-row.component';
 import { IgxGridCellComponent } from 'igniteui-angular/lib/grids/cell.component';
 import { debug } from 'console';
+import * as rolePermossionMockJs from '../../../../../assets/config/rolePermissionMockData';
+import * as rolePermossionMpMaster from '../../../../../assets/config/rolePermissionMockForMaster';
+import * as APIindex from '../../../api/apiEndpoints/apiIndex';
 
 @Component({
   selector: 'app-rdap-manage-pin-set-items-tab',
@@ -45,6 +48,20 @@ export class RdapManagePinSetItemsTabComponent implements OnInit, OnChanges {
   data: any[];
   emitData: { data: any, flag: boolean };
   addflag:boolean;
+  managepin: any;
+  mpproductPermission: any;
+  mpdependencyPermission: any;
+  mpmilestonePermission: any;
+  mpcabinetPermission: any;
+  mpsetitemPermission: any;
+  mplinkedPermission: any;
+  mpimpactedPermission: any;
+  mpauditPermission: any;
+  mpclarityPermission: any;
+  public pagePermission: any;
+  public rolePermissionEnableFlag: any;
+  public rolepermissionmock: boolean = false;
+  grideditflag:boolean=false;
   @Output() setItemEvent = new EventEmitter<any>();
   //@Input() planitem: any;
   @Input() setitemInput:any;
@@ -56,9 +73,48 @@ export class RdapManagePinSetItemsTabComponent implements OnInit, OnChanges {
     this.baseApi = environment.baseapiurl;
     this.extraPinAPi = environment.extrapinreqapiurl;
     this.addflag = false;
+    this.rolePermissionEnableFlag = environment.enablerolepermission;
+    this.rolepermissionmock = environment.enablerolepermissionmock;
   }
 
+  public getPermissionmpMasterByModule() {
+    this.pagePermission = [];
+    this.mpsetitemPermission= [];
+    let rolePermissionMockData;
+    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "mpsetitem").subscribe(res => {
+      if (this.rolepermissionmock == true) {
+        this.pagePermission.push(rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionsetitemmock);
+        this.mpsetitemPermission = rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionsetitemmock;
+        debugger
+        if(this.mpsetitemPermission.isView == true && this.mpsetitemPermission.isEdit == false){
+          this.isViewOnlyPermission();
+        }
+        if(this.mpsetitemPermission.isEdit == true){
+          this.grideditflag = true;
+        }else{
+          this.grideditflag = false
+        }
+      } else {
+        this.pagePermission.push(res);
+        this.mpsetitemPermission = res;
+        if(this.mpsetitemPermission.isView == true && this.mpsetitemPermission.isEdit == false){
+          this.isViewOnlyPermission();
+        }
+        if(this.mpsetitemPermission.isEdit == true){
+          this.grideditflag = true;
+        }else{
+          this.grideditflag = false
+        }
+      }      
+    this.gridDataLoad();    
+    this.spinner.hide();
+    });
+  }
+  isViewOnlyPermission(){
+
+  }
   ngOnInit(): void {
+    this.getPermissionmpMasterByModule();
     this.viewExtrapinRequestData = this.setitemInput.planitem;
     this.pinId = this.viewExtrapinRequestData.data.planitem;
     // this.getTestDetails();

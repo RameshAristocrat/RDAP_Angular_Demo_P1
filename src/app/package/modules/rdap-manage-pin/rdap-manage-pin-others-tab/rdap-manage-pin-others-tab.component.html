@@ -5,7 +5,7 @@
     <div class="row">
         <div class="grid__wrapper">
             <igx-grid #linkedpingrid id="linkedpingrid" primaryKey="linkid" [data]="linkedpindata" width="100%"
-                [rowEditable]="true" igxOverlayOutlet [autoGenerate]="false" (onCellEdit)="editDone($event)"
+                [rowEditable]="gridlinkeditflag" igxOverlayOutlet [autoGenerate]="false" (onCellEdit)="editDone($event)"
                 (rowAdded)="linkedPinRowAddedDone($event)">
                 <igx-column field="linkid" [header]="'Index'" [hidden]="true">
                     <ng-template igxCell let-cell="cell">
@@ -16,7 +16,7 @@
                     [editable]="false">
                 </igx-column>
                 <igx-column [width]="'200px'" field="linkedpinno" header="Linked Pin" [dataType]="'string'"
-                    [editable]="true">
+                    >
                     <ng-template igxCellEditor let-cell="cell" let-value>
                         <!-- <igx-combo #remoteCombo class="combo" [itemsMaxHeight]="250" [itemsMinWidth]="500"
                         [data]="linkedpinsarrobj" [valueKey]="'id'" [displayKey]="'id'"
@@ -98,7 +98,7 @@
                     </igx-action-strip> -->
                     <igx-action-strip #actionstrip>
                         <igx-grid-pinning-actions></igx-grid-pinning-actions>
-                        <button title="Edit" igxButton="icon" igxRipple (click)='startLinkPinEdit(actionstrip.context)'>
+                        <button  *ngIf="mplinkedPermission && mplinkedPermission.isEdit == true"  title="Edit" igxButton="icon" igxRipple (click)='startLinkPinEdit(actionstrip.context)'>
                             <igx-icon>edit</igx-icon>
                         </button>
                         <!-- <button title="Undo All" igxButton="icon" igxRipple>
@@ -110,10 +110,10 @@
                         <button title='Save' igxButton="icon" igxRipple>
                             <igx-icon>save</igx-icon>
                         </button> -->
-                        <button title="Delete" igxButton="icon" igxRipple (click)="deleteLinkpinrow(actionstrip.context)">
+                        <button  *ngIf="mplinkedPermission && mplinkedPermission.isDelete == true" title="Delete" igxButton="icon" igxRipple (click)="deleteLinkpinrow(actionstrip.context)">
                             <igx-icon>delete</igx-icon>
                         </button>
-                        <button title="Add New" igxButton="icon" igxRipple (click)='addNewLinkGrid(actionstrip.context)'>
+                        <button  *ngIf="mplinkedPermission && mplinkedPermission.isAdd == true" title="Add New" igxButton="icon" igxRipple (click)='addNewLinkGrid(actionstrip.context)'>
                             <igx-icon>add</igx-icon>
                         </button>
                     </igx-action-strip> 
@@ -129,7 +129,7 @@
     <div class="row">
         <div class="grid__wrapper">
             <igx-grid #impactedpingrid id="impactedpingrid" primaryKey="impid" [data]="impactedpindata" width="100%"
-                [rowEditable]="true" igxOverlayOutlet [autoGenerate]="false" (onCellEdit)="editImpactedPinDone($event)"
+                [rowEditable]="gridimpactededitflag" igxOverlayOutlet [autoGenerate]="false" (onCellEdit)="editImpactedPinDone($event)"
                 (rowAdded)="impactedPinRowAddedDone($event)">
                 <igx-column field="impid" [header]="'Index'" [hidden]="true">
                     <ng-template igxCell let-cell="cell">
@@ -140,7 +140,7 @@
                     [editable]="false">
                 </igx-column>
                 <igx-column [width]="'200px'" field="impactedpinno" header="Impacted Pin" [dataType]="'string'"
-                    [editable]="true">
+                    >
                     <ng-template igxCellEditor let-cell="cell" let-value>
                         <!-- <igx-combo #remoteCombo class="combo" [itemsMaxHeight]="250" [itemsMinWidth]="500"
                         [data]="linkedpinsarrobj" [valueKey]="'id'" [displayKey]="'id'"
@@ -217,7 +217,7 @@
                     [editable]="false"></igx-column>
                     <igx-action-strip #impacactionstrip>
                         <igx-grid-pinning-actions></igx-grid-pinning-actions>
-                        <button title="Edit" igxButton="icon" igxRipple (click)='startImpacPinEdit(impacactionstrip.context)'>
+                        <button *ngIf="mpimpactedPermission && mpimpactedPermission.isEdit == true" title="Edit" igxButton="icon" igxRipple (click)='startImpacPinEdit(impacactionstrip.context)'>
                             <igx-icon>edit</igx-icon>
                         </button>
                         <!-- <button title="Undo All" igxButton="icon" igxRipple>
@@ -229,10 +229,10 @@
                         <button title='Save' igxButton="icon" igxRipple>
                             <igx-icon>save</igx-icon>
                         </button> -->
-                        <button title="Delete" igxButton="icon" igxRipple (click)="deleteImpacpinrow(impacactionstrip.context)">
+                        <button *ngIf="mpimpactedPermission && mpimpactedPermission.isDelete == true" title="Delete" igxButton="icon" igxRipple (click)="deleteImpacpinrow(impacactionstrip.context)">
                             <igx-icon>delete</igx-icon>
                         </button>
-                        <button title="Add New" igxButton="icon" igxRipple (click)='addNewImpacGrid(impacactionstrip.context)'>
+                        <button *ngIf="mpimpactedPermission && mpimpactedPermission.isAdd == true" title="Add New" igxButton="icon" igxRipple (click)='addNewImpacGrid(impacactionstrip.context)'>
                             <igx-icon>add</igx-icon>
                         </button>
                     </igx-action-strip> 

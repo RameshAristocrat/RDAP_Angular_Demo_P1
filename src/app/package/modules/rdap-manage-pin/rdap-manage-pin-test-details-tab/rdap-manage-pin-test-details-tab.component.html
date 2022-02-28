@@ -2,7 +2,7 @@
     <div class="row">
         <div class="grid__wrapper">
             <igx-grid #testdetailsgrid id="testdetailsgrid" primaryKey="id" [data]="data" width="100%"
-                [rowEditable]="true" igxOverlayOutlet [autoGenerate]="false" (onCellEdit)="editDone($event)"
+                [rowEditable]="grideditflag" igxOverlayOutlet [autoGenerate]="false" (onCellEdit)="editDone($event)"
                 (rowAdded)="testDetailsRowAddedDone($event)">
                 <igx-column field="id" [header]="'Index'" [hidden]="true">
                     <ng-template igxCell let-cell="cell">
@@ -64,7 +64,7 @@
                 </igx-action-strip> -->
                 <igx-action-strip #actionstrip>
                     <igx-grid-pinning-actions></igx-grid-pinning-actions>
-                    <button title="Edit" igxButton="icon" igxRipple (click)='startEdit(actionstrip.context)'>
+                    <button *ngIf="mptesterPermission && mptesterPermission.isEdit == true" title="Edit" igxButton="icon" igxRipple (click)='startEdit(actionstrip.context)'>
                         <igx-icon>edit</igx-icon>
                     </button>
                     <!-- <button title="Undo All" igxButton="icon" igxRipple>
@@ -76,10 +76,10 @@
                     <button title='Save' igxButton="icon" igxRipple>
                         <igx-icon>save</igx-icon>
                     </button> -->
-                    <button title="Delete" igxButton="icon" igxRipple (click)="deleterow(actionstrip.context)">
+                    <button *ngIf="mptesterPermission && mptesterPermission.isDelete == true" title="Delete" igxButton="icon" igxRipple (click)="deleterow(actionstrip.context)">
                         <igx-icon>delete</igx-icon>
                     </button>
-                    <button title="Add New" igxButton="icon" igxRipple (click)='addNew(actionstrip.context)'>
+                    <button *ngIf="mptesterPermission && mptesterPermission.isAdd == true" title="Add New" igxButton="icon" igxRipple (click)='addNew(actionstrip.context)'>
                         <igx-icon>add</igx-icon>
                     </button>
                 </igx-action-strip> 

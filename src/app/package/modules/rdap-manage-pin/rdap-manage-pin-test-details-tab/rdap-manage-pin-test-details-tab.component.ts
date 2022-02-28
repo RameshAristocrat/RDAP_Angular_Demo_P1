@@ -15,6 +15,9 @@ import * as appstringdata from 'src/assets/config/app-string';
 import { IgxGridRowComponent } from 'igniteui-angular/lib/grids/grid/grid-row.component';
 import { IgxGridCellComponent } from 'igniteui-angular/lib/grids/cell.component';
 import { debug } from 'console';
+import * as rolePermossionMockJs from '../../../../../assets/config/rolePermissionMockData';
+import * as rolePermossionMpMaster from '../../../../../assets/config/rolePermissionMockForMaster';
+import * as APIindex from '../../../api/apiEndpoints/apiIndex';
 
 @Component({
   selector: 'app-rdap-manage-pin-test-details-tab',
@@ -49,6 +52,21 @@ export class RdapManagePinTestDetailsTabComponent implements OnInit {
   emitData: { data: any, flag: boolean };
   debuggerflag:boolean;
   addflag:boolean;
+  managepin: any;
+  mpproductPermission: any;
+  mpdependencyPermission: any;
+  mpmilestonePermission: any;
+  mpcabinetPermission: any;
+  mptesterPermission: any;
+  mpsetitemPermission: any;
+  mplinkedPermission: any;
+  mpimpactedPermission: any;
+  mpauditPermission: any;
+  mpclarityPermission: any;
+  public pagePermission: any;
+  public rolePermissionEnableFlag: any;
+  public rolepermissionmock: boolean = false;
+  grideditflag:boolean = false;
   constructor(private httpClient: HttpClient, private cdr: ChangeDetectorRef,
     private excelExportService: IgxExcelExporterService, private router: Router,
     private masterApiService: RdMasterApiService, private spinner: RdSpinnerService,
@@ -58,9 +76,47 @@ export class RdapManagePinTestDetailsTabComponent implements OnInit {
     this.extraPinAPi = environment.extrapinreqapiurl;
     this.debuggerflag = environment.debuggerflag;
     this.addflag = false
+    this.rolePermissionEnableFlag = environment.enablerolepermission;
+    this.rolepermissionmock = environment.enablerolepermissionmock;
   }
+  public getPermissionmpMasterByModule() {
+    this.pagePermission = [];
+    this.mptesterPermission= [];
+    let rolePermissionMockData;
+    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "mptester").subscribe(res => {
+      if (this.rolepermissionmock == true) {
+        this.pagePermission.push(rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissiontesterplanmock);
+        this.mptesterPermission = rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissiontesterplanmock;
+        debugger
+        if(this.mptesterPermission.isView == true && this.mptesterPermission.isEdit == false){
+          this.isViewOnlyPermission();
+        }
+        if(this.mptesterPermission.isEdit == true){
+          this.grideditflag = true;
+        }else{
+          this.grideditflag = false
+        }
+      } else {
+        this.pagePermission.push(res);
+        this.mptesterPermission = res;
+        if(this.mptesterPermission.isView == true && this.mptesterPermission.isEdit == false){
+          this.isViewOnlyPermission();
+        }
+        if(this.mptesterPermission.isEdit == true){
+          this.grideditflag = true;
+        }else{
+          this.grideditflag = false
+        }
+      }      
+    this.gridDataLoad();    
+    this.spinner.hide();
+    });
+  }
+  isViewOnlyPermission(){
 
+  }
   ngOnInit(): void {
+    this.getPermissionmpMasterByModule();
     this.viewExtrapinRequestData = this.testdetailsInput.planitem;
     this.pinId = this.viewExtrapinRequestData.data.planitem;
     //this.planitemId = this.planitem.data.planitem;
@@ -75,8 +131,6 @@ export class RdapManagePinTestDetailsTabComponent implements OnInit {
     if (appstringdata.appString) {
       this.appString = appstringdata.appString;
     }
-    this.spinner.hide();
-    this.gridDataLoad();
   }
 
   onSelGridRowData(event) {
