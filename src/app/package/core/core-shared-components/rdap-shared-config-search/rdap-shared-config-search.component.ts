@@ -163,6 +163,7 @@ export class RdapSharedConfigSearchComponent implements OnInit {
       if (this.rolepermissionmock == true) {
         rolePermissionMockData =  rolePermossionMpMaster.rdapRolePermossionMockMaster.filter(x=>x.modulename.toLowerCase() == modulename);
         this.pagePermission.push(rolePermissionMockData[0].data);
+        console.log("pagePermission",this.pagePermission);
       } else {
         this.pagePermission.push(res);
       }
