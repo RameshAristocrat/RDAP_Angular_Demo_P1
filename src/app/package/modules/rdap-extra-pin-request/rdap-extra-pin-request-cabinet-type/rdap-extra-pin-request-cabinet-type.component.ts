@@ -15,7 +15,9 @@ import { IgxGridRowComponent } from '@infragistics/igniteui-angular/lib/grids/gr
 import { RdMasterApiService } from 'src/app/package/api/apiservice/masterApiService';
 import { environment } from 'src/environments/environment';
 import { FormBuilder, FormGroup } from '@angular/forms';
-
+import * as rolePermossionMockJs from '../../../../../assets/config/rolePermissionMockData';
+import * as rolePermossionMpMaster from '../../../../../assets/config/rolePermissionMockForMaster';
+import * as APIindex from '../../../api/apiEndpoints/apiIndex';
 @Component({
   selector: 'app-rdap-extra-pin-request-cabinet-type',
   templateUrl: './rdap-extra-pin-request-cabinet-type.component.html',
@@ -108,6 +110,8 @@ export class RdapExtraPinRequestCabinetTypeComponent implements OnInit,OnChanges
     this.cabinetgrid.selectRows(this.viewExtrapinRequestData.data.cabinetIds);
     this.cabinettypeform.controls["id"].setValue(this.pinId);
     this.cabinettypeform.get('id').disable({ onlySelf: true });
+    this.cabinetgrid.rowSelection = "none";
+
     //this.cabinetgrid.read
   //    this.extrapindetailsform.controls["regionId"].setValue(this.viewExtrapinRequestData.data.regionId);
   }

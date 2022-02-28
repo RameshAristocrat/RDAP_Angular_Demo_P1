@@ -87,6 +87,7 @@ export class RdapExtraPinRequestGameTitleComponent implements OnInit,OnChanges {
   public extrapinbaseApi:any;
   public viewExtrapinRequestData:any;
   public gametitleviewdata:any[];
+  viewflag:boolean = true;
   @Input() actionflag:any;
   @Input() pinId: string;
   @Output() gametitleEvent = new EventEmitter<any>();
@@ -133,11 +134,13 @@ export class RdapExtraPinRequestGameTitleComponent implements OnInit,OnChanges {
     this.gametitleviewdata=[];
       this.gametitleform.controls["id"].setValue(this.pinId);
       this.gametitleform.get('id').disable({ onlySelf: true });
+      this.viewflag = false;
       this.gametitleform.controls["businessJustification"].setValue(this.viewExtrapinRequestData.data.businessJustification);
       this.gametitleform.get('businessJustification').disable({ onlySelf: true });
       this.gametitleviewdata.push({id:this.viewExtrapinRequestData.data.titleId,
         description:this.viewExtrapinRequestData.data.title,
         description2:this.viewExtrapinRequestData.data.title});
+        this.gametitelgrid.rowEditable = false;
   }
   public busjustification(event){
 

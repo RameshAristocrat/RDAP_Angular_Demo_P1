@@ -1,9 +1,9 @@
 export const rdapRolePermossionMock = [{
 rolepermissionextrapinmock:{
-    isAdd:false,
+    isAdd:true,
     isEdit:true,
     isDelete:true,
-    isView:false,
+    isView:true,
     module:"extrapin"
 },
 rolepermissionproductmock:{
