@@ -79,7 +79,7 @@
     </mat-card-content>
     <mat-card-actions style="text-align: left;">
         <button mat-raised-button style="width: 10%;background-color: #300c46;color:white"
-            (click)="viewrecord(route)"  *ngIf="selMasterDetailsData && selMasterDetailsData.newSelection.length > 0 && pagePermission[0].isEdit == true || pagePermission[0].isDelete == true || pagePermission[0].isView == true">Open</button>
+            (click)="viewrecord(route)"  *ngIf="(selMasterDetailsData && selMasterDetailsData.newSelection.length > 0) && (pagePermission[0].isEdit == true || pagePermission[0].isDelete == true || pagePermission[0].isView == true)">Open</button>
         <button mat-raised-button style="width: 10%;background-color: #300c46;color:white"
         (click)="cancel('/home/dashboard')">Back</button>
         <button mat-raised-button style="width: 20%;background-color: #300c46;color:white"

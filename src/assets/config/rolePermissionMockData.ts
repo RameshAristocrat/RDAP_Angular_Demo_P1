@@ -84,9 +84,9 @@ rolepermissionauditlogmock:{
     module:"auditlog"
 },
 rolepermissionversionmock:{
-    isAdd:true,
-    isEdit:true,
-    isDelete:true,
+    isAdd:false,
+    isEdit:false,
+    isDelete:false,
     isView:true,
     module:"version"
 },

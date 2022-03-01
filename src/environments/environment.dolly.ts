@@ -19,7 +19,7 @@ export const environment = {
     reworkreqestapi:"https://sydc-appdev-01:4444/api/v1/",
     debuggerflag:true,
     enablerolepermission:true,
-    enablerolepermissionmock:false,
+    enablerolepermissionmock:true,
     rolepermissionextrapinmock:{
         isAdd:true,
         isEdit:true,

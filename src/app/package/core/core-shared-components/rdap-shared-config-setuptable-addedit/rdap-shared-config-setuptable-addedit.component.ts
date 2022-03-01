@@ -139,7 +139,7 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
 
   @ViewChild('dropDown') public dropDown: IgxDropDownComponent;
   @ViewChild('inputGroup') public inputGroup: IgxInputGroupComponent;
-  message:any;
+  message: any;
   constructor(
     private httpClient: HttpClient,
     private location: Location,
@@ -210,15 +210,26 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
   public getPermissionmpMasterByModule(modulename) {
     this.pagePermission = [];
     let rolePermissionMockData;
+
     this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, modulename).subscribe(res => {
       if (this.rolepermissionmock == true) {
-        rolePermissionMockData =  rolePermossionMpMaster.rdapRolePermossionMockMaster.filter(x=>x.modulename.toLowerCase() == modulename);
+        rolePermissionMockData = rolePermossionMpMaster.rdapRolePermossionMockMaster.filter(x => x.modulename.toLowerCase() == modulename);
         this.pagePermission.push(rolePermissionMockData[0].data);
       } else {
         this.pagePermission.push(res);
       }
+      if ((this.pagePermission[0].isView == true && this.pagePermission[0].isAdd == false && this.pagePermission[0].isEdit == false && this.pagePermission[0].isDelete == false) ||
+        (this.pagePermission[0].isView == true && this.pagePermission[0].isAdd == false && this.pagePermission[0].isEdit == false && this.pagePermission[0].isDelete == true)) {
+        console.log("master view only permission", this.searchform);
+        this.formdata.forEach((x, index) => {
+          this.searchform.get(x.formcontrolname).disable({ onlySelf: true });
+        });
+      }
     });
   }
+  // isViewOnly() {
+  //   this.searchform
+  // }
   getFormData() {
     this.formSelectApiData = [];
     this.editFieldProp = '';
@@ -1239,28 +1250,28 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
 
   isFinacialYearSame(): boolean {
     this.route = this.location.path();
-    if(this.searchform.get("financialyearstartdate")?.value && this.searchform.get("financialyearenddate")?.value){
+    if (this.searchform.get("financialyearstartdate")?.value && this.searchform.get("financialyearenddate")?.value) {
       const financialyearstartdate = new Date(this.searchform.get("financialyearstartdate")?.value);
       const financialyearenddate = new Date(this.searchform.get("financialyearenddate")?.value);
-      if(financialyearstartdate.getFullYear() === financialyearenddate.getFullYear()){
+      if (financialyearstartdate.getFullYear() === financialyearenddate.getFullYear()) {
         return true;
       }
     }
     return false;
-  } 
+  }
 
   checkDate(): boolean {
-    if(this.searchform.get("financialyearstartdate")?.value && this.searchform.get("financialyearenddate")?.value){
+    if (this.searchform.get("financialyearstartdate")?.value && this.searchform.get("financialyearenddate")?.value) {
       const financialyearstartdate = new Date(this.searchform.get("financialyearstartdate")?.value);
       const financialyearenddate = new Date(this.searchform.get("financialyearenddate")?.value);
-      if(financialyearstartdate.getDate() < financialyearenddate.getDate()){
-        if(financialyearstartdate.getMonth() <= financialyearenddate.getMonth()){
+      if (financialyearstartdate.getDate() < financialyearenddate.getDate()) {
+        if (financialyearstartdate.getMonth() <= financialyearenddate.getMonth()) {
           return false;
         }
       }
     }
     return true;
-  } 
+  }
 
   submit() {
     this.spinner.show();
@@ -1344,7 +1355,7 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
         let momentObj = moment(dateObj);
         let momentString = momentObj.format('YYYY-MM-DD');
         Object.assign(this.commonviewmodel[0], { [x.field]: momentString });
-        if(this.checkDate()){
+        if (this.checkDate()) {
           this.notificationAlert.open();
           this.message = 'End date should be greater than Start Date.';
           this.spinner.hide();
@@ -1363,7 +1374,7 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
           if (x.isSuccess) {
             this.notificationAlert.open();
             this.message = x.message;
-           // this.snackbarInfoService.openSucessSnackBar(x.message);
+            // this.snackbarInfoService.openSucessSnackBar(x.message);
             //this.cancel();
             this.spinner.hide();
           } else {
@@ -1390,7 +1401,7 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
           }
         });
     }
-    
+
   }
   submitold() {
     this.formGroupArr = [];
@@ -1467,19 +1478,19 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
           }
         });
       } else if (x.type == 'date') {
-        if(x.formcontrolname == "financialyearenddate"){
+        if (x.formcontrolname == "financialyearenddate") {
           let date: Date;
           date = new Date();
           frmgrp[x.formcontrolname] = new FormControl(new Date(date.setDate(date.getDate() + 1)));
         }
-        else{
+        else {
           frmgrp[x.formcontrolname] = new FormControl(new Date());
         }
       } else {
         if (x.required == 'required') {
           frmgrp[x.formcontrolname] = new FormControl('', [Validators.required]);
-        } 
-        else if(x.field === "listseq"){
+        }
+        else if (x.field === "listseq") {
           frmgrp[x.formcontrolname] = new FormControl('0', [Validators.maxLength(4), Validators.pattern(this.checkFieldPattern(x.fieldtype))]);
         }
         else {
@@ -1490,14 +1501,14 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
     this.searchform = new FormGroup(frmgrp);
     // this.spinner.hide();
   }
-  checkFieldPattern(fieldtype){
-   let pattern;
-   if(fieldtype === 'string'){
-    pattern = '^[A-Za-z]+$';
-   }
-   else if(fieldtype === "number"){
-    pattern = '^[0-9]*$';
-   }
+  checkFieldPattern(fieldtype) {
+    let pattern;
+    if (fieldtype === 'string') {
+      pattern = '^[A-Za-z]+$';
+    }
+    else if (fieldtype === "number") {
+      pattern = '^[0-9]*$';
+    }
     return pattern
   }
   openSnackBar(errormsg: string) {
@@ -1511,8 +1522,8 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
   getMasterDataById(url) {
     this.data = [];
     this.masterApiService.getMasterDataById(url).subscribe((data) => {
-      if(data){
-      //x.apidata = data;
+      if (data) {
+        //x.apidata = data;
         this.data = data;
         this.setViewFormControl(data.data);
         this.spinner.hide();
@@ -1631,8 +1642,8 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
     this.commonviewmodel = event;
   }
 
-  onDialogSubmit(event){
-    event.dialog.close(); 
+  onDialogSubmit(event) {
+    event.dialog.close();
   }
   public items = [
     {
