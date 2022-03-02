@@ -85,7 +85,7 @@ export class RdapManagePinSetItemsTabComponent implements OnInit, OnChanges {
       if (this.rolepermissionmock == true) {
         this.pagePermission.push(rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionsetitemmock);
         this.mpsetitemPermission = rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionsetitemmock;
-        debugger
+       // debugger
         if(this.mpsetitemPermission.isView == true && this.mpsetitemPermission.isEdit == false){
           this.isViewOnlyPermission();
         }
@@ -223,13 +223,13 @@ export class RdapManagePinSetItemsTabComponent implements OnInit, OnChanges {
   }
 
   public addNew(row?): void {
-    debugger
+    //debugger
     console.log("row", row);
     this.setitemgrid.beginAddRowByIndex(row.index);
   }
 
   public setItemRowAddedDone(event){
-    debugger
+    //debugger
     if(this.addflag == true){
       this.setitemgrid.addRow(event.data);
       let lastRec = this.setitemgrid.data.pop();
@@ -241,7 +241,7 @@ export class RdapManagePinSetItemsTabComponent implements OnInit, OnChanges {
   }
 
   public deleterow(event) {
-    debugger
+    //debugger
     this.emitData = { data: null, flag: false };
     this.setItemdetailsArrObj = [];
     console.log(event.dataRowIndex);

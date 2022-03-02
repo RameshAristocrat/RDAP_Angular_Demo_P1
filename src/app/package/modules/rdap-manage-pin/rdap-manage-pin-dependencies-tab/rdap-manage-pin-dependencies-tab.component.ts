@@ -117,7 +117,7 @@ export class RdapManagePinDependenciesTabComponent implements OnInit, OnChanges 
       if (this.rolepermissionmock == true) {
         this.pagePermission.push(rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionsetitemmock);
         this.mpdependencyPermission = rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissiondependencymock;
-        debugger
+       // debugger
         if(this.mpdependencyPermission.isView == true && this.mpdependencyPermission.isEdit == false){
           this.isViewOnlyPermission();
         }
@@ -424,7 +424,7 @@ public addNew(row?):void{
 }
 
 public rowAddedDone(event){
-  debugger
+ // debugger
   if(this.addflag == true){
     this.dependenciesgrid.addRow(event.data);
     let lastRec = this.dependenciesgrid.data.pop();

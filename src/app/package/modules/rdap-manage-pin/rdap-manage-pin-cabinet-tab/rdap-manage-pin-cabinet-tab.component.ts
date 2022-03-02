@@ -94,7 +94,7 @@ export class RdapManagePinCabinetTabComponent implements OnInit, OnChanges {
   }
 
   public getPermissionmpMasterByModule() {
-    debugger
+   // debugger
     this.pagePermission = [];
     this.mpcabinetPermission= [];
     let rolePermissionMockData;
@@ -110,7 +110,7 @@ export class RdapManagePinCabinetTabComponent implements OnInit, OnChanges {
       if (this.rolepermissionmock == true) {
         this.pagePermission.push(rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissioncabinetmock);
         this.mpcabinetPermission = rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissioncabinetmock;
-        debugger
+       // debugger
         if(this.mpcabinetPermission.isView == true && this.mpcabinetPermission.isEdit == false){
           this.isViewOnlyPermission();
         }

@@ -100,7 +100,7 @@ export class RdapManagePinOthersTabComponent implements OnInit, OnChanges {
       if (this.rolepermissionmock == true) {
         this.pagePermission.push(rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionlinkedpinmock);
         this.mplinkedPermission = rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionlinkedpinmock;
-        debugger
+        //debugger
         if(this.mplinkedPermission.isView == true && this.mplinkedPermission.isEdit == false){
           this.isViewOnlyPermission();
         }
@@ -129,7 +129,7 @@ export class RdapManagePinOthersTabComponent implements OnInit, OnChanges {
       if (this.rolepermissionmock == true) {
         this.pagePermission.push(rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionimpactedpinmock);
         this.mpimpactedPermission = rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionimpactedpinmock;
-        debugger
+       // debugger
         if(this.mpimpactedPermission.isView == true && this.mpimpactedPermission.isEdit == false){
           this.isViewOnlyPermission();
         }
@@ -551,11 +551,11 @@ export class RdapManagePinOthersTabComponent implements OnInit, OnChanges {
   }
 
   public addNewLinkGrid(row?): void {
-    debugger
+    //debugger
     this.linkedpingrid.beginAddRowByIndex(row.index);
   }
   public addNewImpacGrid(row?): void {
-    debugger
+   // debugger
     this.impactedpingrid.beginAddRowByIndex(row.index);
   }
   public deleteLinkpinrow(event) {
@@ -572,7 +572,7 @@ export class RdapManagePinOthersTabComponent implements OnInit, OnChanges {
     this.otherEvent.emit(this.emitData);
   }
   public deleteImpacpinrow(event) {
-debugger
+//debugger
     this.impactedpindetailsArrObj = [];
     this.emitData = { data: null, flag: false, name: "impacpinno" }
     if (event.dataRowIndex > -1) {
