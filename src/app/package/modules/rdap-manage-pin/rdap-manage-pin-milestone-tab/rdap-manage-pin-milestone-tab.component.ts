@@ -452,6 +452,19 @@ this.milestoneform.get("planApprDate").disable({ onlySelf: true });
     this.milestoneform.get('tgtSubDate').enable({ onlySelf: true });
     this.milestoneform.get('tgtApprDate').enable({ onlySelf: true });
     this.milestoneform.get('tgtReleaseDate').enable({ onlySelf: true });
+    this.milestoneform.get('planApprDate').enable({ onlySelf: true });
+    this.milestoneform.get('gdbReqdDate').enable({ onlySelf: true });
+    }else{
+      if(this.viewExtrapinRequestData.data.planApprDate != null){
+        this.milestoneform.get('planApprDate').disable({ onlySelf: true });
+      }else{
+        this.milestoneform.get('planApprDate').enable({ onlySelf: true });
+      }
+      if(this.viewExtrapinRequestData.data.gdbReqdDate != null){
+        this.milestoneform.get('gdbReqdDate').disable({ onlySelf: true });
+      }else{
+        this.milestoneform.get('gdbReqdDate').enable({ onlySelf: true });
+      }
     }
     this.netApprovalFunc(this.milestoneform,this.milestoneModel,this.valueChangeFlag);
     
