@@ -118,7 +118,7 @@ export class RdapManagePinCabinetTabComponent implements OnInit, OnChanges {
           this.gridrowselectionflag = "multiple";
           this.cabinetgrid.rowSelection = "multiple";
         }else{
-          this.gridrowselectionflag = "single";
+          this.gridrowselectionflag = "none";
           this.cabinetgrid.rowSelection = "none";
         }
       } else {
@@ -130,7 +130,8 @@ export class RdapManagePinCabinetTabComponent implements OnInit, OnChanges {
         if(this.mpcabinetPermission.isEdit == true){
           this.gridrowselectionflag = "multiple";
         }else{
-          this.gridrowselectionflag = "single"
+          this.gridrowselectionflag = "none";
+          this.cabinetgrid.rowSelection = "none";
         }
       }        
     });
