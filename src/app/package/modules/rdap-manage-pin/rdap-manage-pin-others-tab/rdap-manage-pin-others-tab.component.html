@@ -97,7 +97,7 @@
                         <igx-grid-editing-actions [addRow]="true"></igx-grid-editing-actions>
                     </igx-action-strip> -->
                     <igx-action-strip #actionstrip>
-                        <igx-grid-pinning-actions></igx-grid-pinning-actions>
+                        <!-- <igx-grid-pinning-actions></igx-grid-pinning-actions> -->
                         <button  *ngIf="mplinkedPermission && mplinkedPermission.isEdit == true"  title="Edit" igxButton="icon" igxRipple (click)='startLinkPinEdit(actionstrip.context)'>
                             <igx-icon>edit</igx-icon>
                         </button>
@@ -216,7 +216,7 @@
                 <igx-column [width]="'125px'" field="apprDate" header="Approved Date" [dataType]="'string'"
                     [editable]="false"></igx-column>
                     <igx-action-strip #impacactionstrip>
-                        <igx-grid-pinning-actions></igx-grid-pinning-actions>
+                        <!-- <igx-grid-pinning-actions></igx-grid-pinning-actions> -->
                         <button *ngIf="mpimpactedPermission && mpimpactedPermission.isEdit == true" title="Edit" igxButton="icon" igxRipple (click)='startImpacPinEdit(impacactionstrip.context)'>
                             <igx-icon>edit</igx-icon>
                         </button>

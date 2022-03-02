@@ -63,7 +63,7 @@
                     <igx-grid-editing-actions [addRow]="true"></igx-grid-editing-actions>
                 </igx-action-strip> -->
                 <igx-action-strip #actionstrip>
-                    <igx-grid-pinning-actions></igx-grid-pinning-actions>
+                    <!-- <igx-grid-pinning-actions></igx-grid-pinning-actions> -->
                     <button *ngIf="mptesterPermission && mptesterPermission.isEdit == true" title="Edit" igxButton="icon" igxRipple (click)='startEdit(actionstrip.context)'>
                         <igx-icon>edit</igx-icon>
                     </button>
