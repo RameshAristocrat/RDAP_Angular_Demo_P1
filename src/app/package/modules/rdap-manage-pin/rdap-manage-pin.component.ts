@@ -228,6 +228,9 @@ export class RdapManagePinComponent implements OnInit, OnChanges {
         if (this.mpproductPermission.isView == true && this.mpproductPermission.isAdd == false &&
           this.mpproductPermission.isEdit == false && this.mpproductPermission.isDelete == false) {
           this.mpproductIsViewPermissionFlag = true;
+        }else if (this.mpproductPermission.isView == false && this.mpproductPermission.isAdd == false &&
+          this.mpproductPermission.isEdit == false && this.mpproductPermission.isDelete == false) {
+          this.mpproductIsViewPermissionFlag = true;
         } else {
           this.mpproductIsViewPermissionFlag = false;
         }
@@ -246,6 +249,9 @@ export class RdapManagePinComponent implements OnInit, OnChanges {
         this.mpdependencyIsViewPermissionFlag = false;
       } else {
         if (this.mpdependencyPermission.isView == true && this.mpdependencyPermission.isAdd == false &&
+          this.mpdependencyPermission.isEdit == false && this.mpdependencyPermission.isDelete == false) {
+          this.mpdependencyIsViewPermissionFlag = true;
+        }else if (this.mpdependencyPermission.isView == false && this.mpdependencyPermission.isAdd == false &&
           this.mpdependencyPermission.isEdit == false && this.mpdependencyPermission.isDelete == false) {
           this.mpdependencyIsViewPermissionFlag = true;
         } else {
@@ -268,6 +274,9 @@ export class RdapManagePinComponent implements OnInit, OnChanges {
         if (this.mpcabinetPermission.isView == true && this.mpcabinetPermission.isAdd == false &&
           this.mpcabinetPermission.isEdit == false && this.mpcabinetPermission.isDelete == false) {
           this.mpcabinetIsViewPermissionFlag = true;
+        }else if (this.mpcabinetPermission.isView == false && this.mpcabinetPermission.isAdd == false &&
+          this.mpcabinetPermission.isEdit == false && this.mpcabinetPermission.isDelete == false) {
+          this.mpcabinetIsViewPermissionFlag = true;
         } else {
           this.mpcabinetIsViewPermissionFlag = false;
         }
@@ -286,6 +295,9 @@ export class RdapManagePinComponent implements OnInit, OnChanges {
         this.mpmilestoneIsViewPermissionFlag = false;
       } else {
         if (this.mpmilestonePermission.isView == true && this.mpmilestonePermission.isAdd == false &&
+          this.mpmilestonePermission.isEdit == false && this.mpmilestonePermission.isDelete == false) {
+          this.mpmilestoneIsViewPermissionFlag = true;
+        }else if (this.mpmilestonePermission.isView == false && this.mpmilestonePermission.isAdd == false &&
           this.mpmilestonePermission.isEdit == false && this.mpmilestonePermission.isDelete == false) {
           this.mpmilestoneIsViewPermissionFlag = true;
         } else {
@@ -308,6 +320,9 @@ export class RdapManagePinComponent implements OnInit, OnChanges {
         if (this.mplinkedPermission.isView == true && this.mplinkedPermission.isAdd == false &&
           this.mplinkedPermission.isEdit == false && this.mplinkedPermission.isDelete == false) {
           this.mplinkedIsViewPermissionFlag = true;
+        }else if (this.mplinkedPermission.isView == false && this.mplinkedPermission.isAdd == false &&
+          this.mplinkedPermission.isEdit == false && this.mplinkedPermission.isDelete == false) {
+          this.mplinkedIsViewPermissionFlag = true;
         } else {
           this.mplinkedIsViewPermissionFlag = false;
         }
@@ -328,7 +343,10 @@ export class RdapManagePinComponent implements OnInit, OnChanges {
         if (this.mpimpactedPermission.isView == true && this.mpimpactedPermission.isAdd == false &&
           this.mpimpactedPermission.isEdit == false && this.mpimpactedPermission.isDelete == false) {
           this.mpimpactedIsViewPermissionFlag = true;
-        } else {
+        }else if (this.mpimpactedPermission.isView == false && this.mpimpactedPermission.isAdd == false &&
+          this.mpimpactedPermission.isEdit == false && this.mpimpactedPermission.isDelete == false) {
+          this.mpimpactedIsViewPermissionFlag = true;
+        }  else {
           this.mpimpactedIsViewPermissionFlag = false;
         }
       }
@@ -346,6 +364,9 @@ export class RdapManagePinComponent implements OnInit, OnChanges {
         this.mpsetitemIsViewPermissionFlag = false;
       } else {
         if (this.mpsetitemPermission.isView == true && this.mpsetitemPermission.isAdd == false &&
+          this.mpsetitemPermission.isEdit == false && this.mpsetitemPermission.isDelete == false) {
+          this.mpsetitemIsViewPermissionFlag = true;
+        }else if (this.mpsetitemPermission.isView == false && this.mpsetitemPermission.isAdd == false &&
           this.mpsetitemPermission.isEdit == false && this.mpsetitemPermission.isDelete == false) {
           this.mpsetitemIsViewPermissionFlag = true;
         } else {
@@ -368,6 +389,9 @@ export class RdapManagePinComponent implements OnInit, OnChanges {
         if (this.mptesterPermission.isView == true && this.mptesterPermission.isAdd == false &&
           this.mptesterPermission.isEdit == false && this.mptesterPermission.isDelete == false) {
           this.mptesterIsViewPermissionFlag = true;
+        }else if (this.mptesterPermission.isView == false && this.mptesterPermission.isAdd == false &&
+          this.mptesterPermission.isEdit == false && this.mptesterPermission.isDelete == false) {
+          this.mptesterIsViewPermissionFlag = true;
         } else {
           this.mptesterIsViewPermissionFlag = false;
         }
@@ -386,6 +410,9 @@ export class RdapManagePinComponent implements OnInit, OnChanges {
         this.mpclarityIsViewPermissionFlag = false;
       } else {
         if (this.mpclarityPermission.isView == true && this.mpclarityPermission.isAdd == false &&
+          this.mpclarityPermission.isEdit == false && this.mpclarityPermission.isDelete == false) {
+          this.mpclarityIsViewPermissionFlag = true;
+        }else if (this.mpclarityPermission.isView == false && this.mpclarityPermission.isAdd == false &&
           this.mpclarityPermission.isEdit == false && this.mpclarityPermission.isDelete == false) {
           this.mpclarityIsViewPermissionFlag = true;
         } else {
