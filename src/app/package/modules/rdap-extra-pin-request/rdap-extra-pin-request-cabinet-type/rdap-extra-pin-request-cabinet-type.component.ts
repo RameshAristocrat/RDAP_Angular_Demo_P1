@@ -107,11 +107,12 @@ export class RdapExtraPinRequestCabinetTypeComponent implements OnInit,OnChanges
     }
   }
   public viewExtrapinRequestForm() {
-    this.cabinetgrid.selectRows(this.viewExtrapinRequestData.data.cabinetIds);
-    this.cabinettypeform.controls["id"].setValue(this.pinId);
-    this.cabinettypeform.get('id').disable({ onlySelf: true });
-    this.cabinetgrid.rowSelection = "none";
-
+    if(this.cabinetgrid){
+      this.cabinetgrid.selectRows(this.viewExtrapinRequestData.data.cabinetIds);
+      this.cabinettypeform.controls["id"].setValue(this.pinId);
+      this.cabinettypeform.get('id').disable({ onlySelf: true });
+      this.cabinetgrid.rowSelection = "none";
+    }
     //this.cabinetgrid.read
   //    this.extrapindetailsform.controls["regionId"].setValue(this.viewExtrapinRequestData.data.regionId);
   }

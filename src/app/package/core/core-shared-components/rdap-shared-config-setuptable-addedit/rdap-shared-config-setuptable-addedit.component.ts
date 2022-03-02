@@ -220,7 +220,6 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
       }
       if ((this.pagePermission[0].isView == true && this.pagePermission[0].isAdd == false && this.pagePermission[0].isEdit == false && this.pagePermission[0].isDelete == false) ||
         (this.pagePermission[0].isView == true && this.pagePermission[0].isAdd == false && this.pagePermission[0].isEdit == false && this.pagePermission[0].isDelete == true)) {
-        console.log("master view only permission", this.searchform);
         this.formdata.forEach((x, index) => {
           this.searchform.get(x.formcontrolname).disable({ onlySelf: true });
         });
@@ -1329,14 +1328,42 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
         x.type == 'select' &&
         _isNotEmptyVal(this.searchform.get(x.formcontrolname).value)
       ) {
-        Object.assign(this.commonviewmodel[0], {
-          [x.field]: Number(this.searchform.get(x.formcontrolname).value),
-        });
+        if(x.field === "includeplan"){
+          if(this.searchform.get(x.formcontrolname).value == 1) {
+            Object.assign(this.commonviewmodel[0], {
+              [x.field]: String('N'),
+            });
+          }
+          else {
+            Object.assign(this.commonviewmodel[0], {
+              [x.field]: String('Y'),
+            });
+          }      
+        }
+        else{
+          Object.assign(this.commonviewmodel[0], {
+            [x.field]: Number(this.searchform.get(x.formcontrolname).value),
+          });
+        }
       } else if (
         x.type == 'select' &&
         _isEmptyVal(this.searchform.get(x.formcontrolname).value)
       ) {
-        Object.assign(this.commonviewmodel[0], { [x.field]: 0 });
+        if(x.field === "includeplan"){
+          if(this.searchform.get(x.formcontrolname).value == 1) {
+            Object.assign(this.commonviewmodel[0], {
+              [x.field]: String('N'),
+            });
+          }
+          else {
+            Object.assign(this.commonviewmodel[0], {
+              [x.field]: String('Y'),
+            });
+          }      
+        }
+        else{
+          Object.assign(this.commonviewmodel[0], { [x.field]: 0 });
+        }
       } else if (x.type == 'textarea') {
         Object.assign(this.commonviewmodel[0], {
           [x.field]: this.searchform.get(x.formcontrolname).value,
@@ -1458,12 +1485,22 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
           this.masterApiService.masterSearchDDL(x.api).subscribe((data) => {
             x.apidata = data;
           });
-        } else {
-          this.masterApiService.masterSearchDDL(ddlurl).subscribe((data) => {
+        } 
+        else if(x.field == "includeplan")
+        {
+          x.apidata = [{description: "Yes",
+          description2: "Y",
+          id: 0}, {description: "No",
+          description2: "N",
+          id: 1}];
+        }      
+        else {
+              this.masterApiService.masterSearchDDL(ddlurl).subscribe((data) => {
             x.apidata = data;
           });
         }
         frmgrp[x.formcontrolname] = new FormControl();
+        
       }
       if (x.type == 'checkbox') {
         frmgrp[x.formcontrolname] = new FormControl(true);
@@ -1550,9 +1587,19 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
           //this.searchform.controls[x.formcontrolname].disable();
         }
       } else if (x.type == 'select') {
-        (this.searchform.get(x.formcontrolname) as FormControl).setValue(
-          editFormData[x.field]
-        );
+        if(x.field == 'includeplan'){
+          if(editFormData[x.field] == "N"){
+            (this.searchform.get(x.formcontrolname) as FormControl).setValue(1);
+          }
+          else{
+            (this.searchform.get(x.formcontrolname) as FormControl).setValue(0);
+          }
+        }
+        else {
+          (this.searchform.get(x.formcontrolname) as FormControl).setValue(
+            editFormData[x.field]
+          );
+        }
         //this.searchform.controls[x.formcontrolname].setValue(Number(editFormData[x.field]));
         //this.searchform.controls[x.formcontrolname].disable();
       } else if (x.type == 'checkbox') {

@@ -37,7 +37,7 @@ export class RdapExtraPinRequestLinkedPinComponent implements OnInit,OnChanges {
   public linkedpinsobj: any;
   public linkedpinsarrobj: any;
   public impactedpinsobj: any;
-  public impactedpinsarrobj: any;
+  public impactedpinsarrobj: any[];
   public fyarrobj: any;
   public quarterarrobj: any;
   public currencyarrobj: any;

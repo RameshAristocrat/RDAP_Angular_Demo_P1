@@ -124,9 +124,11 @@ export class RdapExtraPinRequestGameTitleComponent implements OnInit,OnChanges {
 
     
     this.masterApiService.getRequestPinById(this.extrapinbaseApi + "ExtraPin/" + this.pinId).subscribe(data => {
-      this.viewExtrapinRequestData = data;
-      this.viewExtrapinRequestForm();
-      this.spinner.hide();
+      if(data){
+        this.viewExtrapinRequestData = data;
+        this.viewExtrapinRequestForm();
+        this.spinner.hide();
+      }
     });
   }
   }
@@ -140,7 +142,10 @@ export class RdapExtraPinRequestGameTitleComponent implements OnInit,OnChanges {
       this.gametitleviewdata.push({id:this.viewExtrapinRequestData.data.titleId,
         description:this.viewExtrapinRequestData.data.title,
         description2:this.viewExtrapinRequestData.data.title});
-        this.gametitelgrid.rowEditable = false;
+        if(this.gametitelgrid){
+          this.gametitelgrid.rowEditable = false;
+        }
+        
   }
   public busjustification(event){
 
