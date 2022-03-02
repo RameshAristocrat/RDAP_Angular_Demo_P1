@@ -200,10 +200,16 @@ this.milestoneform.get("planApprDate").disable({ onlySelf: true });
     //this.milestoneform.controls["financialyearId"].setValue(this.viewExtrapinRequestData.data.financialyearId);
     this.buildForm();
     this.getMilestoneById();
+    if(this.IsManagePinAdminFlag == false){
+      this.getPermissionmpMasterByModule();
+    }
   }
   ngOnChanges(changes: SimpleChanges) {
     this.buildForm();
     this.getMilestoneById();
+    if(this.IsManagePinAdminFlag == false){
+      this.getPermissionmpMasterByModule();
+    }
   }
   onDateChange(event, formctrlname) {
     this.valueChangeFlag = false;
@@ -511,9 +517,6 @@ this.milestoneform.get("planApprDate").disable({ onlySelf: true });
   public IsManagePinAdmin(){
     this.masterApiService.checkIsManagePinAdmin(this.permissionApi+"Permission/IsManagePinAdmin").subscribe(data => {
       this.IsManagePinAdminFlag = data;
-      if(this.IsManagePinAdminFlag == false){
-        this.getPermissionmpMasterByModule();
-      }
     });
   }
   onDialogSubmit(event){

@@ -161,9 +161,21 @@ export class RdapManagePinComponent implements OnInit, OnChanges {
   mpimpactedPermission: any;
   mpauditPermission: any;
   mpclarityPermission: any;
+  mpproductIsViewPermissionFlag: boolean = false;
+  mpdependencyIsViewPermissionFlag: boolean = false;
+  mpmilestoneIsViewPermissionFlag: boolean = false;
+  mpcabinetIsViewPermissionFlag: boolean = false;
+  mptesterIsViewPermissionFlag: boolean = false;
+  mpsetitemIsViewPermissionFlag: boolean = false;
+  mplinkedIsViewPermissionFlag: boolean = false;
+  mpimpactedIsViewPermissionFlag: boolean = false;
+  mpauditIsViewPermissionFlag: boolean = false;
+  mpclarityIsViewPermissionFlag: boolean = false;
+  IsManagePinAdminFlag: boolean = false;
   public pagePermission: any;
   public rolePermissionEnableFlag: any;
   public rolepermissionmock: boolean = false;
+  permissionApi: any;
   constructor(private httpClient: HttpClient, public cdr: ChangeDetectorRef,
     private excelExportService: IgxExcelExporterService, private router: Router,
     private masterApiService: RdMasterApiService, private spinner: RdSpinnerService,
@@ -172,6 +184,7 @@ export class RdapManagePinComponent implements OnInit, OnChanges {
     this.baseApi = environment.baseapiurl;
     this.extraPinAPi = environment.extrapinreqapiurl;
     this.debuggerflag = environment.debuggerflag;
+    this.permissionApi = environment.userapiurl;
     if (this.location.path() != '') {
       this.route = this.location.path();
       this.routeName = this.route.split('/')[this.route.split('/').length - 1];
@@ -183,18 +196,23 @@ export class RdapManagePinComponent implements OnInit, OnChanges {
     this.rolePermissionEnableFlag = environment.enablerolepermission;
     this.rolepermissionmock = environment.enablerolepermissionmock;
   }
+  public IsManagePinAdmin() {
+    this.masterApiService.checkIsManagePinAdmin(this.permissionApi + "Permission/IsManagePinAdmin").subscribe(data => {
+      this.IsManagePinAdminFlag = data;
+    });
+  }
   public getPermissionmpMasterByModule() {
     this.pagePermission = [];
-    this.mpproductPermission= [];
-    this.mpdependencyPermission= [];
-    this.mpmilestonePermission= [];
-    this.mpcabinetPermission= [];
-    this.mptesterPermission= [];
-    this.mpsetitemPermission= [];
-    this.mplinkedPermission= [];
-    this.mpimpactedPermission= [];
-    this.mpauditPermission= [];
-    this.mpclarityPermission= [];
+    this.mpproductPermission = [];
+    this.mpdependencyPermission = [];
+    this.mpmilestonePermission = [];
+    this.mpcabinetPermission = [];
+    this.mptesterPermission = [];
+    this.mpsetitemPermission = [];
+    this.mplinkedPermission = [];
+    this.mpimpactedPermission = [];
+    this.mpauditPermission = [];
+    this.mpclarityPermission = [];
     let rolePermissionMockData;
     this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "mpproduct").subscribe(res => {
       if (this.rolepermissionmock == true) {
@@ -204,15 +222,35 @@ export class RdapManagePinComponent implements OnInit, OnChanges {
         this.pagePermission.push(res);
         this.mpproductPermission = res;
       }
+      if (this.IsManagePinAdminFlag == true) {
+        this.mpproductIsViewPermissionFlag = false;
+      } else {
+        if (this.mpproductPermission.isView == true && this.mpproductPermission.isAdd == false &&
+          this.mpproductPermission.isEdit == false && this.mpproductPermission.isDelete == false) {
+          this.mpproductIsViewPermissionFlag = true;
+        } else {
+          this.mpproductIsViewPermissionFlag = false;
+        }
+      }
     });
     this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "mpdependency").subscribe(res => {
       if (this.rolepermissionmock == true) {
-       // rolePermissionMockData =  rolePermossionMpMaster.rdapRolePermossionMockMaster.filter(x=>x.modulename.toLowerCase() == "mpdependency");
+        // rolePermissionMockData =  rolePermossionMpMaster.rdapRolePermossionMockMaster.filter(x=>x.modulename.toLowerCase() == "mpdependency");
         this.pagePermission.push(rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissiondependencymock);
         this.mpdependencyPermission = rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissiondependencymock;
       } else {
         this.pagePermission.push(res);
         this.mpdependencyPermission = res;
+      }
+      if (this.IsManagePinAdminFlag == true) {
+        this.mpdependencyIsViewPermissionFlag = false;
+      } else {
+        if (this.mpdependencyPermission.isView == true && this.mpdependencyPermission.isAdd == false &&
+          this.mpdependencyPermission.isEdit == false && this.mpdependencyPermission.isDelete == false) {
+          this.mpdependencyIsViewPermissionFlag = true;
+        } else {
+          this.mpdependencyIsViewPermissionFlag = false;
+        }
       }
     });
     this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "mpcabinet").subscribe(res => {
@@ -224,15 +262,35 @@ export class RdapManagePinComponent implements OnInit, OnChanges {
         this.pagePermission.push(res);
         this.mpcabinetPermission = res;
       }
+      if (this.IsManagePinAdminFlag == true) {
+        this.mpcabinetIsViewPermissionFlag = false;
+      } else {
+        if (this.mpcabinetPermission.isView == true && this.mpcabinetPermission.isAdd == false &&
+          this.mpcabinetPermission.isEdit == false && this.mpcabinetPermission.isDelete == false) {
+          this.mpcabinetIsViewPermissionFlag = true;
+        } else {
+          this.mpcabinetIsViewPermissionFlag = false;
+        }
+      }
     });
     this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "mpmilestone").subscribe(res => {
       if (this.rolepermissionmock == true) {
-       // rolePermissionMockData =  rolePermossionMpMaster.rdapRolePermossionMockMaster.filter(x=>x.modulename.toLowerCase() == "mpmilestone");
+        // rolePermissionMockData =  rolePermossionMpMaster.rdapRolePermossionMockMaster.filter(x=>x.modulename.toLowerCase() == "mpmilestone");
         this.pagePermission.push(rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionmilestonemock);
         this.mpmilestonePermission = rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionmilestonemock
       } else {
         this.pagePermission.push(res);
         this.mpmilestonePermission = res;
+      }
+      if (this.IsManagePinAdminFlag == true) {
+        this.mpmilestoneIsViewPermissionFlag = false;
+      } else {
+        if (this.mpmilestonePermission.isView == true && this.mpmilestonePermission.isAdd == false &&
+          this.mpmilestonePermission.isEdit == false && this.mpmilestonePermission.isDelete == false) {
+          this.mpmilestoneIsViewPermissionFlag = true;
+        } else {
+          this.mpmilestoneIsViewPermissionFlag = false;
+        }
       }
     });
     this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "mplinked").subscribe(res => {
@@ -244,35 +302,75 @@ export class RdapManagePinComponent implements OnInit, OnChanges {
         this.pagePermission.push(res);
         this.mplinkedPermission = res;
       }
+      if (this.IsManagePinAdminFlag == true) {
+        this.mplinkedIsViewPermissionFlag = false;
+      } else {
+        if (this.mplinkedPermission.isView == true && this.mplinkedPermission.isAdd == false &&
+          this.mplinkedPermission.isEdit == false && this.mplinkedPermission.isDelete == false) {
+          this.mplinkedIsViewPermissionFlag = true;
+        } else {
+          this.mplinkedIsViewPermissionFlag = false;
+        }
+      }
     });
     this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "mpimpacted").subscribe(res => {
       if (this.rolepermissionmock == true) {
-       // rolePermissionMockData =  rolePermossionMpMaster.rdapRolePermossionMockMaster.filter(x=>x.modulename.toLowerCase() == "mpimpacted");
+        // rolePermissionMockData =  rolePermossionMpMaster.rdapRolePermossionMockMaster.filter(x=>x.modulename.toLowerCase() == "mpimpacted");
         this.pagePermission.push(rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionimpactedpinmock);
         this.mpimpactedPermission = rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionimpactedpinmock
       } else {
         this.pagePermission.push(res);
         this.mpimpactedPermission = res;
       }
+      if (this.IsManagePinAdminFlag == true) {
+        this.mpimpactedIsViewPermissionFlag = false;
+      } else {
+        if (this.mpimpactedPermission.isView == true && this.mpimpactedPermission.isAdd == false &&
+          this.mpimpactedPermission.isEdit == false && this.mpimpactedPermission.isDelete == false) {
+          this.mpimpactedIsViewPermissionFlag = true;
+        } else {
+          this.mpimpactedIsViewPermissionFlag = false;
+        }
+      }
     });
     this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "mpsetitem").subscribe(res => {
       if (this.rolepermissionmock == true) {
-       // rolePermissionMockData =  rolePermossionMpMaster.rdapRolePermossionMockMaster.filter(x=>x.modulename.toLowerCase() == "mpsetitem");
+        // rolePermissionMockData =  rolePermossionMpMaster.rdapRolePermossionMockMaster.filter(x=>x.modulename.toLowerCase() == "mpsetitem");
         this.pagePermission.push(rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionsetitemmock);
         this.mpsetitemPermission = rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionsetitemmock
       } else {
         this.pagePermission.push(res);
         this.mpsetitemPermission = res;
       }
+      if (this.IsManagePinAdminFlag == true) {
+        this.mpsetitemIsViewPermissionFlag = false;
+      } else {
+        if (this.mpsetitemPermission.isView == true && this.mpsetitemPermission.isAdd == false &&
+          this.mpsetitemPermission.isEdit == false && this.mpsetitemPermission.isDelete == false) {
+          this.mpsetitemIsViewPermissionFlag = true;
+        } else {
+          this.mpsetitemIsViewPermissionFlag = false;
+        }
+      }
     });
     this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "mptester").subscribe(res => {
       if (this.rolepermissionmock == true) {
-       // rolePermissionMockData =  rolePermossionMpMaster.rdapRolePermossionMockMaster.filter(x=>x.modulename.toLowerCase() == "mptester");
+        // rolePermissionMockData =  rolePermossionMpMaster.rdapRolePermossionMockMaster.filter(x=>x.modulename.toLowerCase() == "mptester");
         this.pagePermission.push(rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissiontesterplanmock);
         this.mptesterPermission = rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissiontesterplanmock
       } else {
         this.pagePermission.push(res);
         this.mptesterPermission = res;
+      }
+      if (this.IsManagePinAdminFlag == true) {
+        this.mptesterIsViewPermissionFlag = false;
+      } else {
+        if (this.mptesterPermission.isView == true && this.mptesterPermission.isAdd == false &&
+          this.mptesterPermission.isEdit == false && this.mptesterPermission.isDelete == false) {
+          this.mptesterIsViewPermissionFlag = true;
+        } else {
+          this.mptesterIsViewPermissionFlag = false;
+        }
       }
     });
     this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "mpclarity").subscribe(res => {
@@ -284,19 +382,41 @@ export class RdapManagePinComponent implements OnInit, OnChanges {
         this.pagePermission.push(res);
         this.mpclarityPermission = res;
       }
+      if (this.IsManagePinAdminFlag == true) {
+        this.mpclarityIsViewPermissionFlag = false;
+      } else {
+        if (this.mpclarityPermission.isView == true && this.mpclarityPermission.isAdd == false &&
+          this.mpclarityPermission.isEdit == false && this.mpclarityPermission.isDelete == false) {
+          this.mpclarityIsViewPermissionFlag = true;
+        } else {
+          this.mpclarityIsViewPermissionFlag = false;
+        }
+      }
     });
     this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "mpaudit").subscribe(res => {
       if (this.rolepermissionmock == true) {
-      //  rolePermissionMockData =  rolePermossionMpMaster.rdapRolePermossionMockMaster.filter(x=>x.modulename.toLowerCase() == "mpaudit");
+        //  rolePermissionMockData =  rolePermossionMpMaster.rdapRolePermossionMockMaster.filter(x=>x.modulename.toLowerCase() == "mpaudit");
         this.pagePermission.push(rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionauditlogmock);
         this.mpauditPermission = rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionauditlogmock
       } else {
         this.pagePermission.push(res);
         this.mpauditPermission = res;
       }
+      this.mpsetitemIsViewPermissionFlag = true;
+      // if (this.IsManagePinAdminFlag == true) {
+      //   this.mpsetitemIsViewPermissionFlag = false;
+      // } else {
+      //   if (this.mpsetitemPermission.isView == true && this.mpsetitemPermission.isAdd == false &&
+      //     this.mpsetitemPermission.isEdit == false && this.mpsetitemPermission.isDelete == false) {
+      //     this.mpsetitemIsViewPermissionFlag = true;
+      //   } else {
+      //     this.mpsetitemIsViewPermissionFlag = false;
+      //   }
+      // }
     });
   }
   ngOnInit(): void {
+    this.IsManagePinAdmin();
     this.getPermissionmpMasterByModule();
     this.tabid = 0;
     this.tabname = "product";

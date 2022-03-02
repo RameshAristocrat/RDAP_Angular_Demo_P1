@@ -88,6 +88,8 @@ export class RdapManagePinDependenciesTabComponent implements OnInit, OnChanges 
   public rolePermissionEnableFlag: any;
   public rolepermissionmock: boolean = false;
   grideditflag:boolean = false;
+  public permissionApi;
+  IsManagePinAdminFlag:boolean = false;
   constructor(private httpClient: HttpClient, private cdr: ChangeDetectorRef,
     private excelExportService: IgxExcelExporterService, private router: Router,
     private masterApiService: RdMasterApiService, private spinner: RdSpinnerService,
@@ -95,6 +97,7 @@ export class RdapManagePinDependenciesTabComponent implements OnInit, OnChanges 
     private actroute: ActivatedRoute) {
     this.baseApi = environment.baseapiurl;
     this.extraPinAPi = environment.extrapinreqapiurl;
+    this.permissionApi = environment.userapiurl;
     //this.viewExtrapinRequestData = this.setitemInput.planitem;
     this.addflag = false;
     this.duplicateplanitemflag = false;
@@ -142,8 +145,21 @@ export class RdapManagePinDependenciesTabComponent implements OnInit, OnChanges 
   isViewOnlyPermission(){
 
   }
+  public IsManagePinAdmin(){
+    this.masterApiService.checkIsManagePinAdmin(this.permissionApi+"Permission/IsManagePinAdmin").subscribe(data => {
+      this.IsManagePinAdminFlag = data;
+      if(this.IsManagePinAdminFlag == false){
+        this.grideditflag = true;
+      }else{
+        this.grideditflag = false;
+      }
+    });
+  }
   ngOnInit(): void {
-    this.getPermissionmpMasterByModule();
+    this.IsManagePinAdmin();
+    if(this.IsManagePinAdminFlag == false){
+      this.getPermissionmpMasterByModule();
+    }
     this.pagename = "managepintab";
     this.viewExtrapinRequestData = this.dependencyInput.planitem;
     this.pinId = this.viewExtrapinRequestData.data.planitem;

@@ -11,7 +11,7 @@
         </mat-form-field>
       </div>
       <div class="col-lg-3 form-group">
-        <ng-select ngSelectMat [items]="versionarrobj[0]" placeholder="Version" bindLabel="description" bindValue="id"
+        <ng-select ngSelectMat [disabled]="true" [items]="versionarrobj[0]" placeholder="Version" bindLabel="description" bindValue="id"
           [clearable]="false" [virtualScroll]="true" appendTo="body" formControlName="versionId"
           (change)="ddlOnChangeEvent($event)"
           class="custom-class">

@@ -373,6 +373,7 @@ export class RdapManagePinProductTabComponent implements OnInit {
       releasedactual: null,
       revenue: null
     });
+    //this.productform.get("versionId").disable({ onlySelf: true });
     //this.productform.get('id').disable({ onlySelf: true });
     //null
   }
@@ -668,6 +669,7 @@ export class RdapManagePinProductTabComponent implements OnInit {
     this.productmodel.notesLong = this.viewExtrapinRequestData.data.notesLong;
     this.productmodel.gamecomplexityId = this.viewExtrapinRequestData.data.gamecomplexityId;
     this.productmodel.archType = this.viewExtrapinRequestData.data.archType;
+    this.productform.get("versionId").disable({ onlySelf: true });
     this.productEvent.emit(this.productform);
   }
   isViewOnlyPermission(){
@@ -677,6 +679,7 @@ export class RdapManagePinProductTabComponent implements OnInit {
     this.productform.get("channeltypeId").disable({ onlySelf: true });
     this.productform.get("cvlIts").disable({ onlySelf: true });
     this.productform.get("cvlPriorityId").disable({ onlySelf: true });
+    
     this.productform.get("denomId").disable({ onlySelf: true });
     this.productform.get("description").disable({ onlySelf: true });
     this.productform.get("devtype2Id").disable({ onlySelf: true });
