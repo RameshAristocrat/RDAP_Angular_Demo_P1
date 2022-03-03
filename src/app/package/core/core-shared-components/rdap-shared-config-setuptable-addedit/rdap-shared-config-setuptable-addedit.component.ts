@@ -1241,6 +1241,34 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
         this.spinner.hide();
       }
     }
+    else if (
+      this.route &&
+      this.route.match('platform') &&
+      this.route.match('platform').length
+    ) {
+      this.getPermissionmpMasterByModule("platform");
+      this.formName = 'platformSearchForm';
+      this.configdata[0].master.filter((x) => {
+        this.routedata = x.platform;
+        this.formdata = this.routedata[0].fieldprop;
+        this.griddata = this.routedata[0].api[0];
+        this.addUrl = this.baseApi + this.routedata[0].addApi[0].url;
+        this.getMasterDataUrl = this.baseApi + this.routedata[0].editApi[0].url;
+        this.editFieldProp = this.routedata[0].editApi[0].fieldprop;
+      });
+      this.createFormControl();
+      if (this.transactionFlag == 'V' || this.transactionFlag == 'U') {
+        this.selMasterDetails = JSON.parse(
+          localStorage.getItem('selMasterViewData')
+        );
+        masterDataId = this.selMasterDetails[this.editFieldProp];
+        this.getMasterDataUrl = this.getMasterDataUrl + '/' + masterDataId;
+        this.getMasterDataById(this.getMasterDataUrl);
+      }
+      else {
+        this.spinner.hide();
+      }
+    }
   }
 
   public checkError = (controlName: string, errorName: string) => {

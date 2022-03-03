@@ -317,6 +317,41 @@ export const masteraddedit = [
                 pipe: '',
               },
               {
+                formcontrolname: 'platformId',
+                field: 'platformId',
+                label: 'Platform',
+                type: 'select',
+                fieldtype: 'number',
+                api: 'Platform/ddl/true',
+                apidata: '',
+                required: null,
+                placeholder: 'Select Platform',
+                action: '',
+                pipe: '',
+                bindname: 'description',
+                bindvalue: 'id',
+                clearable: false,
+                virtualScroll: true,
+                multiple: false,
+              },
+              {
+                formcontrolname: 'emulationId',
+                field: 'emulationId',
+                label: 'Emulation',
+                type: 'select',
+                fieldtype: 'number',
+                api: 'Emulation/ddl/true',
+                required: null,
+                placeholder: 'Select Emulation',
+                action: '',
+                pipe: '',
+                bindname: 'description',
+                bindvalue: 'id',
+                clearable: false,
+                virtualScroll: true,
+                multiple: false,
+              },
+              {
                 formcontrolname: 'listsequencename',
                 field: 'listseq',
                 label: 'List Sequence',
@@ -3651,6 +3686,90 @@ export const masteraddedit = [
             ],
           },
         ],
+        platform: [{
+          fieldprop: [{
+            formcontrolname: "platformname",
+            label: "platform",
+            field: "platform",
+            fieldtype: "string",
+            type: "text",
+            api: "",
+            required: "required",
+            placeholder: "Enter Platform",
+            action: "",
+            pipe: ""
+          },
+          {
+            formcontrolname: "platformdesc",
+            label: "Description",
+            field: "description",
+            fieldtype: "string",
+            type: "textarea",
+            api: "",
+            required: null,
+            placeholder: "Enter Description",
+            action: "",
+            pipe: ""
+          },
+          {
+            formcontrolname: "platformdesclong",
+            label: "Description Long",
+            field: "descrLong",
+            fieldtype: "string",
+            type: "textarea",
+            api: "",
+            required: null,
+            placeholder: "Enter Description Long",
+            action: "",
+            pipe: ""
+          }, {
+            formcontrolname: "listsequencename",
+            field: "listseq",
+            label: "List Sequence",
+            type: "text",
+            fieldtype: "number",
+            api: "",
+            required: null,
+            placeholder: "Enter List Sequence",
+            action: "",
+            pipe: ""
+          }, {
+            formcontrolname: "platformisactive",
+            field: "isactive",
+            label: "IsActive",
+            type: "checkbox",
+            fieldtype: "boolean",
+            api: "assets/config/pool.json",
+            apidata: "",
+            required: null,
+            placeholder: "Select Active",
+            action: "",
+            pipe: "",
+            bindname: "name",
+            clearable: false,
+            virtualScroll: true,
+            multiple: false
+          }
+          ], addApi: [
+            {
+              url: "platform",
+              method: "post",
+              data: null
+            }
+          ],
+          editApi: [{
+            url: "platform",
+            method: "post",
+            data: null,
+            fieldprop: "platformId"
+          }],
+          api: [{
+            api: "assets/config/grid-data.json",
+            apidata: "",
+            url: "",
+            param: [{}]
+          }]
+        }],
       },
     ],
   },

@@ -831,6 +831,27 @@ const routes: Routes = [
                 component: RdapConfigCommonAddEditComponent,
               },
             ],
+          },{
+            path: 'platform',
+            //component: RdapConfigCommonSearchComponent,
+            children: [
+              {
+                path: 'search',
+                component: RdapConfigCommonSearchComponent,
+              },
+              {
+                path: 'add',
+                component: RdapConfigCommonAddEditComponent,
+              },
+              {
+                path: 'edit',
+                component: RdapConfigCommonAddEditComponent,
+              },
+              {
+                path: 'view',
+                component: RdapConfigCommonAddEditComponent,
+              },
+            ],
           },
         ],
       },

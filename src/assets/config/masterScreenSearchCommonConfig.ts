@@ -2083,6 +2083,57 @@ export const configJsonData = [
                 }
               ]
             }
+          ],
+          platform: [
+            {
+              fieldprop: [
+                {
+                  formcontrolname:"platformname",
+                  label:"Platform",
+                  type:"text",
+                  api:"",
+                  required:null,
+                  placeholder:"Enter Platform",
+                  action:"",
+                  pipe:"",
+                  searchcriteria:
+                  {
+                    formcontrolname:"platformnamesrccriteria"
+                  }
+                },
+                {
+                  formcontrolname:"platformdesc",
+                  label:"Description",
+                  type:"textarea",
+                  api:"",
+                  required: null,
+                  placeholder:"Enter Description",
+                  action:"",
+                  pipe:"",
+                  searchcriteria:
+                  {
+                    formcontrolname:"platformdescsrccriteria"
+                  }
+                }
+              ],
+              searchApi: [
+                {
+                  url:"Platform/search",
+                  method:"post",
+                  data: null
+                }
+              ],
+              api: [
+                {
+                  api:"assets/config/grid-data.json",
+                  apidata:"",
+                  url:"",
+                  param: [
+                    {}
+                  ]
+                }
+              ]
+            }
           ]
         }
       ],

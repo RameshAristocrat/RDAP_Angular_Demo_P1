@@ -385,7 +385,15 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
               type: 'SC',
               header: '0',
               permissionflag: false
-            },
+            },{
+              modulename: 'platform',
+              name: 'platform',
+              link: '/home/config/setuptable/platform/search',
+              icon: 'room_preferences',
+              type: 'SC',
+              header: '0',
+              permissionflag: false
+            }
           ],
         },
         {

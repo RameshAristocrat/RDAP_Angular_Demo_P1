@@ -468,6 +468,15 @@ export const appString = [
 ,{modelname: "releaseNotes", title: "Root Cause Note",gridcolflag: false} 
 ,{modelname:"updateDate",title:"Updated Date", gridcolflag:false} 
 ,{modelname:"userName",title:"User Name", gridcolflag:false}
+,{
+   modelname: "platform",
+   title: "Platform",
+   gridcolflag: false
+}, {
+   modelname: "platformId",
+   title: "Platform ID",
+   gridcolflag: true
+}
 ]
 // "notesCc": null,
 

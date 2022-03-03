@@ -743,6 +743,27 @@ export const breadcrumb = [
     ],
   },
   {
+    page: 'platform',
+    details: [
+      {
+        label: 'Platform',
+        url: '/home/config/setuptable/platform/search',
+      },
+      {
+        label: 'Platform',
+        url: '/home/config/setuptable/platform/add',
+      },
+      {
+        label: 'Platform',
+        url: '/home/config/setuptable/platform/edit',
+      },
+      {
+        label: 'Platform',
+        url: '/home/config/setuptable/platform/view',
+      },
+    ],
+  },
+  {
     page: 'expinreq',
     details: [
       {

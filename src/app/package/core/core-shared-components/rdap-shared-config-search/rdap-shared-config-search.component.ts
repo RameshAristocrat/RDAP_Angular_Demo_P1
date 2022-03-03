@@ -782,6 +782,23 @@ export class RdapSharedConfigSearchComponent implements OnInit {
         this.sortparamarr.push(this.sortparam);
       });
       this.createFormControl();
+    } else if (
+      this.route.match('platform') &&
+      this.route.match('platform').length > 0
+    ) {
+      this.getPermissionmpMasterByModule("platform");
+      this.exportfilename = 'platform_master_data';
+      this.formName = 'platformSearchForm';
+      this.configdata[0].master.filter((x) => {
+        this.routedata = x.platform;
+        this.formdata = this.routedata[0].fieldprop;
+        this.griddata = this.routedata[0].api[0];
+        this.searchUrl = this.baseApi + this.routedata[0].searchApi[0].url;
+        this.sortparam = { field: 'platformId', direction: 'ASC' };
+        this.sortparamarr.push(this.sortparam);
+         
+      });
+      this.createFormControl();
     }
   }
   generateParam() {

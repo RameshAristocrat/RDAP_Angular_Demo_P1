@@ -185,17 +185,17 @@
         <button mat-raised-button style="width: 10%;background-color: #300c46;color:white"
             (click)="cancel()">Back</button>
         <button mat-raised-button style="width: 20%;background-color: #300c46;color:white"
-        *ngIf = "pagePermission[0].isAdd == true"
+        *ngIf = "pagePermission && pagePermission[0].isAdd == true"
          (click)="addNewRecord()">Add New Record</button>
     </mat-card-actions>
     <mat-card-actions style="text-align: left;" *ngIf="searchform && transactionFlag=='V'">
         <button mat-raised-button (click)="submit()" [disabled]="!searchform.valid"
             [ngClass]="{'errorbtn':!searchform.valid, 'successbtn': searchform.valid}"
-            *ngIf="((transactionFlag=='V') && pagePermission[0].isEdit == true)">Save</button>
+            *ngIf="((transactionFlag=='V') && pagePermission && pagePermission[0].isEdit == true)">Save</button>
         <button mat-raised-button style="width: 10%;background-color: #300c46;color:white"
             (click)="cancel()">Back</button>
         <button mat-raised-button style="width: 10%;background-color: #300c46;color:white" 
-        *ngIf="transactionFlag=='V' && pagePermission[0].isDelete == true"
+        *ngIf="transactionFlag=='V' && pagePermission && pagePermission[0].isDelete == true"
             (click)="delete()">Delete</button>
     </mat-card-actions>
 </mat-card>
