@@ -158,18 +158,22 @@ this.isEdit = data.isEdit;
 this.isDelete = data.isDelete;
 this.isView = data.isView;
 
-if(!this.reworkId && this.isAdd)
+if(this.actionFlag == "A")
 {
-this.isShow = true;
+  if(!this.reworkId && this.isAdd)
+  {
+  this.isShow = true;
+  }
+  else{
+    this.noAccessPermission();
+  }
 }
-else{
-  this.noAccessPermission();
-}
+
 if(this.reworkId && this.isView && this.actionFlag == "V")
 {
 this.isShow = true;
 }
-else if(this.reworkId && this.isEdit && this.actionFlag == "U")
+else if(this.reworkId && (this.isEdit || this.isView) && this.actionFlag == "U")
 {
 this.isShow = true;
 }

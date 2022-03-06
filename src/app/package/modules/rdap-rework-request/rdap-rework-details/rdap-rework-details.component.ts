@@ -136,6 +136,7 @@ this.isEdit = data.isEdit;
 this.isDelete = data.isDelete;
 this.isView = data.isView;
 
+
 if(!this.reworkId && !this.isAdd)
 {
   this.noAccessPermission();
@@ -144,7 +145,9 @@ if(this.reworkId && !this.isView)
 {
   this.noAccessPermission();
 }
-
+if (this.reworkId && (this.isView || this.isEdit)) {
+  this.getReworkRequestById();
+}
 
 });
 
@@ -182,10 +185,11 @@ this.isView = true;
     this.reworkrequestdetailsform.controls['requeststatus'].setValue(this.viewExtrapinRequestData.data.requeststatus);
     this.reworkrequestdetailsform.controls['requeststatus'].disable();
 
-    if(this.viewExtrapinRequestData.data.requeststatus == "REJD")
+    
+    if(this.viewExtrapinRequestData.data.requeststatus == "REJD" && this.isEdit )
     {
-
-      if(this.reworkId && !this.isEdit)
+      
+      if(this.reworkId && !this.isEdit )
       {
         this.noAccessPermission();
       }

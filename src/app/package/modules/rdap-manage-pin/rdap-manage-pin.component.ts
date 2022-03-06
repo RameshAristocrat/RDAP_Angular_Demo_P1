@@ -44,7 +44,7 @@ export class RdapManagePinComponent implements OnInit, OnChanges {
     description: "",
     titleId: 0,
     themeId: 0,
-    platform2Id: 0,
+    platformId: 0,
     prodcat3Id: 0,
     sequenceId: 0,
     productbasketId: 0,
@@ -849,7 +849,7 @@ export class RdapManagePinComponent implements OnInit, OnChanges {
 // this.productParam.devtype2Id = this.productform.value.devtypeId;
 // this.productParam.titleId = this.productform.value.titleId;
 // this.productParam.themeId = this.productform.value.themeId;
-// this.productParam.platform2Id = this.productform.value.platformId;
+// this.productParam.platformId = this.productform.value.platformId;
 // this.productParam.prodcat3Id = this.productform.value.prodcatId;
 // this.productParam.sequenceId = this.productform.value.sequenceId;
 // this.productParam.productbasketId = this.productform.value.prodcutbasketId;

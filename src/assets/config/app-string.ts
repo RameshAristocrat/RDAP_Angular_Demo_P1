@@ -462,8 +462,7 @@ export const appString = [
 ,{modelname: "level", title: "Tier",gridcolflag: false}  
 ,{modelname: "priority", title: "Priority",gridcolflag: false}  
 ,{modelname: "show", title: "Show",gridcolflag: false}  
-,{modelname: "revenue", title: "Revenue",gridcolflag: false}    
-,{modelname: "platform2", title: "Platform",gridcolflag: false} 
+,{modelname: "revenue", title: "Revenue",gridcolflag: false}
 ,{modelname: "sequence", title: "Sequence",gridcolflag: false}  
 ,{modelname: "releaseNotes", title: "Root Cause Note",gridcolflag: false} 
 ,{modelname:"updateDate",title:"Updated Date", gridcolflag:false} 

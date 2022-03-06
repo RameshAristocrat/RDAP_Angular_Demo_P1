@@ -1,109 +1,75 @@
 <form style="padding-left: 2%;padding-right: 2%;min-height: 500px;padding-bottom: 2%;padding-top:2%;">
-    <div class="row">
-        <!-- <igx-combo #remoteCombo class="combo"
-        [itemsMaxHeight]="250"
-        [data]="dependencyddldata"
-        [valueKey]="'id'"
-        [displayKey]="'id'"
-        placeholder="Location(s)"
-        searchPlaceholder="Search..."
-        [filterable]="true"
-        (searchInputUpdate)="searchInputFunction($event)"
-        (selectionChanging)="singleSelection($event)">
-        <ng-template igxComboItem let-display let-key="valueKey">
-            <div class="item">
-                <span class="id">{{ display[key] }} - </span>
-                <span class="description">{{ display.description }}</span>
-            </div>
-        </ng-template>
-</igx-combo>
-<igx-simple-combo class="input-container"
-[data]="dependencyddldata"
-[valueKey]="'id'"
-[displayKey]="'id'"
-[type]="'line'"
-placeholder="Location(s)"
-searchPlaceholder="Search..."
-[filterable]="true"
-(searchInputUpdate)="searchInputFunction($event)"
->
-<ng-template igxComboItem let-display let-key="valueKey">
-    <div class="item">
-        <span class="id">{{ display[key] }} - </span>
-        <span class="description">{{ display.description }}</span>
-    </div>
-</ng-template>
-</igx-simple-combo>
-<igx-toast #loadingToast></igx-toast> -->
-        <div class="grid__wrapper">
-            <igx-grid #dependenciesgrid id="dependenciesgrid" primaryKey="id" [data]="data" width="100%"
-                [batchEditing]="false" [rowEditable]="grideditflag" igxOverlayOutlet [autoGenerate]="false"
-                (rowEditDone)="editDone($event)" (rowAdded)="rowAddedDone($event)">
+    <!-- <div class="row">
+        <div class="grid_wrapper">
+            <igx-grid #dependenciesgrid id="dependenciesgrid" [data]="data" primaryKey="id" height="600px" [rowEditable]="grideditflag" (rowAdded)="rowAddedDone($event)">
                 <igx-column field="id" [header]="'Index'" [hidden]="true">
                     <ng-template igxCell let-cell="cell">
-                         {{cell.row.index + 1}}
+                        {{cell.row.index + 1}}
                     </ng-template>
-               </igx-column>
+                </igx-column>
+                <igx-column [width]="'200px'" field="planitem" header="Plan Item" [dataType]="'string'"
+                [editable]="false" [resizable]="true">
+            </igx-column>
+            <igx-column [width]="'300px'" field="planitemDep" header="Plan Item Dependency" [dataType]="'string'"
+                [editable]="true" [resizable]="true">
+                <ng-template igxCellEditor let-cell="cell" let-value>
+                    <ng-select [items]="dependencyddldata" placeholder="Select Dependency(s)" bindLabel="id"
+                        bindValue="id" [virtualScroll]="true" appendTo="body"
+                        (change)="singleSelectionDependency($event, cell, data, 'dependencyid')"
+                        (search)="searchInputFunction($event)">
+                        <ng-template ng-option-tmp let-item="item">
+                            {{ item.id + "-" + item.description + "-" + item.description }}
+                        </ng-template>
+                        <ng-template ng-option-tmp let-item="item" let-search="searchTerm" let-index="index">
+                            <span> {{ item.id }}</span>
+                        </ng-template>
+                    </ng-select>
+                </ng-template>
+            </igx-column>
+            <igx-action-strip #actionstrip>
+                <button *ngIf="mpdependencyPermission && mpdependencyPermission.isEdit == true" title="Edit"
+                    igxButton="icon" igxRipple (click)='startEdit(actionstrip.context)'>
+                    <igx-icon>edit</igx-icon>
+                </button>
+                <button *ngIf="mpdependencyPermission && mpdependencyPermission.isDelete == true" title="Delete"
+                    igxButton="icon" igxRipple (click)="deleterow(actionstrip.context)">
+                    <igx-icon>delete</igx-icon>
+                </button>
+                <button *ngIf="mpdependencyPermission && mpdependencyPermission.isAdd == true" title="Add New"
+                    igxButton="icon" igxRipple (click)='addNew(actionstrip.context)'>
+                    <igx-icon>add</igx-icon>
+                </button>
+            </igx-action-strip>
+            </igx-grid>
+        </div>
+    </div> -->
+    <div class="row">
+        <div class="grid__wrapper">
+            <igx-grid #dependenciesgrid id="dependenciesgrid" primaryKey="id" [data]="data" width="100%" height="500px"
+                [batchEditing]="false" igxOverlayOutlet [autoGenerate]="false" (rowEditDone)="editDone($event)"
+                (rowAdded)="rowAddedDone($event)">
+                <igx-column field="id" [header]="'Index'" [hidden]="true">
+                    <ng-template igxCell let-cell="cell">
+                        {{cell.row.index + 1}}
+                    </ng-template>
+                </igx-column>
                 <igx-column [width]="'200px'" field="planitem" header="Plan Item" [dataType]="'string'"
                     [editable]="false" [resizable]="true">
                 </igx-column>
                 <igx-column [width]="'300px'" field="planitemDep" header="Plan Item Dependency" [dataType]="'string'"
                     [editable]="true" [resizable]="true">
                     <ng-template igxCellEditor let-cell="cell" let-value>
-                        <!-- <mat-form-field class="example-full-width" appearance="fill">
-                            <input type="text"
-                            matInput
-                            [matAutocomplete]="auto">
-                     <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                       <mat-option *ngFor="let option of dependencyddldata" [value]="option.description">
-                         {{option.id}} - {{option.description}}
-                       </mat-option>
-                     </mat-autocomplete>
-                          </mat-form-field> -->
-                        <!-- <ng-select    
-                            #selectdependency           
-                            [items]="dependencyddldata"
-                            bindLabel="description"
-                            bindValue="id"
-                            [clearable]="false"
-                            [virtualScroll]="true"
-                            [multiple]="false"
-                            appendTo="body"
-                            (search)="startsWithSearchFn($event)"
-                            (close)="selectdependency.filterValue = searchTerm"
-                            (input)="searchTerm = selectdependency.filterValue"
-                            (change)="onchangeSelect($event, cell, data, 'dependencyid')">
+                        <ng-select [items]="dependencyddldata" placeholder="Select Dependency(s)" bindLabel="id"
+                            bindValue="id" [virtualScroll]="true" appendTo="body"
+                            (change)="singleSelectionDependency($event, cell, data, 'dependencyid')"
+                            (search)="searchInputFunction($event)">
                             <ng-template ng-option-tmp let-item="item">
-                              {{item.id}} - {{item.description}}
+                                {{ item.id + "-" + item.description + "-" + item.description }}
                             </ng-template>
-                            </ng-select> -->
-                        <!-- <igx-combo #remoteCombo class="combo" [itemsMaxHeight]="250" [itemsMinWidth]="500"
-                            [data]="dependencyddldata" [valueKey]="'id'" [displayKey]="'id'"
-                            placeholder="Select Dependency(s)" searchPlaceholder="Search..." [filterable]="true"
-                            (searchInputUpdate)="searchInputFunction($event)"
-                            (selectionChanging)="singleSelection($event, cell, data, 'dependencyid')" [resizable]="true">
-                            <ng-template igxComboItem let-display let-key="valueKey">
-                                <div class="item">
-                                    <span class="id">{{ display[key] }} - </span>
-                                    <span class="description">{{ display.description }}</span>
-                                </div>
+                            <ng-template ng-option-tmp let-item="item" let-search="searchTerm" let-index="index">
+                                <span> {{ item.id }}</span>
                             </ng-template>
-                        </igx-combo> -->
-                        <ng-select [items]="dependencyddldata"   placeholder="Select Dependency(s)"
-                        bindLabel="id" bindValue="id"
-                [virtualScroll]="true" appendTo="body"  
-                (change)="singleSelectionDependency($event, cell, data, 'dependencyid')"
-                (search)="searchInputFunction($event)"
-                
-               
-               >
-               <ng-template ng-option-tmp let-item="item">
-                 {{ item.id + "-" + item.description + "-" + item.description }}
-               </ng-template>
-               <ng-template ng-option-tmp let-item="item" let-search="searchTerm" let-index="index">
-                 <span >  {{ item.id }}</span>
-           </ng-template>
-             </ng-select>
+                        </ng-select>
                     </ng-template>
                 </igx-column>
                 <igx-column [width]="'200px'" field="description" header="Description" [dataType]="'string'"
@@ -112,24 +78,31 @@ searchPlaceholder="Search..."
                 <igx-column [width]="'200px'" field="descrLong" header="Description Long" [dataType]="'string'"
                     [editable]="false" [resizable]="true">
                 </igx-column>
-                <igx-column [width]="'200px'" field="version" header="Version" [dataType]="'string'" [editable]="false" [resizable]="true">
+                <igx-column [width]="'200px'" field="version" header="Version" [dataType]="'string'" [editable]="false"
+                    [resizable]="true">
                 </igx-column>
-                <igx-column [width]="'200px'" field="market" header="Market" [dataType]="'string'" [editable]="false" [resizable]="true">
+                <igx-column [width]="'200px'" field="market" header="Market" [dataType]="'string'" [editable]="false"
+                    [resizable]="true">
                 </igx-column>
-                <igx-column [width]="'200px'" field="devtype2" header="Dev Type Class" [dataType]="'string'" [editable]="false" [resizable]="true">
+                <igx-column [width]="'200px'" field="devtype2" header="Dev Type Class" [dataType]="'string'"
+                    [editable]="false" [resizable]="true">
                 </igx-column>
-                <igx-column [width]="'200px'" field="studio" header="Studio" [dataType]="'string'" [editable]="false" [resizable]="true">
+                <igx-column [width]="'200px'" field="studio" header="Studio" [dataType]="'string'" [editable]="false"
+                    [resizable]="true">
                 </igx-column>
-                <igx-column [width]="'200px'" field="status3" header="Status" [dataType]="'string'" [editable]="false" [resizable]="true">
+                <igx-column [width]="'200px'" field="status3" header="Status" [dataType]="'string'" [editable]="false"
+                    [resizable]="true">
                 </igx-column>
                 <igx-column [width]="'200px'" field="planitemDepDescr" header="Plan Item Dependency Description"
                     [dataType]="'string'" [editable]="false" [resizable]="true">
                 </igx-column>
-                <igx-column [width]="'200px'" field="title" header="Title" [dataType]="'string'" [editable]="false" [resizable]="true">
+                <igx-column [width]="'200px'" field="title" header="Title" [dataType]="'string'" [editable]="false"
+                    [resizable]="true">
                 </igx-column>
-                <igx-column [width]="'200px'" field="theme" header="Theme" [dataType]="'string'" [editable]="false" [resizable]="true">
+                <igx-column [width]="'200px'" field="theme" header="Theme" [dataType]="'string'" [editable]="false"
+                    [resizable]="true">
                 </igx-column>
-                <igx-column [width]="'200px'" field="platform2" header="Platform" [dataType]="'string'"
+                <igx-column [width]="'200px'" field="platform" header="Platform" [dataType]="'string'"
                     [editable]="false" [resizable]="true">
                 </igx-column>
                 <igx-column [width]="'200px'" field="prodcat3" header="Product Category" [dataType]="'string'"
@@ -141,63 +114,23 @@ searchPlaceholder="Search..."
                 <igx-column [width]="'200px'" field="apprDate" header="Approval Date" [dataType]="'string'"
                     [editable]="false" [resizable]="true">
                 </igx-column>
-                <!-- <igx-action-strip #actionstrip>
-                    <igx-grid-editing-actions [addRow]="true"></igx-grid-editing-actions>
-                </igx-action-strip> -->
                 <igx-action-strip #actionstrip>
-                    <!-- <igx-grid-pinning-actions></igx-grid-pinning-actions> -->
-                    <button *ngIf="mpdependencyPermission && mpdependencyPermission.isEdit == true" title="Edit" igxButton="icon" igxRipple (click)='startEdit(actionstrip.context)'>
-                        <igx-icon>edit</igx-icon>
-                    </button>
-                    <!-- <button title="Undo All" igxButton="icon" igxRipple>
-                        <igx-icon>undo</igx-icon>
-                    </button>
-                    <button title="Redo All" igxButton="icon" igxRipple>
-                        <igx-icon>redo</igx-icon>
-                    </button>
-                    <button title='Save' igxButton="icon" igxRipple>
-                        <igx-icon>save</igx-icon>
-                    </button> -->
-                    <button *ngIf="mpdependencyPermission && mpdependencyPermission.isDelete == true" title="Delete" igxButton="icon" igxRipple (click)="deleterow(actionstrip.context)">
-                        <igx-icon>delete</igx-icon>
-                    </button>
-                    <button *ngIf="mpdependencyPermission && mpdependencyPermission.isAdd == true" title="Add New" igxButton="icon" igxRipple (click)='addNew(actionstrip.context)'>
-                        <igx-icon>add</igx-icon>
-                    </button>
-                </igx-action-strip> 
+                        <button *ngIf="mpdependencyPermission && mpdependencyPermission.isEdit == true" title="Edit"
+                            igxButton="icon" igxRipple (click)='startEdit(actionstrip.context)'>
+                            <igx-icon>edit</igx-icon>
+                        </button>
+                        <button *ngIf="mpdependencyPermission && mpdependencyPermission.isDelete == true" title="Delete"
+                            igxButton="icon" igxRipple (click)="deleterow(actionstrip.context)">
+                            <igx-icon>delete</igx-icon>
+                        </button>
+                        <button *ngIf="mpdependencyPermission && mpdependencyPermission.isAdd == true" title="Add New"
+                            igxButton="icon" igxRipple (click)='addNew(actionstrip.context)'>
+                            <igx-icon>add</igx-icon>
+                        </button>
+                </igx-action-strip>
             </igx-grid>
         </div>
     </div>
-    <!-- <div class="row">
-        <app-rdap-shared-igx-grid-search-result [pagename]="pagename" [exportfilename]="exportfilename" 
-        [searchGridData]="dependencydata" [appString]="appString">
-        </app-rdap-shared-igx-grid-search-result>
-    </div> -->
-    <!-- <ng-select
-                    #selectimpactedpin               
-                    [items]="dependencyddldata"
-                    placeholder="Dependency PINs"
-                    bindValue="planitem"
-                    bindLabel="description"
-                    [clearable]="false"
-                    [virtualScroll]="true"
-                    [multiple]="true"
-                    appendTo="body">
-                    <ng-template ng-option-tmp let-item="item">
-                      {{ item.planitem }} - {{ item.description }}
-                    </ng-template>
-                    </ng-select> -->
-    <!-- <igx-input-group class="autocomplete">
-                        <input igxInput name="town" type="text"
-                        [igxAutocomplete]="dependencyPanel"
-                        (blur)="depdencyBlurEvent($event)"
-                        [(ngModel)]="townSelected"/>
-                    </igx-input-group>
-                    <igx-drop-down #dependencyPanel>
-                        <igx-drop-down-item *ngFor="let ddlitem of dependencyddldata" [value]="ddlitem">
-                            {{ddlitem.planitem}}
-                        </igx-drop-down-item>
-                    </igx-drop-down> -->
-                    <igx-dialog #erroralert title="Manage PINs" message="{{message}}" leftButtonLabel="OK" 
-(leftButtonSelect)="onDialogSubmit($event)"></igx-dialog>
+    <igx-dialog #erroralert title="Manage PINs" message="{{message}}" leftButtonLabel="OK"
+        (leftButtonSelect)="onDialogSubmit($event)"></igx-dialog>
 </form>

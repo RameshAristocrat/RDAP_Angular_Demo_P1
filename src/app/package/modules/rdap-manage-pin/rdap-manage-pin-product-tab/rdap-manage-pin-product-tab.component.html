@@ -11,7 +11,7 @@
         </mat-form-field>
       </div>
       <div class="col-lg-3 form-group">
-        <ng-select ngSelectMat [disabled]="true" [items]="versionarrobj[0]" placeholder="Version" bindLabel="description" bindValue="id"
+        <ng-select ngSelectMat [readonly]="true" [items]="versionarrobj[0]" placeholder="Version" bindLabel="description" bindValue="id"
           [clearable]="false" [virtualScroll]="true" appendTo="body" formControlName="versionId"
           (change)="ddlOnChangeEvent($event)"
           class="custom-class">
@@ -185,8 +185,8 @@
     </div>
     <div class="row">
       <div class="col-lg-3 form-group">
-        <ng-select ngSelectMat [items]="platformarrobj[0]" placeholder="Platform" bindLabel="description" bindValue="id"
-          [clearable]="false" [virtualScroll]="true" appendTo="body" formControlName="platform2Id"
+        <ng-select ngSelectMat [items]="platformarrobj[0]" placeholder="Plaform" bindLabel="description" bindValue="id"
+          [clearable]="false" [virtualScroll]="true" appendTo="body" formControlName="platformId"
           (change)="ddlOnChangeEvent($event)">
           <ng-template ng-option-tmp let-item="item">
             {{  item.description }}

@@ -504,7 +504,7 @@ export class RdapManagePinOthersTabComponent implements OnInit, OnChanges {
           cell.update(linkdata.title);
         } else if (cell.column.field === "theme") {
           //cell.update(event.newSelection.value.title);
-        } else if (cell.column.field === "platform2") {
+        } else if (cell.column.field === "platform") {
           //cell.update(event.newSelection.value.title);
         } else if (cell.column.field === "prodcat3") {
           //cell.update(event.newSelection.value.title);

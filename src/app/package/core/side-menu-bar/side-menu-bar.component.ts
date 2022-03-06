@@ -847,7 +847,16 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
       }
       this.ManagePinMasterModulePermission(this.pagePermission,this.pages,"flag");
     });
+    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "platform").subscribe(res => {
+      if (this.rolepermissionmock == true) {
+        //this.pagePermission.push(rolePermossionMock.rdapRolePermossionMock[0].rolepermissionflagmock);
+      } else {
+        this.pagePermission.push(res);
+      }
+      this.ManagePinMasterModulePermission(this.pagePermission,this.pages,"platform");
+    });
   }
+  
   public getPermissionByModule() {
     this.pagePermission = [];
     this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "ExtraPin").subscribe(res => {

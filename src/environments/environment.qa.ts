@@ -22,7 +22,7 @@ export const environment = {
     extrapinreqapiurl: "https://syde-apptst-01:9999/",
     reworkreqestapi: "https://syde-apptst-01:9999/",
     debuggerflag: false,
-    enablerolepermission: false,
+    enablerolepermission: true,
     enablerolepermissionmock: false,
     rolepermissionextrapinmock: {
         isAdd: true,

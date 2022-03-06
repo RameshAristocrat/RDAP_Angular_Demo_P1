@@ -347,6 +347,39 @@ export class RdapManagePinDependenciesTabComponent implements OnInit, OnChanges 
   }
 
   public singleSelectionDependency(event, existcell, data, field) {
+    debugger
+    this.duplicateplanitemflag = false;
+    let planId = this.dependencyInput.planitem.data.planitem;
+    let currRowIndex = existcell.row.index;
+    let row: IgxGridRowComponent = existcell.row;
+    let selData = this.dependencyddldata.filter(x => x.id == event.id);
+    if (this.addflag == true) {
+      console.log("this.dependenciesgrid",this.dependenciesgrid.data);
+      this.addflag = false;
+      this.data[currRowIndex].description = selData[0].description2;
+      this.data[currRowIndex].descrLong = selData[0].description;
+      this.data[currRowIndex].planitem = planId;
+      this.data[currRowIndex].planitemDep = event.id;
+      this.data = [...this.data];
+    } else {
+      this.addflag = false;
+      debugger
+      this.data[currRowIndex].description = selData[0].description2;
+      this.data[currRowIndex].descrLong = selData[0].description;
+      this.data[currRowIndex].planitem = planId;
+      this.data[currRowIndex].planitemDep = event.id;
+      this.data = [...this.data];
+    }
+    this.editDone(null);
+    // if (event.added) {
+    //   event.newSelection = [event.added[0]];
+    // } else {
+    //   event.newSelection = [];
+    // }
+  }
+  
+  public singleSelectionDependencyold(event, existcell, data, field) {
+    debugger
     this.duplicateplanitemflag = false;
     let planId = this.dependencyInput.planitem.data.planitem;
     let currRowIndex = existcell.row.index;
@@ -407,6 +440,8 @@ export class RdapManagePinDependenciesTabComponent implements OnInit, OnChanges 
   }
 
   public startEdit(row?): void {
+    debugger
+    this.addflag = false;
     const firstEditable = row.cells.filter(cell => cell.editable)[0];
     const grid = row.grid;
 
@@ -418,13 +453,44 @@ export class RdapManagePinDependenciesTabComponent implements OnInit, OnChanges 
 }
 
 public addNew(row?):void{
+  this.addflag = true;
   this.loadDdlApi();
   this.masterApiService.debuggerLog(this.debuggerflag,"dependency add new row index",row);
-  this.dependenciesgrid.beginAddRowByIndex(row.index);
+  //this.dependenciesgrid.beginAddRowByIndex(row.index);
+  this.dependenciesgrid.addRow({apprDate: "",
+  createdby: "",
+  createddate: "",
+  descrLong: "",
+  description: "",
+  devtype2: "",
+  estApprDate: "",
+  lastupdatedby: "",
+  lastupdateddate: "",
+  market: "",
+  planitem: this.pinId,
+  planitemDep: 0,
+  planitemDepDescr: "",
+  platform: "",
+  prodcat3: "",
+  projectref: "",
+  status3: "",
+  studio: "",
+  theme: "",
+  title: "",
+  version: ""});
+  // debugger
+  // const firstEditable = row.cells.filter(cell => cell.editable)[0];
+  // const grid = row.grid;
+
+  // if (grid.rowList.filter(r => r === row).length !== 0) {
+  //     grid.gridAPI.crudService.enterEditMode(firstEditable, event);
+  //     firstEditable.activate();
+  // }
+  // row.hide();
 }
 
 public rowAddedDone(event){
- // debugger
+ debugger
   if(this.addflag == true){
     this.dependenciesgrid.addRow(event.data);
     let lastRec = this.dependenciesgrid.data.pop();

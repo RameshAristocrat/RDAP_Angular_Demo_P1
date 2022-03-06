@@ -51,6 +51,12 @@ input, select, textarea, label, ng-select {
     display: none !important;
 }
 
+:host::ng-deep .igx-overlay__content{
+  width: 883px;
+  left: 0px;
+  top: 0px !important;
+}
+
 :host::ng-deep.igx-grid__td {
   font-size: 0.7rem;
   min-height: 0.8rem;

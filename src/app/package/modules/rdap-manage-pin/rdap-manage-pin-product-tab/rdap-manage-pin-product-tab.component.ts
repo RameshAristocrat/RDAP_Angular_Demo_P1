@@ -90,7 +90,7 @@ export class RdapManagePinProductTabComponent implements OnInit {
   description: "",
   titleId: 0,
   themeId: 0,
-  platform2Id: 0,
+  platformId: 0,
   prodcat3Id: 0,
   sequenceId: 0,
   productbasketId: 0,
@@ -246,7 +246,7 @@ export class RdapManagePinProductTabComponent implements OnInit {
       notesLong: "",
       notesShort: "",
       planitem: 0,
-      platform2Id: 0,
+      platformId: 0,
       priorityId: 0,
       prodcat3Id: 0,
       productbasketId: 0,
@@ -295,7 +295,7 @@ export class RdapManagePinProductTabComponent implements OnInit {
       notesLong: "",
       notesShort: "",
       planitem: 0,
-      platform2Id: 0,
+      platformId: 0,
       priorityId: 0,
       prodcat3Id: 0,
       productbasketId: 0,
@@ -475,7 +475,10 @@ export class RdapManagePinProductTabComponent implements OnInit {
     this.masterApiService.masterSearchDDL(this.baseApi + "theme/ddl/false").subscribe(data => {
       this.themearrobj.push(data);
     });
-    this.masterApiService.masterSearchDDL(this.baseApi + "platform2/ddl/false").subscribe(data => {
+    // this.masterApiService.masterSearchDDL(this.baseApi + "platform/ddl/false").subscribe(data => {
+    //   this.platformarrobj.push(data);
+    // });
+    this.masterApiService.masterSearchDDL(this.baseApi + "platform/ddl/false").subscribe(data => {
       this.platformarrobj.push(data);
     });
     this.masterApiService.masterSearchDDL(this.baseApi + "prodcat3/ddl/false").subscribe(data => {
@@ -546,7 +549,7 @@ export class RdapManagePinProductTabComponent implements OnInit {
       description: "",
       titleId: 0,
       themeId: 0,
-      platform2Id: 0,
+      platformId: 0,
       prodcat3Id: 0,
       sequenceId: 0,
       productbasketId: 0,
@@ -602,7 +605,7 @@ export class RdapManagePinProductTabComponent implements OnInit {
     this.productform.controls["notesLong"].setValue(this.viewExtrapinRequestData.data.notesLong);
     this.productform.controls["notesShort"].setValue(this.viewExtrapinRequestData.data.notesShort);
     this.productform.controls["planitem"].setValue(this.viewExtrapinRequestData.data.planitem);
-    this.productform.controls["platform2Id"].setValue(this.viewExtrapinRequestData.data.platform2Id);
+    this.productform.controls["platformId"].setValue(this.viewExtrapinRequestData.data.platformId);
     this.productform.controls["priorityId"].setValue(this.viewExtrapinRequestData.data.priorityId);
     this.productform.controls["prodcat3Id"].setValue(this.viewExtrapinRequestData.data.prodcat3Id);
     this.productform.controls["productbasketId"].setValue(this.viewExtrapinRequestData.data.productbasketId);
@@ -642,7 +645,7 @@ export class RdapManagePinProductTabComponent implements OnInit {
     this.productmodel.description = this.viewExtrapinRequestData.data.description;
     this.productmodel.titleId = this.viewExtrapinRequestData.data.titleId;
     this.productmodel.themeId = this.viewExtrapinRequestData.data.themeId;
-    this.productmodel.platform2Id = this.viewExtrapinRequestData.data.platform2Id;
+    this.productmodel.platformId = this.viewExtrapinRequestData.data.platformId;
     this.productmodel.prodcat3Id = this.viewExtrapinRequestData.data.prodcat3Id;
     this.productmodel.sequenceId = this.viewExtrapinRequestData.data.sequenceId;
     this.productmodel.productbasketId = this.viewExtrapinRequestData.data.productbasketId;
@@ -669,7 +672,7 @@ export class RdapManagePinProductTabComponent implements OnInit {
     this.productmodel.notesLong = this.viewExtrapinRequestData.data.notesLong;
     this.productmodel.gamecomplexityId = this.viewExtrapinRequestData.data.gamecomplexityId;
     this.productmodel.archType = this.viewExtrapinRequestData.data.archType;
-    this.productform.get("versionId").disable({ onlySelf: true });
+    //this.productform.get("versionId").disable({ onlySelf: true });
     this.productEvent.emit(this.productform);
   }
   isViewOnlyPermission(){
@@ -694,7 +697,7 @@ export class RdapManagePinProductTabComponent implements OnInit {
     this.productform.get("notesLong").disable({ onlySelf: true });
     this.productform.get("notesShort").disable({ onlySelf: true });
     this.productform.get("planitem").disable({ onlySelf: true });
-    this.productform.get("platform2Id").disable({ onlySelf: true });
+    this.productform.get("platformId").disable({ onlySelf: true });
     this.productform.get("priorityId").disable({ onlySelf: true });
     this.productform.get("prodcat3Id").disable({ onlySelf: true });
     this.productform.get("productbasketId").disable({ onlySelf: true });
