@@ -146,6 +146,12 @@ export class RdapManagePinTestDetailsTabComponent implements OnInit {
     this.searchUrl = this.extraPinAPi + "testerplan/getbyplanitem/" + this.pinId;
     this.masterApiService.getMasterDataById(this.searchUrl).subscribe(x => {
       this.testdetails = x;
+      this.testdetails.forEach(y => {
+        if(y.descrLong == null){
+          y.descrLong = "";
+        }
+      });
+      console.log("testerplan",x)
       if (x.length > 0) {
         this.data = x;
       } else {
@@ -176,7 +182,7 @@ export class RdapManagePinTestDetailsTabComponent implements OnInit {
     this.testdetailsEvent.emit(this.emitData);
   }
 
-  public onchangeSelect(event, existcell, data, field, ddldata) {
+  public onchangeSelectOld(event, existcell, data, field, ddldata) {
     this.testerUrl = this.baseApi + "tester/ddl";
     // this.loadDdlApi();
     let selTesterData, selIntTesterData;
@@ -235,6 +241,36 @@ export class RdapManagePinTestDetailsTabComponent implements OnInit {
     }
   }
 
+  public onchangeSelect(event, existcell, data, field, ddldata) {
+    this.testerUrl = this.baseApi + "tester/ddl";
+    // this.loadDdlApi();
+    let selTesterData, selIntTesterData;
+    let row: IgxGridRowComponent = existcell.row;
+    let currRowIndex = existcell.row.index;
+    if (event.added) {
+      event.newSelection = [event.added[0]];
+    } else {
+      event.newSelection = [];
+    }
+      if (field == "tester") {
+        selTesterData = ddldata.filter(x => x.id == event.newSelection[0]);
+        this.data[currRowIndex].tester = selTesterData[0].description;
+        this.data[currRowIndex].testerId = selTesterData[0].id;
+      }
+      if (field == "inttester") {
+        selIntTesterData = ddldata.filter(x => x.id == event.newSelection[0]);
+        this.data[currRowIndex].inttester = selIntTesterData[0].description;
+        this.data[currRowIndex].inttesterId = selIntTesterData[0].id;
+      }
+      if (field == "descrLong") {
+        this.data[currRowIndex].descrLong = event.target.value;
+      }
+
+      this.data = [...this.data];
+
+      this.editDone(null);
+  }
+
   public startEdit(row?): void {
     const firstEditable = row.cells.filter(cell => cell.editable)[0];
     const grid = row.grid;
@@ -248,7 +284,20 @@ export class RdapManagePinTestDetailsTabComponent implements OnInit {
 
   public addNew(row?): void {
     this.masterApiService.debuggerLog(this.debuggerflag,"addNew",row);
-    this.testdetailsgrid.beginAddRowByIndex(row.index);
+    console.log("testergrid",this.testdetailsgrid.data);
+    //this.testdetailsgrid.beginAddRowByIndex(row.index);
+    this.testdetailsgrid.addRow({createdby: "",
+    createddate: "",
+    descrLong: "",
+    inttester: "",
+    inttesterDescription: "",
+    inttesterId: 0,
+    lastupdatedby: "",
+    lastupdateddate: "",
+    planitem: this.pinId,
+    tester: "",
+    testerDescription: "",
+    testerId: 0});
   }
 
   public testDetailsRowAddedDone(event){

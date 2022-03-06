@@ -347,7 +347,6 @@ export class RdapManagePinDependenciesTabComponent implements OnInit, OnChanges 
   }
 
   public singleSelectionDependency(event, existcell, data, field) {
-    debugger
     this.duplicateplanitemflag = false;
     let planId = this.dependencyInput.planitem.data.planitem;
     let currRowIndex = existcell.row.index;
@@ -363,7 +362,6 @@ export class RdapManagePinDependenciesTabComponent implements OnInit, OnChanges 
       this.data = [...this.data];
     } else {
       this.addflag = false;
-      debugger
       this.data[currRowIndex].description = selData[0].description2;
       this.data[currRowIndex].descrLong = selData[0].description;
       this.data[currRowIndex].planitem = planId;
@@ -379,7 +377,6 @@ export class RdapManagePinDependenciesTabComponent implements OnInit, OnChanges 
   }
   
   public singleSelectionDependencyold(event, existcell, data, field) {
-    debugger
     this.duplicateplanitemflag = false;
     let planId = this.dependencyInput.planitem.data.planitem;
     let currRowIndex = existcell.row.index;

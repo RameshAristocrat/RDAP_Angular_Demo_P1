@@ -47,7 +47,7 @@
         <div class="grid__wrapper">
             <igx-grid #dependenciesgrid id="dependenciesgrid" primaryKey="id" [data]="data" width="100%" height="500px"
                 [batchEditing]="false" igxOverlayOutlet [autoGenerate]="false" (rowEditDone)="editDone($event)"
-                (rowAdded)="rowAddedDone($event)">
+                (rowAdded)="rowAddedDone($event)" (onCellEdit)="editDone($event)">
                 <igx-column field="id" [header]="'Index'" [hidden]="true">
                     <ng-template igxCell let-cell="cell">
                         {{cell.row.index + 1}}

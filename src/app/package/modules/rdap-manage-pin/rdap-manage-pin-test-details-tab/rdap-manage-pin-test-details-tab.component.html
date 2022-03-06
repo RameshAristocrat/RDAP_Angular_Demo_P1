@@ -1,15 +1,19 @@
 <form style="padding-left: 2%;padding-right: 2%;min-height: 500px;padding-bottom: 2%;padding-top:2%;">
     <div class="row">
         <div class="grid__wrapper">
-            <igx-grid #testdetailsgrid id="testdetailsgrid" primaryKey="id" [data]="data" width="100%"
-                [rowEditable]="grideditflag" igxOverlayOutlet [autoGenerate]="false" (onCellEdit)="editDone($event)"
-                (rowAdded)="testDetailsRowAddedDone($event)">
+            <igx-grid #testdetailsgrid id="testdetailsgrid" primaryKey="id" [data]="data" width="100%" height="100%"
+            style="min-height: 300px;"
+            igxOverlayOutlet [autoGenerate]="false" (onCellEdit)="editDone($event)"
+                (rowAdded)="testDetailsRowAddedDone($event)" (rowEditDone)="editDone($event)">
                 <igx-column field="id" [header]="'Index'" [hidden]="true">
                     <ng-template igxCell let-cell="cell">
                          {{cell.row.index + 1}}
                     </ng-template>
                </igx-column>
-                <igx-column [width]="'200px'" field="tester" header="Tester" [dataType]="'string'" [resizable]="true">
+               <igx-column [width]="'100px'" field="planitem" header="Plan Item" 
+               [dataType]="'string'" [hidden]="false" [editable]="false"  [resizable]="true">
+             </igx-column> 
+                <igx-column [width]="'200px'" field="tester" header="Tester" [dataType]="'string'" [resizable]="true" [editable]="true">
                     <ng-template igxCellEditor let-cell="cell" let-value>                        
                         <igx-combo #remoteCombo class="combo" [itemsMaxHeight]="250" [itemsMinWidth]="500"
                         [data]="testerDdlData" [valueKey]="'id'" [displayKey]="'description'"
@@ -30,7 +34,7 @@
                     </ng-template>
                 </igx-column>
                 <igx-column [width]="'200px'" field="inttester" header="Int Tester" [dataType]="'string'"
-                    [hidden]="false" [resizable]="true">
+                    [hidden]="false" [resizable]="true" [editable]="true">
                     <ng-template igxCellEditor let-cell="cell" let-value>
                            <!-- <igx-select #select (selectionChanging)="onchangeSelect($event, cell, data, 'inttester')">
                          <igx-select-item *ngFor="let item of inttesterDdlData" [value]="item">
@@ -50,7 +54,7 @@
                     </ng-template>
                 </igx-column>
                 <igx-column [width]="'200px'" field="descrLong" header="Long Description" [dataType]="'string'"
-                [hidden]="false" [resizable]="true">
+                [hidden]="false" [resizable]="true" [editable]="true">
                 <ng-template igxCellEditor let-cell="cell" let-value>
                     <input type="text" matInput (blur)="onchangeSelect($event, cell, data, 'descrLong')" />
                 </ng-template>

@@ -183,6 +183,34 @@ export class RdapManagePinSetItemsTabComponent implements OnInit, OnChanges {
     let currRowIndex = existcell.row.index;
     let row: IgxGridRowComponent = existcell.row;
     let selSetItemData = ddldata.filter(x=>x.id == event.newSelection[0]);
+    if (this.addflag == true) {
+      this.addflag = false;
+      this.data[currRowIndex].description = selSetItemData[0].description2;
+      this.data[currRowIndex].descrLong = selSetItemData[0].description;
+      this.data[currRowIndex].planitem = planId;
+      this.data[currRowIndex].setitemId = selSetItemData[0].id;
+      this.data = [...this.data];
+    } else {
+      this.addflag = false;
+      this.data[currRowIndex].description = selSetItemData[0].description2;
+      this.data[currRowIndex].descrLong = selSetItemData[0].description;
+      this.data[currRowIndex].planitem = planId;
+      this.data[currRowIndex].setitemId = selSetItemData[0].id;
+      this.data = [...this.data];
+    }
+    this.editDone(null);
+    if (event.added) {
+      event.newSelection = [event.added[0]];
+    } else {
+      event.newSelection = [];
+    }
+  }
+
+  onchangeSelectold(event, existcell, data, field, ddldata) {
+    let planId = this.setitemInput.planitem.data.planitem;
+    let currRowIndex = existcell.row.index;
+    let row: IgxGridRowComponent = existcell.row;
+    let selSetItemData = ddldata.filter(x=>x.id == event.newSelection[0]);
     if (existcell.row.inEditMode == true && existcell.row.addRowUI == true) {
       this.addflag = true;
       row.cells.forEach(function (cell: IgxGridCellComponent) {
@@ -225,7 +253,19 @@ export class RdapManagePinSetItemsTabComponent implements OnInit, OnChanges {
   public addNew(row?): void {
     //debugger
     console.log("row", row);
-    this.setitemgrid.beginAddRowByIndex(row.index);
+    this.addflag = true;
+    console.log("setitemgrid",this.setitemgrid.data);
+    //this.setitemgrid.beginAddRowByIndex(row.index);
+    this.setitemgrid.addRow({createdby: "",
+    createddate: "",
+    descrLong: "",
+    description: "",
+    lastupdatedby: "",
+    lastupdateddate: "",
+    planitem: this.pinId,
+    setitem: "",
+    setitemId: 0,
+    settype: ""});
   }
 
   public setItemRowAddedDone(event){

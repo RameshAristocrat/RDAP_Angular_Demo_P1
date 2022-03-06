@@ -526,7 +526,7 @@ export class RdapManagePinComponent implements OnInit, OnChanges {
   }
 
   testdetailsEvent(data) {
-    this.testerdetailsParam.planitem = this.pinId;
+    this.testerdetailsParam.planitem = parseInt(this.pinId);
     this.testerdetailsParam.testers = data.data;
     this.testerPlanFlag = data.flag;
   }
@@ -668,6 +668,7 @@ export class RdapManagePinComponent implements OnInit, OnChanges {
     }
     if (this.testerPlanFlag == true && this.mptesterPermission.isEdit == true || this.mptesterPermission.isDelete == true || this.mptesterPermission.isAdd == true) {
       testerPlanUrl = this.extraPinAPi + "testerplan/savelist";
+      debugger
       this.masterApiService.masterAdd(testerPlanUrl, this.testerdetailsParam).subscribe(data => {
         this.testdetailsInput = { planitem: this.viewExtrapinRequestData, savedata: data }
         this.masterApiService.debuggerLog(this.debuggerflag, "tester plan Details Saved Success", data);
