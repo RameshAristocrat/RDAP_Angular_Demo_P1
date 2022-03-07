@@ -1,53 +1,62 @@
-<form  style="padding-left: 2%;padding-right: 2%;min-height: 500px;padding-bottom: 2%;padding-top:2%;">
+<form style="padding-left: 2%;padding-right: 2%;min-height: 500px;padding-bottom: 2%;padding-top:2%;">
     <div class="row">
         <div class="grid__wrapper">
-          <igx-grid #setitemgrid id="setitemgrid" 
-          primaryKey="id" [data]="data" width="100%" height="100%" style="min-height: 300px;"
-          igxOverlayOutlet [autoGenerate]="false" (onCellEdit)="editDone($event)"
-          (rowAdded)="setItemRowAddedDone($event)" (rowEditDone)="editDone($event)">
-          <igx-column field="id" [header]="'Index'" [hidden]="true">
-            <ng-template igxCell let-cell="cell">
-                 {{cell.row.index + 1}}
-            </ng-template>
-       </igx-column>
-          <igx-column [width]="'100px'" field="planitem" header="Plan Item" 
-          [dataType]="'string'" [hidden]="false" [editable]="false"  [resizable]="true">
-        </igx-column> 
-          <igx-column [width]="'200px'" field="description" header="Set Items" 
-          [dataType]="'string'"  [resizable]="true" [editable]="true">
-            <ng-template igxCellEditor let-cell="cell" let-value>
-            <!-- <igx-select #select (selectionChanging)="onchangeSelect($event, cell, data, 'tester')">
+            <igx-grid #setitemgrid id="setitemgrid" primaryKey="id" [data]="data" width="100%" height="100%"
+            [batchEditing]="false" style="min-height: 300px;" igxOverlayOutlet [autoGenerate]="false" (onCellEdit)="editDone($event)"
+                (rowAdded)="setItemRowAddedDone($event)" (rowEditDone)="editDone($event)">
+                <igx-grid-toolbar *ngIf="mpsetitemPermission && mpsetitemPermission.isAdd == true">
+                    <button igxButton="flat" (click)='addNew(actionstrip.context)' class="addProdBtn"
+                        style="font-weight: 600 !important; font-size: 0.7rem !important;">
+                        <igx-icon>add</igx-icon> Add Set Item
+                    </button>
+                </igx-grid-toolbar>
+                <igx-column field="id" [header]="'Index'" [hidden]="true">
+                    <ng-template igxCell let-cell="cell">
+                        {{cell.row.index + 1}}
+                    </ng-template>
+                </igx-column>
+                <igx-column [width]="'100px'" field="planitem" header="Plan Item" [dataType]="'string'" [hidden]="false"
+                    [editable]="false" [resizable]="true">
+                </igx-column>
+                <igx-column [width]="'200px'" field="description" header="Set Items" [dataType]="'string'"
+                    [resizable]="true" [editable]="true">
+                    <ng-template igxCellEditor let-cell="cell" let-value>
+                        <!-- <igx-select #select (selectionChanging)="onchangeSelect($event, cell, data, 'tester')">
                 <igx-select-item *ngFor="let item of setitemDdlData" [value]="item">
                     {{ item.description }}
                 </igx-select-item>
             </igx-select> -->
-            <igx-combo #remoteCombo class="combo" [itemsMaxHeight]="250" [itemsMinWidth]="500"
-            [data]="setitemDdlData" [valueKey]="'id'" [displayKey]="'description'"
-            placeholder="Select InTester(s)" searchPlaceholder="Search..." [filterable]="true"
-            (selectionChanging)="onchangeSelect($event, cell, data, 'inttester',setitemDdlData)">
-            <ng-template igxComboItem let-display let-key="valueKey">
-                <div class="item">
-                    <span class="description">{{ display.description }}</span>
-                </div>
-            </ng-template>
-        </igx-combo>
-        </ng-template>
-        </igx-column>
-        <igx-column [width]="'200px'" field="descrLong" header="Long Description" [dataType]="'string'" [hidden]="false" [editable]="false"  [resizable]="true">
-        </igx-column>
-        <igx-column [width]="'100px'" field="settype" header="Set Type" [dataType]="'string'" [hidden]="false"  [resizable]="true">
-        </igx-column>
-  <igx-column [width]="'100px'" field="setitemId" header="setitemID" [dataType]="'number'" [hidden]="true"  [resizable]="true">
-</igx-column>
-          <!-- <igx-action-strip #actionstrip>
+                        <igx-combo #remoteCombo class="combo" [itemsMaxHeight]="250" [itemsMinWidth]="500"
+                            [data]="setitemDdlData" [valueKey]="'id'" [displayKey]="'description'"
+                            placeholder="Select InTester(s)" searchPlaceholder="Search..." [filterable]="true"
+                            (selectionChanging)="onchangeSelect($event, cell, data, 'inttester',setitemDdlData)">
+                            <ng-template igxComboItem let-display let-key="valueKey">
+                                <div class="item">
+                                    <span class="description">{{ display.description }}</span>
+                                </div>
+                            </ng-template>
+                        </igx-combo>
+                    </ng-template>
+                </igx-column>
+                <igx-column [width]="'200px'" field="descrLong" header="Long Description" [dataType]="'string'"
+                    [hidden]="false" [editable]="false" [resizable]="true">
+                </igx-column>
+                <igx-column [width]="'100px'" field="settype" header="Set Type" [dataType]="'string'" [hidden]="false"
+                    [resizable]="true">
+                </igx-column>
+                <igx-column [width]="'100px'" field="setitemId" header="setitemID" [dataType]="'number'" [hidden]="true"
+                    [resizable]="true">
+                </igx-column>
+                <!-- <igx-action-strip #actionstrip>
               <igx-grid-editing-actions [addRow]="true"></igx-grid-editing-actions>
           </igx-action-strip> -->
-          <igx-action-strip #actionstrip>
-            <!-- <igx-grid-pinning-actions></igx-grid-pinning-actions> -->
-            <button *ngIf="mpsetitemPermission && mpsetitemPermission.isEdit == true" title="Edit" igxButton="icon" igxRipple (click)='startEdit(actionstrip.context)'>
-                <igx-icon>edit</igx-icon>
-            </button>
-            <!-- <button title="Undo All" igxButton="icon" igxRipple>
+                <igx-action-strip #actionstrip>
+                    <!-- <igx-grid-pinning-actions></igx-grid-pinning-actions> -->
+                    <button *ngIf="mpsetitemPermission && mpsetitemPermission.isEdit == true" title="Edit"
+                        igxButton="icon" igxRipple (click)='startEdit(actionstrip.context)'>
+                        <igx-icon>edit</igx-icon>
+                    </button>
+                    <!-- <button title="Undo All" igxButton="icon" igxRipple>
                 <igx-icon>undo</igx-icon>
             </button>
             <button title="Redo All" igxButton="icon" igxRipple>
@@ -56,14 +65,16 @@
             <button title='Save' igxButton="icon" igxRipple>
                 <igx-icon>save</igx-icon>
             </button> -->
-            <button *ngIf="mpsetitemPermission && mpsetitemPermission.isDelete == true" title="Delete" igxButton="icon" igxRipple (click)="deleterow(actionstrip.context)">
-                <igx-icon>delete</igx-icon>
-            </button>
-            <button *ngIf="mpsetitemPermission && mpsetitemPermission.isAdd == true" title="Add New" igxButton="icon" igxRipple (click)='addNew(actionstrip.context)'>
-                <igx-icon>add</igx-icon>
-            </button>
-        </igx-action-strip> 
-      </igx-grid>
-      </div>
-      </div>
+                    <button *ngIf="mpsetitemPermission && mpsetitemPermission.isDelete == true" title="Delete"
+                        igxButton="icon" igxRipple (click)="deleterow(actionstrip.context)">
+                        <igx-icon>delete</igx-icon>
+                    </button>
+                    <button *ngIf="mpsetitemPermission && mpsetitemPermission.isAdd == true" title="Add New"
+                        igxButton="icon" igxRipple (click)='addNew(actionstrip.context)'>
+                        <igx-icon>add</igx-icon>
+                    </button>
+                </igx-action-strip>
+            </igx-grid>
+        </div>
+    </div>
 </form>

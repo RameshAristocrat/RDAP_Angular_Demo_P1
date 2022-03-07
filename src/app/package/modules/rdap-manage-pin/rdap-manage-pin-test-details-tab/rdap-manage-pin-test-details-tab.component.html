@@ -5,6 +5,12 @@
             style="min-height: 300px;"
             igxOverlayOutlet [autoGenerate]="false" (onCellEdit)="editDone($event)"
                 (rowAdded)="testDetailsRowAddedDone($event)" (rowEditDone)="editDone($event)">
+                <igx-grid-toolbar *ngIf="mptesterPermission && mptesterPermission.isAdd == true">
+                    <button igxButton="flat" (click)='addNew(actionstrip.context)' class="addProdBtn"
+                        style="font-weight: 600 !important; font-size: 0.7rem !important;">
+                        <igx-icon>add</igx-icon> Add Tester Plan
+                    </button>
+                </igx-grid-toolbar>
                 <igx-column field="id" [header]="'Index'" [hidden]="true">
                     <ng-template igxCell let-cell="cell">
                          {{cell.row.index + 1}}

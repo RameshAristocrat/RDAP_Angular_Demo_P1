@@ -63,5 +63,5 @@ input, select, textarea, label, ng-select {
 }
 
 :host::ng-deep.igx-grid-toolbar{
-  display: none !important;
+  display: block !important;
 }

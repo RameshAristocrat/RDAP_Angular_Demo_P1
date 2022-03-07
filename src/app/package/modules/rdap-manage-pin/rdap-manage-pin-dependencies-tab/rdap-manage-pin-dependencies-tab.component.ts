@@ -437,7 +437,7 @@ export class RdapManagePinDependenciesTabComponent implements OnInit, OnChanges 
   }
 
   public startEdit(row?): void {
-    debugger
+    //debugger
     this.addflag = false;
     const firstEditable = row.cells.filter(cell => cell.editable)[0];
     const grid = row.grid;
@@ -487,7 +487,7 @@ public addNew(row?):void{
 }
 
 public rowAddedDone(event){
- debugger
+ //debugger
   if(this.addflag == true){
     this.dependenciesgrid.addRow(event.data);
     let lastRec = this.dependenciesgrid.data.pop();

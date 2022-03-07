@@ -591,7 +591,7 @@ export class RdapManagePinComponent implements OnInit, OnChanges {
   otherEventImpacpin(data) {
     if (data.name == "impacpinno") {
       this.impacpinParam.planitem = this.pinId;
-      debugger
+     // debugger
       this.impacpinParam.impactedPins = data.data;
       this.impactedPinFlag = data.flag;
     }

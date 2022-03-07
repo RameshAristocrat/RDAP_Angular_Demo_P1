@@ -278,7 +278,7 @@ export class RdapManagePinOthersTabComponent implements OnInit, OnChanges {
   }
 
   editImpactedPinDone(data) {
-    debugger
+    //debugger
     this.impactedpindetailsArrObj = [];
     this.impacPinEmitData = { data: null, flag: false, name: "impacpinno" }
     this.impactedpingrid.data.forEach(x => {
@@ -398,7 +398,7 @@ export class RdapManagePinOthersTabComponent implements OnInit, OnChanges {
     let row: IgxGridRowComponent = existcell.row;
     curpin = this.pinId;
     this.impactedPinaddflag = false;
-    debugger
+    //debugger
     this.impactedpindata[currRowIndex].impactedpinno = event.id;
     this.impactedpindata[currRowIndex].planitem = curpin;
     this.editImpactedPinDone(null);

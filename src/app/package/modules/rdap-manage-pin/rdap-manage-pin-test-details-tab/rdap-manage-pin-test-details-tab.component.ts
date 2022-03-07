@@ -87,7 +87,7 @@ export class RdapManagePinTestDetailsTabComponent implements OnInit {
       if (this.rolepermissionmock == true) {
         this.pagePermission.push(rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissiontesterplanmock);
         this.mptesterPermission = rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissiontesterplanmock;
-        debugger
+        //debugger
         if(this.mptesterPermission.isView == true && this.mptesterPermission.isEdit == false){
           this.isViewOnlyPermission();
         }
@@ -301,7 +301,7 @@ export class RdapManagePinTestDetailsTabComponent implements OnInit {
   }
 
   public testDetailsRowAddedDone(event){
-    debugger
+    //debugger
     
     if(this.addflag == true){
       this.testdetailsgrid.addRow(event.data);

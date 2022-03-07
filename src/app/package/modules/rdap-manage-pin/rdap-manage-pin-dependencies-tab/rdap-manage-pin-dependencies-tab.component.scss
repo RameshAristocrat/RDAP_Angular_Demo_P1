@@ -7,3 +7,17 @@
     left: 0px;
     top: 0px !important;
 }
+
+.default-theme {
+    .addProdBtn.igx-button--raised {
+        background-color: lightgrey;
+        color: black;
+        &:hover {
+            background-color: rgba(0, 0, 0, 0.26)
+        }
+    }
+}
+
+.igx-grid-toolbar, .igx-grid-toolbar--cosy, .igx-grid-toolbar--compact{
+    min-height:0.625rem !important;
+}

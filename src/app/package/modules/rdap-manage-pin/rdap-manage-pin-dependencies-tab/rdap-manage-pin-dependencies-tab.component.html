@@ -48,6 +48,12 @@
             <igx-grid #dependenciesgrid id="dependenciesgrid" primaryKey="id" [data]="data" width="100%" height="500px"
                 [batchEditing]="false" igxOverlayOutlet [autoGenerate]="false" (rowEditDone)="editDone($event)"
                 (rowAdded)="rowAddedDone($event)" (onCellEdit)="editDone($event)">
+                <igx-grid-toolbar *ngIf="mpdependencyPermission && mpdependencyPermission.isAdd == true">
+                    <button igxButton="flat" (click)='addNew(actionstrip.context)' class="addProdBtn"
+                        style="font-weight: 600 !important; font-size: 0.7rem !important;">
+                        <igx-icon>add</igx-icon> Add Dependency
+                    </button>
+                </igx-grid-toolbar>
                 <igx-column field="id" [header]="'Index'" [hidden]="true">
                     <ng-template igxCell let-cell="cell">
                         {{cell.row.index + 1}}
@@ -115,18 +121,18 @@
                     [editable]="false" [resizable]="true">
                 </igx-column>
                 <igx-action-strip #actionstrip>
-                        <button *ngIf="mpdependencyPermission && mpdependencyPermission.isEdit == true" title="Edit"
-                            igxButton="icon" igxRipple (click)='startEdit(actionstrip.context)'>
-                            <igx-icon>edit</igx-icon>
-                        </button>
-                        <button *ngIf="mpdependencyPermission && mpdependencyPermission.isDelete == true" title="Delete"
-                            igxButton="icon" igxRipple (click)="deleterow(actionstrip.context)">
-                            <igx-icon>delete</igx-icon>
-                        </button>
-                        <button *ngIf="mpdependencyPermission && mpdependencyPermission.isAdd == true" title="Add New"
-                            igxButton="icon" igxRipple (click)='addNew(actionstrip.context)'>
-                            <igx-icon>add</igx-icon>
-                        </button>
+                    <button *ngIf="mpdependencyPermission && mpdependencyPermission.isEdit == true" title="Edit"
+                        igxButton="icon" igxRipple (click)='startEdit(actionstrip.context)'>
+                        <igx-icon>edit</igx-icon>
+                    </button>
+                    <button *ngIf="mpdependencyPermission && mpdependencyPermission.isDelete == true" title="Delete"
+                        igxButton="icon" igxRipple (click)="deleterow(actionstrip.context)">
+                        <igx-icon>delete</igx-icon>
+                    </button>
+                    <button *ngIf="mpdependencyPermission && mpdependencyPermission.isAdd == true" title="Add New"
+                        igxButton="icon" igxRipple (click)='addNew(actionstrip.context)'>
+                        <igx-icon>add</igx-icon>
+                    </button>
                 </igx-action-strip>
             </igx-grid>
         </div>
