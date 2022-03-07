@@ -476,10 +476,11 @@ this.milestoneform.get("planApprDate").disable({ onlySelf: true });
     this.emitData = { data: null, flag: false };
     if(this.milestoneform.status.toLowerCase() == "invalid")
     {
-      this.notificationAlert.open();
-      this.message= "Market Required Date selection is mandatory.";
+      
+      this.emitData = { data: this.milestoneform, flag:flagVal };
+      this.milestoneEvent.emit(this.emitData);
     }
-    else{
+   else{
       let milestoneParam = {
         mrd: this.milestoneform.value.planApprDate,
         tad: this.milestoneform.value.tgtApprDate,

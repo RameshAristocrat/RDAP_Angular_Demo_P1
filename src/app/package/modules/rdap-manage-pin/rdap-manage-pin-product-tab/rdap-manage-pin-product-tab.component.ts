@@ -197,35 +197,65 @@ export class RdapManagePinProductTabComponent implements OnInit {
        
         
     }
+    // if (formcontrolname == "channelId") {
+    //   this.masterApiService.masterSearchDDL(this.baseApi + "channeltype/ddlbychannel/" + event.id).subscribe(data => {
+    //     this.productform.controls["channeltypeId"].setValue(0);
+    //     this.channeltypearrobj = [];
+    //     this.channeltypearrobj.push(data);
+    //   });
+    // }
+    // else if (formcontrolname == "regionId") {
+    //   this.masterApiService.masterSearchDDL(this.baseApi + "market/ddlbyregion/" + event.id).subscribe(data => {
+    //     this.productform.controls["marketId"].setValue(0);
+    //     this.marketarrobj = [];
+    //     this.marketarrobj.push(data);
+    //   });
+    // }
+
     if (formcontrolname == "channelId") {
-      this.masterApiService.masterSearchDDL(this.baseApi + "channeltype/ddlbychannel/" + event.id).subscribe(data => {
-        this.productform.controls["channeltypeId"].setValue(0);
+      
+      this.masterApiService.masterSearchDDL(this.baseApi + "channeltype/ddlbychannel/" + event.id + "/true").subscribe(data => {
         this.channeltypearrobj = [];
         this.channeltypearrobj.push(data);
+        this.productform.controls["channeltypeId"].setValue("");
+        
       });
     }
     else if (formcontrolname == "regionId") {
-      this.masterApiService.masterSearchDDL(this.baseApi + "market/ddlbyregion/" + event.id).subscribe(data => {
-        this.productform.controls["marketId"].setValue(0);
+      
+      this.masterApiService.masterSearchDDL(this.baseApi + "market/ddlbyregion/" + event.id+ "/true").subscribe(data => {
         this.marketarrobj = [];
         this.marketarrobj.push(data);
+        this.productform.controls["marketId"].setValue("");
+        
       });
     }
+
+
     Object.keys(this.viewExtrapinRequestData.data).forEach(key => {
       if (((key != "lastupdatedby") && (key != "lastupdateddate") && (key != "createdby") && (key != "createddate") && (key != "planitem")) && this.viewExtrapinRequestData.data[key] != this.productform.value[key]) {
         this.valueChangeFlag = true;
       }
     });
     this.emitData={data:this.productform,flag:this.valueChangeFlag}
-    this.productEvent.emit(this.emitData);
+    // if(this.productform.status.toLowerCase() == "invalid")
+    // {
+    //   this.notificationAlert.open();
+    //   this.message= "Please enter required fields";
+    //   return false;
+    // }
+    // else{
+      this.productEvent.emit(this.emitData);
+    //}
+    
   }
 
   public buildForm() {
     this.productformold = this.fb.group({
       archType: "",
       auditTrail: "",
-      channelId: 0,
-      channeltypeId: 0,
+      channelId:  [null, Validators.required],
+      channeltypeId: [null, Validators.required],
       createdby: "",
       createddate: "",
       cvlIts: 0,
@@ -240,32 +270,32 @@ export class RdapManagePinProductTabComponent implements OnInit {
       lastupdatedby: "",
       lastupdateddate: "",
       levelId: 0,
-      marketId: 0,
+      marketId:  [null, Validators.required],
       marketPriority: "",
       notesCc: "",
       notesLong: "",
       notesShort: "",
       planitem: 0,
       platformId: 0,
-      priorityId: 0,
+      priorityId:  [null, Validators.required],
       prodcat3Id: 0,
       productbasketId: 0,
       programno: "",
       projectref: "",
       quarterId: 0,
-      regionId: 0,
+      regionId: [null, Validators.required],
       releaseNotes: "",
       revenue: 0,
-      riskId: 0,
+      riskId:  [null, Validators.required],
       sequenceId: 0,
       showId: 0,
-      status3Id: 0,
-      studioId: 0,
-      themeId: 0,
+      status3Id:  [null, Validators.required],
+      studioId:  [null, Validators.required],
+      themeId:  [null, Validators.required],
       titleId: 0,
       versionId: 0,
       vidstepId: 0,
-      viridianlaunchId: 0,
+      viridianlaunchId:  [null, Validators.required],
       revenueforecast:0,
   revenuecurrency:"",
   unitsforecast:0
@@ -273,8 +303,8 @@ export class RdapManagePinProductTabComponent implements OnInit {
     this.productform = this.fb.group({
       archType: "",//priority notes
       auditTrail: "",//Audit Trial Notes
-      channelId: 0,
-      channeltypeId: 0,
+      channelId: [null, Validators.required],
+      channeltypeId:[null, Validators.required],
       //createdby: "Manoj Negi"
       //createddate: "2021-10-08T16:31:06.713"
       cvlIts: 0,
@@ -289,32 +319,32 @@ export class RdapManagePinProductTabComponent implements OnInit {
       //lastupdatedby: "Manoj Negi"
       //lastupdateddate: "2021-10-08T17:03:02.057"
       levelId: 0,
-      marketId: 0,
+      marketId:[null, Validators.required],
       marketPriority: "",
       notesCc: "",
       notesLong: "",
       notesShort: "",
       planitem: 0,
       platformId: 0,
-      priorityId: 0,
+      priorityId:[null, Validators.required],
       prodcat3Id: 0,
       productbasketId: 0,
       programno: "",
       projectref: "",
       //quarterId: 0,
-      regionId: 0,
+      regionId:[null, Validators.required],
       releaseNotes: "",
       revenue: new FormControl('', [ Validators.pattern(this.numRegex)]),
-      riskId: 0,
+      riskId:[null, Validators.required], 
       sequenceId: 0,
       showId: 0,
-      status3Id: 0,
-      studioId: 0,
-      themeId: 0,
+      status3Id: [null, Validators.required],
+      studioId: [null, Validators.required],
+      themeId: [null, Validators.required],
       titleId: 0,
       versionId: 0,
       vidstepId: 0,
-      viridianlaunchId: 0,
+      viridianlaunchId: [null, Validators.required],
       revenueforecast:0,
   revenuecurrency:"",
   unitsforecast:0

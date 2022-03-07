@@ -54,12 +54,15 @@ export class RdapManagePinOthersTabComponent implements OnInit, OnChanges {
   othersform: FormGroup;
   linkedpinUrl: any;
   impactedpinUrl: any;
-  @Output() otherEvent = new EventEmitter<any>();
+  @Output() otherEventLinkpin = new EventEmitter<any>();
+  @Output() otherEventImpacpin = new EventEmitter<any>();
   @Input() planitem: any;
   linkedpinpagename: any;
   managepinpagename: any;
   linkedPinIsAddRow: boolean = true;
   emitData: { data: any, flag: boolean, name: any };
+  linkPinEmitData: { data: any, flag: boolean, name: any };
+  impacPinEmitData: { data: any, flag: boolean, name: any };
   linkedPinaddflag: boolean;
   impactedPinaddflag: boolean;
   managepin: any;
@@ -76,8 +79,8 @@ export class RdapManagePinOthersTabComponent implements OnInit, OnChanges {
   public pagePermission: any;
   public rolePermissionEnableFlag: any;
   public rolepermissionmock: boolean = false;
-  gridlinkeditflag:boolean = false;
-  gridimpactededitflag:boolean = false;
+  gridlinkeditflag: boolean = false;
+  gridimpactededitflag: boolean = false;
   constructor(private httpClient: HttpClient, private cdr: ChangeDetectorRef,
     private excelExportService: IgxExcelExporterService, private router: Router,
     private masterApiService: RdMasterApiService, private spinner: RdSpinnerService,
@@ -94,68 +97,68 @@ export class RdapManagePinOthersTabComponent implements OnInit, OnChanges {
 
   public getPermissionmpMasterByModule() {
     this.pagePermission = [];
-    this.mpdependencyPermission= [];
+    this.mpdependencyPermission = [];
     let rolePermissionMockData;
     this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "mplinked").subscribe(res => {
       if (this.rolepermissionmock == true) {
         this.pagePermission.push(rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionlinkedpinmock);
         this.mplinkedPermission = rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionlinkedpinmock;
         //debugger
-        if(this.mplinkedPermission.isView == true && this.mplinkedPermission.isEdit == false){
+        if (this.mplinkedPermission.isView == true && this.mplinkedPermission.isEdit == false) {
           this.isViewOnlyPermission();
         }
-        if(this.mplinkedPermission.isEdit == true || this.mplinkedPermission.isAdd == true ){
+        if (this.mplinkedPermission.isEdit == true || this.mplinkedPermission.isAdd == true) {
           this.gridlinkeditflag = true;
-        }else{
+        } else {
           this.gridlinkeditflag = false
         }
       } else {
         this.pagePermission.push(res);
         this.mplinkedPermission = res;
-        if(this.mplinkedPermission.isView == true && this.mplinkedPermission.isEdit == false){
+        if (this.mplinkedPermission.isView == true && this.mplinkedPermission.isEdit == false) {
           this.isViewOnlyPermission();
         }
-        if(this.mplinkedPermission.isEdit == true  || this.mplinkedPermission.isAdd == true ){
+        if (this.mplinkedPermission.isEdit == true || this.mplinkedPermission.isAdd == true) {
           this.gridlinkeditflag = true;
-        }else{
+        } else {
           this.gridlinkeditflag = false
         }
-      } 
-           
-    this.gridDataLoad();    
-    this.spinner.hide();
+      }
+
+      this.gridDataLoad();
+      this.spinner.hide();
     });
     this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "mpimpacted").subscribe(res => {
       if (this.rolepermissionmock == true) {
         this.pagePermission.push(rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionimpactedpinmock);
         this.mpimpactedPermission = rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionimpactedpinmock;
-       // debugger
-        if(this.mpimpactedPermission.isView == true && this.mpimpactedPermission.isEdit == false){
+        // debugger
+        if (this.mpimpactedPermission.isView == true && this.mpimpactedPermission.isEdit == false) {
           this.isViewOnlyPermission();
         }
-        if(this.mpimpactedPermission.isEdit == true || this.mpimpactedPermission.isAdd == true){
+        if (this.mpimpactedPermission.isEdit == true || this.mpimpactedPermission.isAdd == true) {
           this.gridimpactededitflag = true;
-        }else{
+        } else {
           this.gridimpactededitflag = false
         }
       } else {
         this.pagePermission.push(res);
         this.mpimpactedPermission = res;
-        if(this.mpimpactedPermission.isView == true && this.mpimpactedPermission.isEdit == false){
+        if (this.mpimpactedPermission.isView == true && this.mpimpactedPermission.isEdit == false) {
           this.isViewOnlyPermission();
         }
-        if(this.mpimpactedPermission.isEdit == true || this.mpimpactedPermission.isAdd == true){
+        if (this.mpimpactedPermission.isEdit == true || this.mpimpactedPermission.isAdd == true) {
           this.gridimpactededitflag = true;
-        }else{
+        } else {
           this.gridimpactededitflag = false
         }
-      } 
-           
-    this.gridDataLoad();    
-    this.spinner.hide();
+      }
+
+      this.gridDataLoad();
+      this.spinner.hide();
     });
   }
-  isViewOnlyPermission(){
+  isViewOnlyPermission() {
 
   }
   ngOnInit(): void {
@@ -195,19 +198,18 @@ export class RdapManagePinOthersTabComponent implements OnInit, OnChanges {
 
   gridDataLoad() {
     this.searchParam = { pageNumber: 0, pageSize: 0, filters: [], sorts: [] };
-    if(this.pinId != undefined)
-    {
-    this.linkedpinUrl = this.extraPinAPi + "LinkedPin/getbyplanitem/" + this.pinId;
-    this.impactedpinUrl = this.extraPinAPi + "impactedpin/getbyplanitem/" + this.pinId;
-    this.masterApiService.getMasterDataById(this.linkedpinUrl).subscribe(x => {
-      this.linkedpindetails = x.data;
-      if (x.length > 0) {
-        this.linkedpindata = x;
-      } else {
-        this.linkedpindata = [];
-      }
-    });
-  }
+    if (this.pinId != undefined) {
+      this.linkedpinUrl = this.extraPinAPi + "LinkedPin/getbyplanitem/" + this.pinId;
+      this.impactedpinUrl = this.extraPinAPi + "impactedpin/getbyplanitem/" + this.pinId;
+      this.masterApiService.getMasterDataById(this.linkedpinUrl).subscribe(x => {
+        this.linkedpindetails = x.data;
+        if (x.length > 0) {
+          this.linkedpindata = x;
+        } else {
+          this.linkedpindata = [];
+        }
+      });
+    }
     this.masterApiService.getMasterDataById(this.impactedpinUrl).subscribe(x => {
       this.linkedpindetails = x.data;
       if (x.length > 0) {
@@ -267,22 +269,23 @@ export class RdapManagePinOthersTabComponent implements OnInit, OnChanges {
 
   editDone(data) {
     this.linkedpindetailsArrObj = [];
-    this.emitData = { data: null, flag: false, name: "linkpinno" }
+    this.linkPinEmitData = { data: null, flag: false, name: "linkpinno" }
     this.linkedpingrid.data.forEach(x => {
       this.linkedpindetailsArrObj.push(x.linkedpinno);
     });
-    this.emitData = { data: this.linkedpindetailsArrObj, flag: true, name: "linkpinno" }
-    this.otherEvent.emit(this.emitData);
+    this.linkPinEmitData = { data: this.linkedpindetailsArrObj, flag: true, name: "linkpinno" }
+    this.otherEventLinkpin.emit(this.linkPinEmitData);
   }
 
   editImpactedPinDone(data) {
+    debugger
     this.impactedpindetailsArrObj = [];
-    this.emitData = { data: null, flag: false, name: "impacpinno" }
+    this.impacPinEmitData = { data: null, flag: false, name: "impacpinno" }
     this.impactedpingrid.data.forEach(x => {
       this.impactedpindetailsArrObj.push(x.impactedpinno)
     });
-    this.emitData = { data: this.impactedpindetailsArrObj, flag: true, name: "impacpinno" }
-    this.otherEvent.emit(this.emitData);
+    this.impacPinEmitData = { data: this.impactedpindetailsArrObj, flag: true, name: "impacpinno" }
+    this.otherEventImpacpin.emit(this.impacPinEmitData);
   }
 
   // onchangeSelect(event, cell, data, field) {
@@ -358,28 +361,31 @@ export class RdapManagePinOthersTabComponent implements OnInit, OnChanges {
       event.newSelection = [];
     }
   }
-//----- CHange on 17.02 ------
+  //----- CHange on 17.02 ------
   onchangeSelectlinked(event, existcell, data, field) {
     let curpin;
     let currRowIndex = existcell.row.index;
     let row: IgxGridRowComponent = existcell.row;
     curpin = this.pinId;
-
-    if (existcell.row.inEditMode == true && existcell.row.addRowUI == true) {
-      this.linkedPinaddflag = true;
-      row.cells.forEach(function (cell: IgxGridCellComponent) {
-        if (cell.column.field === "linkedpinno") {
-          cell.update(event.id);
-        }
-        else if (cell.column.field === "planitem") {
-          cell.update(curpin);
-        }
-      });
-    } else {
-      this.linkedPinaddflag = false;
-      this.linkedpindata[currRowIndex].linkedpinno = event.id;
-      this.linkedpindata[currRowIndex].planitem = curpin;
-    }
+    this.linkedPinaddflag = false;
+    this.linkedpindata[currRowIndex].linkedpinno = event.id;
+    this.linkedpindata[currRowIndex].planitem = curpin;
+    this.editDone(null);
+    // if (existcell.row.inEditMode == true && existcell.row.addRowUI == true) {
+    //   this.linkedPinaddflag = true;
+    //   row.cells.forEach(function (cell: IgxGridCellComponent) {
+    //     if (cell.column.field === "linkedpinno") {
+    //       cell.update(event.id);
+    //     }
+    //     else if (cell.column.field === "planitem") {
+    //       cell.update(curpin);
+    //     }
+    //   });
+    // } else {
+    //   this.linkedPinaddflag = false;
+    //   this.linkedpindata[currRowIndex].linkedpinno = event.id;
+    //   this.linkedpindata[currRowIndex].planitem = curpin;
+    // }
     // if (event.added) {
     //   event.newSelection = [event.added[0]];
     // } else {
@@ -391,23 +397,26 @@ export class RdapManagePinOthersTabComponent implements OnInit, OnChanges {
     let currRowIndex = existcell.row.index;
     let row: IgxGridRowComponent = existcell.row;
     curpin = this.pinId;
-    if (existcell.row.inEditMode == true && existcell.row.addRowUI == true) {
-      this.impactedPinaddflag = true;
-      row.cells.forEach(function (cell: IgxGridCellComponent) {
-        if (cell.column.field === "impactedpinno") {
-          cell.update(event.id);
-        }
-        if (cell.column.field === "planitem") {
-          cell.update(curpin);
-        }
-      });
-    } else {
-      this.impactedPinaddflag = false;
-      this.impactedpindata[currRowIndex].impactedpinno = event.id;
-      this.impactedpindata[currRowIndex].planitem = curpin;
-    }
-
-    
+    this.impactedPinaddflag = false;
+    debugger
+    this.impactedpindata[currRowIndex].impactedpinno = event.id;
+    this.impactedpindata[currRowIndex].planitem = curpin;
+    this.editImpactedPinDone(null);
+    // if (existcell.row.inEditMode == true && existcell.row.addRowUI == true) {
+    //   this.impactedPinaddflag = true;
+    //   row.cells.forEach(function (cell: IgxGridCellComponent) {
+    //     if (cell.column.field === "impactedpinno") {
+    //       cell.update(event.id);
+    //     }
+    //     if (cell.column.field === "planitem") {
+    //       cell.update(curpin);
+    //     }
+    //   });
+    // } else {
+    //   this.impactedPinaddflag = false;
+    //   this.impactedpindata[currRowIndex].impactedpinno = event.id;
+    //   this.impactedpindata[currRowIndex].planitem = curpin;
+    // }   
 
   }
   //----- CHange on 17.02 ------
@@ -552,42 +561,84 @@ export class RdapManagePinOthersTabComponent implements OnInit, OnChanges {
 
   public addNewLinkGrid(row?): void {
     //debugger
-    this.linkedpingrid.beginAddRowByIndex(row.index);
+    console.log("this.linkedpingrid", this.linkedpingrid.data);
+    //this.linkedpingrid.beginAddRowByIndex(row.index);
+    this.linkedpingrid.addRow({
+      apprDate: "",
+      createdby: "",
+      createddate: "",
+      description: "",
+      devtype2: "",
+      estApprDate: "",
+      lastupdatedby: "",
+      lastupdateddate: "",
+      linkedpinno: 0,
+      market: "",
+      planitem: this.pinId,
+      platform: "",
+      prodcat3: "",
+      status3: "",
+      studio: "",
+      theme: "",
+      title: "",
+      version: ""
+    });
+    this.editDone(null);
   }
+  //impactedpinno
   public addNewImpacGrid(row?): void {
-   // debugger
-    this.impactedpingrid.beginAddRowByIndex(row.index);
+    // debugger
+    console.log("this.impactedpingrid", this.impactedpingrid.data);
+    //this.impactedpingrid.beginAddRowByIndex(row.index);
+    //this.linkedpingrid.addRow({});
+    this.impactedpingrid.addRow({
+      apprDate: "",
+      createdby: "",
+      createddate: "",
+      description: "",
+      devtype2: "",
+      estApprDate: "",
+      lastupdatedby: "",
+      lastupdateddate: "",
+      impactedpinno: 0,
+      market: "",
+      planitem: this.pinId,
+      platform: "",
+      prodcat3: "",
+      status3: "",
+      studio: "",
+      theme: "",
+      title: "",
+      version: ""
+    });
+    this.editImpactedPinDone(null);
   }
   public deleteLinkpinrow(event) {
-
     this.linkedpindetailsArrObj = [];
-    this.emitData = { data: null, flag: false, name: "linkpinno" }
+    this.linkPinEmitData = { data: null, flag: false, name: "linkpinno" }
     if (event.dataRowIndex > -1) {
       this.linkedpingrid.data.splice(event.dataRowIndex, 1);
     }
     this.linkedpingrid.data.forEach(x => {
       this.linkedpindetailsArrObj.push(x.linkedpinno);
     });
-    this.emitData = { data: this.linkedpindetailsArrObj, flag: true, name: "linkpinno" }
-    this.otherEvent.emit(this.emitData);
+    this.linkPinEmitData = { data: this.linkedpindetailsArrObj, flag: true, name: "linkpinno" }
+    this.otherEventLinkpin.emit(this.linkPinEmitData);
   }
   public deleteImpacpinrow(event) {
-//debugger
     this.impactedpindetailsArrObj = [];
-    this.emitData = { data: null, flag: false, name: "impacpinno" }
+    this.impacPinEmitData = { data: null, flag: false, name: "impacpinno" }
     if (event.dataRowIndex > -1) {
       this.impactedpingrid.data.splice(event.dataRowIndex, 1);
     }
     this.impactedpingrid.data.forEach(x => {
       this.impactedpindetailsArrObj.push(x.impactedpinno)
     });
-    this.emitData = { data: this.impactedpindetailsArrObj, flag: true, name: "impacpinno" }
-    this.otherEvent.emit(this.emitData);
+    this.impacPinEmitData = { data: this.impactedpindetailsArrObj, flag: true, name: "impacpinno" }
+    this.otherEventImpacpin.emit(this.impacPinEmitData);
   }
 
   public linkedPinRowAddedDone(event) {
-
-
     if (this.linkedPinaddflag == true) {
       this.linkedpingrid.addRow(event.data);
       let lastRec = this.linkedpingrid.data.pop();

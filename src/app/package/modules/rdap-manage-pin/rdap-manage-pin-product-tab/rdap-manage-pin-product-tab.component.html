@@ -20,67 +20,78 @@
           </ng-template>
         </ng-select>
       </div>
-      <div class="col-lg-3 form-group">
+      <div class="col-lg-3 form-group required">
         <ng-select               
         ngSelectMat
         [items]="channelarrobj[0]"
-        placeholder="Channel"
+        placeholder="Channel *"
         bindLabel="description"
         bindValue="id"
         [clearable]="false"
         [virtualScroll]="true"
         appendTo="body"
         formControlName="channelId"
-        (change)="ddlOnChangeEvent($event,'channelId')">
+        (change)="ddlOnChangeEvent($event,'channelId')"
+        >
         <ng-template ng-option-tmp let-item="item">
           {{  item.description }}
         </ng-template>
         </ng-select>
     </div>
-    <div class="col-lg-3 form-group">
+    <div class="col-lg-3 form-group required">
+     
       <ng-select               
       ngSelectMat
       [items]="channeltypearrobj[0]"
-      placeholder="Channel Type"
+      placeholder="Channel Type *"
       bindLabel="description"
       bindValue="id"
       [clearable]="false"
       [virtualScroll]="true"
       appendTo="body"
       formControlName="channeltypeId"
-      (change)="ddlOnChangeEvent($event)">
+      (change)="ddlOnChangeEvent($event,'channeltypeId')" required>
+     
       <ng-template ng-option-tmp let-item="item">
         {{  item.description }}
+        
       </ng-template>
+      
       </ng-select>
+      <span style="color: red;font-size: 10px;margin-left: 40px;;" *ngIf="(productform.get('channeltypeId').hasError('required'))">Channel Type is required</span>
+      
+      
   </div>
   </div>
   <div class="row">
-    <div class="col-lg-3 form-group">
+    <div class="col-lg-3 form-group required">
       <ng-select               
       ngSelectMat
       [items]="regionarrobj[0]"
-      placeholder="Region"
+      placeholder="Region *"
       bindLabel="description"
       bindValue="id"
       [clearable]="false"
       [virtualScroll]="true"
       appendTo="body"
       formControlName="regionId"
-      (change)="ddlOnChangeEvent($event,'regionId')">
+      (change)="ddlOnChangeEvent($event,'regionId')" >
       <ng-template ng-option-tmp let-item="item">
         {{  item.description }}
       </ng-template>
       </ng-select>
   </div>
-  <div class="col-lg-3 form-group">
-    <ng-select ngSelectMat [items]="marketarrobj[0]" placeholder="Market" bindLabel="description" bindValue="id"
+  <div class="col-lg-3 form-group required">
+    <ng-select ngSelectMat [items]="marketarrobj[0]" placeholder="Market *" bindLabel="description" bindValue="id"
     [clearable]="false" [virtualScroll]="true" appendTo="body" formControlName="marketId"
-    (change)="ddlOnChangeEvent($event)">
+    (change)="ddlOnChangeEvent($event)" required>
     <ng-template ng-option-tmp let-item="item">
       {{  item.description }}
     </ng-template>
   </ng-select>
+  <span style="color: red;font-size: 10px;" *ngIf="(
+                productform.get('marketId').hasError('required'))">Market Type is required</span>
+
 </div>
 <!-- <div class="col-lg-3 form-group" style="display: none;">
   <ng-select               
@@ -132,7 +143,7 @@
   </ng-select>
 </div>
 <div class="col-lg-3 form-group">
-  <ng-select ngSelectMat [items]="studioarrobj[0]" placeholder="Studio" bindLabel="description" bindValue="id"
+  <ng-select ngSelectMat [items]="studioarrobj[0]" placeholder="Studio *" bindLabel="description" bindValue="id"
     [clearable]="false" [virtualScroll]="true" appendTo="body" formControlName="studioId"
     (change)="ddlOnChangeEvent($event)">
     <ng-template ng-option-tmp let-item="item">
@@ -158,6 +169,7 @@
           type="text"
           matInput
           name="name"
+          maxlength="50"
           formControlName="description"
           (blur)="ddlOnChangeEvent($event)"
         />
@@ -174,7 +186,7 @@
         </ng-select>
       </div>
       <div class="col-lg-3 form-group">
-        <ng-select ngSelectMat [items]="themearrobj[0]" placeholder="Theme" bindLabel="description" bindValue="id"
+        <ng-select ngSelectMat [items]="themearrobj[0]" placeholder="Theme *" bindLabel="description" bindValue="id"
           [clearable]="false" [virtualScroll]="true" appendTo="body" formControlName="themeId"
           (change)="ddlOnChangeEvent($event)">
           <ng-template ng-option-tmp let-item="item">
@@ -185,7 +197,7 @@
     </div>
     <div class="row">
       <div class="col-lg-3 form-group">
-        <ng-select ngSelectMat [items]="platformarrobj[0]" placeholder="Plaform" bindLabel="description" bindValue="id"
+        <ng-select ngSelectMat [items]="platformarrobj[0]" placeholder="Platform" bindLabel="description" bindValue="id"
           [clearable]="false" [virtualScroll]="true" appendTo="body" formControlName="platformId"
           (change)="ddlOnChangeEvent($event)">
           <ng-template ng-option-tmp let-item="item">
@@ -241,6 +253,7 @@
               matInput
               name="name"
               formControlName="projectref"
+              maxlength="50"
               (change)="ddlOnChangeEvent($event,'projectref')"
             />             
             </mat-form-field>
@@ -257,7 +270,7 @@
             </ng-select>
           </div>
           <div class="col-lg-6 form-group">
-            <ng-select ngSelectMat [items]="priorityarrobj[0]" placeholder="Priority" bindLabel="description" bindValue="id"
+            <ng-select ngSelectMat [items]="priorityarrobj[0]" placeholder="Priority *" bindLabel="description" bindValue="id"
               [clearable]="false" [virtualScroll]="true" appendTo="body" formControlName="priorityId"
               (change)="ddlOnChangeEvent($event)">
               <ng-template ng-option-tmp let-item="item">
@@ -294,7 +307,7 @@
       <div class="col-lg-3">
         <div class="row">
           <div class="col-lg-12 form-group">
-            <ng-select ngSelectMat [items]="riskarrobj[0]" placeholder="Risk" bindLabel="description"
+            <ng-select ngSelectMat [items]="riskarrobj[0]" placeholder="Risk *" bindLabel="description"
               bindValue="id" [clearable]="false" [virtualScroll]="true" appendTo="body" formControlName="riskId"
               (change)="ddlOnChangeEvent($event)">
               <ng-template ng-option-tmp let-item="item">
@@ -306,7 +319,7 @@
         </div>
         <div class="row">
           <div class="col-lg-12 form-group">
-            <ng-select ngSelectMat [items]="statusarrobj[0]" placeholder="Status" bindLabel="description"
+            <ng-select ngSelectMat [items]="statusarrobj[0]" placeholder="Status *" bindLabel="description"
               bindValue="id" [clearable]="false" [virtualScroll]="true" appendTo="body" formControlName="status3Id"
               (change)="ddlOnChangeEvent($event)">
               <ng-template ng-option-tmp let-item="item">
@@ -364,7 +377,7 @@
                 <label>
                   Programno
                 </label>
-                <input type="text" matInput name="name" formControlName="programno" />
+                <input type="text"  (change)="ddlOnChangeEvent($event)" matInput name="name"  maxlength="50" formControlName="programno" />
               </mat-form-field>
             </div>
           </div>
@@ -391,7 +404,7 @@
       <div class="col-lg-3">
         <div class="row">
           <div class="col-lg-12 form-group">
-            <ng-select ngSelectMat [items]="rootcausearrobj" placeholder="Root Cause" bindLabel="description"
+            <ng-select ngSelectMat [items]="rootcausearrobj" placeholder="Root Cause *" bindLabel="description"
               bindValue="id" [clearable]="false" [virtualScroll]="true" appendTo="body" formControlName="viridianlaunchId"
               (change)="ddlOnChangeEvent($event)">
               <ng-template ng-option-tmp let-item="item">
@@ -403,7 +416,8 @@
         <div class="row">
           <mat-form-field style="width: 100%;">
             <label>Root Cause Notes:</label>
-            <textarea matInput formControlName="releaseNotes" (blur)="ddlOnChangeEvent($event)"></textarea>
+            <textarea matInput formControlName="releaseNotes" (blur)="ddlOnChangeEvent($event)"
+            maxlength="1000"></textarea>
           </mat-form-field>
         </div>
         <div class="row">
@@ -411,7 +425,9 @@
             <label>
               Priority Rank Mkt :
             </label>
-            <input type="text" matInput name="name" formControlName="marketPriority" (blur)="ddlOnChangeEvent($event)" />
+            <input type="text" matInput name="name" formControlName="marketPriority" 
+            maxlength="50"
+            (blur)="ddlOnChangeEvent($event)" />
           </mat-form-field>
         </div>
       </div>
@@ -487,6 +503,7 @@
           <!-- <label>Notes Short</label> -->
           <textarea matInput 
           placeholder="Notes Short"
+          maxlength="50"
           formControlName="notesShort" (blur)="ddlOnChangeEvent($event)"></textarea>
         </mat-form-field>
       </div>

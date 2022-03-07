@@ -17,8 +17,10 @@
         formControlName="planApprDate">
         <mat-datepicker-toggle matSuffix [for]="marketreqpicker"></mat-datepicker-toggle>
         <mat-datepicker #marketreqpicker></mat-datepicker>
+        <small style="color: red;font-size: 10px;" *ngIf="milestoneform.hasError('required', 'planApprDate')">Market Required Date selection is mandatory</small>
+    
       </mat-form-field>
-      <small *ngIf="milestoneform.hasError('required', 'planApprDate')"></small>
+      
     </div>
     <div class="col-lg-4 form-group">
       <mat-form-field>

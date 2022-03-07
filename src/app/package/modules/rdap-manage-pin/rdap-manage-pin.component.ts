@@ -128,6 +128,7 @@ export class RdapManagePinComponent implements OnInit, OnChanges {
     planitem: 0,
     impactedPins: []
   }
+  isErr: boolean = false;
   baseApi: any;
   extraPinAPi: any;
   route: any;
@@ -176,6 +177,9 @@ export class RdapManagePinComponent implements OnInit, OnChanges {
   public rolePermissionEnableFlag: any;
   public rolepermissionmock: boolean = false;
   permissionApi: any;
+  isProductErr: boolean = false;
+  isclarityErr: boolean = false;
+  isMilestoneErr: boolean = false;
   constructor(private httpClient: HttpClient, public cdr: ChangeDetectorRef,
     private excelExportService: IgxExcelExporterService, private router: Router,
     private masterApiService: RdMasterApiService, private spinner: RdSpinnerService,
@@ -501,10 +505,29 @@ export class RdapManagePinComponent implements OnInit, OnChanges {
   }
 
   productEvent(data) {
-    if (data.data != undefined) {
-      this.productParam = data.data.value;
-      this.productFlag = data.flag;
+    if(data.data != undefined && data.data.status.toLowerCase() == "invalid")
+    {
+      this.isProductErr = true;
     }
+    else
+    {
+      if (data.data != undefined) {
+        this.productParam = data.data.value;
+        this.productFlag = data.flag;
+        this.isProductErr = false;
+  
+        // let validateURL = this.extraPinAPi + "ManagePin/validate/" + this.pinId;
+        // this.masterApiService.managePinUpdate(validateURL, this.productParam).subscribe(data => {
+        //   if (data.isSuccess) {
+        //   }
+        //   if (!data.isSuccess) {
+        //     this.notificationAlert.open();
+        //     this.message = data.message;
+        //   }
+        // });
+      }
+    }
+    
 
     //this.updatemanagepin();
   }
@@ -516,17 +539,34 @@ export class RdapManagePinComponent implements OnInit, OnChanges {
   }
 
   clarityEvent(data) {
+    if(data.data != undefined && data.data.status.toLowerCase() == "invalid")
+    {
+      this.isclarityErr = true;
+    }
+    else
+    {
     this.clarityParam = data.data;
     this.clarityFlag = data.flag;
+    this.isclarityErr = false;
+    }
   }
 
   milestoneEvent(data) {
+  
+    if((data.data.planApprDate == undefined || data.data.planApprDate == null ))
+    {
+      this.isMilestoneErr = true;
+    }
+    else
+    {
     this.milestoneParam = data.data;
     this.milestoneFlag = data.flag;
+    this.isMilestoneErr = false;
+    }
   }
 
   testdetailsEvent(data) {
-    this.testerdetailsParam.planitem = parseInt(this.pinId);
+    this.testerdetailsParam.planitem = this.pinId;
     this.testerdetailsParam.testers = data.data;
     this.testerPlanFlag = data.flag;
   }
@@ -535,15 +575,23 @@ export class RdapManagePinComponent implements OnInit, OnChanges {
     this.setitemParam.setItems = data.data;
     this.setItemFlag = data.flag;
   }
-  otherEvent(data) {
+  otherEventLinkpin(data) {
     if (data.name == "linkpinno") {
       this.linkedpinParam.planitem = this.pinId;
       this.linkedpinParam.linkedPins = data.data;
       this.linkedPinFlag = data.flag;
     }
-
+    // if (data.name == "impacpinno") {
+    //   this.impacpinParam.planitem = this.pinId;
+    //   debugger
+    //   this.impacpinParam.impactedPins = data.data;
+    //   this.impactedPinFlag = data.flag;
+    // }
+  }
+  otherEventImpacpin(data) {
     if (data.name == "impacpinno") {
       this.impacpinParam.planitem = this.pinId;
+      debugger
       this.impacpinParam.impactedPins = data.data;
       this.impactedPinFlag = data.flag;
     }
@@ -558,11 +606,18 @@ export class RdapManagePinComponent implements OnInit, OnChanges {
   }
   onDialogSubmit(event) {
     event.dialog.close();
-    this.getRequestPinById();
+    if(!this.isErr)
+    {
+      this.getRequestPinById();
     this.saveflag = true;
     this.cdr.detectChanges();
+    }
     //this.message = this.viewrecord();
   }
+
+  
+
+
   updatemanagepin() {
     this.saveflag = false;
     this.masterApiService.refreshToken();
@@ -576,184 +631,220 @@ export class RdapManagePinComponent implements OnInit, OnChanges {
     let impactedPinUrl = "";
     let clarityUrl = "";
     this.spinner.show();
-    if (this.productFlag == true && this.mpproductPermission.isEdit == true) {
-      if (this.productParam.channelId != 0 &&
-        this.productParam.channeltypeId != 0 &&
-        this.productParam.regionId != 0 &&
-        this.productParam.marketId != 0 &&
-        this.productParam.channelId != null &&
-        this.productParam.channeltypeId != null &&
-        this.productParam.regionId != null &&
-        this.productParam.marketId != null) {
-        productUpdateUrl = this.extraPinAPi + "ManagePin/" + this.pinId;
-        this.masterApiService.managePinUpdate(productUpdateUrl, this.productParam).subscribe(data => {
-          this.masterApiService.debuggerLog(this.debuggerflag, "product plan Details Saved Success", data);
-          if (data.isSuccess) {
-            this.productFlag = false;
+    if(this.isProductErr)
+    {
+      this.tabChange(0);
+      this.isErr = true;
+      this.notificationAlert.open();
+      this.message = "Product Tab: Data not saved. Validation error occured.";
+    }
+    else  if(this.isMilestoneErr)
+    {
+      this.tabChange(1);
+      this.isErr = true;
+      this.notificationAlert.open();
+      this.message = "Milestone Tab: Data not saved. Validation error occured.";
+    }
+    else  if(this.isclarityErr)
+    {
+      this.tabChange(0);
+      this.isErr = true;
+      this.notificationAlert.open();
+      this.message = "Clarity Tab: Data not saved. Validation error occured.";
+    }
+    else{
+      if (this.productFlag == true && this.mpproductPermission.isEdit == true ) {
+        if (this.productParam.channelId != 0 &&
+          this.productParam.channeltypeId != 0 &&
+          this.productParam.regionId != 0 &&
+          this.productParam.marketId != 0 &&
+          this.productParam.channelId != null &&
+          this.productParam.channeltypeId != null &&
+          this.productParam.regionId != null &&
+          this.productParam.marketId != null) {
+          productUpdateUrl = this.extraPinAPi + "ManagePin/" + this.pinId;
+          this.masterApiService.managePinUpdate(productUpdateUrl, this.productParam).subscribe(data => {
+            this.masterApiService.debuggerLog(this.debuggerflag, "product plan Details Saved Success", data);
+            if (data.isSuccess) {
+              this.productFlag = false;
+              this.notificationAlert.open();
+              this.message = data.message;
+            }
+            if (!data.isSuccess) {
+              this.tabChange(0);
+              this.isErr = true;
+              this.notificationAlert.open();
+              this.message = data.message;
+            }
+          });
+        } else {
+          if (this.productParam.channelId == 0 ||
+            this.productParam.channelId == null) {
             this.notificationAlert.open();
-            this.message = data.message;
-          }
-          if (!data.isSuccess) {
+            this.message = "Channel is Required!!";
+          } else if (this.productParam.channeltypeId == 0 ||
+            this.productParam.channeltypeId == null) {
             this.notificationAlert.open();
-            this.message = data.message;
+            this.message = "Channel Type is Required!!";
+          } else if (this.productParam.regionId == 0 ||
+            this.productParam.regionId == null) {
+            this.notificationAlert.open();
+            this.message = "Region is Required!!";
+          } else if (this.productParam.marketId == 0 ||
+            this.productParam.marketId == null) {
+            this.notificationAlert.open();
+            this.message = "Market is Required!!";
           }
-        });
-      } else {
-        if (this.productParam.channelId == 0 ||
-          this.productParam.channelId == null) {
-          this.notificationAlert.open();
-          this.message = "Channel is Required!!";
-        } else if (this.productParam.channeltypeId == 0 ||
-          this.productParam.channeltypeId == null) {
-          this.notificationAlert.open();
-          this.message = "Channel Type is Required!!";
-        } else if (this.productParam.regionId == 0 ||
-          this.productParam.regionId == null) {
-          this.notificationAlert.open();
-          this.message = "Region is Required!!";
-        } else if (this.productParam.marketId == 0 ||
-          this.productParam.marketId == null) {
-          this.notificationAlert.open();
-          this.message = "Market is Required!!";
         }
+  
       }
-
-    }
-    if (this.milestoneFlag == true && this.mpmilestonePermission.isEdit == true) {
-      milestoneUpdateUrl = this.extraPinAPi + "PinMilestone/" + this.pinId;
-      this.masterApiService.managePinUpdate(milestoneUpdateUrl, this.milestoneParam).subscribe(data => {
-        this.masterApiService.debuggerLog(this.debuggerflag, "milestone Details Saved Success", data);
-        if (data.isSuccess) {
-          this.milestoneFlag = false;
-          this.notificationAlert.open();
-          this.message = data.message;
-        }
-        if (!data.isSuccess) {
-          this.notificationAlert.open();
-          this.message = data.message;
-        }
-      });
-    }
-    if (this.dependencyFlag == true && this.mpdependencyPermission.isEdit == true || this.mpdependencyPermission.isDelete == true || this.mpdependencyPermission.isAdd == true) {
-      dependencyUrl = this.extraPinAPi + "Dependency/savelist";
-      this.masterApiService.masterAdd(dependencyUrl, this.dependencyParam).subscribe(data => {
-        this.masterApiService.debuggerLog(this.debuggerflag, "dependenc Details Saved Success", data);
-        this.dependencyInput = { planitem: this.viewExtrapinRequestData, savedata: data }
-        if (data.isSuccess) {
-          this.dependencyFlag = false;
-          this.notificationAlert.open();
-          this.message = data.message;
-        }
-        if (!data.isSuccess) {
-          this.notificationAlert.open();
-          this.message = data.message;
-        }
-      });
-      // this.cdr.detectChanges();
-    }
-    if (this.cabinetFlag == true && this.mpcabinetPermission.isEdit == true) {
-      cabinetUrl = this.extraPinAPi + "ManagePinCabinet/savelist";
-      this.masterApiService.masterAdd(cabinetUrl, this.cabinetParam).subscribe(data => {
-        this.masterApiService.debuggerLog(this.debuggerflag, "cabinet Details Saved Success", data);
-        if (data.isSuccess) {
-          this.cabinetFlag = false;
-          this.notificationAlert.open();
-          this.message = data.message;
-        }
-        if (!data.isSuccess) {
-          this.notificationAlert.open();
-          this.message = data.message;
-        }
-      });
-    }
-    if (this.testerPlanFlag == true && this.mptesterPermission.isEdit == true || this.mptesterPermission.isDelete == true || this.mptesterPermission.isAdd == true) {
-      testerPlanUrl = this.extraPinAPi + "testerplan/savelist";
-      debugger
-      this.masterApiService.masterAdd(testerPlanUrl, this.testerdetailsParam).subscribe(data => {
-        this.testdetailsInput = { planitem: this.viewExtrapinRequestData, savedata: data }
-        this.masterApiService.debuggerLog(this.debuggerflag, "tester plan Details Saved Success", data);
-        if (data.isSuccess) {
-          this.testerPlanFlag = false;
-          this.notificationAlert.open();
-          this.message = data.message;
-        }
-        if (!data.isSuccess) {
-          this.notificationAlert.open();
-          this.message = data.message;
-        }
-      });
-      //this.cdr.detectChanges();
-    }
-    if (this.setItemFlag == true && (this.mpsetitemPermission.isEdit == true || this.mpsetitemPermission.isDelete == true || this.mpsetitemPermission.isAdd == true)) {
-      setItemUrl = this.extraPinAPi + "ManagePinSetItem/savelist";
-      this.masterApiService.masterAdd(setItemUrl, this.setitemParam).subscribe(data => {
-        this.masterApiService.debuggerLog(this.debuggerflag, "Set Item Details Saved Success", data);
-        // this.testdetailsInput = { planitem: this.viewExtrapinRequestData, savedata: data }
-        if (data.isSuccess) {
-          this.setItemFlag = false;
-          this.notificationAlert.open();
-          this.message = data.message;
-        }
-        if (!data.isSuccess) {
-          this.notificationAlert.open();
-          this.message = data.message;
-        }
-      });
-      //this.cdr.detectChanges();
-    }
-    if (this.linkedPinFlag == true && (this.mplinkedPermission.isEdit == true || this.mplinkedPermission.isDelete == true || this.mpimpactedPermission.isAdd == true)) {
-      linkedPinUrl = this.extraPinAPi + "LinkedPin/savelist";
-      this.masterApiService.masterAdd(linkedPinUrl, this.linkedpinParam).subscribe(data => {
-        this.masterApiService.debuggerLog(this.debuggerflag, "linked Pin Details Saved Success", data);
-        // this.testdetailsInput = { planitem: this.viewExtrapinRequestData, savedata: data }
-        if (data.isSuccess) {
-          this.linkedPinFlag = false;
-          this.notificationAlert.open();
-          this.message = data.message;
-        }
-        if (!data.isSuccess) {
-          this.notificationAlert.open();
-          this.message = data.message;
-        }
-      });
-      //this.cdr.detectChanges();
-    }
-    if (this.impactedPinFlag == true && (this.mpimpactedPermission.isEdit == true || this.mpimpactedPermission.isDelete == true
-      || this.mpimpactedPermission.isAdd == true)) {
-      impactedPinUrl = this.extraPinAPi + "ImpactedPin/savelist";
-      this.masterApiService.masterAdd(impactedPinUrl, this.impacpinParam).subscribe(data => {
-        this.masterApiService.debuggerLog(this.debuggerflag, "impacted Pin Details Saved Success", data);
-        // this.testdetailsInput = { planitem: this.viewExtrapinRequestData, savedata: data }
-        if (data.isSuccess) {
-          this.impactedPinFlag = false;
-          this.notificationAlert.open();
-          this.message = data.message;
-        }
-        if (!data.isSuccess) {
-          this.notificationAlert.open();
-          this.message = data.message;
-        }
-      });
-      //this.cdr.detectChanges();
-    }
-    if (this.clarityFlag == true && this.mpclarityPermission.isEdit == true) {
-      if (this.clarityParam.projectCode != undefined && this.clarityParam.projectCode != null) {
-        clarityUrl = this.extraPinAPi + "Clarity/" + this.clarityParam.projectCode;
-        this.masterApiService.managePinUpdate(clarityUrl, this.clarityParam).subscribe(data => {
+      if (this.milestoneFlag == true && this.mpmilestonePermission.isEdit == true) {
+        milestoneUpdateUrl = this.extraPinAPi + "PinMilestone/" + this.pinId;
+        this.masterApiService.managePinUpdate(milestoneUpdateUrl, this.milestoneParam).subscribe(data => {
+          this.masterApiService.debuggerLog(this.debuggerflag, "milestone Details Saved Success", data);
           if (data.isSuccess) {
-            this.clarityFlag = false;
+            this.milestoneFlag = false;
             this.notificationAlert.open();
-            this.message = "Data saved successfully."; // data.message;
+            this.message = data.message;
           }
           if (!data.isSuccess) {
+            this.isErr = true;
             this.notificationAlert.open();
             this.message = data.message;
           }
         });
       }
-
+      if ((this.dependencyFlag == true) && (this.mpdependencyPermission.isEdit == true || this.mpdependencyPermission.isDelete == true || this.mpdependencyPermission.isAdd == true)) {
+        dependencyUrl = this.extraPinAPi + "Dependency/savelist";
+        this.masterApiService.masterAdd(dependencyUrl, this.dependencyParam).subscribe(data => {
+          this.masterApiService.debuggerLog(this.debuggerflag, "dependenc Details Saved Success", data);
+          this.dependencyInput = { planitem: this.viewExtrapinRequestData, savedata: data }
+          if (data.isSuccess) {
+            this.dependencyFlag = false;
+            this.notificationAlert.open();
+            this.message = data.message;
+          }
+          if (!data.isSuccess) {
+            this.isErr = true;
+            this.notificationAlert.open();
+            this.message = data.message;
+          }
+        });
+        // this.cdr.detectChanges();
+      }
+      if (this.cabinetFlag == true && this.mpcabinetPermission.isEdit == true) {
+        cabinetUrl = this.extraPinAPi + "ManagePinCabinet/savelist";
+        this.masterApiService.masterAdd(cabinetUrl, this.cabinetParam).subscribe(data => {
+          this.masterApiService.debuggerLog(this.debuggerflag, "cabinet Details Saved Success", data);
+          if (data.isSuccess) {
+            this.cabinetFlag = false;
+            this.notificationAlert.open();
+            this.message = data.message;
+          }
+          if (!data.isSuccess) {
+            this.notificationAlert.open();
+            this.isErr = true;
+            this.message = data.message;
+          }
+        });
+      }
+      if ((this.testerPlanFlag == true) && (this.mptesterPermission.isEdit == true || this.mptesterPermission.isDelete == true || this.mptesterPermission.isAdd == true)) {
+        testerPlanUrl = this.extraPinAPi + "testerplan/savelist";
+        this.masterApiService.masterAdd(testerPlanUrl, this.testerdetailsParam).subscribe(data => {
+          this.testdetailsInput = { planitem: this.viewExtrapinRequestData, savedata: data }
+          this.masterApiService.debuggerLog(this.debuggerflag, "tester plan Details Saved Success", data);
+          if (data.isSuccess) {
+            this.testerPlanFlag = false;
+            this.notificationAlert.open();
+            this.message = data.message;
+          }
+          if (!data.isSuccess) {
+            this.isErr = true;
+            this.notificationAlert.open();
+            this.message = data.message;
+          }
+        });
+        //this.cdr.detectChanges();
+      }
+      if ((this.setItemFlag == true) && (this.mpsetitemPermission.isEdit == true || this.mpsetitemPermission.isDelete == true || this.mpsetitemPermission.isAdd == true)) {
+        setItemUrl = this.extraPinAPi + "ManagePinSetItem/savelist";
+        this.masterApiService.masterAdd(setItemUrl, this.setitemParam).subscribe(data => {
+          this.masterApiService.debuggerLog(this.debuggerflag, "Set Item Details Saved Success", data);
+          // this.testdetailsInput = { planitem: this.viewExtrapinRequestData, savedata: data }
+          if (data.isSuccess) {
+            this.setItemFlag = false;
+            this.notificationAlert.open();
+            this.message = data.message;
+          }
+          if (!data.isSuccess) {
+            this.isErr = true;
+            this.notificationAlert.open();
+            this.message = data.message;
+          }
+        });
+        //this.cdr.detectChanges();
+      }
+      if ((this.linkedPinFlag == true) && (this.mplinkedPermission.isEdit == true || this.mplinkedPermission.isDelete == true || this.mpimpactedPermission.isAdd == true)) {
+        linkedPinUrl = this.extraPinAPi + "LinkedPin/savelist";
+        this.masterApiService.masterAdd(linkedPinUrl, this.linkedpinParam).subscribe(data => {
+          this.masterApiService.debuggerLog(this.debuggerflag, "linked Pin Details Saved Success", data);
+          // this.testdetailsInput = { planitem: this.viewExtrapinRequestData, savedata: data }
+          if (data.isSuccess) {
+            this.linkedPinFlag = false;
+            this.notificationAlert.open();
+            this.message = data.message;
+          }
+          if (!data.isSuccess) {
+            this.isErr = true;
+            this.notificationAlert.open();
+            this.message = data.message;
+          }
+        });
+        //this.cdr.detectChanges();
+      }
+      if ((this.impactedPinFlag == true) && (this.mpimpactedPermission.isEdit == true || this.mpimpactedPermission.isDelete == true
+        || this.mpimpactedPermission.isAdd == true)) {
+        impactedPinUrl = this.extraPinAPi + "ImpactedPin/savelist";
+        this.masterApiService.masterAdd(impactedPinUrl, this.impacpinParam).subscribe(data => {
+          this.masterApiService.debuggerLog(this.debuggerflag, "impacted Pin Details Saved Success", data);
+          // this.testdetailsInput = { planitem: this.viewExtrapinRequestData, savedata: data }
+          if (data.isSuccess) {
+            this.impactedPinFlag = false;
+            this.notificationAlert.open();
+            this.message = data.message;
+          }
+          if (!data.isSuccess) {
+            this.isErr = true;
+            this.notificationAlert.open();
+            this.message = data.message;
+          }
+        });
+        //this.cdr.detectChanges();
+      }
+      if (this.clarityFlag == true && this.mpclarityPermission.isEdit == true) {
+        if (this.clarityParam.projectCode != undefined && this.clarityParam.projectCode != null) {
+          clarityUrl = this.extraPinAPi + "Clarity/" + this.clarityParam.projectCode;
+          this.masterApiService.managePinUpdate(clarityUrl, this.clarityParam).subscribe(data => {
+            if (data.isSuccess) {
+              this.clarityFlag = false;
+              this.notificationAlert.open();
+              this.message = "Data saved successfully."; // data.message;
+            }
+            if (!data.isSuccess) {
+              this.isErr = true;
+              this.notificationAlert.open();
+              this.message = data.message;
+            }
+          });
+        }
+  
+      }
     }
+   
+
     this.spinner.hide();
+ 
+    
   }
   updatemanagepinOld() {
     let updateUrl = "";

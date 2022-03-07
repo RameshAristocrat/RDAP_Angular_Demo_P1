@@ -112,7 +112,7 @@
             </span>
           </ng-template>
           <app-rdap-manage-pin-others-tab *ngIf="viewExtrapinRequestData" [planitem]="viewExtrapinRequestData"
-            (otherEvent)="otherEvent($event)"></app-rdap-manage-pin-others-tab>
+            (otherEventLinkpin)="otherEventLinkpin($event)" (otherEventImpacpin)="otherEventImpacpin($event)"></app-rdap-manage-pin-others-tab>
         </mat-tab>
         <mat-tab class="mat-elevation-z4"
           *ngIf="mpauditPermission && mpauditPermission.isView == true || mpauditPermission.isEdit == true">

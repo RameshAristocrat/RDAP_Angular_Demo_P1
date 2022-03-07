@@ -4,9 +4,9 @@
     </div>
     <div class="row">
         <div class="grid__wrapper">
-            <igx-grid #linkedpingrid id="linkedpingrid" primaryKey="linkid" [data]="linkedpindata" width="100%"
-                [rowEditable]="gridlinkeditflag" igxOverlayOutlet [autoGenerate]="false" (onCellEdit)="editDone($event)"
-                (rowAdded)="linkedPinRowAddedDone($event)">
+            <igx-grid #linkedpingrid id="linkedpingrid" primaryKey="linkid" [data]="linkedpindata" width="100%" height="100%" style="min-height: 200px;"
+                 igxOverlayOutlet [autoGenerate]="false" (onCellEdit)="editDone($event)"
+                (rowAdded)="linkedPinRowAddedDone($event)" (rowEditDone)="editDone($event)">
                 <igx-column field="linkid" [header]="'Index'" [hidden]="true">
                     <ng-template igxCell let-cell="cell">
                          {{cell.row.index + 1}}
@@ -16,7 +16,7 @@
                     [editable]="false">
                 </igx-column>
                 <igx-column [width]="'200px'" field="linkedpinno" header="Linked Pin" [dataType]="'string'"
-                    >
+                [editable]="true">
                     <ng-template igxCellEditor let-cell="cell" let-value>
                         <!-- <igx-combo #remoteCombo class="combo" [itemsMaxHeight]="250" [itemsMinWidth]="500"
                         [data]="linkedpinsarrobj" [valueKey]="'id'" [displayKey]="'id'"
@@ -128,9 +128,10 @@
     </div>
     <div class="row">
         <div class="grid__wrapper">
-            <igx-grid #impactedpingrid id="impactedpingrid" primaryKey="impid" [data]="impactedpindata" width="100%"
-                [rowEditable]="gridimpactededitflag" igxOverlayOutlet [autoGenerate]="false" (onCellEdit)="editImpactedPinDone($event)"
-                (rowAdded)="impactedPinRowAddedDone($event)">
+            <igx-grid #impactedpingrid id="impactedpingrid" primaryKey="impid" [data]="impactedpindata" width="100%" height="100%" 
+            style="min-height: 200px;"
+             igxOverlayOutlet [autoGenerate]="false" (onCellEdit)="editImpactedPinDone($event)"
+                (rowAdded)="impactedPinRowAddedDone($event)" (rowEditDone)="editDone($event)">
                 <igx-column field="impid" [header]="'Index'" [hidden]="true">
                     <ng-template igxCell let-cell="cell">
                          {{cell.row.index + 1}}
@@ -140,7 +141,7 @@
                     [editable]="false">
                 </igx-column>
                 <igx-column [width]="'200px'" field="impactedpinno" header="Impacted Pin" [dataType]="'string'"
-                    >
+                [editable]="true">
                     <ng-template igxCellEditor let-cell="cell" let-value>
                         <!-- <igx-combo #remoteCombo class="combo" [itemsMaxHeight]="250" [itemsMinWidth]="500"
                         [data]="linkedpinsarrobj" [valueKey]="'id'" [displayKey]="'id'"

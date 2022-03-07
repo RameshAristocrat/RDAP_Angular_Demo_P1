@@ -146,14 +146,14 @@ export class RdapManagePinTestDetailsTabComponent implements OnInit {
     this.searchUrl = this.extraPinAPi + "testerplan/getbyplanitem/" + this.pinId;
     this.masterApiService.getMasterDataById(this.searchUrl).subscribe(x => {
       this.testdetails = x;
-      this.testdetails.forEach(y => {
-        if(y.descrLong == null){
-          y.descrLong = "";
-        }
-      });
       console.log("testerplan",x)
       if (x.length > 0) {
         this.data = x;
+        this.data.forEach(y => {
+          if(y.descrLong == null){
+            y.descrLong = "";
+          }
+        });
       } else {
         this.data = [];
       }

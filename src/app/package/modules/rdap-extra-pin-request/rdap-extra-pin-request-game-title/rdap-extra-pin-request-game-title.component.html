@@ -63,9 +63,20 @@
     </igx-column>
         <igx-column [width]="'100px'" field="id" header="ID" [dataType]="'number'" [hidden]="true">
     </igx-column>
-            <igx-action-strip #actionstrip>
+            <!-- <igx-action-strip #actionstrip>
                 <igx-grid-editing-actions [addRow]="true"></igx-grid-editing-actions>
-            </igx-action-strip>
+            </igx-action-strip> -->
+            <igx-action-strip #actionstrip>
+                <button title="Edit" igxButton="icon" igxRipple (click)='startEdit(actionstrip.context)'>
+                    <igx-icon>edit</igx-icon>
+                </button>
+                <button  title="Add New" igxButton="icon" igxRipple (click)='addNew(actionstrip.context)'>
+                    <igx-icon>add</igx-icon>
+                </button>
+                <button  title="Delete" igxButton="icon" igxRipple (click)="deleterow(actionstrip.context)">
+                    <igx-icon>delete</igx-icon>
+                </button>
+            </igx-action-strip> 
         </igx-grid>
         </div>
         </div>

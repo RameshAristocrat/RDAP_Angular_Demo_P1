@@ -81,7 +81,7 @@ export class RdapSharedIgxGridSearchResultComponent implements OnInit, AfterView
     // this.gridDataLoad();   
   }
   ngOnChanges() {
-    if (this.searchGridData?.length > 0) {
+    if (this.searchGridData != undefined && this.searchGridData?.length > 0) {
       if(this.totalCount == undefined)
       {
         this.totalCount = this.searchGridData.length;
@@ -92,7 +92,11 @@ export class RdapSharedIgxGridSearchResultComponent implements OnInit, AfterView
       this.filterflag = false;
       this.exportdisplay = "none";
       this.autogenFlag=true;
-      this.data = this.searchGridData;
+      if (this.searchGridData != undefined)
+      {
+         this.data = this.searchGridData;
+      }
+     
       this.columndata = [];
       this.loopGridContent = [];
     }

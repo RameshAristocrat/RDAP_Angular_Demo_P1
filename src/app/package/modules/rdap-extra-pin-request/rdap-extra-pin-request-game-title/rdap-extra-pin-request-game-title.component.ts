@@ -104,18 +104,23 @@ export class RdapExtraPinRequestGameTitleComponent implements OnInit,OnChanges {
   }
 
   ngOnInit(): void {
+    this.loadDdlApi();
+    this.buildForm();
+  }
+
+  
+  ngOnChanges(data) {
+    if (this.pinId) {
+      this.getRequestPinById();
+    }
+  }
+  loadDdlApi(){
     this.requesttitlearrobj = [];
     this.titleDdldata = [];
     this.masterApiService.masterSearchDDL(this.baseApi + "title/ddl").subscribe(data => {
       this.requesttitlearrobj.push(data);
       this.titleDdldata = this.requesttitlearrobj[0];
     });
-    this.buildForm();
-  }
-  ngOnChanges(data) {
-    if (this.pinId) {
-      this.getRequestPinById();
-    }
   }
   getRequestPinById() {
     this.spinner.show();
@@ -145,7 +150,6 @@ export class RdapExtraPinRequestGameTitleComponent implements OnInit,OnChanges {
         if(this.gametitelgrid){
           this.gametitelgrid.rowEditable = false;
         }
-        
   }
   public busjustification(event){
 
@@ -177,12 +181,38 @@ export class RdapExtraPinRequestGameTitleComponent implements OnInit,OnChanges {
   editDone(data){
 
     this.gametitelgrid.data.forEach(x => {
-      this.gameTitleArrObj.push({ title: x.description2, id: x.id })
+      this.gameTitleArrObj.push({ title: x.description2, titleId: x.id })
     });
     // this.commongridmodel.filter(x=>{
     //   x[field].push(event.newSelection.value["id"]);{griddata:this.gameTitleArrObj, busjustify:this.gametitleform}
     // });
      this.gametitleEvent.emit(this.gameTitleArrObj);
   }
+
+  public startEdit(row?): void {
+    const firstEditable = row.cells.filter(cell => cell.editable)[0];
+    const grid = row.grid;
+    if (grid.rowList.filter(r => r === row).length !== 0) {
+        grid.gridAPI.crudService.enterEditMode(firstEditable, event);
+        firstEditable.activate();
+    }
+    row?.hide();
+  }
+
+public addNew(row?):void{
+  //  this.loadDdlApi();
+  this.gametitelgrid.beginAddRowByIndex(row.index);
+}
+
+public deleterow(event) {
+  this.gameTitleArrObj = [];
+     if (event.dataRowIndex > -1) {
+    this.gametitelgrid.data.splice(event.dataRowIndex, 1);
+  }
+  this.gametitelgrid.data.forEach(x => {
+    this.gameTitleArrObj.push({ title: x.description2, titleId: x.id })
+  });
+  this.gametitleEvent.emit(this.gameTitleArrObj);
+}
 
 }
