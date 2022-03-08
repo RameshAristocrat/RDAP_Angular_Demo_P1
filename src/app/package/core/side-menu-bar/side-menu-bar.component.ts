@@ -74,7 +74,7 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
             {
               modulename: 'region',
               name: 'Region',
-              link: '/home/config/setuptable/region/search',
+              link: '/home/managepin/master/region/search',
               icon: 'cloud',
               type: 'SC',
               header: '0',
@@ -83,7 +83,7 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
             {
               modulename: 'market',
               name: 'Market',
-              link: '/home/config/setuptable/market/search',
+              link: '/home/managepin/master/market/search',
               icon: 'room_preferences',
               type: 'SC',
               header: '0',
@@ -92,7 +92,7 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
             {
               modulename: 'studio',
               name: 'Studio',
-              link: '/home/config/setuptable/studio/search',
+              link: '/home/managepin/master/studio/search',
               icon: 'admin_panel_settings',
               type: 'SC',
               header: '0',
@@ -101,7 +101,7 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
             {
               modulename: 'channeltype',
               name: 'Channel Type',
-              link: '/home/config/setuptable/channeltype/search',
+              link: '/home/managepin/master/channeltype/search',
               icon: 'verified',
               type: 'SC',
               header: '0',
@@ -110,7 +110,7 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
             {
               modulename: 'channel',
               name: 'Channel',
-              link: '/home/config/setuptable/channel/search',
+              link: '/home/managepin/master/channel/search',
               icon: 'thumb_up',
               type: 'SC',
               header: '0',
@@ -119,7 +119,7 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
             {
               modulename: 'cabinet',
               name: 'Cabinets',
-              link: '/home/config/setuptable/cabinets/search',
+              link: '/home/managepin/master/cabinets/search',
               icon: 'event',
               type: 'SC',
               header: '0',
@@ -128,7 +128,7 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
             {
               modulename: 'status1',
               name: 'Status1',
-              link: '/home/config/setuptable/status1/search',
+              link: '/home/managepin/master/status1/search',
               icon: 'event',
               type: 'SC',
               header: '0',
@@ -137,7 +137,7 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
             {
               modulename: 'status2',
               name: 'Status2',
-              link: '/home/config/setuptable/status2/search',
+              link: '/home/managepin/master/status2/search',
               icon: 'event',
               type: 'SC',
               header: '0',
@@ -146,7 +146,7 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
             {
               modulename: 'status3',
               name: 'Status3',
-              link: '/home/config/setuptable/status3/search',
+              link: '/home/managepin/master/status3/search',
               icon: 'event',
               type: 'SC',
               header: '0',
@@ -155,7 +155,7 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
             {
               modulename: 'devefforttype',
               name: 'Dev Effort Type',
-              link: '/home/config/setuptable/devefforttype/search',
+              link: '/home/managepin/master/devefforttype/search',
               icon: 'lightbulb',
               type: 'SC',
               header: '0',
@@ -164,7 +164,7 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
             {
               modulename: 'devcomplexity',
               name: 'Dev Complexity',
-              link: '/home/config/setuptable/devcomplexity/search',
+              link: '/home/managepin/master/devcomplexity/search',
               icon: 'highlight_off',
               type: 'SC',
               header: '0',
@@ -173,7 +173,7 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
             {
               modulename: 'gravity',
               name: 'Gravity',
-              link: '/home/config/setuptable/gravity/search',
+              link: '/home/managepin/master/gravity/search',
               icon: 'task_alt',
               type: 'SC',
               header: '0',
@@ -182,7 +182,7 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
             {
               modulename: 'devtype1',
               name: 'Dev Type1',
-              link: '/home/config/setuptable/devtype1/search',
+              link: '/home/managepin/master/devtype1/search',
               icon: 'question_answer',
               type: 'SC',
               header: '0',
@@ -191,7 +191,7 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
             {
               modulename: 'devtype2',
               name: 'Dev Type2',
-              link: '/home/config/setuptable/devtype2/search',
+              link: '/home/managepin/master/devtype2/search',
               icon: 'room_preferences',
               type: 'SC',
               header: '0',
@@ -200,7 +200,7 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
             {
               modulename: 'version',
               name: 'Version',
-              link: '/home/config/setuptable/version/search',
+              link: '/home/managepin/master/version/search',
               icon: 'text_snippet',
               type: 'SC',
               header: '0',
@@ -209,7 +209,7 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
             {
               modulename: 'quarter',
               name: 'Quarter',
-              link: '/home/config/setuptable/quarter/search',
+              link: '/home/managepin/master/quarter/search',
               icon: 'text_snippet',
               type: 'SC',
               header: '0',
@@ -218,7 +218,7 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
             {
               modulename: 'epp_ref',
               name: 'EPP',
-              link: '/home/config/setuptable/epp/search',
+              link: '/home/managepin/master/epp/search',
               icon: 'cloud',
               type: 'SC',
               header: '0',
@@ -227,7 +227,7 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
             {
               modulename: 'prodcat1',
               name: 'Prodcat1',
-              link: '/home/config/setuptable/prodcat1/search',
+              link: '/home/managepin/master/prodcat1/search',
               icon: 'cloud',
               type: 'SC',
               header: '0',
@@ -236,7 +236,7 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
             {
               modulename: 'prodcat2',
               name: 'Prodcat2',
-              link: '/home/config/setuptable/prodcat2/search',
+              link: '/home/managepin/master/prodcat2/search',
               icon: 'cloud',
               type: 'SC',
               header: '0',
@@ -245,7 +245,7 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
             {
               modulename: 'prodcat3',
               name: 'Prodcat3',
-              link: '/home/config/setuptable/prodcat3/search',
+              link: '/home/managepin/master/prodcat3/search',
               icon: 'cloud',
               type: 'SC',
               header: '0',
@@ -254,7 +254,7 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
             {
               modulename: 'financialyear',
               name: 'Financial Year',
-              link: '/home/config/setuptable/financialyear/search',
+              link: '/home/managepin/master/financialyear/search',
               icon: 'room_preferences',
               type: 'SC',
               header: '0',
@@ -263,7 +263,7 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
             {
               modulename: 'pool',
               name: 'Pool',
-              link: '/home/config/setuptable/pool/search',
+              link: '/home/managepin/master/pool/search',
               icon: 'room_preferences',
               type: 'SC',
               header: '0',
@@ -272,7 +272,7 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
             {
               modulename: 'gamecomplexity',
               name: 'Game Complexity',
-              link: '/home/config/setuptable/gamecomplexity/search',
+              link: '/home/managepin/master/gamecomplexity/search',
               icon: 'room_preferences',
               type: 'SC',
               header: '0',
@@ -281,7 +281,7 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
             {
               modulename: 'productgroup',
               name: 'Product Group',
-              link: '/home/config/setuptable/productgroup/search',
+              link: '/home/managepin/master/productgroup/search',
               icon: 'room_preferences',
               type: 'SC',
               header: '0',
@@ -290,7 +290,7 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
             {
               modulename: 'productbasket',
               name: 'Product Basket',
-              link: '/home/config/setuptable/productbasket/search',
+              link: '/home/managepin/master/productbasket/search',
               icon: 'room_preferences',
               type: 'SC',
               header: '0',
@@ -299,7 +299,7 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
             {
               modulename: 'emulation',
               name: 'Emulation',
-              link: '/home/config/setuptable/emulation/search',
+              link: '/home/managepin/master/emulation/search',
               icon: 'room_preferences',
               type: 'SC',
               header: '0',
@@ -308,7 +308,7 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
             {
               modulename: 'denom',
               name: 'Denom',
-              link: '/home/config/setuptable/denom/search',
+              link: '/home/managepin/master/denom/search',
               icon: 'room_preferences',
               type: 'SC',
               header: '0',
@@ -317,7 +317,7 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
             {
               modulename: 'them',
               name: 'Theme',
-              link: '/home/config/setuptable/theme/search',
+              link: '/home/managepin/master/theme/search',
               icon: 'room_preferences',
               type: 'SC',
               header: '0',
@@ -326,7 +326,7 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
             {
               modulename: 'title',
               name: 'Title',
-              link: '/home/config/setuptable/title/search',
+              link: '/home/managepin/master/title/search',
               icon: 'room_preferences',
               type: 'SC',
               header: '0',
@@ -335,7 +335,7 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
             {
               modulename: 'risk',
               name: 'Risk',
-              link: '/home/config/setuptable/risk/search',
+              link: '/home/managepin/master/risk/search',
               icon: 'room_preferences',
               type: 'SC',
               header: '0',
@@ -344,7 +344,7 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
             {
               modulename: 'viridianlaunch',
               name: 'Viridianlaunch',
-              link: '/home/config/setuptable/viridianlaunch/search',
+              link: '/home/managepin/master/viridianlaunch/search',
               icon: 'room_preferences',
               type: 'SC',
               header: '0',
@@ -353,7 +353,7 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
             {
               modulename: 'videostepper',
               name: 'Video Stepper',
-              link: '/home/config/setuptable/vidstep/search',
+              link: '/home/managepin/master/vidstep/search',
               icon: 'room_preferences',
               type: 'SC',
               header: '0',
@@ -362,7 +362,7 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
             {
               modulename: 'flag',
               name: 'Flag',
-              link: '/home/config/setuptable/flag/search',
+              link: '/home/managepin/master/flag/search',
               icon: 'room_preferences',
               type: 'SC',
               header: '0',
@@ -371,7 +371,7 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
             {
               modulename: 'studio2',
               name: 'Studio2',
-              link: '/home/config/setuptable/studio2/search',
+              link: '/home/managepin/master/studio2/search',
               icon: 'room_preferences',
               type: 'SC',
               header: '0',
@@ -380,7 +380,7 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
             {
               modulename: 'studiotype',
               name: 'Studiotype',
-              link: '/home/config/setuptable/studiotype/search',
+              link: '/home/managepin/master/studiotype/search',
               icon: 'room_preferences',
               type: 'SC',
               header: '0',
@@ -388,7 +388,7 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
             },{
               modulename: 'platform',
               name: 'platform',
-              link: '/home/config/setuptable/platform/search',
+              link: '/home/managepin/master/platform/search',
               icon: 'room_preferences',
               type: 'SC',
               header: '0',
@@ -398,7 +398,7 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
         },
         {
           name: 'Extra PINs Request',
-          link: '/home/transaction/managepin/extrapinrequest/add',
+          link: '/home/managepin/extrapinrequest/add',
           icon: 'paid',
           type: 'SC',
           header: '0',
@@ -409,7 +409,7 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
         },
         {
           name: 'Requested PINs',
-          link: '/home/transaction/managepin/extrapinrequest/list',
+          link: '/home/managepin/extrapinrequest/list',
           icon: 'paid',
           type: 'SC',
           header: '0',
@@ -419,7 +419,7 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
           level1: [],
         }, {
           name: 'Manage Product Plan',
-          link: '/home/transaction/managepin/list',
+          link: '/home/managepin/manageproductplan/list',
           icon: 'paid',
           type: 'SC',
           header: '0',
@@ -461,7 +461,7 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
         },
         {
           name: 'Rework Request',
-          link: '/home/transaction/rework/reworkrequest/add',
+          link: '/home/rework/reworkrequest/add',
           icon: 'paid',
           type: 'SC',
           header: '0',
@@ -472,7 +472,7 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
         },
         {
           name: 'Requested Rework',
-          link: '/home/transaction/rework/reworkrequest/list',
+          link: '/home/rework/reworkrequest/list',
           icon: 'paid',
           type: 'SC',
           header: '0',
@@ -503,8 +503,8 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
           level1: [],
         },
         {
-          name: 'Blanket Pin',
-          link: '/home/transaction/blanketpin/blanketpinreq/add',
+          name: 'Blanket Pin Request',
+          link: '/home/blanketpin/blanketpinreq/add',
           icon: 'paid',
           type: 'SC',
           header: '0',

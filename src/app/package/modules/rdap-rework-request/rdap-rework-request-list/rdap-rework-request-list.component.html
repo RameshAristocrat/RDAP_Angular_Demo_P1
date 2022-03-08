@@ -1,6 +1,9 @@
-<div class="grid-container" *ngIf="isShow">
+
+<div class="grid-container" >
     <!-- <h1 class="mat-h1">Rework Request</h1> -->
-    <app-rdap-shared-breadcrumb></app-rdap-shared-breadcrumb>
+    <app-rdap-shared-breadcrumb></app-rdap-shared-breadcrumb>    
+
+    <div *ngIf="isShow">
     <mat-accordion>
         <mat-expansion-panel [expanded]="true" (opened)="panelOpenState = true"
         (closed)="panelOpenState = false">
@@ -138,7 +141,7 @@
             (click)="viewreworkrecord(route)"  *ngIf="selMasterDetailsData && selMasterDetailsData.newSelection.length > 0">Open</button>
         </mat-card-actions>
     </mat-card>
-   
+</div>
     </div>
     <igx-dialog #alert title="Rework Request List" message="{{message}}" leftButtonLabel="OK" 
     (leftButtonSelect)="onDialogSubmit($event)"></igx-dialog> 

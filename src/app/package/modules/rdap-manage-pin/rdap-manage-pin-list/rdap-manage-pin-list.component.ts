@@ -142,8 +142,8 @@ export class RdapManagePinListComponent implements OnInit {
     }
     this.callDdlApi();
     this.serchfilterFormGroup();
-    // this.spinner.hide();
-    this.gridDataLoad();
+     this.spinner.hide();
+    //this.gridDataLoad();
 
   }
   serchfilterFormGroup() {

@@ -25,7 +25,7 @@
         (rowSelected)="handleRowSelection($event)"
         [autoGenerate]="autogenFlag"  [emptyGridMessage]="'No Record Found'"
         >
-        <igx-grid-toolbar [hidden]="searchGridData.length == 0">
+        <igx-grid-toolbar [hidden]="searchGridData?.length == 0">
             <igx-grid-toolbar-actions >
                 <igx-grid-toolbar-exporter [exportExcel]="true" [exportCSV]="true" filename="{{exportfilename}}">
                 </igx-grid-toolbar-exporter>

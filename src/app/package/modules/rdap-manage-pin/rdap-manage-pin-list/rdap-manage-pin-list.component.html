@@ -107,6 +107,7 @@
     <mat-card>
         <mat-card-content>
             <app-rdap-shared-igx-grid-search-result [exportfilename]="exportfilename" 
+            *ngIf = "searchGridData?.length > 0"
             [searchGridData]="searchGridData" 
             [totalCount] = "totalCount"
             [pagename]="pagename"  [appString]="appString" 

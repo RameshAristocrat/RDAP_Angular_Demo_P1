@@ -73,7 +73,7 @@ const routes: Routes = [
             (m) => m.RdapConfigModule
           ),
       }, {
-        path: "config/setuptable",
+        path: "managepin/master",
         component: SetupTableHomeComponent,
         children: [
           {
@@ -856,14 +856,14 @@ const routes: Routes = [
         ],
       },
       {
-        path: 'transaction/managepin/extrapinrequest/add',
+        path: 'managepin/extrapinrequest/add',
         component: RDAPExtraPINRequestComponent,
       }, {
-        path: 'transaction/managepin/extrapinrequest/list',
+        path: 'managepin/extrapinrequest/list',
         component: RdapExtPinReqListComponent,
       },
       {
-        path: 'transaction/managepin/extrapinrequest/view/:id',
+        path: 'managepin/extrapinrequest/view/:id',
         component: RDAPExtraPINRequestComponent,
       },
       {
@@ -871,11 +871,11 @@ const routes: Routes = [
         component: RDAPExtraPINRequestComponent,
       },
       {
-        path: 'transaction/managepin/view/:id',
+        path: 'managepin/manageproductplan/view/:id',
         component: RdapManagePinComponent,
       },
       {
-        path: 'transaction/managepin/list',
+        path: 'managepin/manageproductplan/list',
         component: RdapManagePinListComponent,
       },
       {
@@ -883,22 +883,22 @@ const routes: Routes = [
         component:RdapExtraPinRequestIndividualWorkflowComponent,
       }
       ,{
-        path: 'transaction/rework/reworkrequest/add',
+        path: 'rework/reworkrequest/add',
         component: RdapReworkRequestComponent,
       }, {
-        path: 'transaction/rework/reworkrequest/list',
+        path: 'rework/reworkrequest/list',
         component: RdapReworkReqListComponent,
       },
       {
-        path: 'transaction/rework/reworkrequest/view/:id',
+        path: 'rework/reworkrequest/view/:id',
         component: RdapReworkRequestComponent,
       },
       {
-        path: 'transaction/rework/reworkrequest/workflow',
+        path: 'rework/reworkrequest/workflow',
         component: RdapReworkRequestComponent,
       }
       ,{
-        path: 'transaction/blanketpin/blanketpinreq/add',
+        path: 'blanketpin/blanketpinreq/add',
         component: RdapBlanketPinRequestComponent,
       },
     ],

@@ -9,10 +9,10 @@ export const breadcrumb = [
     ],
   },
   {
-    page: 'setuptable',
+    page: 'master',
     details: [
       {
-        label: 'Setup Tables',
+        label: 'Master ',
         url: '/home/dashboard',
       },
     ],
@@ -21,7 +21,7 @@ export const breadcrumb = [
     page: 'config',
     details: [
       {
-        label: 'Configs',
+        label: 'Manage PIN',
         url: '/home/dashboard',
       },
     ],
@@ -30,31 +30,31 @@ export const breadcrumb = [
     page: "version",
     details: [{
       label: "Version",
-      url: "/home/config/setuptable/version/search"
+      url: "/home/managepin/master/version/search"
     }, {
       label: "Version >> Add New Record",
-      url: "/home/config/setuptable/version/add"
+      url: "/home/managepin/master/version/add"
     }, {
       label: "Version",
-      url: "/home/config/setuptable/version/edit"
+      url: "/home/managepin/master/version/edit"
     }, {
       label: "Version >> Edit/Delete",
-      url: "/home/config/setuptable/version/view"
+      url: "/home/managepin/master/version/view"
     }]
   }, {
     page: "epp",
     details: [{
       label: "EPP",
-      url: "/home/config/setuptable/epp/search"
+      url: "/home/managepin/master/epp/search"
     }, {
       label: "EPP >> Add New Record",
-      url: "/home/config/setuptable/epp/add"
+      url: "/home/managepin/master/epp/add"
     }, {
       label: "EPP",
-      url: "/home/config/setuptable/epp/edit"
+      url: "/home/managepin/master/epp/edit"
     }, {
       label: "EPP >> Edit/Delete",
-      url: "/home/config/setuptable/epp/view"
+      url: "/home/managepin/master/epp/view"
 
     }]
   },
@@ -63,19 +63,19 @@ export const breadcrumb = [
     details: [
       {
         label: 'Region',
-        url: '/home/config/setuptable/region/search',
+        url: '/home/managepin/master/region/search',
       },
       {
         label: 'Region',
-        url: '/home/config/setuptable/region/add',
+        url: '/home/managepin/master/region/add',
       },
       {
         label: 'Region',
-        url: '/home/config/setuptable/region/edit',
+        url: '/home/managepin/master/region/edit',
       },
       {
         label: 'Region',
-        url: '/home/config/setuptable/region/view',
+        url: '/home/managepin/master/region/view',
       },
     ],
   },
@@ -84,19 +84,19 @@ export const breadcrumb = [
     details: [
       {
         label: 'Prodcat1',
-        url: '/home/config/setuptable/prodcat1/search',
+        url: '/home/managepin/master/prodcat1/search',
       },
       {
         label: 'Prodcat1 >> Add New Record',
-        url: '/home/config/setuptable/prodcat1/add',
+        url: '/home/managepin/master/prodcat1/add',
       },
       {
         label: 'Prodcat1',
-        url: '/home/config/setuptable/prodcat1/edit',
+        url: '/home/managepin/master/prodcat1/edit',
       },
       {
         label: 'Prodcat1 >> Edit/Delete',
-        url: '/home/config/setuptable/prodcat1/view',
+        url: '/home/managepin/master/prodcat1/view',
       },
     ],
   },
@@ -105,19 +105,19 @@ export const breadcrumb = [
     details: [
       {
         label: 'Prodcat2',
-        url: '/home/config/setuptable/prodcat2/search',
+        url: '/home/managepin/master/prodcat2/search',
       },
       {
         label: 'Prodcat2 >> Add New Record',
-        url: '/home/config/setuptable/prodcat2/add',
+        url: '/home/managepin/master/prodcat2/add',
       },
       {
         label: 'Prodcat2',
-        url: '/home/config/setuptable/prodcat2/edit',
+        url: '/home/managepin/master/prodcat2/edit',
       },
       {
         label: 'Prodcat2 >> Edit/Delete',
-        url: '/home/config/setuptable/prodcat2/view',
+        url: '/home/managepin/master/prodcat2/view',
       },
     ],
   },
@@ -126,19 +126,19 @@ export const breadcrumb = [
     details: [
       {
         label: 'Prodcat3',
-        url: '/home/config/setuptable/prodcat3/search',
+        url: '/home/managepin/master/prodcat3/search',
       },
       {
         label: 'Prodcat3 >> Add New Record',
-        url: '/home/config/setuptable/prodcat3/add',
+        url: '/home/managepin/master/prodcat3/add',
       },
       {
         label: 'Prodcat3',
-        url: '/home/config/setuptable/prodcat3/edit',
+        url: '/home/managepin/master/prodcat3/edit',
       },
       {
         label: 'Prodcat3 >> Edit/Delete',
-        url: '/home/config/setuptable/prodcat3/view',
+        url: '/home/managepin/master/prodcat3/view',
       },
     ],
   },
@@ -147,19 +147,19 @@ export const breadcrumb = [
     details: [
       {
         label: 'Channel Type',
-        url: '/home/config/setuptable/channeltype/search',
+        url: '/home/managepin/master/channeltype/search',
       },
       {
         label: 'Channel Type >> Add',
-        url: '/home/config/setuptable/channeltype/add',
+        url: '/home/managepin/master/channeltype/add',
       },
       {
         label: 'Channel Type',
-        url: '/home/config/setuptable/channeltype/edit',
+        url: '/home/managepin/master/channeltype/edit',
       },
       {
         label: 'Channel Type >> Edit/Delete',
-        url: '/home/config/setuptable/channeltype/view',
+        url: '/home/managepin/master/channeltype/view',
       },
     ],
   },
@@ -168,19 +168,19 @@ export const breadcrumb = [
     details: [
       {
         label: 'Channel',
-        url: '/home/config/setuptable/channel/search',
+        url: '/home/managepin/master/channel/search',
       },
       {
         label: 'Channel',
-        url: '/home/config/setuptable/channel/add',
+        url: '/home/managepin/master/channel/add',
       },
       {
         label: 'Channel',
-        url: '/home/config/setuptable/channel/edit',
+        url: '/home/managepin/master/channel/edit',
       },
       {
         label: 'Channel',
-        url: '/home/config/setuptable/channel/view',
+        url: '/home/managepin/master/channel/view',
       },
     ],
   },
@@ -189,19 +189,19 @@ export const breadcrumb = [
     details: [
       {
         label: 'Dev Effort Type',
-        url: '/home/config/setuptable/devefforttype/search',
+        url: '/home/managepin/master/devefforttype/search',
       },
       {
         label: 'Dev Effort Type',
-        url: '/home/config/setuptable/devefforttype/add',
+        url: '/home/managepin/master/devefforttype/add',
       },
       {
         label: 'Dev Effort Type',
-        url: '/home/config/setuptable/devefforttype/edit',
+        url: '/home/managepin/master/devefforttype/edit',
       },
       {
         label: 'Dev Effort Type >> Edit/Delete',
-        url: '/home/config/setuptable/devefforttype/view',
+        url: '/home/managepin/master/devefforttype/view',
       },
     ],
   },
@@ -210,19 +210,19 @@ export const breadcrumb = [
     details: [
       {
         label: 'Cabinets',
-        url: '/home/config/setuptable/cabinets/search',
+        url: '/home/managepin/master/cabinets/search',
       },
       {
         label: 'Cabinets',
-        url: '/home/config/setuptable/cabinets/add',
+        url: '/home/managepin/master/cabinets/add',
       },
       {
         label: 'Cabinets',
-        url: '/home/config/setuptable/cabinets/edit',
+        url: '/home/managepin/master/cabinets/edit',
       },
       {
         label: 'Cabinets',
-        url: '/home/config/setuptable/cabinets/view',
+        url: '/home/managepin/master/cabinets/view',
       },
     ],
   },
@@ -230,32 +230,32 @@ export const breadcrumb = [
     page: "devtype1",
     details: [{
       label: "Dev Type1",
-      url: "/home/config/setuptable/devtype1/search"
+      url: "/home/managepin/master/devtype1/search"
     }, {
       label: "DevT ype1 >> Add New Record",
-      url: "/home/config/setuptable/devtype1/add"
+      url: "/home/managepin/master/devtype1/add"
     }, {
       label: "Dev Type1",
-      url: "/home/config/setuptable/devtype1/edit"
+      url: "/home/managepin/master/devtype1/edit"
     }, {
       label: "Dev Type1 >> Edit/Delete",
-      url: "/home/config/setuptable/devtype1/view"
+      url: "/home/managepin/master/devtype1/view"
 
     }]
   }, {
     page: "devtype2",
     details: [{
       label: "Dev Type2/class",
-      url: "/home/config/setuptable/devtype2/search"
+      url: "/home/managepin/master/devtype2/search"
     }, {
       label: "Dev Type2/class >> Add New Record",
-      url: "/home/config/setuptable/devtype2/add"
+      url: "/home/managepin/master/devtype2/add"
     }, {
       label: "Dev Type2/class",
-      url: "/home/config/setuptable/devtype2/edit"
+      url: "/home/managepin/master/devtype2/edit"
     }, {
       label: "Dev Type2/class >> Edit/Delete",
-      url: "/home/config/setuptable/devtype2/view"
+      url: "/home/managepin/master/devtype2/view"
 
     }]
   },
@@ -264,19 +264,19 @@ export const breadcrumb = [
     details: [
       {
         label: 'Market',
-        url: '/home/config/setuptable/market/search',
+        url: '/home/managepin/master/market/search',
       },
       {
         label: 'Market',
-        url: '/home/config/setuptable/market/add',
+        url: '/home/managepin/master/market/add',
       },
       {
         label: 'Market',
-        url: '/home/config/setuptable/market/edit',
+        url: '/home/managepin/master/market/edit',
       },
       {
         label: 'Market',
-        url: '/home/config/setuptable/market/view',
+        url: '/home/managepin/master/market/view',
       },
     ],
   },
@@ -285,19 +285,19 @@ export const breadcrumb = [
     details: [
       {
         label: 'Status1',
-        url: '/home/config/setuptable/status1/search',
+        url: '/home/managepin/master/status1/search',
       },
       {
         label: 'Status1 >> Add New Record',
-        url: '/home/config/setuptable/status1/add',
+        url: '/home/managepin/master/status1/add',
       },
       {
         label: 'Status1',
-        url: '/home/config/setuptable/status1/edit',
+        url: '/home/managepin/master/status1/edit',
       },
       {
         label: 'Status1 >> Edit/Delete',
-        url: '/home/config/setuptable/status1/view',
+        url: '/home/managepin/master/status1/view',
       },
     ],
   },
@@ -306,19 +306,19 @@ export const breadcrumb = [
     details: [
       {
         label: 'Status2',
-        url: '/home/config/setuptable/status2/search',
+        url: '/home/managepin/master/status2/search',
       },
       {
         label: 'Status2 >> Add New Record',
-        url: '/home/config/setuptable/status2/add',
+        url: '/home/managepin/master/status2/add',
       },
       {
         label: 'Status2',
-        url: '/home/config/setuptable/status2/edit',
+        url: '/home/managepin/master/status2/edit',
       },
       {
         label: 'Status2 >> Edit/Delete',
-        url: '/home/config/setuptable/status2/view',
+        url: '/home/managepin/master/status2/view',
       },
     ],
   },
@@ -327,19 +327,19 @@ export const breadcrumb = [
     details: [
       {
         label: 'Status3',
-        url: '/home/config/setuptable/status3/search',
+        url: '/home/managepin/master/status3/search',
       },
       {
         label: 'Status3 >> Add New Record',
-        url: '/home/config/setuptable/status3/add',
+        url: '/home/managepin/master/status3/add',
       },
       {
         label: 'Status3',
-        url: '/home/config/setuptable/status3/edit',
+        url: '/home/managepin/master/status3/edit',
       },
       {
         label: 'Status3 >> Edit/Delete',
-        url: '/home/config/setuptable/status3/view',
+        url: '/home/managepin/master/status3/view',
       },
     ],
   },
@@ -348,19 +348,19 @@ export const breadcrumb = [
     details: [
       {
         label: 'Financial Year',
-        url: '/home/config/setuptable/financialyear/search',
+        url: '/home/managepin/master/financialyear/search',
       },
       {
         label: 'Financial Year',
-        url: '/home/config/setuptable/financialyear/add',
+        url: '/home/managepin/master/financialyear/add',
       },
       {
         label: 'Financial Year',
-        url: '/home/config/setuptable/financialyear/edit',
+        url: '/home/managepin/master/financialyear/edit',
       },
       {
         label: 'Financial Year >> Edit/Delete',
-        url: '/home/config/setuptable/financialyear/view',
+        url: '/home/managepin/master/financialyear/view',
       },
     ],
   },
@@ -369,19 +369,19 @@ export const breadcrumb = [
     details: [
       {
         label: 'Quarter',
-        url: '/home/config/setuptable/quarter/search',
+        url: '/home/managepin/master/quarter/search',
       },
       {
         label: 'Quarter',
-        url: '/home/config/setuptable/quarter/add',
+        url: '/home/managepin/master/quarter/add',
       },
       {
         label: 'Quarter',
-        url: '/home/config/setuptable/quarter/edit',
+        url: '/home/managepin/master/quarter/edit',
       },
       {
         label: 'Quarter >> Edit/Delete',
-        url: '/home/config/setuptable/quarter/view',
+        url: '/home/managepin/master/quarter/view',
       },
     ],
   },
@@ -390,19 +390,19 @@ export const breadcrumb = [
     details: [
       {
         label: 'Pool',
-        url: '/home/config/setuptable/pool/search',
+        url: '/home/managepin/master/pool/search',
       },
       {
         label: 'Pool',
-        url: '/home/config/setuptable/pool/add',
+        url: '/home/managepin/master/pool/add',
       },
       {
         label: 'Pool',
-        url: '/home/config/setuptable/pool/edit',
+        url: '/home/managepin/master/pool/edit',
       },
       {
         label: 'Pool',
-        url: '/home/config/setuptable/pool/view',
+        url: '/home/managepin/master/pool/view',
       },
     ],
   },
@@ -411,19 +411,19 @@ export const breadcrumb = [
     details: [
       {
         label: 'Game Complexity',
-        url: '/home/config/setuptable/gamecomplexity/search',
+        url: '/home/managepin/master/gamecomplexity/search',
       },
       {
         label: 'Game Complexity',
-        url: '/home/config/setuptable/gamecomplexity/add',
+        url: '/home/managepin/master/gamecomplexity/add',
       },
       {
         label: 'Game Complexity',
-        url: '/home/config/setuptable/gamecomplexity/edit',
+        url: '/home/managepin/master/gamecomplexity/edit',
       },
       {
         label: 'Game Complexity',
-        url: '/home/config/setuptable/gamecomplexity/view',
+        url: '/home/managepin/master/gamecomplexity/view',
       },
     ],
   },
@@ -432,19 +432,19 @@ export const breadcrumb = [
     details: [
       {
         label: 'Product Group',
-        url: '/home/config/setuptable/productgroup/search',
+        url: '/home/managepin/master/productgroup/search',
       },
       {
         label: 'Product Group',
-        url: '/home/config/setuptable/productgroup/add',
+        url: '/home/managepin/master/productgroup/add',
       },
       {
         label: 'Product Group',
-        url: '/home/config/setuptable/productgroup/edit',
+        url: '/home/managepin/master/productgroup/edit',
       },
       {
         label: 'Product Group',
-        url: '/home/config/setuptable/productgroup/view',
+        url: '/home/managepin/master/productgroup/view',
       },
     ],
   },
@@ -453,19 +453,19 @@ export const breadcrumb = [
     details: [
       {
         label: 'Product Basket',
-        url: '/home/config/setuptable/productbasket/search',
+        url: '/home/managepin/master/productbasket/search',
       },
       {
         label: 'Product Basket',
-        url: '/home/config/setuptable/productbasket/add',
+        url: '/home/managepin/master/productbasket/add',
       },
       {
         label: 'Product Basket',
-        url: '/home/config/setuptable/productbasket/edit',
+        url: '/home/managepin/master/productbasket/edit',
       },
       {
         label: 'Product Basket',
-        url: '/home/config/setuptable/productbasket/view',
+        url: '/home/managepin/master/productbasket/view',
       },
     ],
   },
@@ -474,19 +474,19 @@ export const breadcrumb = [
     details: [
       {
         label: 'Gravity',
-        url: '/home/config/setuptable/gravity/search',
+        url: '/home/managepin/master/gravity/search',
       },
       {
         label: 'Gravity',
-        url: '/home/config/setuptable/gravity/add',
+        url: '/home/managepin/master/gravity/add',
       },
       {
         label: 'Gravity',
-        url: '/home/config/setuptable/gravity/edit',
+        url: '/home/managepin/master/gravity/edit',
       },
       {
         label: 'Gravity',
-        url: '/home/config/setuptable/gravity/view',
+        url: '/home/managepin/master/gravity/view',
       },
     ],
   },
@@ -495,19 +495,19 @@ export const breadcrumb = [
     details: [
       {
         label: 'Dev Complexity',
-        url: '/home/config/setuptable/devcomplexity/search',
+        url: '/home/managepin/master/devcomplexity/search',
       },
       {
         label: 'Dev Complexity',
-        url: '/home/config/setuptable/devcomplexity/add',
+        url: '/home/managepin/master/devcomplexity/add',
       },
       {
         label: 'Dev Complexity',
-        url: '/home/config/setuptable/devcomplexity/edit',
+        url: '/home/managepin/master/devcomplexity/edit',
       },
       {
         label: 'Dev Complexity >> Edit/Delete',
-        url: '/home/config/setuptable/devcomplexity/view',
+        url: '/home/managepin/master/devcomplexity/view',
       },
     ],
   },
@@ -516,19 +516,19 @@ export const breadcrumb = [
     details: [
       {
         label: 'Studio',
-        url: '/home/config/setuptable/studio/search',
+        url: '/home/managepin/master/studio/search',
       },
       {
         label: 'Studio',
-        url: '/home/config/setuptable/studio/add',
+        url: '/home/managepin/master/studio/add',
       },
       {
         label: 'Studio',
-        url: '/home/config/setuptable/studio/edit',
+        url: '/home/managepin/master/studio/edit',
       },
       {
         label: 'Studio',
-        url: '/home/config/setuptable/studio/view',
+        url: '/home/managepin/master/studio/view',
       },
     ],
   },
@@ -537,19 +537,19 @@ export const breadcrumb = [
     details: [
       {
         label: 'Emulation',
-        url: '/home/config/setuptable/emulation/search',
+        url: '/home/managepin/master/emulation/search',
       },
       {
         label: 'Emulation',
-        url: '/home/config/setuptable/emulation/add',
+        url: '/home/managepin/master/emulation/add',
       },
       {
         label: 'Emulation',
-        url: '/home/config/setuptable/emulation/edit',
+        url: '/home/managepin/master/emulation/edit',
       },
       {
         label: 'Emulation',
-        url: '/home/config/setuptable/emulation/view',
+        url: '/home/managepin/master/emulation/view',
       },
     ],
   },
@@ -558,19 +558,19 @@ export const breadcrumb = [
     details: [
       {
         label: 'Denom',
-        url: '/home/config/setuptable/denom/search',
+        url: '/home/managepin/master/denom/search',
       },
       {
         label: 'Denom',
-        url: '/home/config/setuptable/denom/add',
+        url: '/home/managepin/master/denom/add',
       },
       {
         label: 'Denom',
-        url: '/home/config/setuptable/denom/edit',
+        url: '/home/managepin/master/denom/edit',
       },
       {
         label: 'Denom',
-        url: '/home/config/setuptable/denom/view',
+        url: '/home/managepin/master/denom/view',
       },
     ],
   },
@@ -579,19 +579,19 @@ export const breadcrumb = [
     details: [
       {
         label: 'Theme',
-        url: '/home/config/setuptable/theme/search',
+        url: '/home/managepin/master/theme/search',
       },
       {
         label: 'Theme',
-        url: '/home/config/setuptable/theme/add',
+        url: '/home/managepin/master/theme/add',
       },
       {
         label: 'Theme',
-        url: '/home/config/setuptable/theme/edit',
+        url: '/home/managepin/master/theme/edit',
       },
       {
         label: 'Theme',
-        url: '/home/config/setuptable/theme/view',
+        url: '/home/managepin/master/theme/view',
       },
     ],
   },
@@ -600,19 +600,19 @@ export const breadcrumb = [
     details: [
       {
         label: 'Title',
-        url: '/home/config/setuptable/title/search',
+        url: '/home/managepin/master/title/search',
       },
       {
         label: 'Title',
-        url: '/home/config/setuptable/title/add',
+        url: '/home/managepin/master/title/add',
       },
       {
         label: 'Title',
-        url: '/home/config/setuptable/title/edit',
+        url: '/home/managepin/master/title/edit',
       },
       {
         label: 'Title',
-        url: '/home/config/setuptable/title/view',
+        url: '/home/managepin/master/title/view',
       },
     ],
   },
@@ -621,19 +621,19 @@ export const breadcrumb = [
     details: [
       {
         label: 'Risk',
-        url: '/home/config/setuptable/risk/search',
+        url: '/home/managepin/master/risk/search',
       },
       {
         label: 'Risk',
-        url: '/home/config/setuptable/risk/add',
+        url: '/home/managepin/master/risk/add',
       },
       {
         label: 'Risk',
-        url: '/home/config/setuptable/risk/edit',
+        url: '/home/managepin/master/risk/edit',
       },
       {
         label: 'Risk',
-        url: '/home/config/setuptable/risk/view',
+        url: '/home/managepin/master/risk/view',
       },
     ],
   },
@@ -642,19 +642,19 @@ export const breadcrumb = [
     details: [
       {
         label: 'Viridianlaunch',
-        url: '/home/config/setuptable/viridianlaunch/search',
+        url: '/home/managepin/master/viridianlaunch/search',
       },
       {
         label: 'Viridianlaunch',
-        url: '/home/config/setuptable/viridianlaunch/add',
+        url: '/home/managepin/master/viridianlaunch/add',
       },
       {
         label: 'Viridianlaunch',
-        url: '/home/config/setuptable/viridianlaunch/edit',
+        url: '/home/managepin/master/viridianlaunch/edit',
       },
       {
         label: 'Viridianlaunch',
-        url: '/home/config/setuptable/viridianlaunch/view',
+        url: '/home/managepin/master/viridianlaunch/view',
       },
     ],
   },
@@ -663,19 +663,19 @@ export const breadcrumb = [
     details: [
       {
         label: 'Studio2',
-        url: '/home/config/setuptable/studio2/search',
+        url: '/home/managepin/master/studio2/search',
       },
       {
         label: 'Studio2',
-        url: '/home/config/setuptable/studio2/add',
+        url: '/home/managepin/master/studio2/add',
       },
       {
         label: 'Studio2',
-        url: '/home/config/setuptable/studio2/edit',
+        url: '/home/managepin/master/studio2/edit',
       },
       {
         label: 'Studio2',
-        url: '/home/config/setuptable/studio2/view',
+        url: '/home/managepin/master/studio2/view',
       },
     ],
   },
@@ -684,19 +684,19 @@ export const breadcrumb = [
     details: [
       {
         label: 'Studiotype',
-        url: '/home/config/setuptable/studiotype/search',
+        url: '/home/managepin/master/studiotype/search',
       },
       {
         label: 'Studiotype',
-        url: '/home/config/setuptable/studiotype/add',
+        url: '/home/managepin/master/studiotype/add',
       },
       {
         label: 'Studiotype',
-        url: '/home/config/setuptable/studiotype/edit',
+        url: '/home/managepin/master/studiotype/edit',
       },
       {
         label: 'Studiotype',
-        url: '/home/config/setuptable/studiotype/view',
+        url: '/home/managepin/master/studiotype/view',
       },
     ],
   },
@@ -705,19 +705,19 @@ export const breadcrumb = [
     details: [
       {
         label: 'Video Stepper',
-        url: '/home/config/setuptable/vidstep/search',
+        url: '/home/managepin/master/vidstep/search',
       },
       {
         label: 'Video Stepper >> Add New Record',
-        url: '/home/config/setuptable/vidstep/add',
+        url: '/home/managepin/master/vidstep/add',
       },
       {
         label: 'Video Stepper',
-        url: '/home/config/setuptable/vidstep/edit',
+        url: '/home/managepin/master/vidstep/edit',
       },
       {
         label: 'Video Stepper',
-        url: '/home/config/setuptable/vidstep/view',
+        url: '/home/managepin/master/vidstep/view',
       },
     ],
   },
@@ -726,19 +726,19 @@ export const breadcrumb = [
     details: [
       {
         label: 'Flag',
-        url: '/home/config/setuptable/flag/search',
+        url: '/home/managepin/master/flag/search',
       },
       {
         label: 'Flag >> Add New Record',
-        url: '/home/config/setuptable/flag/add',
+        url: '/home/managepin/master/flag/add',
       },
       {
         label: 'Flag',
-        url: '/home/config/setuptable/flag/edit',
+        url: '/home/managepin/master/flag/edit',
       },
       {
         label: 'Flag',
-        url: '/home/config/setuptable/flag/view',
+        url: '/home/managepin/master/flag/view',
       },
     ],
   },
@@ -747,19 +747,19 @@ export const breadcrumb = [
     details: [
       {
         label: 'Platform',
-        url: '/home/config/setuptable/platform/search',
+        url: '/home/managepin/master/platform/search',
       },
       {
         label: 'Platform',
-        url: '/home/config/setuptable/platform/add',
+        url: '/home/managepin/master/platform/add',
       },
       {
         label: 'Platform',
-        url: '/home/config/setuptable/platform/edit',
+        url: '/home/managepin/master/platform/edit',
       },
       {
         label: 'Platform',
-        url: '/home/config/setuptable/platform/view',
+        url: '/home/managepin/master/platform/view',
       },
     ],
   },
@@ -811,18 +811,18 @@ export const breadcrumb = [
       }
     ],
   },
-  {
-    page: 'reworkrequest',
-    details: [
-      {
-        label: 'Rework Request >> Add',
-        url: '/home/reworkreq/reworkrequest/add',
-      },{
-        label: 'Rework Request >> List',
-        url: '/home/reworkrreq/reworkrequest/list',
-      }
-    ],
-  },
+  // {
+  //   page: 'reworkrequest',
+  //   details: [
+  //     {
+  //       label: 'Rework Request >> Add',
+  //       url: '/home/reworkreq/reworkrequest/add',
+  //     },{
+  //       label: 'Rework Request >> List',
+  //       url: '/home/reworkrreq/reworkrequest/list',
+  //     }
+  //   ],
+  // },
   // {
   //   page: 'rework',
   //   details: [
@@ -854,6 +854,15 @@ export const breadcrumb = [
     ],
   },
   {
+    page: 'manageproductplan',
+    details: [
+      {
+        label: 'Manage Product Plan',
+        url: '/home/dashboard',
+      },
+    ],
+  },
+  {
     page: 'rework',
     details: [
       {
@@ -867,13 +876,13 @@ export const breadcrumb = [
     details: [
       {
         label: 'Extra PIN Request',
-        url: '/home/transaction/managepin/extrapinrequest/add',
+        url: '/home/managepin/extrapinrequest/add',
       },{
         label: 'Requested PIN',
-        url: '/home/transaction/managepin/extrapinrequest/list',
+        url: '/home/managepin/extrapinrequest/list',
       },{
         label: 'Requested PIN',
-        url: '/home/transaction/managepin/extrapinrequest/view',
+        url: '/home/managepin/extrapinrequest/view',
       },{
         label: 'Requested PIN',
         url: '/home/transaction/managepin/extrapinrequest/workflow',
@@ -884,17 +893,35 @@ export const breadcrumb = [
     page: 'reworkrequest',
     details: [
       {
-        label: 'Rework Rquest',
-        url: '/home/transaction/rework/reworkrequest/add',
+        label: 'Rework Request',
+        url: '/home/rework/reworkrequest/add',
+      },{
+        label: 'Requested Rework',
+        url: '/home/rework/reworkrequest/list',
+      },{
+        label: 'Rework Rquest View',
+        url: '/home/rework/reworkrequest/view',
       },{
         label: 'Rework Rquest',
-        url: '/home/transaction/rework/reworkrequest/list',
-      },{
-        label: 'Rework Rquest',
-        url: '/home/transaction/rework/reworkrequest/view',
-      },{
-        label: 'Rework Rquest',
-        url: '/home/transaction/rework/reworkrequest/workflow',
+        url: '/home/rework/reworkrequest/workflow',
+      }
+    ],
+  },
+  {
+    page: 'blanketpinreq',
+    details: [
+      {
+        label: 'Blanket PIN Request',
+        url: '/home/blanketpin/blanketpinreq/add',
+      }
+    ],
+  },
+  {
+    page: 'blanketpin',
+    details: [
+      {
+        label: 'Blanket PIN',
+        url: '/home/blanketpin/blanketpinreq/add',
       }
     ],
   },

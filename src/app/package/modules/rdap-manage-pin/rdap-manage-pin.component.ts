@@ -352,7 +352,7 @@ export class RdapManagePinComponent implements OnInit, OnChanges, AfterViewInit 
         if (this.mplinkedPermission.isView == true && this.mplinkedPermission.isAdd == false &&
           this.mplinkedPermission.isEdit == false && this.mplinkedPermission.isDelete == false) {
           this.mplinkedIsViewPermissionFlag = true;
-        } else if (this.mplinkedPermission.isView == false && this.mplinkedPermission.isAdd == false &&
+        }else if (this.mplinkedPermission.isView == false && this.mplinkedPermission.isAdd == false &&
           this.mplinkedPermission.isEdit == false && this.mplinkedPermission.isDelete == false) {
           this.mplinkedIsViewPermissionFlag = true;
         } else {
@@ -505,7 +505,7 @@ export class RdapManagePinComponent implements OnInit, OnChanges, AfterViewInit 
     this.getPermissionmpMasterByModule();
     this.tabid = 0;
     this.tabname = "product";
-    this.tabAlignment = "left";   
+    this.tabAlignment = "left";
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -559,15 +559,17 @@ export class RdapManagePinComponent implements OnInit, OnChanges, AfterViewInit 
   }
 
   productEvent(data) {
-    if (data.data != undefined && data.data.status.toLowerCase() == "invalid") {
+    if(data.data != undefined && data.data.status.toLowerCase() == "invalid")
+    {
       this.isProductErr = true;
     }
-    else {
+    else
+    {
       if (data.data != undefined) {
         this.productParam = data.data.value;
         this.productFlag = data.flag;
         this.isProductErr = false;
-
+  
         // let validateURL = this.extraPinAPi + "ManagePin/validate/" + this.pinId;
         // this.masterApiService.managePinUpdate(validateURL, this.productParam).subscribe(data => {
         //   if (data.isSuccess) {
@@ -579,7 +581,7 @@ export class RdapManagePinComponent implements OnInit, OnChanges, AfterViewInit 
         // });
       }
     }
-
+    
 
     //this.updatemanagepin();
   }
@@ -591,25 +593,29 @@ export class RdapManagePinComponent implements OnInit, OnChanges, AfterViewInit 
   }
 
   clarityEvent(data) {
-    if (data.data != undefined && data.data.status.toLowerCase() == "invalid") {
+    if(data.data != undefined && data.data.status.toLowerCase() == "invalid")
+    {
       this.isclarityErr = true;
     }
-    else {
-      this.clarityParam = data.data;
-      this.clarityFlag = data.flag;
-      this.isclarityErr = false;
+    else
+    {
+    this.clarityParam = data.data;
+    this.clarityFlag = data.flag;
+    this.isclarityErr = false;
     }
   }
 
   milestoneEvent(data) {
-
-    if ((data.data.planApprDate == undefined || data.data.planApprDate == null)) {
+  
+    if((data.data.planApprDate == undefined || data.data.planApprDate == null ))
+    {
       this.isMilestoneErr = true;
     }
-    else {
-      this.milestoneParam = data.data;
-      this.milestoneFlag = data.flag;
-      this.isMilestoneErr = false;
+    else
+    {
+    this.milestoneParam = data.data;
+    this.milestoneFlag = data.flag;
+    this.isMilestoneErr = false;
     }
   }
 
@@ -639,7 +645,7 @@ export class RdapManagePinComponent implements OnInit, OnChanges, AfterViewInit 
   otherEventImpacpin(data) {
     if (data.name == "impacpinno") {
       this.impacpinParam.planitem = this.pinId;
-      // debugger
+     // debugger
       this.impacpinParam.impactedPins = data.data;
       this.impactedPinFlag = data.flag;
     }
@@ -654,15 +660,16 @@ export class RdapManagePinComponent implements OnInit, OnChanges, AfterViewInit 
   }
   onDialogSubmit(event) {
     event.dialog.close();
-    if (!this.isErr) {
+    if(!this.isErr)
+    {
       this.getRequestPinById();
-      this.saveflag = true;
-      this.cdr.detectChanges();
+    this.saveflag = true;
+    this.cdr.detectChanges();
     }
     //this.message = this.viewrecord();
   }
 
-
+  
 
 
   updatemanagepin() {
@@ -678,26 +685,29 @@ export class RdapManagePinComponent implements OnInit, OnChanges, AfterViewInit 
     let impactedPinUrl = "";
     let clarityUrl = "";
     this.spinner.show();
-    if (this.isProductErr) {
+    if(this.isProductErr)
+    {
       this.tabChange(0);
       this.isErr = true;
       this.notificationAlert.open();
       this.message = "Product Tab: Data not saved. Validation error occured.";
     }
-    else if (this.isMilestoneErr) {
+    else  if(this.isMilestoneErr)
+    {
       this.tabChange(1);
       this.isErr = true;
       this.notificationAlert.open();
       this.message = "Milestone Tab: Data not saved. Validation error occured.";
     }
-    else if (this.isclarityErr) {
+    else  if(this.isclarityErr)
+    {
       this.tabChange(0);
       this.isErr = true;
       this.notificationAlert.open();
       this.message = "Clarity Tab: Data not saved. Validation error occured.";
     }
-    else {
-      if (this.productFlag == true && this.mpproductPermission.isEdit == true) {
+    else{
+      if (this.productFlag == true && this.mpproductPermission.isEdit == true ) {
         if (this.productParam.channelId != 0 &&
           this.productParam.channeltypeId != 0 &&
           this.productParam.regionId != 0 &&
@@ -740,7 +750,7 @@ export class RdapManagePinComponent implements OnInit, OnChanges, AfterViewInit 
             this.message = "Market is Required!!";
           }
         }
-
+  
       }
       if (this.milestoneFlag == true && this.mpmilestonePermission.isEdit == true) {
         milestoneUpdateUrl = this.extraPinAPi + "PinMilestone/" + this.pinId;
@@ -881,14 +891,14 @@ export class RdapManagePinComponent implements OnInit, OnChanges, AfterViewInit 
             }
           });
         }
-
+  
       }
     }
-
+   
 
     this.spinner.hide();
-
-
+ 
+    
   }
   updatemanagepinOld() {
     let updateUrl = "";
