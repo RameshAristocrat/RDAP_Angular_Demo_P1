@@ -2,10 +2,10 @@
   <mat-card>
     <mat-card-content class="mat-elevation-z4">
       <app-rdap-shared-breadcrumb></app-rdap-shared-breadcrumb>
-      <mat-tab-group class="mat-elevation-z4" style="background-color: #ffff;border-radius: 4px;" #managepinTab
-        (selectedTabChange)="tabChange(managepinTab.selectedIndex)">
-        <mat-tab class="mat-elevation-z4" *ngIf="mpproductPermission &&
-                 mpproductPermission.isEdit == true || mpproductPermission.isView == true">
+      <mat-tab-group class="mat-elevation-z4" [selectedIndex]="0" style="background-color: #ffff;border-radius: 4px;" #managepinTab
+        (selectedTabChange)="tabChange(managepinTab.selectedIndex)" dynamicHeight>
+        <mat-tab class="mat-elevation-z4" *ngIf="isTabFlag == true && (mpproductPermission &&
+                 mpproductPermission.isEdit == true || mpproductPermission.isView == true)">
           <ng-template mat-tab-label>
             <span class="material-icons-outlined">
               control_point
@@ -17,8 +17,8 @@
           <app-rdap-manage-pin-product-tab *ngIf="viewExtrapinRequestData" [planitem]="viewExtrapinRequestData"
             (productEvent)="productEvent($event)"></app-rdap-manage-pin-product-tab>
         </mat-tab>
-        <mat-tab class="mat-elevation-z4" *ngIf="mpmilestonePermission &&
-                 mpmilestonePermission.isEdit == true ||  mpmilestonePermission.isView == true">
+        <mat-tab class="mat-elevation-z4" *ngIf="isTabFlag == true && (mpmilestonePermission &&
+                 mpmilestonePermission.isEdit == true ||  mpmilestonePermission.isView == true)">
           <ng-template mat-tab-label>
             <span class="material-icons-outlined">
               control_point
@@ -31,8 +31,8 @@
             [changeflag]="saveflag" (milestoneEvent)="milestoneEvent($event)"></app-rdap-manage-pin-milestone-tab>
         </mat-tab>
         <mat-tab class="mat-elevation-z4"
-          *ngIf="mpdependencyPermission &&
-                 mpdependencyPermission.isEdit == true || mpdependencyPermission.isView == true  || mpdependencyPermission.isAdd == true">
+          *ngIf="isTabFlag == true && (mpdependencyPermission &&  mpdependencyPermission.isEdit == true || 
+          mpdependencyPermission.isView == true  || mpdependencyPermission.isAdd == true)">
           <ng-template mat-tab-label>
             <span class="material-icons-round">
               manage_accounts
@@ -45,8 +45,8 @@
             (dependencyEvent)="dependencyEvent($event)">
           </app-rdap-manage-pin-dependencies-tab>
         </mat-tab>
-        <mat-tab class="mat-elevation-z4" *ngIf="mpcabinetPermission &&
-                mpcabinetPermission.isEdit == true || mpcabinetPermission.isView == true">
+        <mat-tab class="mat-elevation-z4" *ngIf="isTabFlag == true && (mpcabinetPermission &&
+                mpcabinetPermission.isEdit == true || mpcabinetPermission.isView == true)">
           <ng-template mat-tab-label>
             <span class="material-icons-round">
               manage_accounts
@@ -59,8 +59,8 @@
             (cabinetEvent)="cabinetEvent($event)"></app-rdap-manage-pin-cabinet-tab>
         </mat-tab>
         <mat-tab class="mat-elevation-z4"
-          *ngIf="mptesterPermission && 
-                mptesterPermission.isEdit == true || mptesterPermission.isView == true || mptesterPermission.isAdd == true">
+          *ngIf="isTabFlag == true && (mptesterPermission && mptesterPermission.isEdit == true ||
+           mptesterPermission.isView == true || mptesterPermission.isAdd == true)">
           <ng-template mat-tab-label>
             <span class="material-icons-round">
               manage_accounts
@@ -74,8 +74,8 @@
           </app-rdap-manage-pin-test-details-tab>
         </mat-tab>
         <mat-tab class="mat-elevation-z4"
-          *ngIf="mpsetitemPermission && 
-                mpsetitemPermission.isEdit == true || mpsetitemPermission.isView == true || mpsetitemPermission.isAdd == true">
+          *ngIf="isTabFlag == true && (mpsetitemPermission && mpsetitemPermission.isEdit == true ||
+           mpsetitemPermission.isView == true || mpsetitemPermission.isAdd == true)">
           <ng-template mat-tab-label>
             <span class="material-icons-round">
               link
@@ -87,8 +87,8 @@
           <app-rdap-manage-pin-set-items-tab *ngIf="viewExtrapinRequestData" [setitemInput]="setitemInput"
             (setItemEvent)="setItemEvent($event)"></app-rdap-manage-pin-set-items-tab>
         </mat-tab>
-        <mat-tab class="mat-elevation-z4" *ngIf="mpclarityPermission && 
-                mpclarityPermission.isEdit == true || mpclarityPermission.isView == true">
+        <mat-tab class="mat-elevation-z4" *ngIf="isTabFlag == true && (mpclarityPermission && 
+                mpclarityPermission.isEdit == true || mpclarityPermission.isView == true)">
           <ng-template mat-tab-label>
             <span class="material-icons-round">
               sports_esports
@@ -101,7 +101,7 @@
             (clarityEvent)="clarityEvent($event)"></app-rdap-manage-pin-clarity>
         </mat-tab>
         <mat-tab class="mat-elevation-z4"
-          *ngIf="(mplinkedPermission && mplinkedPermission.isEdit == true || mplinkedPermission.isView == true || mplinkedPermission.isAdd == true) ||
+          *ngIf="isTabFlag == true &&(mplinkedPermission && mplinkedPermission.isEdit == true || mplinkedPermission.isView == true || mplinkedPermission.isAdd == true) ||
                  (mpimpactedPermission && mpimpactedPermission.isEdit == true || mpimpactedPermission.isView == true || mpimpactedPermission.isAdd == true)">
           <ng-template mat-tab-label>
             <span class="material-icons-round">
@@ -115,7 +115,7 @@
             (otherEventLinkpin)="otherEventLinkpin($event)" (otherEventImpacpin)="otherEventImpacpin($event)"></app-rdap-manage-pin-others-tab>
         </mat-tab>
         <mat-tab class="mat-elevation-z4"
-          *ngIf="mpauditPermission && mpauditPermission.isView == true || mpauditPermission.isEdit == true">
+          *ngIf="isTabFlag == true && (mpauditPermission && mpauditPermission.isView == true || mpauditPermission.isEdit == true)">
           <ng-template mat-tab-label>
             <span class="material-icons-round">
               sports_esports
@@ -131,7 +131,7 @@
     </mat-card-content>
     <mat-card-actions style="text-align:center;">
       <button mat-raised-button style="width: 15%;height:0%;font-size:10px;background-color: #300c46;color:white" 
-      *ngIf="(mpproductIsViewPermissionFlag == false || 
+      *ngIf="isTabFlag == true && (mpproductIsViewPermissionFlag == false || 
               mpdependencyIsViewPermissionFlag == false ||
               mpcabinetIsViewPermissionFlag == false ||
               mpmilestoneIsViewPermissionFlag == false ||
