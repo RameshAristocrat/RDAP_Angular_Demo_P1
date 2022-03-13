@@ -2,7 +2,7 @@
     <div class="row">
         <div class="grid__wrapper">
             <igx-grid #setitemgrid id="setitemgrid" primaryKey="id" [data]="data" width="100%" height="100%"
-            [batchEditing]="false" style="min-height: 300px;" igxOverlayOutlet [autoGenerate]="false" (onCellEdit)="editDone($event)"
+            [batchEditing]="false" style="min-height: 300px;" igxOverlayOutlet [autoGenerate]="false" (cellClick)="cellClick($event)" (onCellEdit)="editDone($event)"
                 (rowAdded)="setItemRowAddedDone($event)" (rowEditDone)="editDone($event)">
                 <igx-grid-toolbar *ngIf="mpsetitemPermission && mpsetitemPermission.isAdd == true">
                     <button igxButton="flat" (click)='addNew(actionstrip.context)' class="addProdBtn"
@@ -27,9 +27,9 @@
                 </igx-select-item>
             </igx-select> -->
                         <igx-combo #remoteCombo class="combo" [itemsMaxHeight]="250" [itemsMinWidth]="500"
-                            [data]="setitemDdlData" [valueKey]="'id'" [displayKey]="'description'"
+                            [data]="setitemDdlFilterData" [valueKey]="'id'" [displayKey]="'description'"
                             placeholder="Select InTester(s)" searchPlaceholder="Search..." [filterable]="true"
-                            (selectionChanging)="onchangeSelect($event, cell, data, 'inttester',setitemDdlData)">
+                            (selectionChanging)="onchangeSelect($event, cell, data, 'inttester',setitemDdlFilterData)">
                             <ng-template igxComboItem let-display let-key="valueKey">
                                 <div class="item">
                                     <span class="description">{{ display.description }}</span>

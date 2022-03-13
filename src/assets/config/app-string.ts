@@ -15,12 +15,12 @@ export const appString = [
    },
    {
       modelname: "status1",
-      title: "Status",
+      title: "Status 1",
       gridcolflag: false
    },
    {
       modelname: "status2",
-      title: "Status",
+      title: "Status 2",
       gridcolflag: false
    },
    {
@@ -30,7 +30,7 @@ export const appString = [
    },
    {
       modelname: "status3",
-      title: "Status",
+      title: "Status 3",
       gridcolflag: false
    }, {
       modelname: "channeltypeId",
@@ -475,6 +475,14 @@ export const appString = [
    modelname: "platformId",
    title: "Platform ID",
    gridcolflag: true
+}, {
+   modelname: "stageId",
+   title: "Stage ID",
+   gridcolflag: true
+},{
+   modelname: "stage",
+   title: "Stage",
+   gridcolflag: false
 }
 ]
 // "notesCc": null,

@@ -62,6 +62,8 @@ export class RdapManagePinSetItemsTabComponent implements OnInit, OnChanges {
   public rolePermissionEnableFlag: any;
   public rolepermissionmock: boolean = false;
   grideditflag:boolean=false;
+  setitemDdlFilterData: any;
+  initSetitemDDLData:any;
   @Output() setItemEvent = new EventEmitter<any>();
   //@Input() planitem: any;
   @Input() setitemInput:any;
@@ -146,8 +148,14 @@ export class RdapManagePinSetItemsTabComponent implements OnInit, OnChanges {
         this.setItemdetails = x;
         if (x.length > 0) {
           this.data = x;
+          console.log("this.setitemgrid.data",this.data);
+          this.data.forEach(x => {
+            this.setitemDdlData = this.setitemDdlData.filter(y => y.id != x.setitemId);
+            this.setitemDdlFilterData = this.setitemDdlData;
+        });
         } else {
           this.data = [];
+          this.setitemDdlFilterData = this.initSetitemDDLData;
         }
       });
     }
@@ -158,11 +166,22 @@ export class RdapManagePinSetItemsTabComponent implements OnInit, OnChanges {
     this.setitemUrl = this.baseApi + "setitem/ddl";
     this.masterApiService.masterSearchDDL(this.setitemUrl).subscribe(x => {
       this.setitemDdlData = x;
+      this.initSetitemDDLData = x;
     });
   }
 
   ngOnChanges(changes: SimpleChanges) {
     this.gridDataLoad();
+  }
+
+  public cellClick(args) {
+    this.setitemDdlData = this.initSetitemDDLData;
+    if (this.setitemgrid.data.length > 0) {
+      this.setitemgrid.data.forEach(x => {
+          this.setitemDdlData = this.setitemDdlData.filter(y => y.id != x.setitemId);
+          this.setitemDdlFilterData = this.setitemDdlData;
+      });
+    }
   }
 
   editDone(data) {

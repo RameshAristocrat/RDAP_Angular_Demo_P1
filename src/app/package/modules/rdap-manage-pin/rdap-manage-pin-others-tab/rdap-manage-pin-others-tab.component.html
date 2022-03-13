@@ -5,7 +5,7 @@
     <div class="row">
         <div class="grid__wrapper">
             <igx-grid #linkedpingrid id="linkedpingrid" primaryKey="linkid" [data]="linkedpindata" width="100%" height="100%" style="min-height: 200px;"
-                 igxOverlayOutlet [autoGenerate]="false" (onCellEdit)="editDone($event)"
+                 igxOverlayOutlet [autoGenerate]="false" (onCellEdit)="editDone($event)" (cellClick)="linkpincellClick($event)"
                 (rowAdded)="linkedPinRowAddedDone($event)" (rowEditDone)="editDone($event)">
                 <igx-grid-toolbar *ngIf="mplinkedPermission && mplinkedPermission.isAdd == true">
                     <button igxButton="flat" (click)='addNewLinkGrid(actionstrip.context)' class="addProdBtn"
@@ -37,7 +37,7 @@
                         </ng-template>
                     </igx-combo> -->
                     <!-- ----- CHange on 17.02 ------ -->
-                    <ng-select [items]="linkedpinsarrobj"   placeholder="Select Linked Pin"
+                    <ng-select [items]="linkPinDdlFilterData"   placeholder="Select Linked Pin"
                     bindLabel="id" bindValue="id"
             [virtualScroll]="true" appendTo="body"  
             (change)="onchangeSelectlinked($event, cell, data, 'linkedpinno')"
@@ -136,7 +136,7 @@
         <div class="grid__wrapper">
             <igx-grid #impactedpingrid id="impactedpingrid" primaryKey="impid" [data]="impactedpindata" width="100%" height="100%" 
             style="min-height: 200px;"
-             igxOverlayOutlet [autoGenerate]="false" (onCellEdit)="editImpactedPinDone($event)"
+             igxOverlayOutlet [autoGenerate]="false" (onCellEdit)="editImpactedPinDone($event)" (cellClick)="impacpincellClick($event)"
                 (rowAdded)="impactedPinRowAddedDone($event)" (rowEditDone)="editDone($event)">
                 <igx-grid-toolbar *ngIf="mpimpactedPermission && mpimpactedPermission.isAdd == true">
                     <button igxButton="flat" (click)='addNewImpacGrid(actionstrip.context)' class="addProdBtn"
@@ -168,13 +168,11 @@
                         </ng-template>
                     </igx-combo> -->
                      <!-- ----- CHange on 17.02 ------ -->
-                     <ng-select [items]="linkedpinsarrobj"   placeholder="Select Impacted Pin"
+                     <ng-select [items]="impacPinDdlFilterData"   placeholder="Select Impacted Pin"
                      bindLabel="id" bindValue="id"
              [virtualScroll]="true" appendTo="body"  
              (change)="onchangeImpactedSelect($event, cell, data, 'impactedpinno')"
-             (search)="searchInputFunction($event)"
-             
-            
+             (search)="searchInputImpacPinFunction($event)"
             >
             <ng-template ng-option-tmp let-item="item">
               {{ item.id + "-" + item.description + "-" + item.description }}

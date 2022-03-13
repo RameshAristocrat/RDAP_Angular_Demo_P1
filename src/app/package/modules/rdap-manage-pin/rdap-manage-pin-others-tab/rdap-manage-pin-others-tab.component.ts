@@ -42,6 +42,7 @@ export class RdapManagePinOthersTabComponent implements OnInit, OnChanges {
   configdata: any;
   selMasterDetailsData: any;
   linkedpinDdlData: any;
+  impactedpinDdlData:any;
   inttesterDdlData: any;
   setitemUrl: any;
   inttesterUrl: any;
@@ -81,6 +82,10 @@ export class RdapManagePinOthersTabComponent implements OnInit, OnChanges {
   public rolepermissionmock: boolean = false;
   gridlinkeditflag: boolean = false;
   gridimpactededitflag: boolean = false;
+  linkPinDdlFilterData: any;
+  initLinkPinDDLData:any;
+  impacPinDdlFilterData: any;
+  initImpacPinDDLData:any;
   constructor(private httpClient: HttpClient, private cdr: ChangeDetectorRef,
     private excelExportService: IgxExcelExporterService, private router: Router,
     private masterApiService: RdMasterApiService, private spinner: RdSpinnerService,
@@ -182,9 +187,13 @@ export class RdapManagePinOthersTabComponent implements OnInit, OnChanges {
       this.linkedpinsarrobj = data;
       this.linkedpinsarrobj = [...this.linkedpinsarrobj, data];
       this.linkedpinsarrobj = this.linkedpinsarrobj;
+      this.initLinkPinDDLData = this.linkedpinsarrobj;
+      this.initImpacPinDDLData = this.linkedpinsarrobj;
+      this.linkPinDdlFilterData = this.linkedpinsarrobj;
+      this.impacPinDdlFilterData = this.linkedpinsarrobj;
     });
-    this.spinner.hide();
     this.gridDataLoad();
+    this.spinner.hide();
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -205,8 +214,14 @@ export class RdapManagePinOthersTabComponent implements OnInit, OnChanges {
         this.linkedpindetails = x.data;
         if (x.length > 0) {
           this.linkedpindata = x;
+          this.linkedpindata.forEach(x => {
+            this.linkedpinDdlData = this.linkedpinDdlData.filter(y => y.id != x.linkedpinno);
+            debugger
+            this.linkPinDdlFilterData = this.linkedpinDdlData;
+          });
         } else {
           this.linkedpindata = [];
+          this.linkPinDdlFilterData = this.initLinkPinDDLData;
         }
       });
     }
@@ -214,41 +229,80 @@ export class RdapManagePinOthersTabComponent implements OnInit, OnChanges {
       this.linkedpindetails = x.data;
       if (x.length > 0) {
         this.impactedpindata = x;
+        this.impactedpindata.forEach(x => {
+          this.impactedpinDdlData = this.impactedpinDdlData.data.filter(y => y.id != x.impactedpinno);
+          this.impacPinDdlFilterData = this.impactedpinDdlData;
+        });
       } else {
         this.impactedpindata = [];
+        this.impacPinDdlFilterData = this.initImpacPinDDLData;
       }
     });
   }
 
   loadDdlApi() {
-    // this.linkedpinUrl = this.baseApi + "linkedpin/ddl";
-    // this.masterApiService.masterSearchDDL(this.linkedpinUrl).subscribe(x => {
-    //   this.linkedpinDdlData = x;
-    // });
-
-
     this.linkedpinUrl = this.extraPinAPi + "linkedpin/search";
     let newsearchParam = { pageNumber: 0, pageSize: 0, filters: [], sorts: [] };
     newsearchParam.sorts.push({ field: "Planitem", direction: "DESC" });
     this.masterApiService.masterSearch(this.linkedpinUrl, newsearchParam).subscribe(x => {
       this.linkedpinDdlData = x;
+      this.impactedpinDdlData = x;
+      this.initLinkPinDDLData = x;
+      this.initImpacPinDDLData = x;
     });
-
-
+  }
+  public linkpincellClick(args) {
+    this.linkedpinDdlData = this.initLinkPinDDLData;
+    console.log("this.linkedpingrid.data",this.linkedpingrid.data);
+    if(this.linkedpingrid.data.length > 0){
+      this.linkedpingrid.data.forEach(x => {
+        if(x.linkedpinno){
+          this.linkedpinDdlData = this.linkedpinDdlData.filter(y => y.id != x.linkedpinno);
+          this.linkPinDdlFilterData = this.linkedpinDdlData;
+        }
+      });
+    }
+  }
+  public impacpincellClick(args) {
+    this.impactedpinDdlData = this.initImpacPinDDLData;
+    console.log("this.linkedpingrid.data",this.linkedpingrid.data);
+    if(this.impactedpingrid.data.length > 0){
+      debugger
+      this.impactedpingrid.data.forEach(x => {
+        if(x.impactedpinno){
+          this.impactedpinDdlData = this.impactedpinDdlData.filter(y => y.id != x.impactedpinno);
+          this.impacPinDdlFilterData = this.impactedpinDdlData;
+        }
+      });
+    }
   }
 
   public searchInputFunction(args) {
     let tempextraPinAPi = environment.extrapinreqapiurl + "ManagePin/ddl/" + args.term;
     this.masterApiService.masterSearchDDL(tempextraPinAPi).subscribe(x => {
       this.linkedpinsarrobj = x;
+      if(this.linkedpingrid.data.length > 0){
+        this.linkedpingrid.data.forEach(x => {
+          this.linkedpinsarrobj = this.linkedpinsarrobj.filter(y => y.id != x.linkedpinno);
+          this.linkPinDdlFilterData = this.linkedpinsarrobj;
+        });
+      }
     });
   }
 
-  public searchInputImpacPinFunction(event) {
-
-    let tempextraPinAPi = environment.extrapinreqapiurl + "ManagePin/ddl/" + event.searchText;
+  public searchInputImpacPinFunction(args) {
+    let tempextraPinAPi = environment.extrapinreqapiurl + "ManagePin/ddl/" + args.term;
     this.masterApiService.masterSearchDDL(tempextraPinAPi).subscribe(x => {
       this.impactedpinsarrobj = x;
+      debugger
+      if(this.impactedpingrid.data.length > 0){
+        this.impactedpingrid.data.forEach(x => {
+          if(x.impactedpinno){
+            this.impactedpinsarrobj = this.impactedpinsarrobj.filter(y => y.id != x.impactedpinno);
+            this.impacPinDdlFilterData = this.impactedpinsarrobj;
+          }
+        });
+      }
     });
   }
 

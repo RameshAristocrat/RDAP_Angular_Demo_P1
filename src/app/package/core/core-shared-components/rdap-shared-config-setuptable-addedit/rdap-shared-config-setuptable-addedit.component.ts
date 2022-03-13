@@ -1527,7 +1527,7 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
             x.apidata = data;
           });
         }
-        frmgrp[x.formcontrolname] = new FormControl();
+        frmgrp[x.formcontrolname] = new FormControl(0);
         
       }
       if (x.type == 'checkbox') {
@@ -1620,7 +1620,7 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
             (this.searchform.get(x.formcontrolname) as FormControl).setValue(1);
           }
           else{
-            (this.searchform.get(x.formcontrolname) as FormControl).setValue(0);
+            (this.searchform.get(x.formcontrolname) as FormControl).setValue(null);
           }
         }
         else {

@@ -69,10 +69,10 @@ export class RdapManagePinDependenciesTabComponent implements OnInit, OnChanges 
   public towns = [];
   public townSelected;
   emitData: { data: any, flag: boolean };
-  debuggerflag:boolean;
-  addflag:boolean;
-  message:any;
-  duplicateplanitemflag:boolean;
+  debuggerflag: boolean;
+  addflag: boolean;
+  message: any;
+  duplicateplanitemflag: boolean;
   managepin: any;
   mpproductPermission: any;
   mpdependencyPermission: any;
@@ -87,9 +87,11 @@ export class RdapManagePinDependenciesTabComponent implements OnInit, OnChanges 
   public pagePermission: any;
   public rolePermissionEnableFlag: any;
   public rolepermissionmock: boolean = false;
-  grideditflag:boolean = false;
+  grideditflag: boolean = false;
   public permissionApi;
-  IsManagePinAdminFlag:boolean = false;
+  IsManagePinAdminFlag: boolean = false;
+  dependencyDdlFilterData: any;
+  initDependencyDDLData:any;
   constructor(private httpClient: HttpClient, private cdr: ChangeDetectorRef,
     private excelExportService: IgxExcelExporterService, private router: Router,
     private masterApiService: RdMasterApiService, private spinner: RdSpinnerService,
@@ -111,53 +113,53 @@ export class RdapManagePinDependenciesTabComponent implements OnInit, OnChanges 
   }
   public getPermissionmpMasterByModule() {
     this.pagePermission = [];
-    this.mpdependencyPermission= [];
+    this.mpdependencyPermission = [];
     let rolePermissionMockData;
     this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "mpdependency").subscribe(res => {
       if (this.rolepermissionmock == true) {
         this.pagePermission.push(rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionsetitemmock);
         this.mpdependencyPermission = rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissiondependencymock;
-       // debugger
-        if(this.mpdependencyPermission.isView == true && this.mpdependencyPermission.isEdit == false){
+        // debugger
+        if (this.mpdependencyPermission.isView == true && this.mpdependencyPermission.isEdit == false) {
           this.isViewOnlyPermission();
         }
-        if(this.mpdependencyPermission.isEdit == true){
+        if (this.mpdependencyPermission.isEdit == true) {
           this.grideditflag = true;
-        }else{
+        } else {
           this.grideditflag = false
         }
       } else {
         this.pagePermission.push(res);
         this.mpdependencyPermission = res;
-        if(this.mpdependencyPermission.isView == true && this.mpdependencyPermission.isEdit == false){
+        if (this.mpdependencyPermission.isView == true && this.mpdependencyPermission.isEdit == false) {
           this.isViewOnlyPermission();
         }
-        if(this.mpdependencyPermission.isEdit == true){
+        if (this.mpdependencyPermission.isEdit == true) {
           this.grideditflag = true;
-        }else{
+        } else {
           this.grideditflag = false
         }
-      }      
-    this.gridDataLoad();    
-    this.spinner.hide();
+      }
+      this.gridDataLoad();
+      this.spinner.hide();
     });
   }
-  isViewOnlyPermission(){
+  isViewOnlyPermission() {
 
   }
-  public IsManagePinAdmin(){
-    this.masterApiService.checkIsManagePinAdmin(this.permissionApi+"Permission/IsManagePinAdmin").subscribe(data => {
+  public IsManagePinAdmin() {
+    this.masterApiService.checkIsManagePinAdmin(this.permissionApi + "Permission/IsManagePinAdmin").subscribe(data => {
       this.IsManagePinAdminFlag = data;
-      if(this.IsManagePinAdminFlag == false){
+      if (this.IsManagePinAdminFlag == false) {
         this.grideditflag = true;
-      }else{
+      } else {
         this.grideditflag = false;
       }
     });
   }
   ngOnInit(): void {
     this.IsManagePinAdmin();
-    if(this.IsManagePinAdminFlag == false){
+    if (this.IsManagePinAdminFlag == false) {
       this.getPermissionmpMasterByModule();
     }
     this.pagename = "managepintab";
@@ -175,8 +177,10 @@ export class RdapManagePinDependenciesTabComponent implements OnInit, OnChanges 
     if (appstringdata.appString) {
       this.appString = appstringdata.appString;
     }
-    this.spinner.hide();
     this.gridDataLoad();
+    console.log("this.data", this.data);
+    //this.setFinalFilterDataFunc();
+    this.spinner.hide();
   }
 
   onSelGridRowData(event) {
@@ -194,33 +198,46 @@ export class RdapManagePinDependenciesTabComponent implements OnInit, OnChanges 
         value: this.pinId.toString()
       });
       this.dependencyUrl = this.extraPinAPi + "Dependency/search";
-      if(this.pinId != undefined)
-    {
-      this.dependencybypinUrl = this.extraPinAPi + "Dependency/getbyplanitem/" + this.pinId;
-      this.dependencydata = [];
-      this.masterApiService.masterSearch(this.dependencyUrl, this.searchParam).subscribe(x => {
-        //this.linkedpindetails = x.data
-        if (x.totalRecords > 0) {
-          this.dependencydata = x.data;
-          this.data = x.data;
-        } else {
-          this.dependencydata = [];
-        }
-        
-      });
-    }
-    }
+      if (this.pinId != undefined) {
+        this.dependencybypinUrl = this.extraPinAPi + "Dependency/getbyplanitem/" + this.pinId;
+        this.dependencydata = [];
+        this.masterApiService.masterSearch(this.dependencyUrl, this.searchParam).subscribe(x => {
+          //this.linkedpindetails = x.data
+          if (x.totalRecords > 0) {
+            this.dependencydata = x.data;
+            this.data = x.data;
+            x.data.forEach(x => {
+              this.dependencyddldata = this.dependencyddldata.filter(y => y.id != x.planitemDep);
+              this.dependencyDdlFilterData = this.dependencyddldata;
+            });
+          } else {
+            this.dependencydata = [];
+            this.dependencyDdlFilterData = this.initDependencyDDLData;
+          }
 
+        });
+      }
+    }
   }
 
   loadDdlApi() {
     // this.linkedpinUrl = this.baseApi + "linkedpin/ddl";
+    this.dependencyDdlFilterData = [];
     this.dependencyDdlUrl = this.extraPinAPi + "managepin/ddl/1";
     this.searchParam = { pageNumber: 0, pageSize: 0, filters: [], sorts: [] };
     this.dependencyddldata = [];
     this.searchParam.sorts.push({ field: "Planitem", direction: "DESC" });
     this.masterApiService.masterSearchDDL(this.dependencyDdlUrl).subscribe(x => {
       this.dependencyddldata = x;
+      this.initDependencyDDLData = x;
+    });
+  }
+  setFinalFilterDataFunc(){
+    debugger
+    console.log("this.dependenciesgrid.data",this.dependenciesgrid.data);
+    this.dependenciesgrid.data.forEach(x => {
+      this.dependencyddldata = this.dependencyddldata.filter(y => y.id != x.planitemDep);
+      this.dependencyDdlFilterData = this.dependencyddldata;
     });
   }
 
@@ -236,6 +253,8 @@ export class RdapManagePinDependenciesTabComponent implements OnInit, OnChanges 
     });
     this.emitData = { data: this.dependencydetailsArrObj, flag: true };
     this.dependencyEvent.emit(this.emitData);
+    //this.dependencyDdlFilterData = this.initDependencyDDLData;
+    //this.setFinalFilterDataFunc();
     // this.commongridmodel.filter(x=>{
     //   x[field].push(event.newSelection.value["id"]);{griddata:this.gameTitleArrObj, busjustify:this.gametitleform}
     // });
@@ -292,19 +311,36 @@ export class RdapManagePinDependenciesTabComponent implements OnInit, OnChanges 
   }
 
   public searchInputFunction(args) {
+    this.dependencyDdlFilterData = [];
+    let tempFilterData = [];
     let tempextraPinAPi = environment.extrapinreqapiurl + "managepin/ddl/" + args.term;
     this.masterApiService.masterSearchDDL(tempextraPinAPi).subscribe(x => {
       this.dependencyddldata = x;
-    });
+      tempFilterData = [];
+      this.dependenciesgrid.data.forEach(x => {
+        this.dependencyddldata = this.dependencyddldata.filter(y => y.id != x.planitemDep);
+        this.dependencyDdlFilterData = this.dependencyddldata;
+      });
+    })
   }
+
+  public cellClick(args) {
+    if(this.dependenciesgrid.data.length > 0){
+      this.dependenciesgrid.data.forEach(x => {
+        this.dependencyddldata = this.initDependencyDDLData.filter(y => y.id != x.planitemDep);
+        this.dependencyDdlFilterData = this.dependencyddldata;
+      });
+    }
+  }
+
   public deleterow(event) {
     this.emitData = { data: null, flag: false };
     this.dependencydetailsArrObj = [];
-       if (event.dataRowIndex > -1) {
+    if (event.dataRowIndex > -1) {
       this.dependenciesgrid.data.splice(event.dataRowIndex, 1);
-   }
+    }
     //this.dependenciesgrid.deleteRowById(event.dataRowIndex);
-     this.dependenciesgrid.data.forEach(x => {
+    this.dependenciesgrid.data.forEach(x => {
       this.dependencydetailsArrObj.push({ description: x.description, planitemDep: x.planitemDep, descrLong: x.descrLong })
     });
     this.emitData = { data: this.dependencydetailsArrObj, flag: true };
@@ -353,7 +389,7 @@ export class RdapManagePinDependenciesTabComponent implements OnInit, OnChanges 
     let row: IgxGridRowComponent = existcell.row;
     let selData = this.dependencyddldata.filter(x => x.id == event.id);
     if (this.addflag == true) {
-      console.log("this.dependenciesgrid",this.dependenciesgrid.data);
+      console.log("this.dependenciesgrid", this.dependenciesgrid.data);
       this.addflag = false;
       this.data[currRowIndex].description = selData[0].description2;
       this.data[currRowIndex].descrLong = selData[0].description;
@@ -375,7 +411,7 @@ export class RdapManagePinDependenciesTabComponent implements OnInit, OnChanges 
     //   event.newSelection = [];
     // }
   }
-  
+
   public singleSelectionDependencyold(event, existcell, data, field) {
     this.duplicateplanitemflag = false;
     let planId = this.dependencyInput.planitem.data.planitem;
@@ -412,23 +448,19 @@ export class RdapManagePinDependenciesTabComponent implements OnInit, OnChanges 
     // }
   }
   public startsWithSearchFn(term) {
+    this.dependencyDdlFilterData = [];
     this.spinner.show();
     let tempextraPinAPi = environment.extrapinreqapiurl + "managepin/ddl/" + term.term;
     this.masterApiService.masterSearchDDL(tempextraPinAPi).subscribe(x => {
       this.dependencyddldata = x;
-      this.selectdependency.items.push(this.dependencyddldata);
-      // this.selectdependency.items=this.dependencyddldata;
-      // this.selectdependency.dropdownPanel.items = this.dependencyddldata;
-      //this.selectdependency.items=[];
-      //this.selectdependency.items=x;
+      this.dependenciesgrid.data.forEach(x => {
+        this.dependencyddldata = this.dependencyddldata.filter(y => y.id != x.planitemDep);
+        this.dependencyDdlFilterData = this.dependencyddldata;
+      });
+      //this.dependencyDdlFilterData.push(x);
+      this.selectdependency.items.push(this.dependencyddldata);;
       this.selectdependency.close();
-      //this.selectdependency.detectChanges();
       setTimeout(() => {
-        //this.selectdependency.isOpen = false;
-        //this.selectdependency.isOpen = true;
-        //this.selectdependency.handleArrowClick();
-        // this.selectdependency.showClear();
-        // this.selectdependency.blur();
         this.selectdependency.open();
         this.selectdependency.searchTerm = term.term;
         this.spinner.hide();
@@ -443,59 +475,61 @@ export class RdapManagePinDependenciesTabComponent implements OnInit, OnChanges 
     const grid = row.grid;
 
     if (grid.rowList.filter(r => r === row).length !== 0) {
-        grid.gridAPI.crudService.enterEditMode(firstEditable, event);
-        firstEditable.activate();
+      grid.gridAPI.crudService.enterEditMode(firstEditable, event);
+      firstEditable.activate();
     }
     row.hide();
-}
-
-public addNew(row?):void{
-  this.addflag = true;
-  this.loadDdlApi();
-  this.masterApiService.debuggerLog(this.debuggerflag,"dependency add new row index",row);
-  //this.dependenciesgrid.beginAddRowByIndex(row.index);
-  this.dependenciesgrid.addRow({apprDate: "",
-  createdby: "",
-  createddate: "",
-  descrLong: "",
-  description: "",
-  devtype2: "",
-  estApprDate: "",
-  lastupdatedby: "",
-  lastupdateddate: "",
-  market: "",
-  planitem: this.pinId,
-  planitemDep: 0,
-  planitemDepDescr: "",
-  platform: "",
-  prodcat3: "",
-  projectref: "",
-  status3: "",
-  studio: "",
-  theme: "",
-  title: "",
-  version: ""});
-  // debugger
-  // const firstEditable = row.cells.filter(cell => cell.editable)[0];
-  // const grid = row.grid;
-
-  // if (grid.rowList.filter(r => r === row).length !== 0) {
-  //     grid.gridAPI.crudService.enterEditMode(firstEditable, event);
-  //     firstEditable.activate();
-  // }
-  // row.hide();
-}
-
-public rowAddedDone(event){
- //debugger
-  if(this.addflag == true){
-    this.dependenciesgrid.addRow(event.data);
-    let lastRec = this.dependenciesgrid.data.pop();
-    let targetIndex = 0;
-    this.dependenciesgrid.data.splice(this.dependenciesgrid.data.length-1,1);
-    this.dependenciesgrid.data.splice(0,0,lastRec);
   }
-}
+
+  public addNew(row?): void {
+    this.addflag = true;
+    this.loadDdlApi();
+    this.masterApiService.debuggerLog(this.debuggerflag, "dependency add new row index", row);
+    //this.dependenciesgrid.beginAddRowByIndex(row.index);
+    this.dependenciesgrid.addRow({
+      apprDate: "",
+      createdby: "",
+      createddate: "",
+      descrLong: "",
+      description: "",
+      devtype2: "",
+      estApprDate: "",
+      lastupdatedby: "",
+      lastupdateddate: "",
+      market: "",
+      planitem: this.pinId,
+      planitemDep: 0,
+      planitemDepDescr: "",
+      platform: "",
+      prodcat3: "",
+      projectref: "",
+      status3: "",
+      studio: "",
+      theme: "",
+      title: "",
+      version: ""
+    });
+    // debugger
+    // const firstEditable = row.cells.filter(cell => cell.editable)[0];
+    // const grid = row.grid;
+
+    // if (grid.rowList.filter(r => r === row).length !== 0) {
+    //     grid.gridAPI.crudService.enterEditMode(firstEditable, event);
+    //     firstEditable.activate();
+    // }
+    // row.hide();
+  }
+
+  public rowAddedDone(event) {
+    //debugger
+    if (this.addflag == true) {
+      this.dependenciesgrid.addRow(event.data);
+      let lastRec = this.dependenciesgrid.data.pop();
+      let targetIndex = 0;
+      this.dependenciesgrid.data.splice(this.dependenciesgrid.data.length - 1, 1);
+      this.dependenciesgrid.data.splice(0, 0, lastRec);
+    }
+  }
 
   public ngAfterViewInit() {
 
