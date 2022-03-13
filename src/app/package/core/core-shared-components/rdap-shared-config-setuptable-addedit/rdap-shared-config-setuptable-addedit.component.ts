@@ -1620,7 +1620,7 @@ export class RdapSharedConfigSetuptableAddeditComponent implements OnInit {
             (this.searchform.get(x.formcontrolname) as FormControl).setValue(1);
           }
           else{
-            (this.searchform.get(x.formcontrolname) as FormControl).setValue(null);
+            (this.searchform.get(x.formcontrolname) as FormControl).setValue(0);
           }
         }
         else {

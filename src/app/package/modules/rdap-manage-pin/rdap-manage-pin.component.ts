@@ -593,7 +593,7 @@ export class RdapManagePinComponent implements OnInit, OnChanges, AfterViewInit 
   }
 
   clarityEvent(data) {
-    if(data.data != undefined && data.data.status.toLowerCase() == "invalid")
+    if(data.data == undefined && (data.data.status =! undefined  && data.data.status.toLowerCase() == "invalid"))
     {
       this.isclarityErr = true;
     }
