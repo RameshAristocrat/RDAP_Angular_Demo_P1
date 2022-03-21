@@ -4,6 +4,10 @@ export const appString = [
     title: "Plan Item",
     gridcolflag: false
   },{
+   modelname: "requeststatusDesc",
+   title: "Status",
+   gridcolflag: false
+},{
       modelname: "devefforttype",
       title: "Dev Effort Type",
       gridcolflag: false
@@ -356,7 +360,7 @@ export const appString = [
 }, {
    modelname: "requeststatus",
    title: "Status",
-   gridcolflag: false
+   gridcolflag: true
 },{
    modelname: "impactedpinno",
    title: "Impacted Pin",

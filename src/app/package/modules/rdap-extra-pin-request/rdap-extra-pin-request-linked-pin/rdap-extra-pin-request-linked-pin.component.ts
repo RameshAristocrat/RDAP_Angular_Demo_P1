@@ -167,19 +167,46 @@ export class RdapExtraPinRequestLinkedPinComponent implements OnInit,OnChanges {
     this.quarterarrobj = [];
     this.currencyarrobj=[];
     this.masterApiService.masterSearchDDL(this.baseApi + "FinancialYear/ddl").subscribe(data => {
+      if (data.length > 0) {
+        data.forEach(x => {
+          if (x.description2 == null || x.description2 == "") {
+            x.description2 = "Blank"
+          }
+        });
+      }
       this.fyarrobj = [...this.fyarrobj, data];
       this.fyarrobj = this.fyarrobj[0];
     });
     this.masterApiService.masterSearchDDL(this.baseApi + "Quarter/ddl").subscribe(data => {
+      if (data.length > 0) {
+        data.forEach(x => {
+          if (x.description2 == null || x.description2 == "") {
+            x.description2 = "Blank"
+          }
+        });
+      }
       this.quarterarrobj = [...this.quarterarrobj, data];
       this.quarterarrobj = this.quarterarrobj[0];
     });
     this.masterApiService.masterSearchDDL(this.baseApi + "master/ddl/currency").subscribe(data => {
+      if (data.length > 0) {
+        data.forEach(x => {
+          if (x.description2 == null || x.description2 == "") {
+            x.description2 = "Blank"
+          }
+        });
+      }
       this.currencyarrobj = [...this.currencyarrobj, data];
       this.currencyarrobj = this.currencyarrobj[0];
     });
     this.masterApiService.masterSearchDDL(this.extrapinbaseApi + "managepin/ddl/").subscribe(data => {
-     
+      if (data.length > 0) {
+        data.forEach(x => {
+          if (x.description2 == null || x.description2 == "") {
+            x.description2 = "Blank"
+          }
+        });
+      }
       // this.impactedpinsarrobj = [...this.impactedpinsarrobj, data];
       // this.impactedpinsarrobj = this.impactedpinsarrobj[0];
       // this.linkedpinsarrobj = [...this.linkedpinsarrobj, data];

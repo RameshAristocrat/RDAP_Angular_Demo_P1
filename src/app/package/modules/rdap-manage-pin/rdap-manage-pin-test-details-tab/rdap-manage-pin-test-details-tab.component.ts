@@ -240,19 +240,19 @@ export class RdapManagePinTestDetailsTabComponent implements OnInit {
     if (existcell.row.inEditMode == true && existcell.row.addRowUI == true) {
       this.addflag = true;
       row.cells.forEach(function (cell: IgxGridCellComponent) {
-        if (field == "tester") {
+        if (field == "testerDescription") {
           selTesterData = ddldata.filter(x => x.id == event.newSelection[0]);
-          if (cell.column.field === "tester") {
-            cell.update(selTesterData[0].description);
+          if (cell.column.field === "testerDescription") {
+            cell.update(selTesterData[0].description2);
           }
           else if (cell.column.field === "testerId") {
             cell.update(selTesterData[0].id);
           }
         }
-        if (field == "inttester") {
+        if (field == "inttesterDescription") {
           selIntTesterData = ddldata.filter(x => x.id == event.newSelection[0]);
-          if (cell.column.field === "inttester") {
-            cell.update(selIntTesterData[0].description);
+          if (cell.column.field === "inttesterDescription") {
+            cell.update(selIntTesterData[0].description2);
           }
           else if (cell.column.field === "inttesterId") {
             cell.update(selIntTesterData[0].id);
@@ -267,14 +267,14 @@ export class RdapManagePinTestDetailsTabComponent implements OnInit {
       this.data = [...this.data];
     } else {
       this.addflag = false;
-      if (field == "tester") {
+      if (field == "testerDescription") {
         selTesterData = ddldata.filter(x => x.id == event.newSelection[0]);
-        this.data[currRowIndex].tester = selTesterData[0].description;
+        this.data[currRowIndex].testerDescription = selTesterData[0].description2;
         this.data[currRowIndex].testerId = selTesterData[0].id;
       }
-      if (field == "inttester") {
+      if (field == "inttesterDescription") {
         selIntTesterData = ddldata.filter(x => x.id == event.newSelection[0]);
-        this.data[currRowIndex].inttester = selIntTesterData[0].description;
+        this.data[currRowIndex].inttesterDescription = selIntTesterData[0].description2;
         this.data[currRowIndex].inttesterId = selIntTesterData[0].id;
       }
       if (field == "descrLong") {
@@ -291,14 +291,14 @@ export class RdapManagePinTestDetailsTabComponent implements OnInit {
     let selTesterData, selIntTesterData;
     let row: IgxGridRowComponent = existcell.row;
     let currRowIndex = existcell.row.index;
-    if (field == "tester") {
+    if (field == "testerDescription") {
       selTesterData = ddldata.filter(x => x.id == event.newSelection[0]);
-      this.data[currRowIndex].tester = selTesterData[0].description;
+      this.data[currRowIndex].testerDescription = selTesterData[0].description2;
       this.data[currRowIndex].testerId = selTesterData[0].id;
     }
-    if (field == "inttester") {
+    if (field == "inttesterDescription") {
       selIntTesterData = ddldata.filter(x => x.id == event.newSelection[0]);
-      this.data[currRowIndex].inttester = selIntTesterData[0].description;
+      this.data[currRowIndex].inttesterDescription = selIntTesterData[0].description2;
       this.data[currRowIndex].inttesterId = selIntTesterData[0].id;
     }
     if (field == "descrLong") {

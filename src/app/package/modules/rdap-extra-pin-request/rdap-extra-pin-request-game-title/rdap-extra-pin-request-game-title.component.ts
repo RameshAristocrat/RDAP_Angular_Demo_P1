@@ -118,6 +118,13 @@ export class RdapExtraPinRequestGameTitleComponent implements OnInit,OnChanges {
     this.requesttitlearrobj = [];
     this.titleDdldata = [];
     this.masterApiService.masterSearchDDL(this.baseApi + "title/ddl").subscribe(data => {
+      if (data.length > 0) {
+        data.forEach(x => {
+          if (x.description2 == null || x.description2 == "") {
+            x.description2 = "Blank"
+          }
+        });
+      }
       this.requesttitlearrobj.push(data);
       this.titleDdldata = this.requesttitlearrobj[0];
     });

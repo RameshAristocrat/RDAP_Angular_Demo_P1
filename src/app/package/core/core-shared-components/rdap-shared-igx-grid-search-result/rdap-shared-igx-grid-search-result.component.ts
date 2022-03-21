@@ -34,6 +34,7 @@ export class RdapSharedIgxGridSearchResultComponent implements OnInit, AfterView
   exportdisplay: any;
   debuggerflag:boolean;
   public gridHeaderDisplay: Boolean= true;
+  public columnName:string[];
 
   //@Input() panelOpenState: any;
   @Input() searchGridData: any[];
@@ -132,9 +133,10 @@ export class RdapSharedIgxGridSearchResultComponent implements OnInit, AfterView
   public gridDataLoad() {
     this.columndata = [];
     this.loopGridContent = [];
+    this.columnName=[];
     // || this.pagename == "managepinlist"
     if (this.pagename == "managepintab"
-      || this.pagename == "managepin-linkedpin" || this.pagename == "managepin-impactedpin") {
+       || this.pagename == "managepin-linkedpin" || this.pagename == "managepin-impactedpin") {
       this.filterflag = false;
       this.exportdisplay = "none";
     } else {
@@ -142,8 +144,21 @@ export class RdapSharedIgxGridSearchResultComponent implements OnInit, AfterView
       this.exportdisplay = "block"
     }
     this.data = this.searchGridData.filter((x, i, a) => x && a.indexOf(x) === i);
-    this.masterApiService.debuggerLog(this.debuggerflag,"this.searchGridData",this.data)
-    Object.keys(this.searchGridData[0]).forEach(x => {
+    //this.masterApiService.debuggerLog(this.debuggerflag,"this.searchGridData",this.data);
+    if(this.pagename == "extrapinreqlist"){
+      Object.keys(this.searchGridData[0]).forEach(x=>{
+        this.columnName.push(x);
+       
+      });
+      this.columnName[1]="requeststatusDesc"
+      this.columnName[34]="requeststatus";
+    }else{
+      Object.keys(this.searchGridData[0]).forEach(x=>{
+        this.columnName.push(x);
+       
+      });
+    };
+    this.columnName.forEach(x => {
       this.appString.filter(g => {
         if (x == g.modelname) {
           if(this.pagename == "managepin-linkedpin"){

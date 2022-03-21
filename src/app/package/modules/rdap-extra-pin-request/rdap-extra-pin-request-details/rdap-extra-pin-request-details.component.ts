@@ -117,6 +117,13 @@ export class RdapExtraPinRequestDetailsComponent implements OnInit, OnChanges {
     if (formcontrolname == "channelId") {
       this.masterApiService.masterSearchDDL(this.baseApi + "channeltype/ddlbychannel/" + event.id + "/true").subscribe(data => {
         this.channeltypearrobj = [];
+        if (data.length > 0) {
+          data.forEach(x => {
+            if (x.description2 == null || x.description2 == "") {
+              x.description2 = "Blank"
+            }
+          });
+        }
         this.channeltypearrobj.push(data);
         this.extrapindetailsform.controls["channeltypeId"].setValue("");
       });
@@ -124,6 +131,13 @@ export class RdapExtraPinRequestDetailsComponent implements OnInit, OnChanges {
     else if (formcontrolname == "regionId") {
       this.masterApiService.masterSearchDDL(this.baseApi + "market/ddlbyregion/" + event.id+ "/true").subscribe(data => {
         this.marketarrobj = [];
+        if (data.length > 0) {
+          data.forEach(x => {
+            if (x.description2 == null || x.description2 == "") {
+              x.description2 = "Blank"
+            }
+          });
+        }
         this.marketarrobj.push(data);
         this.extrapindetailsform.controls["marketId"].setValue("");
       });
@@ -140,27 +154,83 @@ export class RdapExtraPinRequestDetailsComponent implements OnInit, OnChanges {
     this.requeststatusarrobj = [];
     this.pintypearrobj = [];
     this.masterApiService.masterSearchDDL(this.baseApi + "channel/ddl/true").subscribe(data => {
+      if (data.length > 0) {
+        data.forEach(x => {
+          if (x.description2 == null || x.description2 == "") {
+            x.description2 = "Blank"
+          }
+        });
+      }
       this.channelarrobj.push(data);
     });
     this.masterApiService.masterSearchDDL(this.baseApi + "channeltype/ddl/true").subscribe(data => {
+      if (data.length > 0) {
+        data.forEach(x => {
+          if (x.description2 == null || x.description2 == "") {
+            x.description2 = "Blank"
+          }
+        });
+      }
       this.channeltypearrobj.push(data);
     });
     this.masterApiService.masterSearchDDL(this.baseApi + "region/ddl/true").subscribe(data => {
+      if (data.length > 0) {
+        data.forEach(x => {
+          if (x.description2 == null || x.description2 == "") {
+            x.description2 = "Blank"
+          }
+        });
+      }
       this.regionarrobj.push(data);
     });
     this.masterApiService.masterSearchDDL(this.baseApi + "market/ddl/true").subscribe(data => {
+      if (data.length > 0) {
+        data.forEach(x => {
+          if (x.description2 == null || x.description2 == "") {
+            x.description2 = "Blank"
+          }
+        });
+      }
       this.marketarrobj.push(data);
     });
     this.masterApiService.masterSearchDDL(this.baseApi + "studio/ddl/true").subscribe(data => {
+      if (data.length > 0) {
+        data.forEach(x => {
+          if (x.description2 == null || x.description2 == "") {
+            x.description2 = "Blank"
+          }
+        });
+      }
       this.studioarrobj.push(data);
     });
     this.masterApiService.masterSearchDDL(this.baseApi + "gamecomplexity/ddl/true").subscribe(data => {
+      if (data.length > 0) {
+        data.forEach(x => {
+          if (x.description2 == null || x.description2 == "") {
+            x.description2 = "Blank"
+          }
+        });
+      }
       this.gamecomplexityarrobj.push(data);
     });
     this.masterApiService.masterSearchDDL(this.baseApi + "master/ddl/pintype").subscribe(data => {
+      if (data.length > 0) {
+        data.forEach(x => {
+          if (x.description2 == null || x.description2 == "") {
+            x.description2 = "Blank"
+          }
+        });
+      }
       this.pintypearrobj.push(data);
     });
     this.masterApiService.masterSearchDDL(this.baseApi + "master/ddl/requeststatus").subscribe(data => {
+      if (data.length > 0) {
+        data.forEach(x => {
+          if (x.description2 == null || x.description2 == "") {
+            x.description2 = "Blank"
+          }
+        });
+      }
       this.requeststatusarrobj.push(data);
     });
     this.masterApiService.masterSearchDDL(this.baseApi + "master/ddl/currency").subscribe(data => {

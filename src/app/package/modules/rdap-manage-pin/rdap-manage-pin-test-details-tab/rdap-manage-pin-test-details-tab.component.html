@@ -19,15 +19,15 @@
                <igx-column [width]="'100px'" field="planitem" header="Plan Item" 
                [dataType]="'string'" [hidden]="false" [editable]="false"  [resizable]="true">
              </igx-column> 
-                <igx-column [width]="'200px'" field="tester" header="Tester" [dataType]="'string'" [resizable]="true" [editable]="true">
+                <igx-column [width]="'200px'" field="testerDescription" header="Tester" [dataType]="'string'" [resizable]="true" [editable]="true">
                     <ng-template igxCellEditor let-cell="cell" let-value>                        
                         <igx-combo #remoteCombo class="combo" [itemsMaxHeight]="250" [itemsMinWidth]="500"
-                        [data]="testerDdlFilterData" [valueKey]="'id'" [displayKey]="'description'"
+                        [data]="testerDdlFilterData" [valueKey]="'id'" [displayKey]="'description2'"
                         placeholder="Select Tester(s)" searchPlaceholder="Search..." [filterable]="true"
-                        (selectionChanging)="onchangeSelect($event, cell, data, 'tester', testerDdlFilterData)">
+                        (selectionChanging)="onchangeSelect($event, cell, data, 'testerDescription', testerDdlFilterData)">
                         <ng-template igxComboItem let-display let-key="valueKey">
                             <div class="item">
-                                <span class="description">{{ display.description }}</span>
+                                <span class="description">{{ display.description2 }}</span>
                             </div>
                         </ng-template>
                     </igx-combo>
@@ -39,7 +39,7 @@
                         </igx-select> -->
                     </ng-template>
                 </igx-column>
-                <igx-column [width]="'200px'" field="inttester" header="Int Tester" [dataType]="'string'"
+                <igx-column [width]="'200px'" field="inttesterDescription" header="Int Tester" [dataType]="'string'"
                     [hidden]="false" [resizable]="true" [editable]="true">
                     <ng-template igxCellEditor let-cell="cell" let-value>
                            <!-- <igx-select #select (selectionChanging)="onchangeSelect($event, cell, data, 'inttester')">
@@ -48,12 +48,12 @@
                             </igx-select-item>
                         </igx-select> -->
                         <igx-combo #remoteCombo class="combo" [itemsMaxHeight]="250" [itemsMinWidth]="500"
-                        [data]="intTesterDdlFilterData" [valueKey]="'id'" [displayKey]="'description'"
+                        [data]="intTesterDdlFilterData" [valueKey]="'id'" [displayKey]="'description2'"
                         placeholder="Select InTester(s)" searchPlaceholder="Search..." [filterable]="true"
-                        (selectionChanging)="onchangeSelect($event, cell, data, 'inttester',intTesterDdlFilterData)">
+                        (selectionChanging)="onchangeSelect($event, cell, data, 'inttesterDescription',intTesterDdlFilterData)">
                         <ng-template igxComboItem let-display let-key="valueKey">
                             <div class="item">
-                                <span class="description">{{ display.description }}</span>
+                                <span class="description">{{ display.description2 }}</span>
                             </div>
                         </ng-template>
                     </igx-combo>

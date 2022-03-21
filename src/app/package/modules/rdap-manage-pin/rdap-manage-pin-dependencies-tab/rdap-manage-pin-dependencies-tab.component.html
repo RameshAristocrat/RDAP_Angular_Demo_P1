@@ -70,7 +70,7 @@
                             (change)="singleSelectionDependency($event, cell, data, 'dependencyid')"
                             (search)="searchInputFunction($event)">
                             <ng-template ng-option-tmp let-item="item">
-                                {{ item.id + "-" + item.description + "-" + item.description }}
+                                {{ item.id + "-" + item.description + "-" + item.description2 }}
                             </ng-template>
                             <ng-template ng-option-tmp let-item="item" let-search="searchTerm" let-index="index">
                                 <span> {{ item.id }}</span>

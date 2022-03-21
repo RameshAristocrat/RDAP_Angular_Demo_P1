@@ -11,12 +11,12 @@
         </mat-form-field>
       </div>
       <div class="col-lg-3 form-group">
-        <ng-select ngSelectMat [readonly]="true" [items]="versionarrobj[0]" placeholder="Version" bindLabel="description" bindValue="id"
+        <ng-select ngSelectMat [readonly]="true" [items]="versionarrobj[0]" placeholder="Version" bindLabel="description2" bindValue="id"
           [clearable]="false" [virtualScroll]="true" appendTo="body" formControlName="versionId"
           (change)="ddlOnChangeEvent($event)"
           class="custom-class">
           <ng-template ng-option-tmp let-item="item">
-            {{  item.description }}
+            {{  item.description2 }}
           </ng-template>
         </ng-select>
       </div>
@@ -25,7 +25,7 @@
         ngSelectMat
         [items]="channelarrobj[0]"
         placeholder="Channel *"
-        bindLabel="description"
+        bindLabel="description2"
         bindValue="id"
         [clearable]="false"
         [virtualScroll]="true"
@@ -34,7 +34,7 @@
         (change)="ddlOnChangeEvent($event,'channelId')"
         >
         <ng-template ng-option-tmp let-item="item">
-          {{  item.description }}
+          {{  item.description2 }}
         </ng-template>
         </ng-select>
     </div>
@@ -44,7 +44,7 @@
       ngSelectMat
       [items]="channeltypearrobj[0]"
       placeholder="Channel Type *"
-      bindLabel="description"
+      bindLabel="description2"
       bindValue="id"
       [clearable]="false"
       [virtualScroll]="true"
@@ -53,7 +53,7 @@
       (change)="ddlOnChangeEvent($event,'channeltypeId')" required>
      
       <ng-template ng-option-tmp let-item="item">
-        {{  item.description }}
+        {{  item.description2 }}
         
       </ng-template>
       
@@ -69,7 +69,7 @@
       ngSelectMat
       [items]="regionarrobj[0]"
       placeholder="Region *"
-      bindLabel="description"
+      bindLabel="description2"
       bindValue="id"
       [clearable]="false"
       [virtualScroll]="true"
@@ -77,16 +77,16 @@
       formControlName="regionId"
       (change)="ddlOnChangeEvent($event,'regionId')" >
       <ng-template ng-option-tmp let-item="item">
-        {{  item.description }}
+        {{  item.description2 }}
       </ng-template>
       </ng-select>
   </div>
   <div class="col-lg-3 form-group required">
-    <ng-select ngSelectMat [items]="marketarrobj[0]" placeholder="Market *" bindLabel="description" bindValue="id"
+    <ng-select ngSelectMat [items]="marketarrobj[0]" placeholder="Market *" bindLabel="description2" bindValue="id"
     [clearable]="false" [virtualScroll]="true" appendTo="body" formControlName="marketId"
     (change)="ddlOnChangeEvent($event)" required>
     <ng-template ng-option-tmp let-item="item">
-      {{  item.description }}
+      {{  item.description2 }}
     </ng-template>
   </ng-select>
   <span style="color: red;font-size: 10px;" *ngIf="(
@@ -97,7 +97,7 @@
   <ng-select               
   [items]="fyarrobj"
   placeholder="FY"
-  bindLabel="description"
+  bindLabel="description2"
   bindValue="id"
   [clearable]="false"
   [virtualScroll]="true"
@@ -105,7 +105,7 @@
   formControlName="financialyearId"
   (change)="ddlOnChangeEvent($event)">
   <ng-template ng-option-tmp let-item="item">
-    {{ item.description }}
+    {{ item.description2 }}
   </ng-template>
   </ng-select>
 </div>
@@ -113,7 +113,7 @@
   <ng-select               
   [items]="quarterarrobj"
   placeholder="Quarter"
-  bindLabel="description"
+  bindLabel="description2"
   bindValue="id"
   [clearable]="false"
   [virtualScroll]="true"
@@ -121,7 +121,7 @@
   formControlName="quarterId"
   (change)="ddlOnChangeEvent($event)">
   <ng-template ng-option-tmp let-item="item">
-    {{ item.description }}
+    {{ item.description2 }}
   </ng-template>
   </ng-select>
 </div> -->
@@ -130,7 +130,7 @@
   ngSelectMat
   [items]="gamecomplexityarrobj[0]"
   placeholder="Game Complexity"
-  bindLabel="description"
+  bindLabel="description2"
   bindValue="id"
   [clearable]="false"
   [virtualScroll]="true"
@@ -138,27 +138,27 @@
   formControlName="gamecomplexityId"
   (change)="ddlOnChangeEvent($event)">
   <ng-template ng-option-tmp let-item="item">
-    {{  item.description }}
+    {{  item.description2 }}
   </ng-template>
   </ng-select>
 </div>
 <div class="col-lg-3 form-group">
-  <ng-select ngSelectMat [items]="studioarrobj[0]" placeholder="Studio *" bindLabel="description" bindValue="id"
+  <ng-select ngSelectMat [items]="studioarrobj[0]" placeholder="Studio *" bindLabel="description2" bindValue="id"
     [clearable]="false" [virtualScroll]="true" appendTo="body" formControlName="studioId"
     (change)="ddlOnChangeEvent($event)">
     <ng-template ng-option-tmp let-item="item">
-      {{  item.description }}
+      {{  item.description2 }}
     </ng-template>
   </ng-select>
 </div>
   </div>
 <div class="row">
       <div class="col-lg-3 form-group">
-        <ng-select ngSelectMat [items]="devtypearrobj[0]" placeholder="Dev Class" bindLabel="description" bindValue="id"
+        <ng-select ngSelectMat [items]="devtypearrobj[0]" placeholder="Dev Class" bindLabel="description2" bindValue="id"
           [clearable]="false" [virtualScroll]="true" appendTo="body" formControlName="devtype2Id"
           (change)="ddlOnChangeEvent($event)">
           <ng-template ng-option-tmp let-item="item">
-            {{  item.description }}
+            {{  item.description2 }}
           </ng-template>
         </ng-select>
       </div>
@@ -177,58 +177,58 @@
         </mat-form-field>
       </div>
       <div class="col-lg-3 form-group">
-        <ng-select ngSelectMat [items]="titlearrobj[0]" placeholder="Title" bindLabel="description" bindValue="id"
+        <ng-select ngSelectMat [items]="titlearrobj[0]" placeholder="Title" bindLabel="description2" bindValue="id"
           [clearable]="false" [virtualScroll]="true" appendTo="body" formControlName="titleId"
           (change)="ddlOnChangeEvent($event)">
           <ng-template ng-option-tmp let-item="item">
-            {{  item.description }}
+            {{  item.description2 }}
           </ng-template>
         </ng-select>
       </div>
       <div class="col-lg-3 form-group">
-        <ng-select ngSelectMat [items]="themearrobj[0]" placeholder="Theme *" bindLabel="description" bindValue="id"
+        <ng-select ngSelectMat [items]="themearrobj[0]" placeholder="Theme *" bindLabel="description2" bindValue="id"
           [clearable]="false" [virtualScroll]="true" appendTo="body" formControlName="themeId"
           (change)="ddlOnChangeEvent($event)">
           <ng-template ng-option-tmp let-item="item">
-            {{  item.description }}
+            {{  item.description2 }}
           </ng-template>
         </ng-select>
       </div>
     </div>
     <div class="row">
       <div class="col-lg-3 form-group">
-        <ng-select ngSelectMat [items]="platformarrobj[0]" placeholder="Platform" bindLabel="description" bindValue="id"
+        <ng-select ngSelectMat [items]="platformarrobj[0]" placeholder="Platform" bindLabel="description2" bindValue="id"
           [clearable]="false" [virtualScroll]="true" appendTo="body" formControlName="platformId"
           (change)="ddlOnChangeEvent($event)">
           <ng-template ng-option-tmp let-item="item">
-            {{  item.description }}
+            {{  item.description2 }}
           </ng-template>
         </ng-select>
       </div>
       <div class="col-lg-3 form-group">
-        <ng-select ngSelectMat [items]="prodcatarrobj[0]" placeholder="Product Category" bindLabel="description" bindValue="id"
+        <ng-select ngSelectMat [items]="prodcatarrobj[0]" placeholder="Product Category" bindLabel="description2" bindValue="id"
           [clearable]="false" [virtualScroll]="true" appendTo="body" formControlName="prodcat3Id"
           (change)="ddlOnChangeEvent($event)">
           <ng-template ng-option-tmp let-item="item">
-            {{  item.description }}
+            {{  item.description2 }}
           </ng-template>
         </ng-select>
       </div>
       <div class="col-lg-3 form-group">
-        <ng-select ngSelectMat [items]="sequencearrobj[0]" placeholder="Sequence" bindLabel="description" bindValue="id"
+        <ng-select ngSelectMat [items]="sequencearrobj[0]" placeholder="Sequence" bindLabel="description2" bindValue="id"
           [clearable]="false" [virtualScroll]="true" appendTo="body" formControlName="sequenceId"
           (change)="ddlOnChangeEvent($event)">
           <ng-template ng-option-tmp let-item="item">
-            {{  item.description }}
+            {{  item.description2 }}
           </ng-template>
         </ng-select>
       </div>
       <div class="col-lg-3 form-group">
-        <ng-select ngSelectMat [items]="prodcutbasketarrobj[0]" placeholder="Product Basket" bindLabel="description"
+        <ng-select ngSelectMat [items]="prodcutbasketarrobj[0]" placeholder="Product Basket" bindLabel="description2"
           bindValue="id" [clearable]="false" [virtualScroll]="true" appendTo="body" formControlName="productbasketId"
           (change)="ddlOnChangeEvent($event)">
           <ng-template ng-option-tmp let-item="item">
-            {{  item.description }}
+            {{  item.description2 }}
           </ng-template>
         </ng-select>
       </div>
@@ -237,11 +237,11 @@
       <div class="col-lg-3">
         <div class="row">
           <div class="col-lg-6 form-group">
-            <ng-select ngSelectMat [items]="videostepperarrobj[0]" placeholder="Video/Stepper" bindLabel="description"
+            <ng-select ngSelectMat [items]="videostepperarrobj[0]" placeholder="Video/Stepper" bindLabel="description2"
               bindValue="id" [clearable]="false" [virtualScroll]="true" appendTo="body" formControlName="vidstepId"
               (change)="ddlOnChangeEvent($event)">
               <ng-template ng-option-tmp let-item="item">
-                {{  item.description }}
+                {{  item.description2 }}
               </ng-template>
             </ng-select>
           </div>
@@ -270,20 +270,20 @@
             </ng-select>
           </div>
           <div class="col-lg-6 form-group">
-            <ng-select ngSelectMat [items]="priorityarrobj[0]" placeholder="Priority *" bindLabel="description" bindValue="id"
+            <ng-select ngSelectMat [items]="priorityarrobj[0]" placeholder="Priority *" bindLabel="description2" bindValue="id"
               [clearable]="false" [virtualScroll]="true" appendTo="body" formControlName="priorityId"
               (change)="ddlOnChangeEvent($event)">
               <ng-template ng-option-tmp let-item="item">
-                {{  item.description }}
+                {{  item.description2 }}
               </ng-template>
             </ng-select>
           </div>
           <div class="col-lg-6 form-group">
-            <ng-select ngSelectMat [items]="showarrobj[0]" placeholder="Show" bindLabel="description" bindValue="id"
+            <ng-select ngSelectMat [items]="showarrobj[0]" placeholder="Show" bindLabel="description2" bindValue="id"
               [clearable]="false" [virtualScroll]="true" appendTo="body" formControlName="showId"
               (change)="ddlOnChangeEvent($event)">
               <ng-template ng-option-tmp let-item="item">
-                {{  item.description }}
+                {{  item.description2 }}
               </ng-template>
             </ng-select>
           </div>
@@ -307,23 +307,23 @@
       <div class="col-lg-3">
         <div class="row">
           <div class="col-lg-12 form-group">
-            <ng-select ngSelectMat [items]="riskarrobj[0]" placeholder="Risk *" bindLabel="description"
+            <ng-select ngSelectMat [items]="riskarrobj[0]" placeholder="Risk *" bindLabel="description2"
               bindValue="id" [clearable]="false" [virtualScroll]="true" appendTo="body" formControlName="riskId"
               (change)="ddlOnChangeEvent($event)">
               <ng-template ng-option-tmp let-item="item">
                
-                {{  item.description }}
+                {{  item.description2 }}
               </ng-template>
             </ng-select>
           </div>
         </div>
         <div class="row">
           <div class="col-lg-12 form-group">
-            <ng-select ngSelectMat [items]="statusarrobj[0]" placeholder="Status *" bindLabel="description"
+            <ng-select ngSelectMat [items]="statusarrobj[0]" placeholder="Status *" bindLabel="description2"
               bindValue="id" [clearable]="false" [virtualScroll]="true" appendTo="body" formControlName="status3Id"
               (change)="ddlOnChangeEvent($event)">
               <ng-template ng-option-tmp let-item="item">
-                {{  item.description }}
+                {{  item.description2 }}
               </ng-template>
             </ng-select>
           </div>
@@ -353,20 +353,20 @@
       <div class="col-lg-3">
         <div class="row">
           <div class="col-lg-6 form-group">
-            <ng-select ngSelectMat [items]="epprefarrobj[0]" placeholder="Epp Ref" bindLabel="description" bindValue="id"
+            <ng-select ngSelectMat [items]="epprefarrobj[0]" placeholder="Epp Ref" bindLabel="description2" bindValue="id"
               [clearable]="false" [virtualScroll]="true" appendTo="body" formControlName="eppRefId"
               (change)="ddlOnChangeEvent($event)">
               <ng-template ng-option-tmp let-item="item">
-                {{  item.description }}
+                {{  item.description2 }}
               </ng-template>
             </ng-select>
           </div>
           <div class="col-lg-6 form-group">
-            <ng-select ngSelectMat [items]="denomarrobj[0]" placeholder="Denom" bindLabel="description" bindValue="id"
+            <ng-select ngSelectMat [items]="denomarrobj[0]" placeholder="Denom" bindLabel="description2" bindValue="id"
               [clearable]="false" [virtualScroll]="true" appendTo="body" formControlName="denomId"
               (change)="ddlOnChangeEvent($event)">
               <ng-template ng-option-tmp let-item="item">
-                {{  item.description }}
+                {{  item.description2 }}
               </ng-template>
             </ng-select>
           </div>
@@ -404,11 +404,11 @@
       <div class="col-lg-3">
         <div class="row">
           <div class="col-lg-12 form-group">
-            <ng-select ngSelectMat [items]="rootcausearrobj" placeholder="Root Cause *" bindLabel="description"
+            <ng-select ngSelectMat [items]="rootcausearrobj" placeholder="Root Cause *" bindLabel="description2"
               bindValue="id" [clearable]="false" [virtualScroll]="true" appendTo="body" formControlName="viridianlaunchId"
               (change)="ddlOnChangeEvent($event)">
               <ng-template ng-option-tmp let-item="item">
-                {{  item.description }}
+                {{  item.description2 }}
               </ng-template>
             </ng-select>
           </div>
@@ -453,7 +453,7 @@
         <ng-select               
         [items]="currencyarrobj[0]"
         placeholder="Revenue Currency"
-        bindLabel="description"
+        bindLabel="description2"
         bindValue="id"
         [clearable]="false"
         [virtualScroll]="true"
@@ -461,7 +461,7 @@
         formControlName="revenuecurrency"
         (change)="ddlOnChangeEvent($event)">
         <ng-template ng-option-tmp let-item="item">
-          {{  item.description }}
+          {{  item.description2 }}
         </ng-template>
         </ng-select>
     </div>
