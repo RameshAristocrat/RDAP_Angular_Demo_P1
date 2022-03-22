@@ -25,7 +25,7 @@ margin-right: 8%;" [ngStyle]="{'height': clientheight+'px'}">
     <mat-sidenav class="side_nav_shadow" #leftSidenav mode="side" style="padding-top: 0%;
       color: white;
       background-color: #300c46;">
-      <app-side-menu-bar [permissionIN]="permissiondata"></app-side-menu-bar>
+      <app-side-menu-bar [permissionIN]="permissiondata" *ngIf="oktaIdToken"></app-side-menu-bar>
     </mat-sidenav>
     <mat-sidenav-content>
       <div class="main_content" (mouseover)="sideNavClose()">

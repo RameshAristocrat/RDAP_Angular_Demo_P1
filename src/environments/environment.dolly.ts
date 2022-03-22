@@ -9,9 +9,9 @@ export const environment = {
     oktaconfig: { 
         CLIENT_ID: "0oa9t7ifubUwIhATi357", 
         ISSUER: "https://aristocrat.okta.com", 
-        LOGIN_REDIRECT_URI: "https://sydc-appdev-01:7070/home/dashboard", 
+        LOGIN_REDIRECT_URI: "https://sydc-appdev-01:7070/home", 
         LOGOUT_REDIRECT_URI: "https://sydc-appdev-01:7070", 
-        SCOPE: ['openid','email'] 
+        SCOPE: ['openid','profile','email']
     },
     // baseapiurl: "https://sydc-appdev-01:7777/api/v1/",
     // userapiurl: "https://sydc-appdev-01:8888/api/v1/",

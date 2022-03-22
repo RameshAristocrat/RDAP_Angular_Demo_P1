@@ -90,7 +90,7 @@ export class RdapManagePinMilestoneTabComponent implements OnInit,OnChanges {
   @Output() milestoneEvent = new EventEmitter<any>();
   @Input() planitem: any;
   @Input() saveflag: any;
-  IsManagePinAdminFlag:boolean = false;
+ // IsManagePinAdminFlag:boolean = false;
   milestoneModel: {
     planApprDate: "",
     gdbReqdDate: "",
@@ -122,7 +122,7 @@ export class RdapManagePinMilestoneTabComponent implements OnInit,OnChanges {
     netApprDate: ""
   };
   // @Output() dateChange: EventEmitter<MatDatepickerInputEvent<any>> = new EventEmitter();
-
+  @Input() isAdmin; 
   constructor(private httpClient: HttpClient, private router: Router,
     public fb: FormBuilder, private _snackBar: MatSnackBar,
     private masterApiService: RdMasterApiService,
@@ -132,7 +132,7 @@ export class RdapManagePinMilestoneTabComponent implements OnInit,OnChanges {
     this.extrapinbaseApi = environment.extrapinreqapiurl;
     this.viewExtrapinRequestData = this.planitem;
     this.permissionApi = environment.userapiurl;
-    this.IsManagePinAdmin();
+    //this.IsManagePinAdmin();
     this.rolePermissionEnableFlag = environment.enablerolepermission;
     this.rolepermissionmock = environment.enablerolepermissionmock;
   }
@@ -191,7 +191,7 @@ this.milestoneform.get("planApprDate").disable({ onlySelf: true });
   }
 
   ngOnInit(): void {
-    this.IsManagePinAdmin();
+    //this.IsManagePinAdmin();
     this.callDdlApi();
     this.valueChangeFlag = false;
     this.viewExtrapinRequestData = this.planitem;
@@ -200,14 +200,14 @@ this.milestoneform.get("planApprDate").disable({ onlySelf: true });
     //this.milestoneform.controls["financialyearId"].setValue(this.viewExtrapinRequestData.data.financialyearId);
     this.buildForm();
     this.getMilestoneById();
-    if(this.IsManagePinAdminFlag == false){
+    if(this.isAdmin == false){
       this.getPermissionmpMasterByModule();
     }
   }
   ngOnChanges(changes: SimpleChanges) {
     this.buildForm();
     this.getMilestoneById();
-    if(this.IsManagePinAdminFlag == false){
+    if(this.isAdmin == false){
       this.getPermissionmpMasterByModule();
     }
   }
@@ -411,38 +411,38 @@ this.milestoneform.get("planApprDate").disable({ onlySelf: true });
     this.milestoneform.controls["netApprDate"].setValue(this.viewExtrapinRequestData.data.planApprDate);
     this.emitData = { data: this.milestoneModel, flag: false };
     //this.milestoneform.get('netApprDate').disable({ onlySelf: true });
-    if((this.IsManagePinAdminFlag == false)&&(this.viewExtrapinRequestData.data.tgtDevStartDate != null)){
+    if((this.isAdmin == false)&&(this.viewExtrapinRequestData.data.tgtDevStartDate != null)){
       this.milestoneform.get('tgtDevStartDate').disable({ onlySelf: true });
-    }else if((this.IsManagePinAdminFlag == false)&&(this.viewExtrapinRequestData.data.tgtDevStartDate == null)){
+    }else if((this.isAdmin == false)&&(this.viewExtrapinRequestData.data.tgtDevStartDate == null)){
       this.milestoneform.get('tgtDevStartDate').enable({ onlySelf: true });
     }
-    if((this.IsManagePinAdminFlag == false)&&(this.viewExtrapinRequestData.data.tgtIntoCvlDate != null)){
+    if((this.isAdmin == false)&&(this.viewExtrapinRequestData.data.tgtIntoCvlDate != null)){
       this.milestoneform.get('tgtIntoCvlDate').disable({ onlySelf: true });
-    }else if((this.IsManagePinAdminFlag == false)&&(this.viewExtrapinRequestData.data.tgtIntoCvlDate == null)){
+    }else if((this.isAdmin == false)&&(this.viewExtrapinRequestData.data.tgtIntoCvlDate == null)){
       this.milestoneform.get('tgtIntoCvlDate').enable({ onlySelf: true });
     }
-    if((this.IsManagePinAdminFlag == false)&&(this.viewExtrapinRequestData.data.tgtIntoSubDate != null)){
+    if((this.isAdmin == false)&&(this.viewExtrapinRequestData.data.tgtIntoSubDate != null)){
       this.milestoneform.get('tgtIntoSubDate').disable({ onlySelf: true });
-    }else if((this.IsManagePinAdminFlag == false)&&(this.viewExtrapinRequestData.data.tgtIntoSubDate == null)){
+    }else if((this.isAdmin == false)&&(this.viewExtrapinRequestData.data.tgtIntoSubDate == null)){
       this.milestoneform.get('tgtIntoSubDate').enable({ onlySelf: true });
     }
-    if((this.IsManagePinAdminFlag == false)&&(this.viewExtrapinRequestData.data.tgtSubDate != null)){
+    if((this.isAdmin == false)&&(this.viewExtrapinRequestData.data.tgtSubDate != null)){
       this.milestoneform.get('tgtSubDate').disable({ onlySelf: true });
-    }else if((this.IsManagePinAdminFlag == false)&&(this.viewExtrapinRequestData.data.tgtSubDate == null)){
+    }else if((this.isAdmin == false)&&(this.viewExtrapinRequestData.data.tgtSubDate == null)){
       this.milestoneform.get('tgtSubDate').enable({ onlySelf: true });
     }
-    if((this.IsManagePinAdminFlag == false)&&(this.viewExtrapinRequestData.data.tgtApprDate != null)){
+    if((this.isAdmin == false)&&(this.viewExtrapinRequestData.data.tgtApprDate != null)){
       this.milestoneform.get('tgtApprDate').disable({ onlySelf: true });
-    }else if((this.IsManagePinAdminFlag == false)&&(this.viewExtrapinRequestData.data.tgtApprDate == null)){
+    }else if((this.isAdmin == false)&&(this.viewExtrapinRequestData.data.tgtApprDate == null)){
       this.milestoneform.get('tgtApprDate').enable({ onlySelf: true });
     }
-    if((this.IsManagePinAdminFlag == false)&&(this.viewExtrapinRequestData.data.tgtReleaseDate != null)){
+    if((this.isAdmin == false)&&(this.viewExtrapinRequestData.data.tgtReleaseDate != null)){
       this.milestoneform.get('tgtReleaseDate').disable({ onlySelf: true });
-    }else if((this.IsManagePinAdminFlag == false)&&(this.viewExtrapinRequestData.data.tgtReleaseDate == null)){
+    }else if((this.isAdmin == false)&&(this.viewExtrapinRequestData.data.tgtReleaseDate == null)){
       this.milestoneform.get('tgtReleaseDate').enable({ onlySelf: true });
     }
 
-    if(this.IsManagePinAdminFlag == true){
+    if(this.isAdmin == true){
     // this.milestoneform.get('netApprDate').disable({ onlySelf: true });
     // this.milestoneform.get('financialyearId').disable({ onlySelf: true });
     // this.milestoneform.get('quarterId').disable({ onlySelf: true });
@@ -528,11 +528,11 @@ this.milestoneform.get("planApprDate").disable({ onlySelf: true });
 
   }
 
-  public IsManagePinAdmin(){
-    this.masterApiService.checkIsManagePinAdmin(this.permissionApi+"Permission/IsManagePinAdmin").subscribe(data => {
-      this.IsManagePinAdminFlag = data;
-    });
-  }
+  // public IsManagePinAdmin(){
+  //   this.masterApiService.checkIsManagePinAdmin(this.permissionApi+"Permission/IsManagePinAdmin").subscribe(data => {
+  //     this.IsManagePinAdminFlag = data;
+  //   });
+  // }
   onDialogSubmit(event){
     event.dialog.close(); 
    

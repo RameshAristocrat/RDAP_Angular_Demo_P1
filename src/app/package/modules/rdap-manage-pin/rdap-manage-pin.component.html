@@ -14,7 +14,7 @@
               Product
             </span>
           </ng-template>
-          <app-rdap-manage-pin-product-tab *ngIf="viewExtrapinRequestData" [planitem]="viewExtrapinRequestData"
+          <app-rdap-manage-pin-product-tab *ngIf="viewExtrapinRequestData" [isAdmin]="IsManagePinAdminFlag" [planitem]="viewExtrapinRequestData"
             (productEvent)="productEvent($event)"></app-rdap-manage-pin-product-tab>
         </mat-tab>
         <mat-tab class="mat-elevation-z4" *ngIf="isTabFlag == true && (mpmilestonePermission &&
@@ -27,7 +27,7 @@
               Milestone
             </span>
           </ng-template>
-          <app-rdap-manage-pin-milestone-tab *ngIf="viewExtrapinRequestData" [planitem]="viewExtrapinRequestData"
+          <app-rdap-manage-pin-milestone-tab *ngIf="viewExtrapinRequestData" [isAdmin]="IsManagePinAdminFlag" [planitem]="viewExtrapinRequestData"
             [changeflag]="saveflag" (milestoneEvent)="milestoneEvent($event)"></app-rdap-manage-pin-milestone-tab>
         </mat-tab>
         <mat-tab class="mat-elevation-z4"
@@ -41,7 +41,7 @@
               Dependencies
             </span>
           </ng-template>
-          <app-rdap-manage-pin-dependencies-tab *ngIf="viewExtrapinRequestData" [dependencyInput]="dependencyInput"
+          <app-rdap-manage-pin-dependencies-tab *ngIf="viewExtrapinRequestData" [isAdmin]="IsManagePinAdminFlag" [dependencyInput]="dependencyInput"
             (dependencyEvent)="dependencyEvent($event)">
           </app-rdap-manage-pin-dependencies-tab>
         </mat-tab>

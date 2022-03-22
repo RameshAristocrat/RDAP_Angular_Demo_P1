@@ -1,10 +1,9 @@
 import { Observable, Observer } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { OktaAuth, IDToken, AccessToken, RefreshToken } from '@okta/okta-auth-js';
-import { HttpClient } from '@angular/common/http';
+import { OktaAuth, IDToken, AccessToken } from '@okta/okta-auth-js';
 import { environment } from 'src/environments/environment';
-import { Token } from '@angular/compiler/src/ml_parser/lexer';
+import { CommonService } from '../../api/commonservice/common.service';
 
 @Injectable({ providedIn: 'root' })
 export class OktaAuthService {
@@ -13,30 +12,32 @@ export class OktaAuthService {
   public LOGIN_REDIRECT_URI = environment.oktaconfig.LOGIN_REDIRECT_URI;
   public LOGOUT_REDIRECT_URI = environment.oktaconfig.LOGOUT_REDIRECT_URI;
   public SCOPE = environment.oktaconfig.SCOPE;
-  //public oktaAuth:OktaAuth;
   public oktaConfigDetails: any;
-  oktaAuth = new OktaAuth({
+  public oktaAuth = new OktaAuth({
     clientId: this.CLIENT_ID,
     issuer: this.ISSUER,
     redirectUri: this.LOGIN_REDIRECT_URI,
     pkce: true,
-    scopes: this.SCOPE
+    scopes: this.SCOPE,
+    tokenManager: {
+      storage: 'localStorage'
+    }
   });
   $isAuthenticated: Observable<boolean>;
   private observer?: Observer<boolean>;
-  constructor(private router: Router, private httpClient: HttpClient) {
+  constructor(private router: Router, private commonService :CommonService ) {
     this.$isAuthenticated = new Observable((observer: Observer<boolean>) => {
-      this.observer = observer;
-      this.isAuthenticated().then(val => {
-        observer.next(val);
+        this.observer = observer;
       });
-    });
   }
-
-  async isAuthenticated() {
-    let tempToken = this.oktaAuth.isAuthenticated();
-    // Checks if there is a current accessToken in the TokenManger.
-    return !!(await this.oktaAuth.tokenManager.get('accessToken'));
+  isAuthenticated() {
+    let isAccessToken: boolean = false;
+    let idToken = JSON.parse(localStorage.getItem("okta-token-storage"));
+    if(idToken?.idToken){
+      isAccessToken = true;
+      this.commonService.setOktaAuthToken(idToken?.idToken);
+    }
+    return isAccessToken;
   }
 
   login(originalUrl: string) {
@@ -44,47 +45,39 @@ export class OktaAuthService {
     sessionStorage.setItem('okta-app-url', originalUrl || this.router.url);
     // Launches the login redirect.
     this.oktaAuth.token.getWithRedirect({
-      scopes: ['openid', 'email', 'profile']
-    });
+      scopes: this.SCOPE
+    })
+   
   }
 
   async handleAuthentication() {
-    let oktaAuthToken = JSON.parse(localStorage.getItem("okta-token-storage"));
-    if (this.oktaAuth.token) {
-      localStorage.setItem('okta-customapp-flag', 'true');
-      const tokenContainer = await this.oktaAuth.token.parseFromUrl();
-     // this.cookies.set("oktaAuth_cookie", JSON.stringify(tokenContainer.tokens.idToken.idToken));
-     this.oktaAuth.tokenManager.add('idToken', tokenContainer.tokens.idToken as IDToken);
-     this.oktaAuth.tokenManager.add('accessToken', tokenContainer.tokens.accessToken as AccessToken);
-    // this.oktaAuth.tokenManager.add('refreshToken', tokenContainer.tokens.refreshToken as RefreshToken); 
-      //localStorage.setItem('testObject', JSON.stringify(this.oktaAuth));
-      if (await this.isAuthenticated()) {
-        this.observer?.next(true);
-      }
-     // this.oktaAuth.tokenManager.clear();
-
-      // Retrieve the saved URL and navigate back
-      //const url = sessionStorage.getItem('okta-app-url') as string;
-      //this.router.navigateByUrl(url);
+    if(this.oktaAuth.isLoginRedirect() == false && JSON.parse(localStorage.getItem("okta-token-storage")) == null){
+       this.login('/home');
     }
+    else if(this.oktaAuth.isLoginRedirect() == true && JSON.parse(localStorage.getItem("okta-token-storage")) == null)
+    {
+      let tokenContainer = await  this.oktaAuth.token.parseFromUrl();
+      this.oktaAuth.tokenManager.add('idToken', tokenContainer.tokens.idToken as IDToken);
+      this.oktaAuth.tokenManager.add('accessToken', tokenContainer.tokens.accessToken as AccessToken);
+      this.router.navigate(['/home/dashboard']);
+
+   }
+   else{
+    if(JSON.parse(localStorage.getItem("okta-token-storage"))){
+      this.router.navigate(['/home/dashboard']);
+    }
+   }
   }
 
   // async logout() {
-  //   await this.oktaAuth.signOut({
-  //     postLogoutRedirectUri: this.LOGOUT_REDIRECT_URI
-  //   });
+  //   await this.oktaAuth.tokenManager.clear();
   // }
   async logout() {
-    await this.oktaAuth.tokenManager.clear();
+    await this.oktaAuth.signOut({
+      postLogoutRedirectUri: this.LOGOUT_REDIRECT_URI
+    });
   }
 
-  // async logout(){
-  //   localStorage.clear();
-  //   sessionStorage.clear();
-  //   this.deleteAllCookies();
-  //   await this.oktaAuth.signOut();
-  //   this.router.navigate(['/login']);
-  // }
   deleteAllCookies() {
     var cookies = document.cookie.split(";");
 

@@ -164,7 +164,6 @@ export class RdapExtPinReqListComponent implements OnInit {
     this.searchParam.sorts.push({ field: "Planitem", direction: "DESC" });
 
          this.masterApiService.masterSearch(this.searchUrl, this.searchParam).subscribe(x => {
-           console.log("x.data",x.data);
        this.searchGridData = x.data;
        this.totalCount = x.totalRecords;
        

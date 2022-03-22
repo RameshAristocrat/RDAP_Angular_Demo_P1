@@ -315,6 +315,65 @@ export class RdapManagePinTestDetailsTabComponent implements OnInit {
     }
   }
 
+  public onchangeSelectTestDetails(event, existcell, data, field, ddldata) {
+    this.testerUrl = this.baseApi + "tester/ddl";
+    // this.loadDdlApi();
+    let selTesterData, selIntTesterData;
+    let row: IgxGridRowComponent = existcell.row;
+    let currRowIndex = existcell.row.index;
+    // if (event.added) {
+    //   event.newSelection = [event.added[0]];
+    // } else {
+    //   event.newSelection = [];
+    // }
+    if (existcell.row.inEditMode == true && existcell.row.addRowUI == true) {
+      this.addflag = true;
+      row.cells.forEach(function (cell: IgxGridCellComponent) {
+        if (field == "testerDescription") {
+          selTesterData = ddldata.filter(x => x.id == event.id);
+          if (cell.column.field === "testerDescription") {
+            cell.update(selTesterData[0].description2);
+          }
+          else if (cell.column.field === "testerId") {
+            cell.update(selTesterData[0].id);
+          }
+        }
+        if (field == "inttesterDescription") {
+          selIntTesterData = ddldata.filter(x => x.id == event.id);
+          if (cell.column.field === "inttesterDescription") {
+            cell.update(selIntTesterData[0].description2);
+          }
+          else if (cell.column.field === "inttesterId") {
+            cell.update(selIntTesterData[0].id);
+          }
+        }
+        if (field == "descrLong") {
+          if (cell.column.field === "descrLong") {
+            cell.update(event.target.value);
+          }
+        }
+      });
+      this.data = [...this.data];
+    }else {
+      this.addflag = false;
+      if (field == "testerDescription") {
+        selTesterData = ddldata.filter(x => x.id == event.id);
+        this.data[currRowIndex].testerDescription = selTesterData[0].description2;
+        this.data[currRowIndex].testerId = selTesterData[0].id;
+      }
+      if (field == "inttesterDescription") {
+        selIntTesterData = ddldata.filter(x => x.id == event.id);
+        this.data[currRowIndex].inttesterDescription = selIntTesterData[0].description2;
+        this.data[currRowIndex].inttesterId = selIntTesterData[0].id;
+      }
+      if (field == "descrLong") {
+        this.data[currRowIndex].descrLong = event.target.value;
+      }
+
+      this.data = [...this.data];
+    }
+  }
+
   public startEdit(row?): void {
     const firstEditable = row.cells.filter(cell => cell.editable)[0];
     const grid = row.grid;

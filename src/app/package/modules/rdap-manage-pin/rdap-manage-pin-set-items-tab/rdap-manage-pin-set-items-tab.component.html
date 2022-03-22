@@ -26,7 +26,7 @@
                     {{ item.description }}
                 </igx-select-item>
             </igx-select> -->
-                        <igx-combo #remoteCombo class="combo" [itemsMaxHeight]="250" [itemsMinWidth]="500"
+                        <!-- <igx-combo #remoteCombo class="combo" [itemsMaxHeight]="250" [itemsMinWidth]="500"
                             [data]="setitemDdlFilterData" [valueKey]="'id'" [displayKey]="'description'"
                             placeholder="Select InTester(s)" searchPlaceholder="Search..." [filterable]="true"
                             (selectionChanging)="onchangeSelect($event, cell, data, 'inttester',setitemDdlFilterData)">
@@ -35,7 +35,17 @@
                                     <span class="description">{{ display.description }}</span>
                                 </div>
                             </ng-template>
-                        </igx-combo>
+                        </igx-combo> -->
+
+                        <ng-select [items]="setitemDdlFilterData"   placeholder="Select InTester"
+                        bindLabel="description2" bindValue="id"  style="width: 100%"
+                [virtualScroll]="true" [filterable]="true" appendTo="body"
+                (change)="onchangeSelectSetItems($event, cell, data,'inttester',setitemDdlFilterData)">)">
+                <ng-template ng-option-tmp let-item="item">
+                 {{ item.description2  }}
+                </ng-template>
+                
+                </ng-select>
                     </ng-template>
                 </igx-column>
                 <igx-column [width]="'200px'" field="descrLong" header="Long Description" [dataType]="'string'"

@@ -8,11 +8,13 @@ export class OktaAuthRefreshGuard implements CanActivateChild {
     public oktaAuthToken: any;
   constructor(private okta: OktaAuthService, private router: Router) {}
   async canActivateChild() {
+    
     this.oktaAuthToken = JSON.parse(localStorage.getItem("okta-token-storage"));
-    if((this.oktaAuthToken!= null) && (this.oktaAuthToken.idToken.expiresAt < moment(Date.now()).unix())){
+        if((this.oktaAuthToken!= null) && (this.oktaAuthToken.idToken.expiresAt < moment(Date.now()).unix())){
       this.okta.logout();
       this.router.navigate(['/callback'])
     }
     return true;
+
   }
 }

@@ -11,7 +11,7 @@ export const environment = {
         ISSUER: "https://aristocrat.okta.com",
         LOGIN_REDIRECT_URI: "https://syde-webtst-01:8080/home/dashboard",
         LOGOUT_REDIRECT_URI: "https://syde-webtst-01:8080",
-        SCOPE: ['openid', 'email']
+        SCOPE: ['openid','profile','email']
     },
     //   baseapiurl:"https://syde-apptst-01:7777/api/v1/",
     //   userapiurl:"https://syde-apptst-01:8888/api/v1/",

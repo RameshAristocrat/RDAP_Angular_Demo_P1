@@ -30,8 +30,7 @@ export class DBoardComponent {
     })
   );
 
-  constructor(private breakpointObserver: BreakpointObserver,private okta: OktaAuthService) {
-    this.okta.handleAuthentication();
+  constructor(private breakpointObserver: BreakpointObserver) {
   }
 
   chartData = {

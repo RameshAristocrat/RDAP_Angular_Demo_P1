@@ -11,7 +11,7 @@ export const environment = {
         ISSUER: "https://dev-88037208.okta.com", 
         LOGIN_REDIRECT_URI: "http://localhost:8084/main/launcher", 
         LOGOUT_REDIRECT_URI: "http://localhost:8084", 
-        SCOPE: ['openid','email'] 
+        SCOPE: ['openid','profile','email']
     },
     baseapiurl:"http://localhost:8501/",
     userapiurl:"https://sydc-appdev-01:8888/api/v1/",

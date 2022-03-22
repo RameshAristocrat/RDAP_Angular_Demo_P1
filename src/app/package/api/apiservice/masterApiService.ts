@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { forkJoin, Observable, Subject, throwError } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
 import { RDAPMASTERAPI } from '../apienvironment/api-master-environment';
-import { marketmodel } from 'src//app/package/api/model/master/rd_model_market';
+import { marketmodel } from 'src/app/package/api/model/master/rd_model_market';
 import { OktaAuthService } from '../../core/okta-auth/okta-auth-service';
 import { OktaAuth, IDToken, AccessToken } from '@okta/okta-auth-js';
 import { environment } from 'src/environments/environment';
@@ -12,6 +12,7 @@ import * as moment from 'moment';
 import { RouterStateSnapshot } from '@angular/router';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CommonService } from '../commonservice/common.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -27,7 +28,8 @@ export class RdMasterApiService {
   
   public refData = new Subject<any>();
   public oktaAuthToken: any;
-  constructor(private https: HttpClient,public oktaAuthserv: OktaAuthService, 
+  public oktaIdToken: string;
+  constructor(private https: HttpClient,public oktaAuthserv: OktaAuthService, private commonService: CommonService,
     private _router: Router, _location: Location) {
     let idToken = JSON.parse(localStorage.getItem("okta-token-storage"));
     if(idToken){
@@ -37,14 +39,25 @@ export class RdMasterApiService {
         })      
       };
     }
+    this.commonService.getOktaAuthToken().subscribe(res =>{
+      if(res){
+        this.oktaIdToken = res.idToken;
+      }
+    })
 
   }
 
   public refreshToken():any{
     this.oktaAuthToken = JSON.parse(localStorage.getItem("okta-token-storage"));
-    if((this.oktaAuthToken!= null) && (this.oktaAuthToken.idToken.expiresAt < moment(Date.now()).unix())){
+    
+    if(this.oktaAuthToken != null) {
+     //Please do not clear this console.log ..
+    console.log('get Expire Time : ',this.oktaAuthToken, this.oktaAuthToken?.idToken.expiresAt, '< =: ',moment.utc(Date.now()).unix());
+     if(this.oktaAuthToken.idToken.expiresAt < moment.utc(Date.now()).unix()){
       this.oktaAuthserv.logout();
-      this._router.navigate(['/callback'])
+      localStorage.clear();
+      this.oktaAuthserv.login('/home');
+     }
     }
   }
 
@@ -373,6 +386,26 @@ export class RdMasterApiService {
   //     })
   //   );
   // }
+
+  public getPermissionSideMenu(url:string): Observable<any> {
+    this.refreshToken();
+    let idToken = JSON.parse(localStorage.getItem("okta-token-storage"));
+
+    this.httpOption = {
+      headers: new HttpHeaders({
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + idToken.idToken.idToken
+      })
+    }
+    return this.https.get<any>(url,this.httpOption).pipe(
+      catchError((error) => {
+        return throwError({
+          error,
+        });
+      })
+    );
+  }
+  
 
 
 

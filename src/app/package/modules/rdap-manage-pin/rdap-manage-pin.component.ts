@@ -195,6 +195,7 @@ export class RdapManagePinComponent implements OnInit, OnChanges, AfterViewInit 
   isclarityErr: boolean = false;
   isMilestoneErr: boolean = false;
   selectedIndex:any = 0;
+  isAdmin : boolean = false;
   constructor(private httpClient: HttpClient, public cdr: ChangeDetectorRef,
     private excelExportService: IgxExcelExporterService, private router: Router,
     private masterApiService: RdMasterApiService, private spinner: RdSpinnerService,
@@ -218,6 +219,7 @@ export class RdapManagePinComponent implements OnInit, OnChanges, AfterViewInit 
   public IsManagePinAdmin() {
     this.masterApiService.checkIsManagePinAdmin(this.permissionApi + "Permission/IsManagePinAdmin").subscribe(data => {
       this.IsManagePinAdminFlag = data;
+      
     });
   }
   ngAfterViewInit(){
@@ -246,7 +248,7 @@ export class RdapManagePinComponent implements OnInit, OnChanges, AfterViewInit 
         this.pagePermission.push(res);
         this.mpproductPermission = res;
       }
-      if (this.IsManagePinAdminFlag == true) {
+      if (this.isAdmin == true) {
         this.mpproductIsViewPermissionFlag = false;
       } else {
         if (this.mpproductPermission.isView == true && this.mpproductPermission.isAdd == false &&
@@ -271,7 +273,7 @@ export class RdapManagePinComponent implements OnInit, OnChanges, AfterViewInit 
         this.pagePermission.push(res);
         this.mpdependencyPermission = res;
       }
-      if (this.IsManagePinAdminFlag == true) {
+      if (this.isAdmin == true) {
         this.mpdependencyIsViewPermissionFlag = false;
       } else {
         if (this.mpdependencyPermission.isView == true && this.mpdependencyPermission.isAdd == false &&
@@ -296,7 +298,7 @@ export class RdapManagePinComponent implements OnInit, OnChanges, AfterViewInit 
         this.pagePermission.push(res);
         this.mpcabinetPermission = res;
       }
-      if (this.IsManagePinAdminFlag == true) {
+      if (this.isAdmin == true) {
         this.mpcabinetIsViewPermissionFlag = false;
       } else {
         if (this.mpcabinetPermission.isView == true && this.mpcabinetPermission.isAdd == false &&
@@ -321,7 +323,7 @@ export class RdapManagePinComponent implements OnInit, OnChanges, AfterViewInit 
         this.pagePermission.push(res);
         this.mpmilestonePermission = res;
       }
-      if (this.IsManagePinAdminFlag == true) {
+      if (this.isAdmin == true) {
         this.mpmilestoneIsViewPermissionFlag = false;
       } else {
         if (this.mpmilestonePermission.isView == true && this.mpmilestonePermission.isAdd == false &&
@@ -346,7 +348,7 @@ export class RdapManagePinComponent implements OnInit, OnChanges, AfterViewInit 
         this.pagePermission.push(res);
         this.mplinkedPermission = res;
       }
-      if (this.IsManagePinAdminFlag == true) {
+      if (this.isAdmin == true) {
         this.mplinkedIsViewPermissionFlag = false;
       } else {
         if (this.mplinkedPermission.isView == true && this.mplinkedPermission.isAdd == false &&
@@ -371,7 +373,7 @@ export class RdapManagePinComponent implements OnInit, OnChanges, AfterViewInit 
         this.pagePermission.push(res);
         this.mpimpactedPermission = res;
       }
-      if (this.IsManagePinAdminFlag == true) {
+      if (this.isAdmin == true) {
         this.mpimpactedIsViewPermissionFlag = false;
       } else {
         if (this.mpimpactedPermission.isView == true && this.mpimpactedPermission.isAdd == false &&
@@ -396,7 +398,7 @@ export class RdapManagePinComponent implements OnInit, OnChanges, AfterViewInit 
         this.pagePermission.push(res);
         this.mpsetitemPermission = res;
       }
-      if (this.IsManagePinAdminFlag == true) {
+      if (this.isAdmin == true) {
         this.mpsetitemIsViewPermissionFlag = false;
       } else {
         if (this.mpsetitemPermission.isView == true && this.mpsetitemPermission.isAdd == false &&
@@ -421,7 +423,7 @@ export class RdapManagePinComponent implements OnInit, OnChanges, AfterViewInit 
         this.pagePermission.push(res);
         this.mptesterPermission = res;
       }
-      if (this.IsManagePinAdminFlag == true) {
+      if (this.isAdmin == true) {
         this.mptesterIsViewPermissionFlag = false;
       } else {
         if (this.mptesterPermission.isView == true && this.mptesterPermission.isAdd == false &&
@@ -446,7 +448,7 @@ export class RdapManagePinComponent implements OnInit, OnChanges, AfterViewInit 
         this.pagePermission.push(res);
         this.mpclarityPermission = res;
       }
-      if (this.IsManagePinAdminFlag == true) {
+      if (this.isAdmin == true) {
         this.mpclarityIsViewPermissionFlag = false;
       } else {
         if (this.mpclarityPermission.isView == true && this.mpclarityPermission.isAdd == false &&

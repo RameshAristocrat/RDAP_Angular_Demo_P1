@@ -7,4 +7,5 @@ export const API = {
     permission_Check_Is_Delay_Notification_Admin: environment.userapiurl+"Permission/IsDelayNotificationAdmin",
     permission_Check_Is_System_Admin: environment.userapiurl+"Permission/IsSystemAdmin",
     permission_Get_My_Roles: environment.userapiurl+"Permission/MyRoles",
+    permission_side_menu: environment.userapiurl+"Permission/MenuPermission"
 }

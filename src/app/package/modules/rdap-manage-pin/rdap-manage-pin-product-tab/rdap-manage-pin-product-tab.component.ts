@@ -25,7 +25,6 @@ import { Observable, Subject } from 'rxjs-compat';
 import * as rolePermossionMockJs from '../../../../../assets/config/rolePermissionMockData';
 import * as rolePermossionMpMaster from '../../../../../assets/config/rolePermissionMockForMaster';
 import * as APIindex from '../../../api/apiEndpoints/apiIndex';
-import { debug } from 'console';
 
 @Component({
   selector: 'app-rdap-manage-pin-product-tab',
@@ -34,8 +33,12 @@ import { debug } from 'console';
 })
 export class RdapManagePinProductTabComponent implements OnInit {
   @ViewChild('decimalalert', { static: true }) public notificationAlert: IgxDialogComponent;
+  @Input() isAdmin; 
+  //emitDataprojectref: { data: any, flag: boolean };
   public productform: FormGroup;
   public productformold: FormGroup;
+  isReadOnly : boolean = true;
+  //IsManagePinAdminFlag:boolean = false;
   message: any;
   numRegex = /^-?\d*[.,]?\d{0,2}$/;
   numRegex_atf = /^-?\d*[.,]?\d{0,1}$/;
@@ -75,85 +78,87 @@ export class RdapManagePinProductTabComponent implements OnInit {
   projectRef: string;
   viewExtrapinRequestData: any;
   valueChangeFlag: boolean;
-  emitData: { data: any, flag: false };
+  emitData:{data:any,flag:false};
   public baseApi;
   public extrapinbaseApi;
   @Output() productEvent = new EventEmitter<any>();
   @Input() planitem: any;
-  productmodel = {
-    versionId: 0,
-    channelId: 0,
-    channeltypeId: 0,
-    regionId: 0,
-    marketId: 0,
-    studioId: 0,
-    devtype2Id: 0,
-    description: "",
-    titleId: 0,
-    themeId: 0,
-    platformId: 0,
-    prodcat3Id: 0,
-    sequenceId: 0,
-    productbasketId: 0,
-    vidstepId: 0,
-    projectref: "",
-    levelId: 0,
-    priorityId: 0,
-    showId: 0,
-    revenue: 0,
-    riskId: 0,
-    status3Id: 0,
-    cvlIts: 0,
-    eqUnits: 0,
-    eppRefId: 0,
-    denomId: 0,
-    programno: "",
-    cvlPriorityId: 0,
-    viridianlaunchId: 0,
-
-    revenueforecast: 0,
-    revenuecurrency: "",
-    unitsforecast: 0,
-    releaseNotes: "",
-    marketPriority: "",
-    notesCc: "",
-    auditTrail: "",
-    notesShort: "",
-    notesLong: "",
-    gamecomplexityId: 0,
-    archType: ""
-  }
+  productmodel={
+  versionId: 0,
+  channelId: 0,
+  channeltypeId: 0,
+  regionId: 0,
+  marketId: 0,
+  studioId: 0,
+  devtype2Id: 0,
+  description: "",
+  titleId: 0,
+  themeId: 0,
+  platformId: 0,
+  prodcat3Id: 0,
+  sequenceId: 0,
+  productbasketId: 0,
+  vidstepId: 0,
+  projectref: "",
+  levelId: 0,
+  priorityId: 0,
+  showId: 0,
+  revenue: 0,
+  riskId: 0,
+  status3Id: 0,
+  cvlIts: 0,
+  eqUnits: 0,
+  eppRefId: 0,
+  denomId: 0,
+  programno: "",
+  cvlPriorityId: 0,
+  viridianlaunchId: 0,
+  
+  revenueforecast:0,
+  revenuecurrency:"",
+  unitsforecast:0,
+  releaseNotes: "",
+  marketPriority: "",
+  notesCc: "",
+  auditTrail: "",
+  notesShort: "",
+  notesLong: "",
+  gamecomplexityId: 0,
+  archType: ""}
   public pagePermission: any;
   public rolePermissionEnableFlag: any;
   public rolepermissionmock: boolean = false;
-  mpproductPermission: any;
+  mpproductPermission:any;
+  permissionApi: string;
   constructor(private httpClient: HttpClient, private router: Router,
     public fb: FormBuilder, private _snackBar: MatSnackBar,
     private masterApiService: RdMasterApiService,
     private spinner: RdSpinnerService, private snackbarInfoService: SnackbarInfoService,
     private location: Location,
-    private cdr: ChangeDetectorRef) {
+    private cdr:ChangeDetectorRef) {
     this.baseApi = environment.baseapiurl;
     this.extrapinbaseApi = environment.extrapinreqapiurl;
     this.viewExtrapinRequestData = this.planitem;
     this.rolePermissionEnableFlag = environment.enablerolepermission;
     this.rolepermissionmock = environment.enablerolepermissionmock;
+    this.permissionApi = environment.userapiurl;
+    //this.IsManagePinAdmin();
   }
   public getPermissionmpMasterByModule() {
     this.pagePermission = [];
-    this.mpproductPermission = [];
+    this.mpproductPermission= [];
     let rolePermissionMockData;
     this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "mpproduct").subscribe(res => {
       if (this.rolepermissionmock == true) {
         this.pagePermission.push(rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionproductmock);
         this.mpproductPermission = rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionproductmock;
-        if (this.mpproductPermission.isView == true && this.mpproductPermission.isEdit == false) {
+        if(this.mpproductPermission.isView == true && this.mpproductPermission.isEdit == false){
           this.isViewOnlyPermission();
         }
       } else {
         this.pagePermission.push(res);
         this.mpproductPermission = res;
-        if (this.mpproductPermission.isView == true && this.mpproductPermission.isEdit == false) {
+        if(this.mpproductPermission.isView == true && this.mpproductPermission.isEdit == false){
           this.isViewOnlyPermission();
         }
       }
@@ -161,6 +166,11 @@ export class RdapManagePinProductTabComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if(this.isAdmin)
+    {
+      this.isReadOnly = false;
+    }
+   // this.IsManagePinAdmin();
     this.getPermissionmpMasterByModule();
     this.valueChangeFlag = false;
     this.viewExtrapinRequestData = this.planitem;
@@ -188,15 +198,16 @@ export class RdapManagePinProductTabComponent implements OnInit {
   }
 
   ddlOnChangeEvent(event, formcontrolname) {
-    this.emitData = { data: null, flag: false };
+    this.emitData={data:null,flag:false};
     this.valueChangeFlag = false;
-
-    if (formcontrolname == "projectref") {
-
-      this.projectRef = event.target.value;
-      this.masterApiService.setprojectRefValue(this.projectRef);
-
-
+    
+    if(formcontrolname == "projectref")
+    {
+      
+        this.projectRef = event.target.value;
+       this.masterApiService.setprojectRefValue(this.projectRef);
+       
+        
     }
     // if (formcontrolname == "channelId") {
     //   this.masterApiService.masterSearchDDL(this.baseApi + "channeltype/ddlbychannel/" + event.id).subscribe(data => {
@@ -214,21 +225,21 @@ export class RdapManagePinProductTabComponent implements OnInit {
     // }
 
     if (formcontrolname == "channelId") {
-
+      
       this.masterApiService.masterSearchDDL(this.baseApi + "channeltype/ddlbychannel/" + event.id + "/true").subscribe(data => {
         this.channeltypearrobj = [];
         this.channeltypearrobj.push(data);
         this.productform.controls["channeltypeId"].setValue("");
-
+        
       });
     }
     else if (formcontrolname == "regionId") {
-
-      this.masterApiService.masterSearchDDL(this.baseApi + "market/ddlbyregion/" + event.id + "/true").subscribe(data => {
+      
+      this.masterApiService.masterSearchDDL(this.baseApi + "market/ddlbyregion/" + event.id+ "/true").subscribe(data => {
         this.marketarrobj = [];
         this.marketarrobj.push(data);
         this.productform.controls["marketId"].setValue("");
-
+        
       });
     }
 
@@ -238,7 +249,7 @@ export class RdapManagePinProductTabComponent implements OnInit {
         this.valueChangeFlag = true;
       }
     });
-    this.emitData = { data: this.productform, flag: this.valueChangeFlag }
+    this.emitData={data:this.productform,flag:this.valueChangeFlag}
     // if(this.productform.status.toLowerCase() == "invalid")
     // {
     //   this.notificationAlert.open();
@@ -246,16 +257,16 @@ export class RdapManagePinProductTabComponent implements OnInit {
     //   return false;
     // }
     // else{
-    this.productEvent.emit(this.emitData);
+      this.productEvent.emit(this.emitData);
     //}
-
+    
   }
 
   public buildForm() {
     this.productformold = this.fb.group({
       archType: "",
       auditTrail: "",
-      channelId: [null, Validators.required],
+      channelId:  [null, Validators.required],
       channeltypeId: [null, Validators.required],
       createdby: "",
       createddate: "",
@@ -271,14 +282,14 @@ export class RdapManagePinProductTabComponent implements OnInit {
       lastupdatedby: "",
       lastupdateddate: "",
       levelId: 0,
-      marketId: [null, Validators.required],
+      marketId:  [null, Validators.required],
       marketPriority: "",
       notesCc: "",
       notesLong: "",
       notesShort: "",
       planitem: 0,
       platformId: 0,
-      priorityId: [null, Validators.required],
+      priorityId:  [null, Validators.required],
       prodcat3Id: 0,
       productbasketId: 0,
       programno: "",
@@ -287,25 +298,25 @@ export class RdapManagePinProductTabComponent implements OnInit {
       regionId: [null, Validators.required],
       releaseNotes: "",
       revenue: 0,
-      riskId: [null, Validators.required],
+      riskId:  [null, Validators.required],
       sequenceId: 0,
       showId: 0,
-      status3Id: [null, Validators.required],
-      studioId: [null, Validators.required],
-      themeId: [null, Validators.required],
+      status3Id:  [null, Validators.required],
+      studioId:  [null, Validators.required],
+      themeId:  [null, Validators.required],
       titleId: 0,
       versionId: 0,
       vidstepId: 0,
-      viridianlaunchId: [null, Validators.required],
-      revenueforecast: 0,
-      revenuecurrency: "",
-      unitsforecast: 0
+      viridianlaunchId:  [null, Validators.required],
+      revenueforecast:0,
+  revenuecurrency:"",
+  unitsforecast:0
     })
     this.productform = this.fb.group({
       archType: "",//priority notes
       auditTrail: "",//Audit Trial Notes
       channelId: [null, Validators.required],
-      channeltypeId: [null, Validators.required],
+      channeltypeId:[null, Validators.required],
       //createdby: "Manoj Negi"
       //createddate: "2021-10-08T16:31:06.713"
       cvlIts: 0,
@@ -314,29 +325,29 @@ export class RdapManagePinProductTabComponent implements OnInit {
       description: "",
       devtype2Id: 0,
       eppRefId: 0,
-      eqUnits: new FormControl('', [Validators.pattern(this.numRegex_atf)]),
+      eqUnits: new FormControl('', [ Validators.pattern(this.numRegex_atf)]),
       //financialyearId: 0,
       gamecomplexityId: 0,
       //lastupdatedby: "Manoj Negi"
       //lastupdateddate: "2021-10-08T17:03:02.057"
       levelId: 0,
-      marketId: [null, Validators.required],
+      marketId:[null, Validators.required],
       marketPriority: "",
       notesCc: "",
       notesLong: "",
       notesShort: "",
       planitem: 0,
       platformId: 0,
-      priorityId: [null, Validators.required],
+      priorityId:[null, Validators.required],
       prodcat3Id: 0,
       productbasketId: 0,
       programno: "",
       projectref: "",
       //quarterId: 0,
-      regionId: [null, Validators.required],
+      regionId:[null, Validators.required],
       releaseNotes: "",
-      revenue: new FormControl('', [Validators.pattern(this.numRegex)]),
-      riskId: [null, Validators.required],
+      revenue: new FormControl('', [ Validators.pattern(this.numRegex)]),
+      riskId:[null, Validators.required], 
       sequenceId: 0,
       showId: 0,
       status3Id: [null, Validators.required],
@@ -346,9 +357,9 @@ export class RdapManagePinProductTabComponent implements OnInit {
       versionId: 0,
       vidstepId: 0,
       viridianlaunchId: [null, Validators.required],
-      revenueforecast: 0,
-      revenuecurrency: "",
-      unitsforecast: 0
+      revenueforecast:0,
+  revenuecurrency:"",
+  unitsforecast:0
     })
     this.productform.get('planitem').disable({ onlySelf: true });
   }
@@ -418,9 +429,9 @@ export class RdapManagePinProductTabComponent implements OnInit {
   }
   numberOnly(event): boolean {
     const charCode = (event.which) ? event.which : event.keyCode;
-    if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode != 46) {
+    if ((charCode > 31 && (charCode < 48 || charCode > 57))&& charCode != 46) {
       this.notificationAlert.open();
-      this.message = "Please enter decimal value!";
+          this.message= "Please enter decimal value!";
       return false;
     }
     return true;
@@ -428,17 +439,17 @@ export class RdapManagePinProductTabComponent implements OnInit {
   }
   numberOnlyQA(event): boolean {
     const charCode = (event.which) ? event.which : event.keyCode;
-    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+    if (charCode > 31 && (charCode < 48 || charCode > 57)){
       this.notificationAlert.open();
-      this.message = "Please enter numeric value!";
+          this.message= "Please enter numeric value!";
       return false;
     }
     return true;
 
   }
-  onDialogSubmit(event) {
-    event.dialog.close();
-
+  onDialogSubmit(event){
+    event.dialog.close(); 
+   
   }
   callDdlApi() {
     this.versionarrobj = [];
@@ -774,7 +785,7 @@ export class RdapManagePinProductTabComponent implements OnInit {
     this.viewExtrapinRequestForm();
   }
   public viewExtrapinRequestForm() {
-    this.productmodel = {
+    this.productmodel={
       versionId: 0,
       channelId: 0,
       channeltypeId: 0,
@@ -804,10 +815,10 @@ export class RdapManagePinProductTabComponent implements OnInit {
       programno: "",
       cvlPriorityId: 0,
       viridianlaunchId: 0,
-
-      revenueforecast: 0,
-      revenuecurrency: "",
-      unitsforecast: 0,
+      
+      revenueforecast:0,
+  revenuecurrency:"",
+  unitsforecast:0,
       releaseNotes: "",
       marketPriority: "",
       notesCc: "",
@@ -815,8 +826,7 @@ export class RdapManagePinProductTabComponent implements OnInit {
       notesShort: "",
       notesLong: "",
       gamecomplexityId: 0,
-      archType: ""
-    }
+      archType: ""}
     // this.productform.controls["planitem"].setValue(this.viewExtrapinRequestData.data.planitem);
     // this.productform.controls["marketId"].setValue(this.viewExtrapinRequestData.data.marketId);
     // this.productform.controls["studioId"].setValue(this.viewExtrapinRequestData.data.studioId);
@@ -833,7 +843,7 @@ export class RdapManagePinProductTabComponent implements OnInit {
     this.productform.controls["devtype2Id"].setValue(this.viewExtrapinRequestData.data.devtype2Id);
     this.productform.controls["eppRefId"].setValue(this.viewExtrapinRequestData.data.eppRefId);
     this.productform.controls["eqUnits"].setValue(this.viewExtrapinRequestData.data.eqUnits);
-    // this.productform.controls["financialyearId"].setValue(this.viewExtrapinRequestData.data.financialyearId);
+   // this.productform.controls["financialyearId"].setValue(this.viewExtrapinRequestData.data.financialyearId);
     this.productform.controls["gamecomplexityId"].setValue(this.viewExtrapinRequestData.data.gamecomplexityId);
     this.productform.controls["levelId"].setValue(this.viewExtrapinRequestData.data.levelId);
     this.productform.controls["marketId"].setValue(this.viewExtrapinRequestData.data.marketId);
@@ -862,11 +872,11 @@ export class RdapManagePinProductTabComponent implements OnInit {
     this.productform.controls["versionId"].setValue(this.viewExtrapinRequestData.data.versionId);
     this.productform.controls["vidstepId"].setValue(this.viewExtrapinRequestData.data.vidstepId);
     this.productform.controls["viridianlaunchId"].setValue(this.viewExtrapinRequestData.data.viridianlaunchId);
-
+    
     this.productform.controls["revenueforecast"].setValue(this.viewExtrapinRequestData.data.revenueforecast);
     this.productform.controls["revenuecurrency"].setValue(this.viewExtrapinRequestData.data.revenuecurrency);
     this.productform.controls["unitsforecast"].setValue(this.viewExtrapinRequestData.data.unitsforecast);
-
+    
 
     this.productmodel.revenueforecast = this.viewExtrapinRequestData.data.revenueforecast;
     this.productmodel.revenuecurrency = this.viewExtrapinRequestData.data.revenuecurrency;
@@ -910,22 +920,26 @@ export class RdapManagePinProductTabComponent implements OnInit {
     this.productmodel.gamecomplexityId = this.viewExtrapinRequestData.data.gamecomplexityId;
     this.productmodel.archType = this.viewExtrapinRequestData.data.archType;
     //this.productform.get("versionId").disable({ onlySelf: true });
+    this.projectRef =  this.viewExtrapinRequestData.data.projectref;
+    // this.emitDataprojectref = { data: this.projectRef, flag: true };
+    // this.masterApiService.setprojectRefValue(this.emitDataprojectref);
+    
     this.productEvent.emit(this.productform);
   }
-  isViewOnlyPermission() {
+  isViewOnlyPermission(){
     this.productform.get("archType").disable({ onlySelf: true });
     this.productform.get("auditTrail").disable({ onlySelf: true });
     this.productform.get("channelId").disable({ onlySelf: true });
     this.productform.get("channeltypeId").disable({ onlySelf: true });
     this.productform.get("cvlIts").disable({ onlySelf: true });
     this.productform.get("cvlPriorityId").disable({ onlySelf: true });
-
+    
     this.productform.get("denomId").disable({ onlySelf: true });
     this.productform.get("description").disable({ onlySelf: true });
     this.productform.get("devtype2Id").disable({ onlySelf: true });
     this.productform.get("eppRefId").disable({ onlySelf: true });
     this.productform.get("eqUnits").disable({ onlySelf: true });
-    // this.productform.get("financialyearId").disable({ onlySelf: true }financialyearId);
+   // this.productform.get("financialyearId").disable({ onlySelf: true }financialyearId);
     this.productform.get("gamecomplexityId").disable({ onlySelf: true });
     this.productform.get("levelId").disable({ onlySelf: true });
     this.productform.get("marketId").disable({ onlySelf: true });
@@ -953,10 +967,12 @@ export class RdapManagePinProductTabComponent implements OnInit {
     this.productform.get("titleId").disable({ onlySelf: true });
     this.productform.get("versionId").disable({ onlySelf: true });
     this.productform.get("vidstepId").disable({ onlySelf: true });
-    this.productform.get("viridianlaunchId").disable({ onlySelf: true });
+    this.productform.get("viridianlaunchId").disable({ onlySelf: true });    
     this.productform.get("revenueforecast").disable({ onlySelf: true });
     this.productform.get("revenuecurrency").disable({ onlySelf: true });
     this.productform.get("unitsforecast").disable({ onlySelf: true });
-
+    
   }
+
+
 }

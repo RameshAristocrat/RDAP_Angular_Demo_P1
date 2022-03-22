@@ -8,6 +8,5 @@ export class CallbackComponent implements OnInit {
 
   ngOnInit(): void {
     // Handles the response from Okta and parses tokens
-    this.okta.handleAuthentication();
   }
 }

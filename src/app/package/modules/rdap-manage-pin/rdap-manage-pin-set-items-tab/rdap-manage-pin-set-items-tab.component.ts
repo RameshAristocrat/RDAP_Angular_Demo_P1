@@ -315,4 +315,33 @@ export class RdapManagePinSetItemsTabComponent implements OnInit, OnChanges {
     this.emitData= { data: this.setItemdetailsArrObj, flag: true };
     this.setItemEvent.emit(this.emitData);
   }
+
+  onchangeSelectSetItems(event, existcell, data, field, ddldata) {
+    let planId = this.setitemInput.planitem.data.planitem;
+    let currRowIndex = existcell.row.index;
+    let row: IgxGridRowComponent = existcell.row;
+    let selSetItemData = ddldata.filter(x=>x.id == event.id);
+    if (this.addflag == true) {
+      this.addflag = false;
+      this.data[currRowIndex].description = selSetItemData[0].description2;
+      this.data[currRowIndex].descrLong = selSetItemData[0].description;
+      this.data[currRowIndex].planitem = planId;
+      this.data[currRowIndex].setitemId = selSetItemData[0].id;
+      this.data = [...this.data];
+    } else {
+      this.addflag = false;
+      this.data[currRowIndex].description = selSetItemData[0].description2;
+      this.data[currRowIndex].descrLong = selSetItemData[0].description;
+      this.data[currRowIndex].planitem = planId;
+      this.data[currRowIndex].setitemId = selSetItemData[0].id;
+      this.data = [...this.data];
+    }
+    this.editDone(null);
+    if (event.added) {
+      event.newSelection = [event.added[0]];
+    } else {
+      event.newSelection = [];
+    }
+  }
+
 }

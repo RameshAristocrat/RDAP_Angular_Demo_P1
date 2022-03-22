@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { Injector, NgModule } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
 import { CoreRoutes } from '../core/core-routing';
 import { LoginFooterComponent } from './login/login-footer/login-footer.component';
@@ -8,7 +8,7 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { MainMenuBarComponent } from './main-menu-bar/main-menu-bar.component';
 import { MaterialModule } from "../mat-modules/material.module";
-import{CommonModule } from '@angular/common';
+import{APP_BASE_HREF, CommonModule } from '@angular/common';
 import { LoginComponent } from './login/login.component';
 import { LauncherComponent } from './launcher/launcher.component';
 import { SideMenuBarComponent } from './side-menu-bar/side-menu-bar.component';
@@ -38,6 +38,11 @@ import { RdapSharedConfigSetuptableViewComponent } from './core-shared-component
 import { RdapSharedConfigDynamicIgxGridComponent } from './core-shared-components/rdap-shared-config-setuptable-addedit/rdap-shared-config-dynamic-igx-grid/rdap-shared-config-dynamic-igx-grid.component';
 import { IgxHeaderComponent } from './igx-header/igx-header.component';
 import { IgxSidenavbarComponent } from './igx-sidenavbar/igx-sidenavbar.component';
+import { Router } from '@angular/router';
+import { OktaAuth } from '@okta/okta-auth-js';
+import {
+  OKTA_CONFIG} from '@okta/okta-angular';
+import { environment } from 'src/environments/environment';
 @NgModule({
   declarations: [
     LoginFooterComponent,
@@ -88,7 +93,29 @@ import { IgxSidenavbarComponent } from './igx-sidenavbar/igx-sidenavbar.componen
     RdapSharedIgxGridSearchResultComponent,
     RdapSharedConfigSetuptableViewComponent
   ],
-  providers: [],
+  // providers: [
+  //   {
+  //     provide: OKTA_CONFIG,
+  //     useFactory: () => {
+  //       const oktaAuth = new OktaAuth({
+  //         clientId: environment.oktaconfig.CLIENT_ID,
+  //         issuer: environment.oktaconfig.ISSUER,
+  //         redirectUri: environment.oktaconfig.LOGIN_REDIRECT_URI,
+  //         scopes: ['openid', 'profile', 'email'],
+  //       },
+  //         );
+  //       return {
+  //         oktaAuth,
+  //         onAuthRequired: (oktaAuth: OktaAuth, injector: Injector) => {
+  //           const router = injector.get(Router);
+  //           // Redirect the user to your custom login page
+  //           router.navigate(['/login']);
+  //         }
+  //       }
+  //     }
+  //   },
+  //   { provide: APP_BASE_HREF, useValue: '/' },
+  // ],
   bootstrap: []
 })
 export class CoreModule { 

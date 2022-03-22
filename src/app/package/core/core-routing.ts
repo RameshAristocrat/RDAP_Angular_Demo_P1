@@ -22,27 +22,30 @@ import { RdapReworkRequestComponent } from '../modules/rdap-rework-request/rdap-
 import { OktaAuthRefreshGuard } from './okta-auth/okta-auth-refresh-guard';
 import { RdapBlanketPinDetailsComponent } from '../modules/rdap-blanketpin-request/rdap-blanketpin-details/rdap-blanketpin-details.component';
 import { RdapBlanketPinRequestComponent } from '../modules/rdap-blanketpin-request/rdap-blanketpin-request.component';
+import { OktaLoginComponent } from './okta-login/okta-login.component';
 
 
 const routes: Routes = [
   {
     path: "callback",
     component: CallbackComponent,
-    canActivate: [OktaAuthGuard]
   },
   {
     path: "login",
-    component: LoginComponent,
-    canActivate: [OktaAuthGuard]
+    component: OktaLoginComponent
   },
+  // {
+  //   path: "login",
+  //   component: LoginComponent
+  // },
   {
     path: "home",
     component: HomeComponent,
-    canActivateChild:[OktaAuthRefreshGuard],
     children: [
       {
         path: "dashboard",
-        component: DBoardComponent
+        component: DBoardComponent,
+        canActivate: [OktaAuthGuard]
       },
       {
         path: "expinreq",

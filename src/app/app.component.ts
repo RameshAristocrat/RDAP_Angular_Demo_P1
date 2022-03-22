@@ -35,27 +35,12 @@ export class AppComponent implements OnInit {
   isAuthenticated: boolean = false;
   public oktaAuthToken: any;
   constructor(public oktaAuthserv: OktaAuthService, 
-    private _router: Router, _location: Location,private router: Router,) {
-    this.oktaAuthToken = JSON.parse(localStorage.getItem("okta-token-storage"));
-    if((this.oktaAuthToken!= null) && (this.oktaAuthToken.idToken.expiresAt < moment(Date.now()).unix())){
-      this.oktaAuthserv.logout();
-      this.router.navigate(['/callback'])
-    }
-//     if((this.oktaAuthToken!= null) && (this.oktaAuthToken.idToken.expiresAt > moment(Date.now()).unix())){
-//     }
-    //this.oktaAuthserv.logout();
-    // if (this.oktaAuthToken) {
-    //    if(moment(this.oktaAuthToken.idToken.expiresAt).isBefore(moment(moment.now()).unix())){
-    //   //   localStorage.clear();
-    //   //   sessionStorage.clear();
-    //   //   this._router.navigate(["http://localhost:8084/login"]);
-    //   }
-    // }
+    private _router: Router, _location: Location,private router: Router) {
   }
 
   ngOnInit(): void {
-    // this.oktaAuthserv.$isAuthenticated.subscribe(val => {
-    //   this.isAuthenticated = val
-    // });
+    this.oktaAuthserv.$isAuthenticated.subscribe(val => {
+      this.isAuthenticated = val
+    });
   }
 }

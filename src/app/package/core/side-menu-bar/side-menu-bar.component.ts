@@ -9,6 +9,7 @@ import { RdSpinnerService } from '../../infoservice/spinnerservice/rd-spinner.se
 import { SnackbarInfoService } from '../../infoservice/snackbarservice/snackbar.service';
 import { environment } from "src/environments/environment";
 import * as rolePermossionMock from '../../../../assets/config/rolePermissionMockData';
+import { CommonService } from '../../api/commonservice/common.service';
 interface Page {
   link: string;
   name: string;
@@ -315,7 +316,7 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
               permissionflag: false
             },
             {
-              modulename: 'them',
+              modulename: 'theme',
               name: 'Theme',
               link: '/home/managepin/master/theme/search',
               icon: 'room_preferences',
@@ -546,379 +547,66 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
   constructor(
     private _sidenavService: SidenavService,
     private _router: Router,
-    private masterApiService: RdMasterApiService
+    private masterApiService: RdMasterApiService,
+    
   ) {
     this.rolePermissionEnableFlag = environment.enablerolepermission;
     this.rolepermissionmock = environment.enablerolepermissionmock;
   }
 
   ngOnChanges(event) {
-    //console.log("ng on changes", event);
-    setTimeout(() => {
-      if (this.rolePermissionEnableFlag) {
-        this.getPermissionByModule();
-        this.getPermissionmpMasterByModule();
-      }
-    }, 700);
   }
 
   ngOnInit(): void {
-    // console.log("side menu bar", this.permissionIN);
+    if (this.rolePermissionEnableFlag) {
+      this.getSideMenuPermission()
+    }
   }
-  public getPermissionmpMasterByModule() {
-    this.pagePermission = [];
-    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "version").subscribe(res => {
-      if (this.rolepermissionmock == true) {
-        this.pagePermission.push(rolePermossionMock.rdapRolePermossionMock[0].rolepermissionversionmock);
-      } else {
-        this.pagePermission.push(res);
-      }
-      this.ManagePinMasterModulePermission(this.pagePermission,this.pages,"version");
-    });
-    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "cabinet").subscribe(res => {
-      if (this.rolepermissionmock == true) {
-        this.pagePermission.push(rolePermossionMock.rdapRolePermossionMock[0].rolepermissioncabinetmock);
-      } else {
-        this.pagePermission.push(res);
-      }
-      this.ManagePinMasterModulePermission(this.pagePermission,this.pages,"cabinet");
-    });
-    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "channel").subscribe(res => {
-      if (this.rolepermissionmock == true) {
-        this.pagePermission.push(rolePermossionMock.rdapRolePermossionMock[0].rolepermissionchannelmock);
-      } else {
-        this.pagePermission.push(res);
-      }
-      this.ManagePinMasterModulePermission(this.pagePermission,this.pages,"channel");
-    });
-    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "channeltype").subscribe(res => {
-      if (this.rolepermissionmock == true) {
-        this.pagePermission.push(rolePermossionMock.rdapRolePermossionMock[0].rolepermissionchanneltypemock);
-      } else {
-        this.pagePermission.push(res);
-      }
-      this.ManagePinMasterModulePermission(this.pagePermission,this.pages,"channeltype");
-    });
-    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "denom").subscribe(res => {
-      if (this.rolepermissionmock == true) {
-        this.pagePermission.push(rolePermossionMock.rdapRolePermossionMock[0].rolepermissiondenommock);
-      } else {
-        this.pagePermission.push(res);
-      }
-      this.ManagePinMasterModulePermission(this.pagePermission,this.pages,"denom");
-    });
-    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "devcomplexity").subscribe(res => {
-      if (this.rolepermissionmock == true) {
-        this.pagePermission.push(rolePermossionMock.rdapRolePermossionMock[0].rolepermissiondevcomplexitymock);
-      } else {
-        this.pagePermission.push(res);
-      }
-      this.ManagePinMasterModulePermission(this.pagePermission,this.pages,"devcomplexity");
-    });
-    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "devefforttype").subscribe(res => {
-      if (this.rolepermissionmock == true) {
-        this.pagePermission.push(rolePermossionMock.rdapRolePermossionMock[0].rolepermissiondevefforttypemock);
-      } else {
-        this.pagePermission.push(res);
-      }
-      this.ManagePinMasterModulePermission(this.pagePermission,this.pages,"devefforttype");
-    });
-    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "devtype1").subscribe(res => {
-      if (this.rolepermissionmock == true) {
-        this.pagePermission.push(rolePermossionMock.rdapRolePermossionMock[0].rolepermissiondevtype1mock);
-      } else {
-        this.pagePermission.push(res);
-      }
-      this.ManagePinMasterModulePermission(this.pagePermission,this.pages,"devtype1");
-    });
-    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "devtype2").subscribe(res => {
-      if (this.rolepermissionmock == true) {
-        this.pagePermission.push(rolePermossionMock.rdapRolePermossionMock[0].rolepermissiondevtype2mock);
-      } else {
-        this.pagePermission.push(res);
-      }
-      this.ManagePinMasterModulePermission(this.pagePermission,this.pages,"devtype2");
-    });
-    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "emulation").subscribe(res => {
-      if (this.rolepermissionmock == true) {
-        this.pagePermission.push(rolePermossionMock.rdapRolePermossionMock[0].rolepermissionemulationmock);
-      } else {
-        this.pagePermission.push(res);
-      }
-      this.ManagePinMasterModulePermission(this.pagePermission,this.pages,"emulation");
-    });
-    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "epp_ref").subscribe(res => {
-      if (this.rolepermissionmock == true) {
-        this.pagePermission.push(rolePermossionMock.rdapRolePermossionMock[0].rolepermissionepp_refmock);
-      } else {
-        this.pagePermission.push(res);
-      }
-      this.ManagePinMasterModulePermission(this.pagePermission,this.pages,"epp_ref");
-    });
-    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "financialyear").subscribe(res => {
-      if (this.rolepermissionmock == true) {
-        this.pagePermission.push(rolePermossionMock.rdapRolePermossionMock[0].rolepermissionfinancialyearmock);
-      } else {
-        this.pagePermission.push(res);
-      }
-      this.ManagePinMasterModulePermission(this.pagePermission,this.pages,"financialyear");
-    });
-    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "gamecomplexity").subscribe(res => {
-      if (this.rolepermissionmock == true) {
-        this.pagePermission.push(rolePermossionMock.rdapRolePermossionMock[0].rolepermissiongamecomplexitymock);
-      } else {
-        this.pagePermission.push(res);
-      }
-      this.ManagePinMasterModulePermission(this.pagePermission,this.pages,"gamecomplexity");
-    });
-    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "gravity").subscribe(res => {
-      if (this.rolepermissionmock == true) {
-        this.pagePermission.push(rolePermossionMock.rdapRolePermossionMock[0].rolepermissiongravitymock);
-      } else {
-        this.pagePermission.push(res);
-      }
-      this.ManagePinMasterModulePermission(this.pagePermission,this.pages,"gravity");
-    });
-    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "market").subscribe(res => {
-      if (this.rolepermissionmock == true) {
-        this.pagePermission.push(rolePermossionMock.rdapRolePermossionMock[0].rolepermissionmarketmock);
-      } else {
-        this.pagePermission.push(res);
-      }
-      this.ManagePinMasterModulePermission(this.pagePermission,this.pages,"market");
-    });
-    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "pool").subscribe(res => {
-      if (this.rolepermissionmock == true) {
-        this.pagePermission.push(rolePermossionMock.rdapRolePermossionMock[0].rolepermissionpoolmock);
-      } else {
-        this.pagePermission.push(res);
-      }
-      this.ManagePinMasterModulePermission(this.pagePermission,this.pages,"pool");
-    });
-    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "prodcat1").subscribe(res => {
-      if (this.rolepermissionmock == true) {
-        this.pagePermission.push(rolePermossionMock.rdapRolePermossionMock[0].rolepermissionprodcat1mock);
-      } else {
-        this.pagePermission.push(res);
-      }
-      this.ManagePinMasterModulePermission(this.pagePermission,this.pages,"prodcat1");
-    });
-    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "prodcat2").subscribe(res => {
-      if (this.rolepermissionmock == true) {
-        this.pagePermission.push(rolePermossionMock.rdapRolePermossionMock[0].rolepermissionprodcat2mock);
-      } else {
-        this.pagePermission.push(res);
-      }
-      this.ManagePinMasterModulePermission(this.pagePermission,this.pages,"prodcat2");
-    });
-    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "prodcat3").subscribe(res => {
-      if (this.rolepermissionmock == true) {
-        this.pagePermission.push(rolePermossionMock.rdapRolePermossionMock[0].rolepermissionprodcat3mock);
-      } else {
-        this.pagePermission.push(res);
-      }
-      this.ManagePinMasterModulePermission(this.pagePermission,this.pages,"prodcat3");
-    });
-    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "productbasket").subscribe(res => {
-      if (this.rolepermissionmock == true) {
-        this.pagePermission.push(rolePermossionMock.rdapRolePermossionMock[0].rolepermissionproductbasketmock);
-      } else {
-        this.pagePermission.push(res);
-      }
-      this.ManagePinMasterModulePermission(this.pagePermission,this.pages,"productbasket");
-    });
-    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "productgroup").subscribe(res => {
-      if (this.rolepermissionmock == true) {
-        this.pagePermission.push(rolePermossionMock.rdapRolePermossionMock[0].rolepermissionproductgroupmock);
-      } else {
-        this.pagePermission.push(res);
-      }
-      this.ManagePinMasterModulePermission(this.pagePermission,this.pages,"productgroup");
-    });
-    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "quarter").subscribe(res => {
-      if (this.rolepermissionmock == true) {
-        this.pagePermission.push(rolePermossionMock.rdapRolePermossionMock[0].rolepermissionquartermock);
-      } else {
-        this.pagePermission.push(res);
-      }
-      this.ManagePinMasterModulePermission(this.pagePermission,this.pages,"quarter");
-    });
-    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "region").subscribe(res => {
-      if (this.rolepermissionmock == true) {
-        this.pagePermission.push(rolePermossionMock.rdapRolePermossionMock[0].rolepermissionregionmock);
-      } else {
-        this.pagePermission.push(res);
-      }
-      this.ManagePinMasterModulePermission(this.pagePermission,this.pages,"region");
-    });
-    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "risk").subscribe(res => {
-      if (this.rolepermissionmock == true) {
-        this.pagePermission.push(rolePermossionMock.rdapRolePermossionMock[0].rolepermissionriskmock);
-      } else {
-        this.pagePermission.push(res);
-      }
-      this.ManagePinMasterModulePermission(this.pagePermission,this.pages,"risk");
-    });
-    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "status1").subscribe(res => {
-      if (this.rolepermissionmock == true) {
-        this.pagePermission.push(rolePermossionMock.rdapRolePermossionMock[0].rolepermissionstatus1mock);
-      } else {
-        this.pagePermission.push(res);
-      }
-      this.ManagePinMasterModulePermission(this.pagePermission,this.pages,"status1");
-    });
-    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "status2").subscribe(res => {
-      if (this.rolepermissionmock == true) {
-        this.pagePermission.push(rolePermossionMock.rdapRolePermossionMock[0].rolepermissionstatus2mock);
-      } else {
-        this.pagePermission.push(res);
-      }
-      this.ManagePinMasterModulePermission(this.pagePermission,this.pages,"status2");
-    });
-    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "status3").subscribe(res => {
-      if (this.rolepermissionmock == true) {
-        this.pagePermission.push(rolePermossionMock.rdapRolePermossionMock[0].rolepermissionstatus3mock);
-      } else {
-        this.pagePermission.push(res);
-      }
-      this.ManagePinMasterModulePermission(this.pagePermission,this.pages,"status3");
-    });
-    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "studio").subscribe(res => {
-      if (this.rolepermissionmock == true) {
-        this.pagePermission.push(rolePermossionMock.rdapRolePermossionMock[0].rolepermissionstudiomock);
-      } else {
-        this.pagePermission.push(res);
-      }
-      this.ManagePinMasterModulePermission(this.pagePermission,this.pages,"studio");
-    });
-    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "them").subscribe(res => {
-      if (this.rolepermissionmock == true) {
-        this.pagePermission.push(rolePermossionMock.rdapRolePermossionMock[0].rolepermissionthememock);
-      } else {
-        this.pagePermission.push(res);
-      }
-      this.ManagePinMasterModulePermission(this.pagePermission,this.pages,"them");
-    });
-    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "title").subscribe(res => {
-      if (this.rolepermissionmock == true) {
-        this.pagePermission.push(rolePermossionMock.rdapRolePermossionMock[0].rolepermissiontitlemock);
-      } else {
-        this.pagePermission.push(res);
-      }
-      this.ManagePinMasterModulePermission(this.pagePermission,this.pages,"title");
-    });
-    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "viridianlaunch").subscribe(res => {
-      if (this.rolepermissionmock == true) {
-        this.pagePermission.push(rolePermossionMock.rdapRolePermossionMock[0].rolepermissionvirdianlaunchmock);
-      } else {
-        this.pagePermission.push(res);
-      }
-      this.ManagePinMasterModulePermission(this.pagePermission,this.pages,"viridianlaunch");
-    });
-    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "studiotype").subscribe(res => {
-      if (this.rolepermissionmock == true) {
-        this.pagePermission.push(rolePermossionMock.rdapRolePermossionMock[0].rolepermissionstudiotypemock);
-      } else {
-        this.pagePermission.push(res);
-      }
-      this.ManagePinMasterModulePermission(this.pagePermission,this.pages,"studiotype");
-    });
-    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "studio2").subscribe(res => {
-      if (this.rolepermissionmock == true) {
-        this.pagePermission.push(rolePermossionMock.rdapRolePermossionMock[0].rolepermissionstudio2mock);
-      } else {
-        this.pagePermission.push(res);
-      }
-      this.ManagePinMasterModulePermission(this.pagePermission,this.pages,"studio2");
-    });
-    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "videostepper").subscribe(res => {
-      if (this.rolepermissionmock == true) {
-        this.pagePermission.push(rolePermossionMock.rdapRolePermossionMock[0].rolepermissionvideosteppermock);
-      } else {
-        this.pagePermission.push(res);
-      }
-      this.ManagePinMasterModulePermission(this.pagePermission,this.pages,"videostepper");
-    });
-    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "flag").subscribe(res => {
-      if (this.rolepermissionmock == true) {
-        this.pagePermission.push(rolePermossionMock.rdapRolePermossionMock[0].rolepermissionflagmock);
-      } else {
-        this.pagePermission.push(res);
-      }
-      this.ManagePinMasterModulePermission(this.pagePermission,this.pages,"flag");
-    });
-    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "platform").subscribe(res => {
-      if (this.rolepermissionmock == true) {
-        //this.pagePermission.push(rolePermossionMock.rdapRolePermossionMock[0].rolepermissionflagmock);
-      } else {
-        this.pagePermission.push(res);
-      }
-      this.ManagePinMasterModulePermission(this.pagePermission,this.pages,"platform");
-    });
-  }
-  
-  public getPermissionByModule() {
-    this.pagePermission = [];
-    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "ExtraPin").subscribe(res => {
-      // console.log("Extra PIN permission_Get_By_Module", res);
-      // console.log("pages", this.pages);
-      // debugger
-      if (this.rolepermissionmock == true) {
-        this.pagePermission.push(rolePermossionMock.rdapRolePermossionMock[0].rolepermissionextrapinmock);
-      } else {
-        this.pagePermission.push(res);
-      }
-      this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "ManagePin").subscribe(res => {
-        //  console.log("Manage PIN permission_Get_By_Module", res);
-        //  console.log("pages", this.pages);
-        // debugger
-        if (this.rolepermissionmock == true) {
-          this.pagePermission.push(rolePermossionMock.rdapRolePermossionMock[0].rolepermissionmanagepinmock);
-        } else {
-          this.pagePermission.push(res);
+  public setPermissiion(permission){
+    permission.forEach(pagePermission => {
+      if(pagePermission.module == "version" || pagePermission.module == "cabinet" || pagePermission.module == "channel"
+        || pagePermission.module == "channeltype" || pagePermission.module == "denom" || pagePermission.module == "devcomplexity"
+        || pagePermission.module == "devefforttype" || pagePermission.module == "devtype1" || pagePermission.module == "devtype2"
+        || pagePermission.module == "emulation" || pagePermission.module == "epp_ref" || pagePermission.module == "financialyear"
+        || pagePermission.module == "gamecomplexity" || pagePermission.module == "gravity" || pagePermission.module == "market"
+        || pagePermission.module == "pool" || pagePermission.module == "prodcat1" || pagePermission.module == "prodcat2"
+        || pagePermission.module == "productbasket" || pagePermission.module == "productgroup" || pagePermission.module == "prodcat3"
+        || pagePermission.module == "quarter" || pagePermission.module == "region" || pagePermission.module == "risk"
+        || pagePermission.module == "status1" || pagePermission.module == "status2" || pagePermission.module == "status3"
+        || pagePermission.module == "studio" || pagePermission.module == "theme" || pagePermission.module == "title"
+        || pagePermission.module == "viridianlaunch" || pagePermission.module == "platform" || pagePermission.module == "flag"
+        || pagePermission.module == "studiotype" || pagePermission.module == "studio2" || pagePermission.module == "videostepper"
+        ){
+          this.ManagePinMasterModulePermission(this.pagePermission,this.pages, pagePermission.module);
         }
+        else if(pagePermission.module == 'extrapin'){
+          this.ExtraPinModulePermission(this.pagePermission, this.pages);
+        }
+        else if(pagePermission.module == 'managepin'){
+          this.ManagePinModulePermission(this.pagePermission, this.pages);
+        }
+        else if(pagePermission.module == 'workflow'){
+          this.ManagePinWorkflowModulePermission(this.pagePermission, this.pages);
+        }
+        else if(pagePermission.module == 'blanketpin'){
+          this.blanketPinModulePermission(this.pagePermission, this.pages);
+        }
+      else if( pagePermission.module == 'rework'){
+          this.reworkModulePermission(this.pagePermission, this.pages);
+      }
+    })
+  }
 
-        this.ManagePinModulePermission(this.pagePermission, this.pages);
-        this.ExtraPinModulePermission(this.pagePermission, this.pages);
-      });
-    });
-    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "workflow").subscribe(res => {
-      //  console.log("Manage PIN permission_Get_By_Module", res);
-      //  console.log("pages", this.pages);
-      // debugger
-      if (this.rolepermissionmock == true) {
-        this.pagePermission.push(rolePermossionMock.rdapRolePermossionMock[0].rolepermissionmpworkflowmock);
-      } else {
-        this.pagePermission.push(res);
+  public getSideMenuPermission(){
+    this.masterApiService.getPermissionSideMenu(APIindex.API.permission_side_menu).subscribe(res => {
+      if (res) {
+        this.pagePermission = res;
+        this.setPermissiion(this.pagePermission)
       }
-      this.ManagePinWorkflowModulePermission(this.pagePermission, this.pages);
-    });
-    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "blanketpin").subscribe(res => {
-      //  console.log("Manage PIN permission_Get_By_Module", res);
-      //  console.log("pages", this.pages);
-      // debugger
-      if (this.rolepermissionmock == true) {
-        this.pagePermission.push(rolePermossionMock.rdapRolePermossionMock[0].rolepermissionmpworkflowmock);
-      } else {
-        this.pagePermission.push(res);
-      }
-      this.blanketPinModulePermission(this.pagePermission, this.pages);
-    });
-    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "rework").subscribe(res => {
-      //  console.log("Manage PIN permission_Get_By_Module", res);
-      //  console.log("pages", this.pages);
-      // debugger
-      if (this.rolepermissionmock == true) {
-        this.pagePermission.push(rolePermossionMock.rdapRolePermossionMock[0].rolepermissionmpworkflowmock);
-      } else {
-        this.pagePermission.push(res);
-      }
-      this.reworkModulePermission(this.pagePermission, this.pages);
     });
   }
+ 
   public ExtraPinModulePermission(permission, pages) {
-    //debugger
-    console.log("permission[y.modulename]", permission.filter(x => x.module.toLowerCase() == "extrapin"));
     let extraPinPermissionData = permission.filter(x => x.module.toLowerCase() == "extrapin")[0];
     if (this.pages) {
       this.pages.forEach(x => {
@@ -933,12 +621,10 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
           })
         }
       });
-      console.log("extrapin", this.pages);
     }
   }
   public ManagePinModulePermission(permission, pages) {
     //debugger
-    console.log("permission[y.modulename]", permission.filter(x => x.module.toLowerCase() == "managepin"));
     let managePinPermissionData = permission.filter(x => x.module.toLowerCase() == "managepin")[0];
     if (this.pages) {
       this.pages.forEach(x => {
@@ -950,7 +636,6 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
           })
         }
       });
-      console.log("managepin", this.pages);
     }
   }
   public ManagePinWorkflowModulePermission(permission, pages) {
@@ -967,7 +652,6 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
           })
         }
       });
-      console.log("managepin", this.pages);
     }
   }
   public blanketPinModulePermission(permission, pages) {
@@ -986,7 +670,6 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
           })
         }
       });
-      console.log("managepin", this.pages);
     }
   }
   public reworkModulePermission(permission, pages) {
@@ -1006,7 +689,6 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
           })
         }
       });
-      console.log("managepin", this.pages);
     }
   }
   public ManagePinMasterModulePermission(permission, pages, modulename) {
