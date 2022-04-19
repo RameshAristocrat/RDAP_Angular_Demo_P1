@@ -1,147 +1,137 @@
-
-<div class="grid-container" >
-    <!-- <h1 class="mat-h1">Rework Request</h1> -->
-    <app-rdap-shared-breadcrumb></app-rdap-shared-breadcrumb>    
-
+<div class="grid-container">
+    <app-rdap-shared-breadcrumb></app-rdap-shared-breadcrumb>
     <div *ngIf="isShow">
-    <mat-accordion>
-        <mat-expansion-panel [expanded]="true" (opened)="panelOpenState = true"
-        (closed)="panelOpenState = false">
-        <mat-expansion-panel-header>
-            <mat-panel-title style="font-weight:410;font-size: 14px;">
-            Search Filter
-            </mat-panel-title>
-        </mat-expansion-panel-header>
-        <mat-card>
-             <mat-card-content>
-                <form *ngIf="filterform" [formGroup]="filterform">
-                    <div class="row">
-                        <div class="col-lg-4 form-group">
-                                <label>Rework Item</label>
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                  
-
-                                        <select class="form-control input-group-text" formControlName="rwkIdsearchcriteria">
-                                            <option  style="text-align: center;" value="{{opitem.id}}" *ngFor="let opitem of numberSearchCriteria;">{{opitem.value}}</option>
-                                        </select>
+        <mat-accordion>
+            <mat-expansion-panel [expanded]="true" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                <mat-expansion-panel-header>
+                    <mat-panel-title style="font-weight:410;font-size: 14px;">
+                        Search Filter
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-card>
+                    <mat-card-content>
+                        <form *ngIf="filterform" [formGroup]="filterform">
+                            <div class="row">
+                                <div class="col-lg-4 form-group">
+                                    <label>Rework Item</label>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <select class="form-control input-group-text"
+                                                formControlName="rwkIdsearchcriteria">
+                                                <option style="text-align: center;" value="{{opitem.id}}"
+                                                    *ngFor="let opitem of numberSearchCriteria;">{{opitem.value}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <input formControlName="rwkId" type="text" class="form-control"
+                                            placeholder="Enter Rework Id" aria-label="Enter Rework Id"
+                                            aria-describedby="basic-addon1">
                                     </div>
-                                    <input formControlName="rwkId" type="text" class="form-control"
-                                        placeholder="Enter Rework Id" aria-label="Enter Rework Id" aria-describedby="basic-addon1">
                                 </div>
-                    </div>
-                    <div class="col-lg-4 form-group" >
-                           
-                        <ng-select ngSelectMat [items]="requestStatusobj[0]" placeholder="Request Status:" bindLabel="description" bindValue="id"
-                        [virtualScroll]="true" appendTo="body" formControlName="requeststatus"
-                       
-                       >
-                       <ng-template ng-option-tmp let-item="item">
-                         {{  item.description  }}
-                       </ng-template>
-                     </ng-select>
+                                <div class="col-lg-4 form-group">
 
-                     
-                    
-            </div>
+                                    <ng-select ngSelectMat [items]="requestStatusobj[0]" placeholder="Request Status:"
+                                        bindLabel="description" bindValue="id" [virtualScroll]="true" appendTo="body"
+                                        formControlName="requeststatus">
+                                        <ng-template ng-option-tmp let-item="item">
+                                            {{ item.description }}
+                                        </ng-template>
+                                    </ng-select>
+                                </div>
 
-            <div class="col-lg-4 form-group" >
-                   
-                <!-- <ng-select ngSelectMat [items]="parentplaneItemobj[0]" placeholder="Parent plan Item:" bindLabel="id" bindValue="id"
-                [virtualScroll]="true" appendTo="body" formControlName="parentplanitem"
-                >
-               <ng-template ng-option-tmp let-item="item">
-                {{ item.id + "-" + item.description + "-" + item.description2 }}
-               </ng-template>
-             </ng-select> -->
+                                <div class="col-lg-4 form-group">
+                                    <label>Parent Plan Item</label>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <select class="form-control input-group-text"
+                                                formControlName="parentplanitemsearchcriteria">
+                                                <option style="text-align: center;" value="{{opitem.id}}"
+                                                    *ngFor="let opitem of numberSearchCriteria;">{{opitem.value}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <input formControlName="parentplanitem" type="text" class="form-control"
+                                            placeholder="Enter Parent Plan Item" aria-label="Enter Parent Plan Item"
+                                            aria-describedby="basic-addon1">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4 form-group">
+                                    <label>Reason</label>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <select class="form-control input-group-text"
+                                                formControlName="reasonsearchcriteria">
+                                                <option style="text-align: center;" value="{{opitem.id}}"
+                                                    *ngFor="let opitem of stringSearchCriteria;">{{opitem.value}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <input formControlName="reason" type="text" class="form-control"
+                                            placeholder="Enter Reason" aria-label="Enter Reason"
+                                            aria-describedby="basic-addon1">
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 form-group">
+                                    <label>Justification</label>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
 
-             <label>Parent Plan Item</label>
-             <div class="input-group mb-3">
-                 <div class="input-group-prepend">
-               
+                                            <select class="form-control input-group-text"
+                                                formControlName="justificationsearchcriteria">
+                                                <option style="text-align: center;" value="{{opitem.id}}"
+                                                    *ngFor="let opitem of stringSearchCriteria;">{{opitem.value}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <input formControlName="justification" type="text" class="form-control"
+                                            placeholder="Enter Justification" aria-label="Enter Justification"
+                                            aria-describedby="basic-addon1">
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 form-group">
+                                    <label>Jiralink</label>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
 
-                     <select class="form-control input-group-text" formControlName="parentplanitemsearchcriteria">
-                         <option  style="text-align: center;" value="{{opitem.id}}" *ngFor="let opitem of numberSearchCriteria;">{{opitem.value}}</option>
-                     </select>
-                 </div>
-                 <input formControlName="parentplanitem" type="text" class="form-control"
-                     placeholder="Enter Parent Plan Item" aria-label="Enter Parent Plan Item" aria-describedby="basic-addon1">
-             </div>
-            
-    </div>
-                    
-    
-</div>
-<div class="row">
-    <div class="col-lg-4 form-group">
-        <label>Reason</label>
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-               
-                <select class="form-control input-group-text" formControlName="reasonsearchcriteria">
-                    <option  style="text-align: center;" value="{{opitem.id}}" *ngFor="let opitem of stringSearchCriteria;">{{opitem.value}}</option>
-                </select>
-            </div>
-            <input formControlName="reason" type="text" class="form-control"
-                placeholder="Enter Reason" aria-label="Enter Reason" aria-describedby="basic-addon1">
-        </div>
-</div>
-<div class="col-lg-4 form-group">
-<label>Justification</label>
-<div class="input-group mb-3">
-    <div class="input-group-prepend">
-     
-        <select class="form-control input-group-text" formControlName="justificationsearchcriteria">
-            <option  style="text-align: center;" value="{{opitem.id}}" *ngFor="let opitem of stringSearchCriteria;">{{opitem.value}}</option>
-        </select>
-    </div>
-    <input formControlName="justification" type="text" class="form-control"
-        placeholder="Enter Justification" aria-label="Enter Justification" aria-describedby="basic-addon1">
-</div>
-</div>
-    <div class="col-lg-4 form-group">
-        <label>Jiralink</label>
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-                     
-                <select class="form-control input-group-text" formControlName="jiraLinksearchcriteria">
-                    <option  style="text-align: center;" value="{{opitem.id}}" *ngFor="let opitem of stringSearchCriteria;">{{opitem.value}}</option>
-                </select>
-            </div>
-            <input formControlName="jiraLink" type="text" class="form-control"
-                placeholder="Enter Jiralink" aria-label="Enter Jiralink" aria-describedby="basic-addon1">
-        </div>
-</div>
+                                            <select class="form-control input-group-text"
+                                                formControlName="jiraLinksearchcriteria">
+                                                <option style="text-align: center;" value="{{opitem.id}}"
+                                                    *ngFor="let opitem of stringSearchCriteria;">{{opitem.value}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <input formControlName="jiraLink" type="text" class="form-control"
+                                            placeholder="Enter Jiralink" aria-label="Enter Jiralink"
+                                            aria-describedby="basic-addon1">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </mat-card-content>
+                    <mat-card-actions style="text-align: left;">
+                        <button mat-raised-button style="width: 10%;background-color: #300c46;color:white"
+                            (click)="searchSubmit()">Search</button>
+                    </mat-card-actions>
+                </mat-card>
+            </mat-expansion-panel>
+        </mat-accordion>
+        <mat-card>
+            <mat-card-content>
+                <app-rdap-shared-igx-grid-search-result [exportfilename]="exportfilename" *ngIf="searchGridData"
+                    [searchGridData]="searchGridData" [pagename]="pagename" [appString]="appString"
+                    (onSelGridRowData)="onSelGridRowData($event)" [totalCount]="totalCount">
 
-                    
-
-                    </div>
-                  
-                    </form>
-            </mat-card-content> 
+                </app-rdap-shared-igx-grid-search-result>
+            </mat-card-content>
             <mat-card-actions style="text-align: left;">
                 <button mat-raised-button style="width: 10%;background-color: #300c46;color:white"
-                (click)="searchSubmit()">Search</button>
+                    (click)="viewreworkrecord(route)"
+                    *ngIf="selMasterDetailsData && selMasterDetailsData.newSelection.length > 0">Open</button>
             </mat-card-actions>
         </mat-card>
-        </mat-expansion-panel>
-        </mat-accordion>
-    <mat-card>
-        <mat-card-content>
-            <app-rdap-shared-igx-grid-search-result [exportfilename]="exportfilename" 
-            *ngIf="searchGridData"
-            [searchGridData]="searchGridData" [pagename]="pagename" [appString]="appString" 
-            (onSelGridRowData)="onSelGridRowData($event)" [totalCount] = "totalCount"
-             >
-             <!-- (onPageChangeEvent)="onPageChangeEvent($event)" -->
-            </app-rdap-shared-igx-grid-search-result>
-        </mat-card-content>
-        <mat-card-actions style="text-align: left;">
-            <button mat-raised-button style="width: 10%;background-color: #300c46;color:white"
-            (click)="viewreworkrecord(route)"  *ngIf="selMasterDetailsData && selMasterDetailsData.newSelection.length > 0">Open</button>
-        </mat-card-actions>
-    </mat-card>
-</div>
     </div>
-    <igx-dialog #alert title="Rework Request List" message="{{message}}" leftButtonLabel="OK" 
-    (leftButtonSelect)="onDialogSubmit($event)"></igx-dialog> 
+</div>
+<igx-dialog #alert title="Rework Request List" message="{{message}}" leftButtonLabel="OK"
+    (leftButtonSelect)="onDialogSubmit($event)"></igx-dialog>

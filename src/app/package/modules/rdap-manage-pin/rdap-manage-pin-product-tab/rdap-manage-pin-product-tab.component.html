@@ -1,5 +1,5 @@
 <form *ngIf="productform" [formGroup]="productform"
-  style="padding-left: 2%;padding-right: 2%;max-height: 600px; padding-bottom: 0%;padding-top:0%;">
+  style="padding-left: 2%;padding-right: 2%;max-height: 600px; padding-bottom: 3%;padding-top:0%;">
   <mat-card-content>
     <div class="row">
       <div class="col-lg-3 form-group">
@@ -75,6 +75,7 @@
       [virtualScroll]="true"
       appendTo="body"
       formControlName="regionId"
+      [readonly]="isReadOnly"
       (change)="ddlOnChangeEvent($event,'regionId')" >
       <ng-template ng-option-tmp let-item="item">
         {{  item.description2 }}
@@ -83,7 +84,7 @@
   </div>
   <div class="col-lg-3 form-group required">
     <ng-select ngSelectMat [items]="marketarrobj[0]" placeholder="Market *" bindLabel="description2" bindValue="id"
-    [clearable]="false" [virtualScroll]="true" appendTo="body" formControlName="marketId"
+    [clearable]="false" [virtualScroll]="true" [readonly]="isReadOnly" appendTo="body" formControlName="marketId"
     (change)="ddlOnChangeEvent($event)" required>
     <ng-template ng-option-tmp let-item="item">
       {{  item.description2 }}
@@ -271,7 +272,7 @@
           </div>
           <div class="col-lg-6 form-group">
             <ng-select ngSelectMat [items]="priorityarrobj[0]" placeholder="Priority *" bindLabel="description2" bindValue="id"
-              [clearable]="false" [virtualScroll]="true" appendTo="body" formControlName="priorityId"
+              [clearable]="false" [virtualScroll]="true" [readonly]="isReadOnly" appendTo="body" formControlName="priorityId"
               (change)="ddlOnChangeEvent($event)">
               <ng-template ng-option-tmp let-item="item">
                 {{  item.description2 }}
@@ -354,7 +355,7 @@
         <div class="row">
           <div class="col-lg-6 form-group">
             <ng-select ngSelectMat [items]="epprefarrobj[0]" placeholder="Epp Ref" bindLabel="description2" bindValue="id"
-              [clearable]="false" [virtualScroll]="true" appendTo="body" formControlName="eppRefId"
+              [clearable]="false" [virtualScroll]="true" [readonly]="isReadOnly" appendTo="body" formControlName="eppRefId"
               (change)="ddlOnChangeEvent($event)">
               <ng-template ng-option-tmp let-item="item">
                 {{  item.description2 }}

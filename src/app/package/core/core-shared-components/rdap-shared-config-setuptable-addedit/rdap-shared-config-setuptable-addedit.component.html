@@ -121,45 +121,6 @@
                         (commongridmodelrow)="commongridmodelFun($event)">
                             
                         </app-rdap-shared-config-dynamic-igx-grid>
-                        <!-- <div class="grid__wrapper">
-                            <igx-grid #grid id="grid" [primaryKey]="'pid'" [data]="data" *ngIf="rowitem.type =='grid'"
-                            width="100%" [rowEditable]="true" igxOverlayOutlet [autoGenerate]="false">
-                            <igx-column *ngFor="let c of rowitem.columndata" [width]="c.width" [field]="c.field"
-                                [header]="c.title|titlecase" [dataType]="c.type" [editable]="true"
-                                [cellClasses]="speedClasses" [hidden]="c.hidden">
-                                <ng-template igxCellEditor
-                                    *ngIf="((c.field=='description') && (rowitem.field =='channeltypeIds'))"
-                                    let-cell="cell" let-value>
-                                    <igx-select #select (selectionChanging)="onchangeSelect($event, cell, data, rowitem.field)">
-                                        <igx-select-item *ngFor="let item of channeltypeddldata" [value]="item">
-                                            {{ item.description }}
-                                        </igx-select-item>
-                                    </igx-select>
-                                </ng-template>
-                                <ng-template igxCellEditor
-                                    *ngIf="((c.field=='description') && (rowitem.field =='regionIds'))" let-cell="cell"
-                                    let-value>
-                                    <igx-select #select (selectionChanging)="onchangeSelect($event, cell, data, rowitem.field)">
-                                        <igx-select-item *ngFor="let item of regionddldata" [value]="item">
-                                            {{ item.description }}
-                                        </igx-select-item>
-                                    </igx-select>
-                                </ng-template>
-                                <ng-template igxCellEditor
-                                    *ngIf="((c.field=='description') && (rowitem.field =='marketIds'))" let-cell="cell"
-                                    let-value>
-                                    <igx-select #select (selectionChanging)="onchangeSelect($event, cell, data, rowitem.field)">
-                                        <igx-select-item *ngFor="let item of marketddldata" [value]="item">
-                                            {{ item.description }}
-                                        </igx-select-item>
-                                    </igx-select>
-                                </ng-template>
-                            </igx-column>
-                            <igx-action-strip #actionstrip>
-                                <igx-grid-editing-actions [addRow]="true"></igx-grid-editing-actions>
-                            </igx-action-strip>
-                        </igx-grid>
-                        </div> -->
                     </mat-tab>
                 </div>
             </mat-tab-group>
@@ -173,16 +134,7 @@
             (click)="cancel()">Back</button>
     </mat-card-actions>
     <mat-card-actions style="text-align: left;" *ngIf="searchform && transactionFlag=='U'">
-        <!-- <button mat-raised-button
-            (click)="submit()" 
-            [disabled]="!searchform.valid" 
-            [ngClass]="{'errorbtn':!searchform.valid, 'successbtn': searchform.valid}"
-            *ngIf="(transactionFlag=='AN')">Save</button>
-            <button mat-raised-button
-            (click)="submit()" 
-            [disabled]="true" 
-            [ngClass]="{'errorbtn':searchform.valid, 'successbtn': !searchform.valid}">Save</button> -->
-        <button mat-raised-button style="width: 10%;background-color: #300c46;color:white"
+               <button mat-raised-button style="width: 10%;background-color: #300c46;color:white"
             (click)="cancel()">Back</button>
         <button mat-raised-button style="width: 20%;background-color: #300c46;color:white"
         *ngIf = "pagePermission && pagePermission[0].isAdd == true"

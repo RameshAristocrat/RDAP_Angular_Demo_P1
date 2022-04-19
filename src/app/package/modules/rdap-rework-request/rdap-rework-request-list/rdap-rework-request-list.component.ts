@@ -14,7 +14,6 @@ import { IgxDialogComponent, IgxExcelExporterService, IgxGridComponent } from '@
 import { environment } from "src/environments/environment";
 import { RdMasterApiService } from 'src/app/package/api/apiservice/masterApiService';
 import { filterModel, searchParamModel, sortModel } from 'src/app/package/api/model/param/searchParam';
-//import { isNotEmptyString, _isNotEmptyString, _isNotEmptyVal } from '../../../rdap-shared-components/utils/shared-utils';
 import { isNotNull } from '@igniteui/material-icons-extended';
 import * as condata from 'src/assets/config/masterScreenSearchCommonConfig';
 import * as appstringdata from 'src/assets/config/app-string';
@@ -46,14 +45,11 @@ export class RdapReworkReqListComponent implements OnInit {
   public searchFilterData;
   public selMasterDetailsData;
   public searchOrderBy: any;
-  
   public requestStatusobj: any;
-  
   public parentplaneItemobj: any;
   totalCount: number;
-  perPage: number =10;
+  perPage: number = 10;
   timeOut = 500;
-
   searchform: FormGroup;
   message: any;
   filterform: FormGroup;
@@ -80,15 +76,13 @@ export class RdapReworkReqListComponent implements OnInit {
   numberSearchCriteria: any[];
   pagename: any;
   accessApi: any;
-  isShow:boolean = false;
-    isView: boolean;
-    isAdd: boolean;
-    isEdit: boolean;
-    isDelete: boolean;
-permissionData: any;
-
-isReworkAdmin: boolean; 
-
+  isShow: boolean = false;
+  isView: boolean;
+  isAdd: boolean;
+  isEdit: boolean;
+  isDelete: boolean;
+  permissionData: any;
+  isReworkAdmin: boolean;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -96,14 +90,13 @@ isReworkAdmin: boolean;
     public fb: FormBuilder, private _snackBar: MatSnackBar,
     private masterApiService: RdMasterApiService,
     private masterRegionService: RdApiMasterRegionService,
-    private spinner: RdSpinnerService,private router: Router) {
+    private spinner: RdSpinnerService, private router: Router) {
     this.reworkApi = environment.reworkreqestapi;
     this.baseApi = environment.baseapiurl;
-    
-  this.managePinAPi = environment.extrapinreqapiurl;
+    this.managePinAPi = environment.extrapinreqapiurl;
     this.searchUrl = this.reworkApi + "Rework/search";
     this.exportfilename = "rework_requested_data";
-this.accessApi = environment.userapiurl;
+    this.accessApi = environment.userapiurl;
     this.stringSearchCriteria = [];
     this.numberSearchCriteria = [];
     _router.events.subscribe((val) => {
@@ -114,8 +107,6 @@ this.accessApi = environment.userapiurl;
         this.route = 'Home'
       }
     });
-    
-
   }
 
   ngOnInit(): void {
@@ -123,7 +114,6 @@ this.accessApi = environment.userapiurl;
     this.rolebasedPermission();
     this.pagename = "managepinlist";
     this.appString = [];
-    
     this.requestStatusobj = [];
     this.parentplaneItemobj = [];
     if (condata.configJsonData) {
@@ -138,81 +128,62 @@ this.accessApi = environment.userapiurl;
     if (stringsearchdata.stringSearch) {
       this.stringSearchCriteria = stringsearchdata.stringSearch;
     }
-   
     this.serchfilterFormGroup();
-    // this.spinner.hide();
     this.gridDataLoad();
   }
 
-  rolebasedPermission()
-  {
-    
-this.masterApiService.getMasterDataById(this.accessApi + "Permission/IsReworkAdmin").subscribe(data => {
-   
-this.isReworkAdmin = data;
-
-    
-if(!this.isReworkAdmin)
-{
-this.masterApiService.getMasterDataById(this.accessApi + "Permission/getbymodule/rework").subscribe(data => {
-
-
-this.permissionData = data;
-this.isAdd = data.isAdd;
-this.isEdit = data.isEdit;
-this.isDelete = data.isDelete;
-this.isView = data.isView;
-
-if(!this.isView)
-{
-  this.isShow = false;
-  this.noAccessPermission();
-}
-else{
-  this.isShow = true;
-}
-
-});
-
-}
-else
-{
-this.isAdd = true;
-this.isEdit = true;
-this.isDelete = true;
-this.isView = true; 
-this.isShow = true;
-}
-
-
-});
+  rolebasedPermission() {
+    this.masterApiService.getMasterDataById(this.accessApi + "Permission/IsReworkAdmin").subscribe(data => {
+      this.isReworkAdmin = data;
+      if (!this.isReworkAdmin) {
+        this.masterApiService.getMasterDataById(this.accessApi + "Permission/getbymodule/rework").subscribe(data => {
+          this.permissionData = data;
+          this.isAdd = data.isAdd;
+          this.isEdit = data.isEdit;
+          this.isDelete = data.isDelete;
+          this.isView = data.isView;
+          if (!this.isView) {
+            this.isShow = false;
+            this.noAccessPermission();
+          }
+          else {
+            this.isShow = true;
+          }
+        });
+      }
+      else {
+        this.isAdd = true;
+        this.isEdit = true;
+        this.isDelete = true;
+        this.isView = true;
+        this.isShow = true;
+      }
+    });
   }
 
-  noAccessPermission()
-  {
+  noAccessPermission() {
     this.notificationAlert.open();
-    this.message= "You are not authorized for this module";
-    
+    this.message = "You are not authorized for this module";
   }
-  onDialogSubmit(event){
-    event.dialog.close(); 
+
+  onDialogSubmit(event) {
+    event.dialog.close();
     let url = "/home/dashboard";
     this.router.navigate([url]);
   }
+
   onSelGridRowData(event) {
-    
     this.selMasterDetailsData = event;
-    
   }
+
   viewreworkrecord(url) {
-  
     let tempUrl;
     let selMasterData;
     tempUrl = this.route.replace('list', 'view/');
-    this._router.navigate([tempUrl.toString() +  this.selMasterDetailsData.newSelection[0].rwkId]);
-
+    this._router.navigate([tempUrl.toString() + this.selMasterDetailsData.newSelection[0].rwkId]);
   }
-  gridDataLoad() { 
+
+  gridDataLoad() {
     this.filterparamarr = [];
     let sortparamarr = [];
     sortparamarr.push({ field: "rwkId", direction: "DESC" });
@@ -225,32 +196,19 @@ this.isShow = true;
       }
     });
     this.masterApiService.getGridData(this.searchUrl, sortparamarr, undefined);
-
     this.masterApiService
-    .masterSearchDDL(this.baseApi + 'Master/ddl/requeststatus')
-    .subscribe((data) => {
-      this.requestStatusobj.push(data);
-    });
-
-    
-
-
-
+      .masterSearchDDL(this.baseApi + 'Master/ddl/requeststatus')
+      .subscribe((data) => {
+        this.requestStatusobj.push(data);
+      });
     this.masterApiService
-    .masterSearchDDL(this.managePinAPi + 'ManagePin/ddl')
-    .subscribe((data) => {
-      this.parentplaneItemobj.push(data);
-    });
-
-
+      .masterSearchDDL(this.managePinAPi + 'ManagePin/ddl')
+      .subscribe((data) => {
+        this.parentplaneItemobj.push(data);
+      });
   }
-  
- 
+
   serchfilterFormGroup() {
-
-
-
-
     this.filterform = this.fb.group({
       rwkId: null,
       rwkIdsearchcriteria: "Equal",
@@ -267,108 +225,72 @@ this.isShow = true;
     });
   }
 
-
   public onPageChangeEvent(pageNumber: number) {
     this.spinner.show();
     this.searchParam = { pageNumber: pageNumber + 1, pageSize: this.perPage, filters: [], sorts: [] };
-    
-    
     this.filterparamarr = [];
-    if(this.filterform.value["rwkId"]!=null && !isEmptyString(this.filterform.value["rwkId"])){
-      this.filterparamarr.push({field:"rwkId",operator:this.filterform.value["rwkIdsearchcriteria"],value:this.filterform.value["rwkId"]})
+    if (this.filterform.value["rwkId"] != null && !isEmptyString(this.filterform.value["rwkId"])) {
+      this.filterparamarr.push({ field: "rwkId", operator: this.filterform.value["rwkIdsearchcriteria"], value: this.filterform.value["rwkId"] })
     }
-    if(this.filterform.value["reason"]!=null && !isEmptyString(this.filterform.value["reason"])){
-      this.filterparamarr.push({field:"reason",operator:this.filterform.value["reasonsearchcriteria"],value:this.filterform.value["reason"]})
+    if (this.filterform.value["reason"] != null && !isEmptyString(this.filterform.value["reason"])) {
+      this.filterparamarr.push({ field: "reason", operator: this.filterform.value["reasonsearchcriteria"], value: this.filterform.value["reason"] })
     }
-    if(this.filterform.value["justification"]!=null && !isEmptyString(this.filterform.value["justification"])){
-      this.filterparamarr.push({field:"justification",operator:this.filterform.value["justificationsearchcriteria"],value:this.filterform.value["justification"]})
+    if (this.filterform.value["justification"] != null && !isEmptyString(this.filterform.value["justification"])) {
+      this.filterparamarr.push({ field: "justification", operator: this.filterform.value["justificationsearchcriteria"], value: this.filterform.value["justification"] })
     }
-    if(this.filterform.value["jiraLink"]!=null && !isEmptyString(this.filterform.value["jiraLink"])){
-      this.filterparamarr.push({field:"jiraLink",operator:this.filterform.value["jiraLinksearchcriteria"],value:this.filterform.value["jiralink"]})
+    if (this.filterform.value["jiraLink"] != null && !isEmptyString(this.filterform.value["jiraLink"])) {
+      this.filterparamarr.push({ field: "jiraLink", operator: this.filterform.value["jiraLinksearchcriteria"], value: this.filterform.value["jiralink"] })
     }
-    if(this.filterform.value["requeststatus"]!=null && !isEmptyString(this.filterform.value["requeststatus"])){
-      this.filterparamarr.push({field:"requeststatus",operator:this.filterform.value["requeststatussearchcriteria"],value:this.filterform.value["requeststatus"]})
+    if (this.filterform.value["requeststatus"] != null && !isEmptyString(this.filterform.value["requeststatus"])) {
+      this.filterparamarr.push({ field: "requeststatus", operator: this.filterform.value["requeststatussearchcriteria"], value: this.filterform.value["requeststatus"] })
     }
-    if(this.filterform.value["parentplanitem"]!=null && !isEmptyString(this.filterform.value["parentplanitem"])){
-      this.filterparamarr.push({field:"parentplanitem",operator:this.filterform.value["rwkIdsearchcriteria"],value:(this.filterform.value["parentplanitem"]).toString()})
+    if (this.filterform.value["parentplanitem"] != null && !isEmptyString(this.filterform.value["parentplanitem"])) {
+      this.filterparamarr.push({ field: "parentplanitem", operator: this.filterform.value["rwkIdsearchcriteria"], value: (this.filterform.value["parentplanitem"]).toString() })
+    }
+    this.searchParam.filters = this.filterparamarr;
+    this.searchParam.sorts.push({ field: "rwkId", direction: "DESC" });
+    this.masterApiService.masterSearch(this.searchUrl, this.searchParam).subscribe(x => {
+      this.searchGridData = x.data;
+      this.totalCount = x.totalRecords;
+    });
+    this.spinner.hide();
+  }
+
+  searchSubmit() {
+    this.spinner.show();
+    this.searchParam = { pageNumber: 0, pageSize: this.perPage, filters: [], sorts: [] };
+    this.filterparamarr = [];
+    if (this.filterform.value["rwkId"] != null && !isEmptyString(this.filterform.value["rwkId"])) {
+      this.filterparamarr.push({ field: "rwkId", operator: this.filterform.value["rwkIdsearchcriteria"], value: this.filterform.value["rwkId"] })
+    }
+    if (this.filterform.value["reason"] != null && !isEmptyString(this.filterform.value["reason"])) {
+      this.filterparamarr.push({ field: "reason", operator: this.filterform.value["reasonsearchcriteria"], value: this.filterform.value["reason"] })
+    }
+    if (this.filterform.value["justification"] != null && !isEmptyString(this.filterform.value["justification"])) {
+      this.filterparamarr.push({ field: "justification", operator: this.filterform.value["justificationsearchcriteria"], value: this.filterform.value["justification"] })
+    }
+    if (this.filterform.value["jiraLink"] != null && !isEmptyString(this.filterform.value["jiraLink"])) {
+      this.filterparamarr.push({ field: "jiraLink", operator: this.filterform.value["jiraLinksearchcriteria"], value: this.filterform.value["jiralink"] })
+    }
+    if (this.filterform.value["requeststatus"] != null && !isEmptyString(this.filterform.value["requeststatus"])) {
+      this.filterparamarr.push({ field: "requeststatus", operator: this.filterform.value["requeststatussearchcriteria"], value: this.filterform.value["requeststatus"] })
+    }
+    if (this.filterform.value["parentplanitem"] != null && !isEmptyString(this.filterform.value["parentplanitem"])) {
+      this.filterparamarr.push({ field: "parentplanitem", operator: this.filterform.value["rwkIdsearchcriteria"], value: (this.filterform.value["parentplanitem"]).toString() })
     }
 
     this.searchParam.filters = this.filterparamarr;
     this.searchParam.sorts.push({ field: "rwkId", direction: "DESC" });
-   
-    
-         this.masterApiService.masterSearch(this.searchUrl, this.searchParam).subscribe(x => {
-       this.searchGridData = x.data;
-       this.totalCount = x.totalRecords;
-       
-     });
-     this.spinner.hide();
-  }
-
-
-  // searchSubmit() {
-
-
-  //   this.searchParam = { pageNumber: 0, pageSize: 0, filters: [], sorts: [] };
-  //   this.filterparamarr = [];
-  //   if(this.filterform.value["rwkId"]!=null && !isEmptyString(this.filterform.value["rwkId"])){
-  //     this.filterparamarr.push({field:"rwkId",operator:this.filterform.value["rwkIdsearchcriteria"],value:this.filterform.value["rwkId"]})
-  //   }
-  //   if(this.filterform.value["reason"]!=null && !isEmptyString(this.filterform.value["reason"])){
-  //     this.filterparamarr.push({field:"reason",operator:this.filterform.value["reasonsearchcriteria"],value:this.filterform.value["reason"]})
-  //   }
-  //   if(this.filterform.value["justification"]!=null && !isEmptyString(this.filterform.value["justification"])){
-  //     this.filterparamarr.push({field:"justification",operator:this.filterform.value["justificationsearchcriteria"],value:this.filterform.value["justification"]})
-  //   }
-  //   if(this.filterform.value["jiraLink"]!=null && !isEmptyString(this.filterform.value["jiraLink"])){
-  //     this.filterparamarr.push({field:"jiraLink",operator:this.filterform.value["jiraLinksearchcriteria"],value:this.filterform.value["jiralink"]})
-  //   }
-  //   if(this.filterform.value["requeststatus"]!=null && !isEmptyString(this.filterform.value["requeststatus"])){
-  //     this.filterparamarr.push({field:"requeststatus",operator:this.filterform.value["requeststatussearchcriteria"],value:this.filterform.value["requeststatus"]})
-  //   }
-  //   this.searchParam.filters = this.filterparamarr;
-  //   this.searchParam.sorts.push({ field: "rwkId", direction: "DESC" });
-  //   this.masterApiService.masterSearch(this.searchUrl, this.searchParam).subscribe(x => {      
-  //     this.searchGridData = x.data;
-  //   });
-  // }
-
-  searchSubmit() {
-    this.spinner.show();
-        this.searchParam = { pageNumber: 0, pageSize: this.perPage, filters: [], sorts: [] };
-        this.filterparamarr = [];
-        if(this.filterform.value["rwkId"]!=null && !isEmptyString(this.filterform.value["rwkId"])){
-          this.filterparamarr.push({field:"rwkId",operator:this.filterform.value["rwkIdsearchcriteria"],value:this.filterform.value["rwkId"]})
-        }
-        if(this.filterform.value["reason"]!=null && !isEmptyString(this.filterform.value["reason"])){
-          this.filterparamarr.push({field:"reason",operator:this.filterform.value["reasonsearchcriteria"],value:this.filterform.value["reason"]})
-        }
-        if(this.filterform.value["justification"]!=null && !isEmptyString(this.filterform.value["justification"])){
-          this.filterparamarr.push({field:"justification",operator:this.filterform.value["justificationsearchcriteria"],value:this.filterform.value["justification"]})
-        }
-        if(this.filterform.value["jiraLink"]!=null && !isEmptyString(this.filterform.value["jiraLink"])){
-          this.filterparamarr.push({field:"jiraLink",operator:this.filterform.value["jiraLinksearchcriteria"],value:this.filterform.value["jiralink"]})
-        }
-        if(this.filterform.value["requeststatus"]!=null && !isEmptyString(this.filterform.value["requeststatus"])){
-          this.filterparamarr.push({field:"requeststatus",operator:this.filterform.value["requeststatussearchcriteria"],value:this.filterform.value["requeststatus"]})
-        }
-        if(this.filterform.value["parentplanitem"]!=null && !isEmptyString(this.filterform.value["parentplanitem"])){
-          this.filterparamarr.push({field:"parentplanitem",operator:this.filterform.value["rwkIdsearchcriteria"],value:(this.filterform.value["parentplanitem"]).toString()})
-        }
-    
-        this.searchParam.filters = this.filterparamarr;
-        this.searchParam.sorts.push({ field: "rwkId", direction: "DESC" });
-        let sortparamarr = [];
-        sortparamarr.push({ field: "rwkId", direction: "DESC" });
-        this.masterApiService.getData().subscribe(data => {
-          if (data) {
-            this.searchGridData = [];
-            this.searchGridData.push(...data);
-            this.totalCount = this.searchGridData.length;
-            this.spinner.hide();
-          }
-        });
-        this.masterApiService.getGridData(this.searchUrl, sortparamarr, this.filterparamarr);
+    let sortparamarr = [];
+    sortparamarr.push({ field: "rwkId", direction: "DESC" });
+    this.masterApiService.getData().subscribe(data => {
+      if (data) {
+        this.searchGridData = [];
+        this.searchGridData.push(...data);
+        this.totalCount = this.searchGridData.length;
+        this.spinner.hide();
       }
-  
+    });
+    this.masterApiService.getGridData(this.searchUrl, sortparamarr, this.filterparamarr);
+  }
 }

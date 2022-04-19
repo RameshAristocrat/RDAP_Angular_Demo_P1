@@ -2,7 +2,7 @@
   <mat-card>
     <mat-card-content class="mat-elevation-z4">
       <app-rdap-shared-breadcrumb></app-rdap-shared-breadcrumb>
-      <mat-tab-group class="mat-elevation-z4" [selectedIndex]="0" style="background-color: #ffff;border-radius: 4px;" #managepinTab
+      <mat-tab-group class="mat-elevation-z4" #managepinTab *ngIf="isTabFlag == true" [selectedIndex]="0" style="background-color: #ffff;border-radius: 4px;" 
         (selectedTabChange)="tabChange(managepinTab.selectedIndex)" dynamicHeight>
         <mat-tab class="mat-elevation-z4" *ngIf="isTabFlag == true && (mpproductPermission &&
                  mpproductPermission.isEdit == true || mpproductPermission.isView == true)">
@@ -15,7 +15,7 @@
             </span>
           </ng-template>
           <app-rdap-manage-pin-product-tab *ngIf="viewExtrapinRequestData" [isAdmin]="IsManagePinAdminFlag" [planitem]="viewExtrapinRequestData"
-            (productEvent)="productEvent($event)"></app-rdap-manage-pin-product-tab>
+            (productEvent)="productEvent($event)" [mpproductPermission]="mpproductPermission"></app-rdap-manage-pin-product-tab>
         </mat-tab>
         <mat-tab class="mat-elevation-z4" *ngIf="isTabFlag == true && (mpmilestonePermission &&
                  mpmilestonePermission.isEdit == true ||  mpmilestonePermission.isView == true)">
@@ -28,7 +28,8 @@
             </span>
           </ng-template>
           <app-rdap-manage-pin-milestone-tab *ngIf="viewExtrapinRequestData" [isAdmin]="IsManagePinAdminFlag" [planitem]="viewExtrapinRequestData"
-            [changeflag]="saveflag" (milestoneEvent)="milestoneEvent($event)"></app-rdap-manage-pin-milestone-tab>
+            [changeflag]="saveflag" (milestoneEvent)="milestoneEvent($event)"
+            [mpmilestonePermission]="mpmilestonePermission"></app-rdap-manage-pin-milestone-tab>
         </mat-tab>
         <mat-tab class="mat-elevation-z4"
           *ngIf="isTabFlag == true && (mpdependencyPermission &&  mpdependencyPermission.isEdit == true || 
@@ -42,7 +43,7 @@
             </span>
           </ng-template>
           <app-rdap-manage-pin-dependencies-tab *ngIf="viewExtrapinRequestData" [isAdmin]="IsManagePinAdminFlag" [dependencyInput]="dependencyInput"
-            (dependencyEvent)="dependencyEvent($event)">
+            (dependencyEvent)="dependencyEvent($event)" [mpdependencyPermission]="mpdependencyPermission">
           </app-rdap-manage-pin-dependencies-tab>
         </mat-tab>
         <mat-tab class="mat-elevation-z4" *ngIf="isTabFlag == true && (mpcabinetPermission &&
@@ -56,7 +57,7 @@
             </span>
           </ng-template>
           <app-rdap-manage-pin-cabinet-tab *ngIf="viewExtrapinRequestData" [planitem]="viewExtrapinRequestData"
-            (cabinetEvent)="cabinetEvent($event)"></app-rdap-manage-pin-cabinet-tab>
+            (cabinetEvent)="cabinetEvent($event)" [mpcabinetPermission]="mpcabinetPermission"></app-rdap-manage-pin-cabinet-tab>
         </mat-tab>
         <mat-tab class="mat-elevation-z4"
           *ngIf="isTabFlag == true && (mptesterPermission && mptesterPermission.isEdit == true ||
@@ -70,7 +71,7 @@
             </span>
           </ng-template>
           <app-rdap-manage-pin-test-details-tab *ngIf="viewExtrapinRequestData" [testdetailsInput]="testdetailsInput"
-            (testdetailsEvent)="testdetailsEvent($event)">
+            (testdetailsEvent)="testdetailsEvent($event)" [mptesterPermission]="mptesterPermission">
           </app-rdap-manage-pin-test-details-tab>
         </mat-tab>
         <mat-tab class="mat-elevation-z4"
@@ -85,7 +86,7 @@
             </span>
           </ng-template>
           <app-rdap-manage-pin-set-items-tab *ngIf="viewExtrapinRequestData" [setitemInput]="setitemInput"
-            (setItemEvent)="setItemEvent($event)"></app-rdap-manage-pin-set-items-tab>
+            (setItemEvent)="setItemEvent($event)" [mpsetitemPermission]="mpsetitemPermission"></app-rdap-manage-pin-set-items-tab>
         </mat-tab>
         <mat-tab class="mat-elevation-z4" *ngIf="isTabFlag == true && (mpclarityPermission && 
                 mpclarityPermission.isEdit == true || mpclarityPermission.isView == true)">
@@ -98,7 +99,7 @@
             </span>
           </ng-template>
           <app-rdap-manage-pin-clarity *ngIf="viewExtrapinRequestData" [planitem]="viewExtrapinRequestData"
-            (clarityEvent)="clarityEvent($event)"></app-rdap-manage-pin-clarity>
+            (clarityEvent)="clarityEvent($event)" [mpclarityPermission]="mpclarityPermission"></app-rdap-manage-pin-clarity>
         </mat-tab>
         <mat-tab class="mat-elevation-z4"
           *ngIf="isTabFlag == true &&(mplinkedPermission && mplinkedPermission.isEdit == true || mplinkedPermission.isView == true || mplinkedPermission.isAdd == true) ||
@@ -112,7 +113,8 @@
             </span>
           </ng-template>
           <app-rdap-manage-pin-others-tab *ngIf="viewExtrapinRequestData" [planitem]="viewExtrapinRequestData"
-            (otherEventLinkpin)="otherEventLinkpin($event)" (otherEventImpacpin)="otherEventImpacpin($event)"></app-rdap-manage-pin-others-tab>
+            (otherEventLinkpin)="otherEventLinkpin($event)" (otherEventImpacpin)="otherEventImpacpin($event)"
+            [mplinkedPermission]="mplinkedPermission" [mpimpactedPermission]="mpimpactedPermission"></app-rdap-manage-pin-others-tab>
         </mat-tab>
         <mat-tab class="mat-elevation-z4"
           *ngIf="isTabFlag == true && (mpauditPermission && mpauditPermission.isView == true || mpauditPermission.isEdit == true)">
@@ -125,7 +127,7 @@
             </span>
           </ng-template>
           <app-rdap-manage-pin-audit-logs-tab *ngIf="viewExtrapinRequestData" [planitem]="viewExtrapinRequestData"
-            (auditlogEvent)="auditlogEvent($event)"></app-rdap-manage-pin-audit-logs-tab>
+            (auditlogEvent)="auditlogEvent($event)" ></app-rdap-manage-pin-audit-logs-tab>
         </mat-tab>
       </mat-tab-group>
     </mat-card-content>

@@ -1,33 +1,18 @@
 <div class="grid__wrapper" >
-    <!-- <igx-grid igxPreventDocumentScroll #grid1 id="grid1" 
-    [data]="data" 
-    [rowSelection]="rowselectionflag" 
-        [rowHeight]="25" 
-        height="auto" 
-        width="100%" 
-        [allowFiltering]="filterflag"
-        (toolbarExporting)="configureExport($event)"
-        (rowSelected)="handleRowSelection($event)"
-        [autoGenerate]="autogenFlag"
-        [paging]="true"
-        [pagingMode]="mode" [totalRecords]="totalCount" 
-        (pageChange)="onPageChange($event)"
-        (onPageChangeEvent)="onPageChangeEvent($event)"
-        > -->
         <igx-grid igxPreventDocumentScroll #grid1 id="grid1" 
         [data]="data" 
         [rowSelection]="rowselectionflag" 
         [rowHeight]="25" 
         height="auto" 
-        width="100%" 
+        width="100%"
         [allowFiltering]="filterflag"
-        (toolbarExporting)="configureExport($event)"
         (rowSelected)="handleRowSelection($event)"
         [autoGenerate]="autogenFlag"  [emptyGridMessage]="'No Record Found'"
+        (columnPin)="columnPinning($event)"
         >
         <igx-grid-toolbar [hidden]="searchGridData?.length == 0">
             <igx-grid-toolbar-actions >
-                <igx-grid-toolbar-exporter [exportExcel]="true" [exportCSV]="true" filename="{{exportfilename}}">
+                <igx-grid-toolbar-exporter filename="{{exportfilename}}">
                 </igx-grid-toolbar-exporter>
                 <igx-grid-toolbar-pinning></igx-grid-toolbar-pinning>
             </igx-grid-toolbar-actions>
@@ -45,3 +30,5 @@
         </igx-column>
     </igx-grid>
 </div>
+<igx-dialog #alert title="Warning!" message="{{message}}" leftButtonLabel="OK"
+  (leftButtonSelect)="onDialogSubmit($event)"></igx-dialog>

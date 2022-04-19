@@ -50,7 +50,7 @@ export class RdapManagePinCabinetTabComponent implements OnInit, OnChanges {
   mpproductPermission: any;
   mpdependencyPermission: any;
   mpmilestonePermission: any;
-  mpcabinetPermission: any;
+  @Input() mpcabinetPermission: any;
   mptesterPermission: any;
   mpsetitemPermission: any;
   mplinkedPermission: any;
@@ -94,10 +94,7 @@ export class RdapManagePinCabinetTabComponent implements OnInit, OnChanges {
   }
 
   public getPermissionmpMasterByModule() {
-   // debugger
     this.pagePermission = [];
-    this.mpcabinetPermission= [];
-    let rolePermissionMockData;
     this.masterApiService.masterSearchDDL(this.baseApi + "cabinet/ddl").subscribe(data => {
       this.requesttitlearrobj.push(data);
       this.cabinetDdldata = this.requesttitlearrobj[0];
@@ -106,35 +103,16 @@ export class RdapManagePinCabinetTabComponent implements OnInit, OnChanges {
     });
     this.buildForm();
     this.viewExtrapinRequestForm();
-    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "mpcabinet").subscribe(res => {
-      if (this.rolepermissionmock == true) {
-        this.pagePermission.push(rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissioncabinetmock);
-        this.mpcabinetPermission = rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissioncabinetmock;
-       // debugger
-        if(this.mpcabinetPermission.isView == true && this.mpcabinetPermission.isEdit == false){
-          this.isViewOnlyPermission();
-        }
-        if(this.mpcabinetPermission.isEdit == true){
-          this.gridrowselectionflag = "multiple";
-          this.cabinetgrid.rowSelection = "multiple";
-        }else{
-          this.gridrowselectionflag = "none";
-          this.cabinetgrid.rowSelection = "none";
-        }
-      } else {
-        this.pagePermission.push(res);
-        this.mpcabinetPermission = res;
-        if(this.mpcabinetPermission.isView == true && this.mpcabinetPermission.isEdit == false){
-          this.isViewOnlyPermission();
-        }
-        if(this.mpcabinetPermission.isEdit == true){
-          this.gridrowselectionflag = "multiple";
-        }else{
-          this.gridrowselectionflag = "none";
-          this.cabinetgrid.rowSelection = "none";
-        }
-      }        
-    });
+    this.pagePermission.push(this.mpcabinetPermission);
+    if(this.mpcabinetPermission.isView == true && this.mpcabinetPermission.isEdit == false){
+      this.isViewOnlyPermission();
+    }
+    if(this.mpcabinetPermission.isEdit == true){
+      this.gridrowselectionflag = "multiple";
+    }else{
+      this.gridrowselectionflag = "none";
+      this.cabinetgrid.rowSelection = "none";
+    }
   }
   isViewOnlyPermission(){
 

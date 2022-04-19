@@ -52,7 +52,7 @@ export class RdMasterApiService {
     
     if(this.oktaAuthToken != null) {
      //Please do not clear this console.log ..
-    console.log('get Expire Time : ',this.oktaAuthToken, this.oktaAuthToken?.idToken.expiresAt, '< =: ',moment.utc(Date.now()).unix());
+   // console.log('get Expire Time : ',this.oktaAuthToken, this.oktaAuthToken?.idToken.expiresAt, '< =: ',moment.utc(Date.now()).unix());
      if(this.oktaAuthToken.idToken.expiresAt < moment.utc(Date.now()).unix()){
       this.oktaAuthserv.logout();
       localStorage.clear();

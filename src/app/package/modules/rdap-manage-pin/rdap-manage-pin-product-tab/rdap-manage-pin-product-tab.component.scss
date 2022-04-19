@@ -1,5 +1,5 @@
 input, select, textarea, label, ng-select, igx-date-picker, igx-input-group, matInput, ng-dropdown-panel {
-    font-size: 10px !important;
+    font-size: 10.5px !important;
     }
 
     table, th, td {
@@ -8,7 +8,7 @@ input, select, textarea, label, ng-select, igx-date-picker, igx-input-group, mat
       :host {
         ::ng-deep{
           .input.mat-input-element{
-            font-size: 10px !important;
+            font-size: 10.5px !important; 
           }
         }
       }
@@ -17,7 +17,7 @@ input, select, textarea, label, ng-select, igx-date-picker, igx-input-group, mat
       }
       .mat-form-field{
         width: 100%;
-        font-size: 10px;
+        font-size: 10.5px;
     }
     
     :host::ng-deep .mat-form-field {
@@ -29,10 +29,10 @@ input, select, textarea, label, ng-select, igx-date-picker, igx-input-group, mat
       height: 50px !important;
     }
     :host::ng-deep .mat-input-element{
-        font-size: 10px;
+        font-size: 10.5px;
     }
     :host::ng-deep .ng-select-container {
-      font-size: 10px !important;
+      font-size: 10.5px !important;
     }    
     .colBorder{
       border: 1px solid rgb(224, 221, 221);

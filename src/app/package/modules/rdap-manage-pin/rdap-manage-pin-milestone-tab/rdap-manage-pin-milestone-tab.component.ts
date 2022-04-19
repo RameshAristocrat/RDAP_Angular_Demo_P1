@@ -75,7 +75,6 @@ export class RdapManagePinMilestoneTabComponent implements OnInit,OnChanges {
   managepin: any;
   mpproductPermission: any;
   mpdependencyPermission: any;
-  mpmilestonePermission: any;
   mpcabinetPermission: any;
   mptesterPermission: any;
   mpsetitemPermission: any;
@@ -90,6 +89,7 @@ export class RdapManagePinMilestoneTabComponent implements OnInit,OnChanges {
   @Output() milestoneEvent = new EventEmitter<any>();
   @Input() planitem: any;
   @Input() saveflag: any;
+  @Input() mpmilestonePermission: any;
  // IsManagePinAdminFlag:boolean = false;
   milestoneModel: {
     planApprDate: "",
@@ -139,23 +139,10 @@ export class RdapManagePinMilestoneTabComponent implements OnInit,OnChanges {
 
   public getPermissionmpMasterByModule() {
     this.pagePermission = [];
-    this.mpmilestonePermission= [];
-    let rolePermissionMockData;
-    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "mpmilestone").subscribe(res => {
-      if (this.rolepermissionmock == true) {
-        this.pagePermission.push(rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionmilestonemock);
-        this.mpmilestonePermission = rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionmilestonemock;
-        if(this.mpmilestonePermission.isView == true && this.mpmilestonePermission.isEdit == false){
-          this.isViewOnlyPermission();
-        }
-      } else {
-        this.pagePermission.push(res);
-        this.mpmilestonePermission = res;
-        if(this.mpmilestonePermission.isView == true && this.mpmilestonePermission.isEdit == false){
-          this.isViewOnlyPermission();
-        }
-      }
-    });
+    this.pagePermission.push(this.mpmilestonePermission);
+    if(this.mpmilestonePermission.isView == true && this.mpmilestonePermission.isEdit == false){
+      this.isViewOnlyPermission();
+    }
   }
 
   public isViewOnlyPermission(){

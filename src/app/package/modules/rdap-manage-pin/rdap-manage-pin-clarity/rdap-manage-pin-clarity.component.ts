@@ -70,7 +70,7 @@ export class RdapManagePinClarityComponent implements OnInit {
   mplinkedPermission: any;
   mpimpactedPermission: any;
   mpauditPermission: any;
-  mpclarityPermission: any;
+  @Input() mpclarityPermission: any;
   public pagePermission: any;
   public rolePermissionEnableFlag: any;
   public rolepermissionmock: boolean = false;
@@ -87,24 +87,11 @@ export class RdapManagePinClarityComponent implements OnInit {
   }
   public getPermissionmpMasterByModule() {
     this.pagePermission = [];
-    this.mpclarityPermission= [];
-    let rolePermissionMockData;
-    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "mpclarity").subscribe(res => {
-      if (this.rolepermissionmock == true) {
-        this.pagePermission.push(rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionclaritymock);
-        this.mpclarityPermission = rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionclaritymock;
-        if(this.mpclarityPermission.isView == true && this.mpclarityPermission.isEdit == false){
-          this.isViewOnlyPermission();
-        }
-      } else {
-        this.pagePermission.push(res);
-        this.mpclarityPermission = res;
-        if(this.mpclarityPermission.isView == true && this.mpclarityPermission.isEdit == false){
-          this.isViewOnlyPermission();
-        }
-      }          
+    this.pagePermission.push(this.mpclarityPermission);
+    if(this.mpclarityPermission.isView == true && this.mpclarityPermission.isEdit == false){
+      this.isViewOnlyPermission();
+    }
     this.spinner.hide();
-    });
   }
   isViewOnlyPermission(){
     this.clarityform.get("projectCode").disable({ onlySelf: true });
@@ -125,11 +112,13 @@ export class RdapManagePinClarityComponent implements OnInit {
     this.buildForm();
     this.getClarityById();
     this.masterApiService.getprojectRefValue().subscribe(data => {
-      this.projectRefData = data;
-      this.clarityModel["projectCode"] = this.projectRefData;
-      this.emitData = { data: this.clarityModel, flag: true };
-  this.clarityEvent.emit(this.emitData);
-      this.buildForm();
+      if(data){
+        this.projectRefData = data;
+        this.clarityModel["projectCode"] = this.projectRefData;
+        this.emitData = { data: this.clarityModel, flag: true };
+        this.clarityEvent.emit(this.emitData);
+        this.buildForm();
+      }
     });
   }
 
@@ -156,25 +145,28 @@ export class RdapManagePinClarityComponent implements OnInit {
     if(this.pinId != undefined)
     {
     this.masterApiService.getRequestPinById(this.extraPinAPi + "Clarity/getbyplanitem/" + this.pinId).subscribe(data => {
-      this.clarityData = data;
-      this.viewExtrapinRequestForm();
-      this.spinner.hide();
+      if(data){
+        this.clarityData = data;
+        this.viewExtrapinRequestForm();
+        this.spinner.hide();
+      }
+      
     });
   }
   }
   onDateChange(event, formctrlname) {
     if(this.projectRefData == undefined || this.projectRefData == null || this.projectRefData == "")
-{
-  this.notificationAlert.open();
-  this.message= "Please enter and save Project Ref in Product tab first.";
-}
-else{
-    this.emitData = { data: null, flag: false };
-    //this.clarityform.value[formctrlname] = moment(event.value).format("YYYY-MM-DD");
-    this.clarityModel[formctrlname] = moment(event.value).format("YYYY-MM-DD");
-    this.emitData = { data: this.clarityModel, flag: true };
-    this.clarityEvent.emit(this.emitData);
-}
+      {
+        this.notificationAlert.open();
+        this.message= "Please enter and save Project Ref in Product tab first.";
+      }
+      else{
+          this.emitData = { data: null, flag: false };
+          //this.clarityform.value[formctrlname] = moment(event.value).format("YYYY-MM-DD");
+          this.clarityModel[formctrlname] = moment(event.value).format("YYYY-MM-DD");
+          this.emitData = { data: this.clarityModel, flag: true };
+          this.clarityEvent.emit(this.emitData);
+      }
   }
   
   onDialogSubmit(event){

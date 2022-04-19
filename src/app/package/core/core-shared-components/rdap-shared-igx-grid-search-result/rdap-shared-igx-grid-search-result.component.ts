@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
-import { GridPagingMode, IgxExcelExporterService, IgxGridComponent } from '@infragistics/igniteui-angular';
+import { GridPagingMode, IgxColumnComponent, IgxDialogComponent, IgxExcelExporterService, IgxGridComponent } from '@infragistics/igniteui-angular';
 import { DATA } from '../../../../../assets/config/customers';
 import * as appstringdata from 'src/assets/config/app-string';
 import {
@@ -19,7 +19,8 @@ import { environment } from "src/environments/environment";
   templateUrl: './rdap-shared-igx-grid-search-result.component.html',
   styleUrls: ['./rdap-shared-igx-grid-search-result.component.scss']
 })
-export class RdapSharedIgxGridSearchResultComponent implements OnInit, AfterViewInit, OnChanges {
+export class RdapSharedIgxGridSearchResultComponent implements OnInit,OnChanges {
+  @ViewChild('alert', { static: true }) public notificationAlert: IgxDialogComponent;
   @ViewChild('grid1', { static: true }) public grid: IgxGridComponent;
   public mode = GridPagingMode.Remote;
   public data: any[];
@@ -35,8 +36,8 @@ export class RdapSharedIgxGridSearchResultComponent implements OnInit, AfterView
   debuggerflag:boolean;
   public gridHeaderDisplay: Boolean= true;
   public columnName:string[];
-
-  //@Input() panelOpenState: any;
+  public message:any;
+  public pinnedColName:any;
   @Input() searchGridData: any[];
   @Input() totalCount : any ;
   @Input() appString: any;
@@ -47,11 +48,6 @@ export class RdapSharedIgxGridSearchResultComponent implements OnInit, AfterView
   constructor(private httpClient: HttpClient, private cdr: ChangeDetectorRef,private masterApiService: RdMasterApiService,
     private excelExportService: IgxExcelExporterService, private behaviourService: BehaviourSubjectService) {
     this.debuggerflag = environment.debuggerflag;
-      // this.appString=[];
-    // this.httpClient.get("assets/config/app-string.json").subscribe(y => {
-    //   this.appString = y;
-    // })
-    //this.totalCount = 100;
   }
 
   ngOnInit(): void {
@@ -73,13 +69,7 @@ export class RdapSharedIgxGridSearchResultComponent implements OnInit, AfterView
       this.exportdisplay = "none";
       this.rowselectionflag = "none";
       this.autogenFlag=true;
-    } else {
-      // this.filterflag = true;
-      // this.exportdisplay = "block"
-      // this.rowselectionflag = "single";
-      // this.autogenFlag=false;
-    }
-    // this.gridDataLoad();   
+    }   
   }
   ngOnChanges() {
     if (this.searchGridData != undefined && this.searchGridData?.length > 0) {
@@ -101,11 +91,6 @@ export class RdapSharedIgxGridSearchResultComponent implements OnInit, AfterView
       this.columndata = [];
       this.loopGridContent = [];
     }
-    //this.getDoctypeSearchFormData(this.selbasedoctype);
-  }
-  public ngAfterViewInit() {
-    //this.grid.selectColumns(['City', 'PostalCode']);
-    //this.cdr.detectChanges();
   }
   public exportButtonHandler() {
     this.excelExportService.export(this.grid, new IgxExcelExporterOptions("ExportedDataFile"));
@@ -125,16 +110,12 @@ export class RdapSharedIgxGridSearchResultComponent implements OnInit, AfterView
     }
 
     args.exporter.columnExporting.subscribe((columnArgs: IColumnExportingEventArgs) => {
-      // Don't export image fields
-      // columnArgs.cancel = columnArgs.header === 'Athlete' ||
-      //                     columnArgs.header === 'Country';
     });
   }
   public gridDataLoad() {
     this.columndata = [];
     this.loopGridContent = [];
     this.columnName=[];
-    // || this.pagename == "managepinlist"
     if (this.pagename == "managepintab"
        || this.pagename == "managepin-linkedpin" || this.pagename == "managepin-impactedpin") {
       this.filterflag = false;
@@ -144,7 +125,6 @@ export class RdapSharedIgxGridSearchResultComponent implements OnInit, AfterView
       this.exportdisplay = "block"
     }
     this.data = this.searchGridData.filter((x, i, a) => x && a.indexOf(x) === i);
-    //this.masterApiService.debuggerLog(this.debuggerflag,"this.searchGridData",this.data);
     if(this.pagename == "extrapinreqlist"){
       Object.keys(this.searchGridData[0]).forEach(x=>{
         this.columnName.push(x);
@@ -271,10 +251,23 @@ export class RdapSharedIgxGridSearchResultComponent implements OnInit, AfterView
     }
   }
   public onPageChange(pageNumber: number) {
-    //alert(pageNumber);
     this.onPageChangeEvent.emit(pageNumber);
     
   }
   public update(event, cell) {
   }
+  columnPinning(event) {
+    this.pinnedColName = event.column.field;
+    if(event.isPinned == false && event.insertAtIndex > 4){
+      this.notificationAlert.open();
+      this.message = "You can pin only up to 5 columns!!";
+    }
+  }
+  onDialogSubmit(event) {
+    event.dialog.close();
+    this.grid.unpinColumn(this.pinnedColName);
+  }
+  public toggleColumn(col: IgxColumnComponent) {
+    col.pinned ? col.unpin() : col.pin();
+}
 }

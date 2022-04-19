@@ -1,5 +1,4 @@
-
-<div class="grid-container" >
+<div class="grid-container">
     <app-rdap-shared-breadcrumb></app-rdap-shared-breadcrumb>
     <div *ngIf="isShow">
         <mat-card>
@@ -14,10 +13,11 @@
                                 Rework Details
                             </span>
                         </ng-template>
-                        <!-- <app-rdap-rework-details></app-rdap-rework-details> -->
-                        <app-rdap-rework-details *ngIf="!reworkId"  [reworkId]="reworkId" (reworkdetailsEvent)="reworkdetailsEvent($event)">
-                        </app-rdap-rework-details> 
-                     <app-rdap-rework-details *ngIf="reworkId"  [reworkId]="reworkId" (reworkdetailsEvent)="reworkdetailsEvent($event)">
+                        <app-rdap-rework-details *ngIf="!reworkId" [reworkId]="reworkId"
+                            (reworkdetailsEvent)="reworkdetailsEvent($event)">
+                        </app-rdap-rework-details>
+                        <app-rdap-rework-details *ngIf="reworkId" [reworkId]="reworkId"
+                            (reworkdetailsEvent)="reworkdetailsEvent($event)">
                         </app-rdap-rework-details>
                     </mat-tab>
                     <mat-tab class="mat-elevation-z4">
@@ -29,26 +29,15 @@
                                 Attachments
                             </span>
                         </ng-template>
-                        <!-- <app-rdap-rework-attachment></app-rdap-rework-attachment> -->
-                        <app-rdap-rework-attachment *ngIf="!reworkId"   [reworkId]="reworkId" (reworkattachmentEvent)="reworkattachmentEvent($event)"
-                        (reworkAllFileList)="reworkAllFileList($event)"
-                        >
-                        </app-rdap-rework-attachment> 
-                     <app-rdap-rework-attachment *ngIf="reworkId"  [reworkId]="reworkId" (reworkattachmentEvent)="reworkattachmentEvent($event)"
-                        (reworkAllFileList)="reworkAllFileList($event)"   >
-                    </app-rdap-rework-attachment>
+                        <app-rdap-rework-attachment *ngIf="!reworkId" [reworkId]="reworkId"
+                            (reworkattachmentEvent)="reworkattachmentEvent($event)"
+                            (reworkAllFileList)="reworkAllFileList($event)">
+                        </app-rdap-rework-attachment>
+                        <app-rdap-rework-attachment *ngIf="reworkId" [reworkId]="reworkId"
+                            (reworkattachmentEvent)="reworkattachmentEvent($event)"
+                            (reworkAllFileList)="reworkAllFileList($event)">
+                        </app-rdap-rework-attachment>
                     </mat-tab>
-                    <!-- <mat-tab class="mat-elevation-z4">
-                        <ng-template mat-tab-label>
-                            <span class="material-icons-outlined">
-                                library_books
-                            </span>
-                            <span style="padding-left: 10%;">
-                                Legend
-                            </span>
-                        </ng-template>
-                        <app-rdap-rework-static-legend></app-rdap-rework-static-legend>
-                    </mat-tab> -->
                     <mat-tab class="mat-elevation-z4">
                         <ng-template mat-tab-label>
                             <span class="material-icons-outlined">
@@ -59,29 +48,24 @@
                             </span>
                         </ng-template>
                         <app-rdap-rework-static-formfield></app-rdap-rework-static-formfield>
-                        <!-- <app-rdap-rework-static-legend></app-rdap-rework-static-legend> -->
                     </mat-tab>
                 </mat-tab-group>
             </mat-card-content>
             <mat-card-actions style="text-align:left;">
                 <button mat-raised-button style="width: 25%;background-color: #300c46;color:white"
-                 (click)="reworkReqSubmit()" *ngIf="actionFlag == 'A'">Rework Request</button>
-                 <button mat-raised-button style="width: 25%;background-color: #300c46;color:white"
-                 (click)="checkRejected()" *ngIf="actionFlag == 'U'">Update Rework Request</button>
-        
+                    (click)="reworkReqSubmit()" *ngIf="actionFlag == 'A'">Rework Request</button>
+                <button mat-raised-button style="width: 25%;background-color: #300c46;color:white"
+                    (click)="checkRejected()" *ngIf="actionFlag == 'U'">Update Rework Request</button>
+
                 <button mat-raised-button style="width: 10%;background-color: #300c46;color:white"
-                (click)="cancel()">Back</button>
-              </mat-card-actions>
-            </mat-card>
+                    (click)="cancel()">Back</button>
+            </mat-card-actions>
+        </mat-card>
     </div>
-  
-   
-    
-  </div>
-  <igx-dialog #alert title="Rework Request" message="{{message}}" leftButtonLabel="OK" 
-  (leftButtonSelect)="onDialogSubmit($event)"></igx-dialog>
-  <igx-dialog #rejectalert title="Rework Request" message="{{rmessage}}" leftButtonLabel="YES"  rightButtonLabel="NO"
-  (leftButtonSelect)="onDialogSubmitY($event)" (rightButtonSelect)="onDialogSubmitN($event)" ></igx-dialog>
-  
-  <igx-dialog #accessalert title="No Access" message="{{amessage}}" leftButtonLabel="OK"
-  (leftButtonSelect)="onDialogSubmitA($event)"  ></igx-dialog>
+</div>
+<igx-dialog #alert title="Rework Request" message="{{message}}" leftButtonLabel="OK"
+    (leftButtonSelect)="onDialogSubmit($event)"></igx-dialog>
+<igx-dialog #rejectalert title="Rework Request" message="{{rmessage}}" leftButtonLabel="YES" rightButtonLabel="NO"
+    (leftButtonSelect)="onDialogSubmitY($event)" (rightButtonSelect)="onDialogSubmitN($event)"></igx-dialog>
+<igx-dialog #accessalert title="No Access" message="{{amessage}}" leftButtonLabel="OK"
+    (leftButtonSelect)="onDialogSubmitA($event)"></igx-dialog>

@@ -51,6 +51,7 @@ export class OktaAuthService {
   }
 
   async handleAuthentication() {
+    
     if(this.oktaAuth.isLoginRedirect() == false && JSON.parse(localStorage.getItem("okta-token-storage")) == null){
        this.login('/home');
     }
@@ -59,19 +60,21 @@ export class OktaAuthService {
       let tokenContainer = await  this.oktaAuth.token.parseFromUrl();
       this.oktaAuth.tokenManager.add('idToken', tokenContainer.tokens.idToken as IDToken);
       this.oktaAuth.tokenManager.add('accessToken', tokenContainer.tokens.accessToken as AccessToken);
-      this.router.navigate(['/home/dashboard']);
-
+      this.setNavigation();
    }
    else{
     if(JSON.parse(localStorage.getItem("okta-token-storage"))){
-      this.router.navigate(['/home/dashboard']);
+      this.setNavigation();
     }
    }
   }
-
-  // async logout() {
-  //   await this.oktaAuth.tokenManager.clear();
-  // }
+  
+  setNavigation(){
+    if(this.router.url == '/home' || this.router.url.indexOf('code') !== -1){
+      this.router.navigate(['/home/dashboard']);
+    }
+  }
+  
   async logout() {
     await this.oktaAuth.signOut({
       postLogoutRedirectUri: this.LOGOUT_REDIRECT_URI

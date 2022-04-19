@@ -1,488 +1,405 @@
-<form  *ngIf="reworkrequestdetailsform" [formGroup]="reworkrequestdetailsform"  style="padding-left: 2%;padding-right: 2%;padding-bottom: 2%;padding-top:2%;">
-  
+<form *ngIf="reworkrequestdetailsform" [formGroup]="reworkrequestdetailsform"
+  style="padding-left: 2%;padding-right: 2%;padding-bottom: 2%;padding-top:2%;">
   <div class="row">
-      
     <div class="col-lg-12 form-group" required>
-      <div class="row"  style="padding-top: 23px;">
-      <mat-form-field style="width: 100%">
-        <mat-label for="reworkrequestdetailsform">Reason for Rework </mat-label>
-        <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
-          cdkAutosizeMaxRows="5" maxlength="250" required (change)="ddlOnChangeEvent($event)" formControlName="reason"></textarea>
-      </mat-form-field>
-      <small *ngIf="reworkrequestdetailsform.hasError('required', 'reason')"></small>
+      <div class="row" style="padding-top: 23px;">
+        <mat-form-field style="width: 100%">
+          <mat-label for="reworkrequestdetailsform">Reason for Rework </mat-label>
+          <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+            cdkAutosizeMaxRows="5" maxlength="250" required (change)="ddlOnChangeEvent($event)"
+            formControlName="reason"></textarea>
+        </mat-form-field>
+        <small *ngIf="reworkrequestdetailsform.hasError('required', 'reason')"></small>
+      </div>
     </div>
-    
-    </div> 
-  </div> 
+  </div>
   <div class="row">
     <div class="col-lg-4 form-group">
-        <div class="row" style="padding-top: 12px;" >
-          <mat-form-field>
-            <input
-              type="text"
-              matInput
-              name="name"
-              [disabled]="true"
-              formControlName="rwkId"
-              placeholder="Rework Id"
-              
-            />
-          </mat-form-field>
-        </div>
-    </div>
-    <div class="col-lg-4 form-group">
-        <div class="row"  >
-          
-            <ng-select ngSelectMat [items]="requestStatusobj[0]" placeholder="Request Status:" bindLabel="description" bindValue="id"
-             [virtualScroll]="true" appendTo="body" formControlName="requeststatus"
-            >
-            <ng-template ng-option-tmp let-item="item">
-              {{  item.description  }}
-            </ng-template>
-          </ng-select>
-         
-        </div>
-     
-    </div>
-  </div> 
-
-
-  <div class="row">
-    <div class="col-lg-4 form-group">
-        <div class="row" style="padding-top: 12px;" >
-          <mat-form-field>
-            <input
-              type="text"
-              matInput
-              name="name"
-              [disabled]="true"
-              formControlName="planitem"
-              placeholder="Rework Pin no"
-              
-            />
-          </mat-form-field>
-        </div>
-    </div>
-    <div class="col-lg-4 form-group">
-      <div class="row" style="padding-top: 12px;" >
+      <div class="row" style="padding-top: 12px;">
         <mat-form-field>
-          <input
-            type="text"
-            matInput
-            name="name"
-            [disabled]="true"
-            formControlName="planitem2"
-            placeholder="Rework Pin no"
-            
-          />
+          <input type="text" matInput name="name" [disabled]="true" formControlName="rwkId" placeholder="Rework Id" />
         </mat-form-field>
       </div>
-     
     </div>
     <div class="col-lg-4 form-group">
-      <div class="row" style="padding-top: 12px;" >
-        <mat-form-field>
-          <input
-            type="text"
-            matInput
-            name="name"
-            [disabled]="true"
-            formControlName="planitem3"
-            placeholder="Rework Pin no"
-            
-          />
-        </mat-form-field>
-      </div>
-     
-    </div>
-  </div> 
-
-
-
-  <div class="row">
-    
-    <div class="col-lg-4 form-group">
-         <div class="row">
-          
-          <ng-select [items]="prodPlanarrayobj[0]" placeholder="Parent Pin:" bindLabel="id" bindValue="id"
-             [virtualScroll]="true" appendTo="body" formControlName="parentplanitem1"
-            (change)="parentDdlOnChangeEvent1($event)" (clear)="resetCalculations();"
-            (search)="customSearchFn($event)"
-
-            
-            
-            >
-            <ng-template ng-option-tmp let-item="item">
-              {{ item.id + "-" + item.description  }}
-            </ng-template>
-            <ng-template ng-option-tmp let-item="item" let-search="searchTerm" let-index="index">
-              <span >  {{ item.id }}</span>
-        </ng-template>
-          </ng-select>
-        </div>
-        <div class="row">
-          <ng-select ngSelectMat [items]="marketarryobj[0]" placeholder="Market" bindLabel="description" bindValue="id"
-            [clearable]="false" [virtualScroll]="true" appendTo="body" formControlName="marketId"
-            (change)="ddlOnChangeEvent($event)">
-            <ng-template ng-option-tmp let-item="item">
-              {{ item.description }}
-            </ng-template>
-          </ng-select>
-        </div>
-        <div class="row">
-          <ng-select [items]="studioarrayobj[0]" placeholder="Studio:" bindLabel="description" bindValue="id"
-            [clearable]="false" [virtualScroll]="true" appendTo="body" formControlName="studioId"
-            (change)="ddlOnChangeEvent($event)">
-            <ng-template ng-option-tmp let-item="item">
-              {{ item.description }}
-            </ng-template>
-          </ng-select>
-        </div>
-         <div class="row">
-          <mat-form-field  appearance="legacy">
-            <mat-label> Game/Platform Program Number </mat-label>
-            <input type="text" matInput name="name" formControlName="programno" />
-          </mat-form-field>
-        </div>
-        <div class="row">
-          <ng-select [items]="titlearryobj[0]" placeholder="Title:" bindLabel="description" bindValue="id"
-            [clearable]="true" [virtualScroll]="true" appendTo="body" formControlName="titleId"
-            (change)="ddlOnChangeEvent($event)">
-            <ng-template ng-option-tmp let-item="item">
-              {{ item.description }}
-            </ng-template>
-          </ng-select>
-        </div>
-        <div class="row">
-          <ng-select [items]="devtype1arryobj[0]" placeholder="Dev Type:" bindLabel="description" bindValue="id"
-            [clearable]="true" [virtualScroll]="true" appendTo="body" formControlName="devtype1Id"
-            (change)="ddlOnChangeEvent($event)">
-            <ng-template ng-option-tmp let-item="item">
-              {{ item.description }}
-            </ng-template>
-          </ng-select>
-        </div>
-        <div class="row">
-          <ng-select [items]="devtype2arryobj[0]" placeholder="Dev Class:" bindLabel="description" bindValue="id"
-            [clearable]="true" [virtualScroll]="true" appendTo="body" formControlName="devtype2Idold"
-            (change)="ddlOnChangeEvent($event)">
-            <ng-template ng-option-tmp let-item="item">
-              {{ item.description }}
-            </ng-template>
-          </ng-select>
-        </div>
-        <div class="row">
-          <ng-select [items]="status3arryobj[0]" placeholder="CVL Status:" bindLabel="description" bindValue="id"
-            [clearable]="true" [virtualScroll]="true" appendTo="body" formControlName="status3Id"
-            (change)="ddlOnChangeEvent($event)">
-            <ng-template ng-option-tmp let-item="item">
-              {{ item.description }}
-            </ng-template>
-          </ng-select>
-        </div>
-        <div class="row" style="padding-top: 5px;" >
-          
-            <mat-form-field >
-              <mat-label>Actual Approval Date(AAD)</mat-label>
-              <input type="text" matInput name="name" formControlName="actualApprDate"  (blur)="ddlOnChangeEvent($event)">
-              <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
-              <mat-datepicker ></mat-datepicker>
-            </mat-form-field>
-            
-        </div>
- 
-  
-        <div class="row" >
-
-          <ng-select [items]="reworkDevtype2arryobj[0]" required placeholder="Rework Dev Class *" bindLabel="description" bindValue="id"
-            [clearable]="false" [virtualScroll]="true" appendTo="body" formControlName="devtype2Id"
-            (change)="ddlOnChangeEvent($event)">
-            <ng-template ng-option-tmp let-item="item">
-              {{ item.description }}
-            </ng-template> 
-          </ng-select>
-        </div>
-        
-        <div class="row" style="padding-top: 20px;">
-          <mat-slide-toggle  (change)="ddlOnChangeEvent($event)" formControlName="isinstalled">Installed In Field? No / Yes
-          </mat-slide-toggle>
-          <!-- <mat-slide-toggle [aria-label]="isSubscribedToEmailsMessage" >
-          </mat-slide-toggle> -->
-        </div>
-         
-     
-    </div>
-    <div class="col-lg-4 form-group">
-         <div class="row">
-          
-
-        <ng-select [items]="prodPlanarrayobj2[0]" placeholder="Parent Pin:" bindLabel="id" bindValue="id"
-        [clearable]="true" [virtualScroll]="true" appendTo="body" formControlName="parentplanitem2"
-        (change)="parentDdlOnChangeEvent2($event)"
-        (search)="customSearchFn2($event)"
-
-            
-            
-            >
-            <ng-template ng-option-tmp let-item="item">
-              {{ item.id + "-" + item.description }}
-            </ng-template>
-            <ng-template ng-option-tmp let-item="item" let-search="searchTerm" let-index="index">
-              <span >  {{ item.id }}</span>
-        </ng-template>
-      </ng-select>
-        </div>
-        <div class="row">
-          <ng-select [items]="marketarryobj[0]" placeholder="Market:" bindLabel="description" bindValue="id"
-            [clearable]="false" [virtualScroll]="true" appendTo="body" formControlName="marketId2"
-            (change)="ddlOnChangeEvent($event)">
-            <ng-template ng-option-tmp let-item="item">
-              {{ item.description }}
-            </ng-template>
-          </ng-select>
-        </div>
-        <div class="row">
-          <ng-select [items]="studioarrayobj[0]" placeholder="Studio:" bindLabel="description" bindValue="id"
-            [clearable]="true" [virtualScroll]="true" appendTo="body" formControlName="studioId2"
-            (change)="ddlOnChangeEvent($event)">
-            <ng-template ng-option-tmp let-item="item">
-              {{ item.description }}
-            </ng-template>
-          </ng-select>
-        </div>
-         <div class="row">
-          <mat-form-field  appearance="legacy">
-            <mat-label> Game/Platform Program Number </mat-label>
-            <input type="text" matInput name="name" formControlName="programno2" />
-          </mat-form-field>
-        </div>
-        <div class="row">
-          <ng-select [items]="titlearryobj[0]" placeholder="Title:" bindLabel="description" bindValue="id"
-            [clearable]="true" [virtualScroll]="true" appendTo="body" formControlName="titleId2"
-            (change)="ddlOnChangeEvent($event)">
-            <ng-template ng-option-tmp let-item="item">
-              {{ item.description }}
-            </ng-template>
-          </ng-select>
-        </div>
-        <div class="row">
-          <ng-select [items]="devtype1arryobj[0]" placeholder="Dev Type:" bindLabel="description" bindValue="id"
-            [clearable]="true" [virtualScroll]="true" appendTo="body" formControlName="devtype1Id2"
-            (change)="ddlOnChangeEvent($event)">
-            <ng-template ng-option-tmp let-item="item">
-              {{ item.description }}
-            </ng-template>
-          </ng-select>
-        </div>
-        <div class="row">
-          <ng-select [items]="devtype2arryobj[0]" placeholder="Dev Class:" bindLabel="description" bindValue="id"
-            [clearable]="true" [virtualScroll]="true" appendTo="body" formControlName="devtype2Idold2"
-            (change)="ddlOnChangeEvent($event)">
-            <ng-template ng-option-tmp let-item="item">
-              {{ item.description }}
-            </ng-template>
-          </ng-select>
-        </div>
-        <div class="row">
-          <ng-select [items]="status3arryobj[0]" placeholder="CVL Status:" bindLabel="description" bindValue="id"
-            [clearable]="true" [virtualScroll]="true" appendTo="body" formControlName="status3Id2"
-            (change)="ddlOnChangeEvent($event)">
-            <ng-template ng-option-tmp let-item="item">
-              {{ item.description }}
-            </ng-template>
-          </ng-select>
-        </div>
-        <div class="row" style="padding-top: 5px;">
-          <mat-form-field  appearance="legacy">
-            <mat-label>Actual Approval Date(AAD)</mat-label>
-            <input type="text" matInput name="name" formControlName="actualApprDate2"  (blur)="ddlOnChangeEvent($event)">
-            <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-          </mat-form-field>
-        </div>
-        <div class="row" appearance="legacy">
-          
-          <ng-select [items]="reworkDevtype2arryobj[0]" placeholder="Rework Dev Class *" bindLabel="description" bindValue="id"
-          [clearable]="false" [virtualScroll]="true" required appendTo="body" formControlName="devtype2Id2"
-          (change)="ddlOnChangeEvent($event)">
+      <div class="row">
+        <ng-select ngSelectMat [items]="requestStatusobj[0]" placeholder="Request Status:" bindLabel="description"
+          bindValue="id" [virtualScroll]="true" appendTo="body" formControlName="requeststatus">
           <ng-template ng-option-tmp let-item="item">
             {{ item.description }}
-          </ng-template> 
+          </ng-template>
         </ng-select>
-        </div>
-        <div class="row" style="padding-top: 20px;">
-          <mat-slide-toggle  (change)="ddlOnChangeEvent($event)" formControlName="isinstalled2">Installed In Field? No / Yes
-          </mat-slide-toggle>
-        </div>
-     
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 form-group">
+      <div class="row" style="padding-top: 12px;">
+        <mat-form-field>
+          <input type="text" matInput name="name" [disabled]="true" formControlName="planitem"
+            placeholder="Rework Pin no" />
+        </mat-form-field>
+      </div>
     </div>
     <div class="col-lg-4 form-group">
-        <div class="row">
-          
-
-        <ng-select [items]="prodPlanarrayobj3[0]" placeholder="Parent Pin:" bindLabel="id" bindValue="id"
-        [clearable]="true" [virtualScroll]="true" appendTo="body" formControlName="parentplanitem3"
-        (change)="parentDdlOnChangeEvent3($event)"
-        
-        (search)="customSearchFn3($event)"
-
-            
-            
-            >
-            <ng-template ng-option-tmp let-item="item">
-              {{ item.id + "-" + item.description }}
-            </ng-template>
-            <ng-template ng-option-tmp let-item="item" let-search="searchTerm" let-index="index">
-              <span >  {{ item.id }}</span>
-        </ng-template>
-      </ng-select>
-        </div>
-        <div class="row">
-          <ng-select [items]="marketarryobj[0]" placeholder="Market:" bindLabel="description" bindValue="id"
-            [clearable]="false" [virtualScroll]="true" appendTo="body" formControlName="marketId3"
-            (change)="ddlOnChangeEvent($event)">
-            <ng-template ng-option-tmp let-item="item">
-              {{ item.description }}
-            </ng-template>
-          </ng-select>
-        </div>
-        <div class="row">
-          <ng-select [items]="studioarrayobj[0]" placeholder="Studio:" bindLabel="description" bindValue="id"
-            [clearable]="true" [virtualScroll]="true" appendTo="body" formControlName="studioId3"
-            (change)="ddlOnChangeEvent($event)">
-            <ng-template ng-option-tmp let-item="item">
-              {{ item.description }}
-            </ng-template>
-          </ng-select>
-        </div>
-         <div class="row">
-          <mat-form-field  appearance="legacy">
-            <mat-label> Game/Platform Program Number </mat-label>
-            <input type="text" matInput name="name" formControlName="programno3" />
-          </mat-form-field>
-        </div>
-        <div class="row">
-          <ng-select [items]="titlearryobj[0]" placeholder="Title:" bindLabel="description" bindValue="id"
-            [clearable]="true" [virtualScroll]="true" appendTo="body" formControlName="titleId3"
-            (change)="ddlOnChangeEvent($event)">
-            <ng-template ng-option-tmp let-item="item">
-              {{ item.description }}
-            </ng-template>
-          </ng-select>
-        </div>
-        <div class="row">
-          <ng-select [items]="devtype1arryobj[0]" placeholder="Dev Type:" bindLabel="description" bindValue="id"
-            [clearable]="true" [virtualScroll]="true" appendTo="body" formControlName="devtype1Id3"
-            (change)="ddlOnChangeEvent($event)">
-            <ng-template ng-option-tmp let-item="item">
-              {{ item.description }}
-            </ng-template>
-          </ng-select>
-        </div>
-        <div class="row">
-          <ng-select [items]="devtype2arryobj[0]" placeholder="Dev Class:" bindLabel="description" bindValue="id"
-            [clearable]="true" [virtualScroll]="true" appendTo="body" formControlName="devtype2Idold3"
-            (change)="ddlOnChangeEvent($event)">
-            <ng-template ng-option-tmp let-item="item">
-              {{ item.description }}
-            </ng-template>
-          </ng-select>
-        </div>
-        <div class="row">
-          <ng-select [items]="status3arryobj[0]" placeholder="CVL Status:" bindLabel="description" bindValue="id"
-            [clearable]="true" [virtualScroll]="true" appendTo="body" formControlName="status3Id3"
-            (change)="ddlOnChangeEvent($event)">
-            <ng-template ng-option-tmp let-item="item">
-              {{ item.description }}
-            </ng-template>
-          </ng-select>
-        </div>
-        <div class="row" style="padding-top: 5px;">
-          <mat-form-field  appearance="legacy">
-            <mat-label>Actual Approval Date(AAD)</mat-label>
-            <input type="text" matInput name="name" formControlName="actualApprDate3"  (blur)="ddlOnChangeEvent($event)">
-            <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-          </mat-form-field>
-        </div>
-        <div class="row" appearance="legacy">
-         
-          <ng-select [items]="reworkDevtype2arryobj[0]" required placeholder="Rework Dev Class *" bindLabel="description" bindValue="id"
-          [clearable]="false" [virtualScroll]="true" appendTo="body" formControlName="devtype2Id3"
+      <div class="row" style="padding-top: 12px;">
+        <mat-form-field>
+          <input type="text" matInput name="name" [disabled]="true" formControlName="planitem2"
+            placeholder="Rework Pin no" />
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="col-lg-4 form-group">
+      <div class="row" style="padding-top: 12px;">
+        <mat-form-field>
+          <input type="text" matInput name="name" [disabled]="true" formControlName="planitem3"
+            placeholder="Rework Pin no" />
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 form-group">
+      <div class="row">
+        <ng-select [items]="prodPlanarrayobj[0]" placeholder="Parent Pin:" bindLabel="id" bindValue="id"
+          [virtualScroll]="true" appendTo="body" formControlName="parentplanitem1"
+          (change)="parentDdlOnChangeEvent1($event)" (clear)="resetCalculations();" (search)="customSearchFn($event)">
+          <ng-template ng-option-tmp let-item="item">
+            {{ item.id + "-" + item.description2 }}
+          </ng-template>
+          <ng-template ng-option-tmp let-item="item" let-search="searchTerm" let-index="index">
+            <span> {{ item.id }}</span>
+          </ng-template>
+        </ng-select>
+      </div>
+      <div class="row">
+        <ng-select ngSelectMat [items]="marketarryobj[0]" placeholder="Market" bindLabel="description2" bindValue="id"
+          [clearable]="false" [virtualScroll]="true" appendTo="body" formControlName="marketId"
           (change)="ddlOnChangeEvent($event)">
           <ng-template ng-option-tmp let-item="item">
-            {{ item.description }}
-          </ng-template> 
+            {{ item.description2 }}
+          </ng-template>
         </ng-select>
-        </div>
-        <div class="row" style="padding-top: 20px;">
-          <mat-slide-toggle  (change)="ddlOnChangeEvent($event)" formControlName="isinstalled3">Installed In Field? No / Yes
-          </mat-slide-toggle>
-        </div>
-    
-    </div> 
-    <div class="row">
-      
-      <div class="col-lg-12 form-group" required>
-        <div class="row"  style="padding-top: 23px;">
-        <mat-form-field style="width: 100%">
-          <mat-label>Rework Dev Class Justification </mat-label>
-          <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
-            cdkAutosizeMaxRows="5" maxlength="250"  required (change)="ddlOnChangeEvent($event)" formControlName="justification"></textarea>
+      </div>
+      <div class="row">
+        <ng-select [items]="studioarrayobj[0]" placeholder="Studio:" bindLabel="description2" bindValue="id"
+          [clearable]="false" [virtualScroll]="true" appendTo="body" formControlName="studioId"
+          (change)="ddlOnChangeEvent($event)">
+          <ng-template ng-option-tmp let-item="item">
+            {{ item.description2 }}
+          </ng-template>
+        </ng-select>
+      </div>
+      <div class="row">
+        <mat-form-field appearance="legacy">
+          <mat-label> Game/Platform Program Number </mat-label>
+          <input type="text" matInput name="name" formControlName="programno" />
         </mat-form-field>
       </div>
-      <div class="row"  style="padding-top: 5px;">
-        <mat-form-field style="width: 100%">
-          <mat-label>FQ Jira Link </mat-label>
-          <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
-            cdkAutosizeMaxRows="5" maxlength="250" required  (change)="ddlOnChangeEvent($event)" formControlName="jiraLink"></textarea>
+      <div class="row">
+        <ng-select [items]="titlearryobj[0]" placeholder="Title:" bindLabel="description2" bindValue="id"
+          [clearable]="true" [virtualScroll]="true" appendTo="body" formControlName="titleId"
+          (change)="ddlOnChangeEvent($event)">
+          <ng-template ng-option-tmp let-item="item">
+            {{ item.description2 }}
+          </ng-template>
+        </ng-select>
+      </div>
+      <div class="row">
+        <ng-select [items]="devtype1arryobj[0]" placeholder="Dev Type:" bindLabel="description2" bindValue="id"
+          [clearable]="true" [virtualScroll]="true" appendTo="body" formControlName="devtype1Id"
+          (change)="ddlOnChangeEvent($event)">
+          <ng-template ng-option-tmp let-item="item">
+            {{ item.description2 }}
+          </ng-template>
+        </ng-select>
+      </div>
+      <div class="row">
+        <ng-select [items]="devtype2arryobj[0]" placeholder="Dev Class:" bindLabel="description2" bindValue="id"
+          [clearable]="true" [virtualScroll]="true" appendTo="body" formControlName="devtype2Idold"
+          (change)="ddlOnChangeEvent($event)">
+          <ng-template ng-option-tmp let-item="item">
+            {{ item.description2 }}
+          </ng-template>
+        </ng-select>
+      </div>
+      <div class="row">
+        <ng-select [items]="status3arryobj[0]" placeholder="CVL Status:" bindLabel="description2" bindValue="id"
+          [clearable]="true" [virtualScroll]="true" appendTo="body" formControlName="status3Id"
+          (change)="ddlOnChangeEvent($event)">
+          <ng-template ng-option-tmp let-item="item">
+            {{ item.description2 }}
+          </ng-template>
+        </ng-select>
+      </div>
+      <div class="row" style="padding-top: 5px;">
+        <mat-form-field>
+          <mat-label>Actual Approval Date(AAD)</mat-label>
+          <input type="text" matInput name="name" formControlName="actualApprDate" (blur)="ddlOnChangeEvent($event)">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker></mat-datepicker>
         </mat-form-field>
       </div>
-      </div> 
-    </div> 
-
-    
-    
-    <div class="row">
-      
-      <div class="col-lg-7 form-group">
-      
-          <div class="row">
-            <mat-label > Studio has included all impacted games in the request:</mat-label>
-          </div>
-          <div class="row">
-            <mat-label style="padding-top: 21px;"> Studio has completed impact analysis on Approved / in-flight games:</mat-label>
-          </div>
-       
-         
+      <div class="row">
+        <ng-select [items]="reworkDevtype2arryobj[0]" required placeholder="Rework Dev Class *" bindLabel="description2"
+          bindValue="id" [clearable]="false" [virtualScroll]="true" appendTo="body" formControlName="devtype2Id"
+          (change)="ddlOnChangeEvent($event)">
+          <ng-template ng-option-tmp let-item="item">
+            {{ item.description2 }}
+          </ng-template>
+        </ng-select>
       </div>
-      <div class="col-lg-5 form-group">
-        <div class="row"  style="padding-top: 8px;">
-          <mat-slide-toggle (change)="ddlOnChangeEvent($event)" formControlName="impactincluded"> No / Yes
-          </mat-slide-toggle>
-      </div>
-      <div class="row"  style="padding-top: 21px;">
-        <mat-slide-toggle  (change)="ddlOnChangeEvent($event)" formControlName="impactanalysed">No / Yes
+      <div class="row" style="padding-top: 20px;">
+        <mat-slide-toggle (change)="ddlOnChangeEvent($event)" formControlName="isinstalled">Installed In Field? No / Yes
         </mat-slide-toggle>
       </div>
-      </div> 
-    </div> 
-
-    <div class="row" *ngIf="isShown">
-      <div class="col-lg-12 form-group">
-        <div class="row"  style="padding-top: 8px;">
-        <mat-form-field style="width: 100%">
-          <mat-label>If No, give reason: </mat-label>
-          <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
-            cdkAutosizeMaxRows="5" maxlength="250" required (change)="ddlOnChangeEvent($event)" formControlName="analysisReason"></textarea>
+    </div>
+    <div class="col-lg-4 form-group">
+      <div class="row">
+        <ng-select [items]="prodPlanarrayobj2[0]" placeholder="Parent Pin:" bindLabel="id" bindValue="id"
+          [clearable]="true" [virtualScroll]="true" appendTo="body" formControlName="parentplanitem2"
+          (change)="parentDdlOnChangeEvent2($event)" (search)="customSearchFn2($event)">
+          <ng-template ng-option-tmp let-item="item">
+            {{ item.id + "-" + item.description2 }}
+          </ng-template>
+          <ng-template ng-option-tmp let-item="item" let-search="searchTerm" let-index="index">
+            <span> {{ item.id }}</span>
+          </ng-template>
+        </ng-select>
+      </div>
+      <div class="row">
+        <ng-select [items]="marketarryobj[0]" placeholder="Market:" bindLabel="description2" bindValue="id"
+          [clearable]="false" [virtualScroll]="true" appendTo="body" formControlName="marketId2"
+          (change)="ddlOnChangeEvent($event)">
+          <ng-template ng-option-tmp let-item="item">
+            {{ item.description2 }}
+          </ng-template>
+        </ng-select>
+      </div>
+      <div class="row">
+        <ng-select [items]="studioarrayobj[0]" placeholder="Studio:" bindLabel="description2" bindValue="id"
+          [clearable]="true" [virtualScroll]="true" appendTo="body" formControlName="studioId2"
+          (change)="ddlOnChangeEvent($event)">
+          <ng-template ng-option-tmp let-item="item">
+            {{ item.description2 }}
+          </ng-template>
+        </ng-select>
+      </div>
+      <div class="row">
+        <mat-form-field appearance="legacy">
+          <mat-label> Game/Platform Program Number </mat-label>
+          <input type="text" matInput name="name" formControlName="programno2" />
         </mat-form-field>
       </div>
-      
-      </div> 
-    </div> 
-    <igx-dialog #alert title="Rework Request List" message="{{message}}" leftButtonLabel="OK" 
-    (leftButtonSelect)="onDialogSubmit($event)"></igx-dialog> 
+      <div class="row">
+        <ng-select [items]="titlearryobj[0]" placeholder="Title:" bindLabel="description2" bindValue="id"
+          [clearable]="true" [virtualScroll]="true" appendTo="body" formControlName="titleId2"
+          (change)="ddlOnChangeEvent($event)">
+          <ng-template ng-option-tmp let-item="item">
+            {{ item.description2 }}
+          </ng-template>
+        </ng-select>
+      </div>
+      <div class="row">
+        <ng-select [items]="devtype1arryobj[0]" placeholder="Dev Type:" bindLabel="description2" bindValue="id"
+          [clearable]="true" [virtualScroll]="true" appendTo="body" formControlName="devtype1Id2"
+          (change)="ddlOnChangeEvent($event)">
+          <ng-template ng-option-tmp let-item="item">
+            {{ item.description2 }}
+          </ng-template>
+        </ng-select>
+      </div>
+      <div class="row">
+        <ng-select [items]="devtype2arryobj[0]" placeholder="Dev Class:" bindLabel="description2" bindValue="id"
+          [clearable]="true" [virtualScroll]="true" appendTo="body" formControlName="devtype2Idold2"
+          (change)="ddlOnChangeEvent($event)">
+          <ng-template ng-option-tmp let-item="item">
+            {{ item.description2 }}
+          </ng-template>
+        </ng-select>
+      </div>
+      <div class="row">
+        <ng-select [items]="status3arryobj[0]" placeholder="CVL Status:" bindLabel="description2" bindValue="id"
+          [clearable]="true" [virtualScroll]="true" appendTo="body" formControlName="status3Id2"
+          (change)="ddlOnChangeEvent($event)">
+          <ng-template ng-option-tmp let-item="item">
+            {{ item.description2 }}
+          </ng-template>
+        </ng-select>
+      </div>
+      <div class="row" style="padding-top: 5px;">
+        <mat-form-field appearance="legacy">
+          <mat-label>Actual Approval Date(AAD)</mat-label>
+          <input type="text" matInput name="name" formControlName="actualApprDate2" (blur)="ddlOnChangeEvent($event)">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="row" appearance="legacy">
+        <ng-select [items]="reworkDevtype2arryobj[0]" placeholder="Rework Dev Class *" bindLabel="description2"
+          bindValue="id" [clearable]="false" [virtualScroll]="true" required appendTo="body"
+          formControlName="devtype2Id2" (change)="ddlOnChangeEvent($event)">
+          <ng-template ng-option-tmp let-item="item">
+            {{ item.description2 }}
+          </ng-template>
+        </ng-select>
+      </div>
+      <div class="row" style="padding-top: 20px;">
+        <mat-slide-toggle (change)="ddlOnChangeEvent($event)" formControlName="isinstalled2">Installed In Field? No /
+          Yes
+        </mat-slide-toggle>
+      </div>
     </div>
-     
-    
+    <div class="col-lg-4 form-group">
+      <div class="row">
+        <ng-select [items]="prodPlanarrayobj3[0]" placeholder="Parent Pin:" bindLabel="id" bindValue="id"
+          [clearable]="true" [virtualScroll]="true" appendTo="body" formControlName="parentplanitem3"
+          (change)="parentDdlOnChangeEvent3($event)" (search)="customSearchFn3($event)">
+          <ng-template ng-option-tmp let-item="item">
+            {{ item.id + "-" + item.description2 }}
+          </ng-template>
+          <ng-template ng-option-tmp let-item="item" let-search="searchTerm" let-index="index">
+            <span> {{ item.id }}</span>
+          </ng-template>
+        </ng-select>
+      </div>
+      <div class="row">
+        <ng-select [items]="marketarryobj[0]" placeholder="Market:" bindLabel="description2" bindValue="id"
+          [clearable]="false" [virtualScroll]="true" appendTo="body" formControlName="marketId3"
+          (change)="ddlOnChangeEvent($event)">
+          <ng-template ng-option-tmp let-item="item">
+            {{ item.description2 }}
+          </ng-template>
+        </ng-select>
+      </div>
+      <div class="row">
+        <ng-select [items]="studioarrayobj[0]" placeholder="Studio:" bindLabel="description2" bindValue="id"
+          [clearable]="true" [virtualScroll]="true" appendTo="body" formControlName="studioId3"
+          (change)="ddlOnChangeEvent($event)">
+          <ng-template ng-option-tmp let-item="item">
+            {{ item.description2 }}
+          </ng-template>
+        </ng-select>
+      </div>
+      <div class="row">
+        <mat-form-field appearance="legacy">
+          <mat-label> Game/Platform Program Number </mat-label>
+          <input type="text" matInput name="name" formControlName="programno3" />
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <ng-select [items]="titlearryobj[0]" placeholder="Title:" bindLabel="description2" bindValue="id"
+          [clearable]="true" [virtualScroll]="true" appendTo="body" formControlName="titleId3"
+          (change)="ddlOnChangeEvent($event)">
+          <ng-template ng-option-tmp let-item="item">
+            {{ item.description2 }}
+          </ng-template>
+        </ng-select>
+      </div>
+      <div class="row">
+        <ng-select [items]="devtype1arryobj[0]" placeholder="Dev Type:" bindLabel="description2" bindValue="id"
+          [clearable]="true" [virtualScroll]="true" appendTo="body" formControlName="devtype1Id3"
+          (change)="ddlOnChangeEvent($event)">
+          <ng-template ng-option-tmp let-item="item">
+            {{ item.description2 }}
+          </ng-template>
+        </ng-select>
+      </div>
+      <div class="row">
+        <ng-select [items]="devtype2arryobj[0]" placeholder="Dev Class:" bindLabel="description2" bindValue="id"
+          [clearable]="true" [virtualScroll]="true" appendTo="body" formControlName="devtype2Idold3"
+          (change)="ddlOnChangeEvent($event)">
+          <ng-template ng-option-tmp let-item="item">
+            {{ item.description2 }}
+          </ng-template>
+        </ng-select>
+      </div>
+      <div class="row">
+        <ng-select [items]="status3arryobj[0]" placeholder="CVL Status:" bindLabel="description2" bindValue="id"
+          [clearable]="true" [virtualScroll]="true" appendTo="body" formControlName="status3Id3"
+          (change)="ddlOnChangeEvent($event)">
+          <ng-template ng-option-tmp let-item="item">
+            {{ item.description2 }}
+          </ng-template>
+        </ng-select>
+      </div>
+      <div class="row" style="padding-top: 5px;">
+        <mat-form-field appearance="legacy">
+          <mat-label>Actual Approval Date(AAD)</mat-label>
+          <input type="text" matInput name="name" formControlName="actualApprDate3" (blur)="ddlOnChangeEvent($event)">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="row" appearance="legacy">
+        <ng-select [items]="reworkDevtype2arryobj[0]" required placeholder="Rework Dev Class *" bindLabel="description2"
+          bindValue="id" [clearable]="false" [virtualScroll]="true" appendTo="body" formControlName="devtype2Id3"
+          (change)="ddlOnChangeEvent($event)">
+          <ng-template ng-option-tmp let-item="item">
+            {{ item.description2 }}
+          </ng-template>
+        </ng-select>
+      </div>
+      <div class="row" style="padding-top: 20px;">
+        <mat-slide-toggle (change)="ddlOnChangeEvent($event)" formControlName="isinstalled3">Installed In Field? No /
+          Yes
+        </mat-slide-toggle>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 form-group" required>
+        <div class="row" style="padding-top: 23px;">
+          <mat-form-field style="width: 100%">
+            <mat-label>Rework Dev Class Justification </mat-label>
+            <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+              cdkAutosizeMaxRows="5" maxlength="250" required (change)="ddlOnChangeEvent($event)"
+              formControlName="justification"></textarea>
+          </mat-form-field>
+        </div>
+        <div class="row" style="padding-top: 5px;">
+          <mat-form-field style="width: 100%">
+            <mat-label>FQ Jira Link </mat-label>
+            <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+              cdkAutosizeMaxRows="5" maxlength="250" required (change)="ddlOnChangeEvent($event)"
+              formControlName="jiraLink"></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-7 form-group">
+        <div class="row">
+          <mat-label> Studio has included all impacted games in the request:</mat-label>
+        </div>
+        <div class="row">
+          <mat-label style="padding-top: 21px;"> Studio has completed impact analysis on Approved / in-flight games:
+          </mat-label>
+        </div>
+      </div>
+      <div class="col-lg-5 form-group">
+        <div class="row" style="padding-top: 8px;">
+          <mat-slide-toggle (change)="ddlOnChangeEvent($event)" formControlName="impactincluded"> No / Yes
+          </mat-slide-toggle>
+        </div>
+        <div class="row" style="padding-top: 21px;">
+          <mat-slide-toggle (change)="ddlOnChangeEvent($event)" formControlName="impactanalysed">No / Yes
+          </mat-slide-toggle>
+        </div>
+      </div>
+    </div>
+    <div class="row" *ngIf="isShown">
+      <div class="col-lg-12 form-group">
+        <div class="row" style="padding-top: 8px;">
+          <mat-form-field style="width: 100%">
+            <mat-label>If No, give reason: </mat-label>
+            <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+              cdkAutosizeMaxRows="5" maxlength="250" required (change)="ddlOnChangeEvent($event)"
+              formControlName="analysisReason"></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <igx-dialog #alert title="Rework Request List" message="{{message}}" leftButtonLabel="OK"
+      (leftButtonSelect)="onDialogSubmit($event)"></igx-dialog>
+  </div>
 </form>

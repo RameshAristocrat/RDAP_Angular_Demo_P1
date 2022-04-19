@@ -57,7 +57,7 @@ export class RdapManagePinTestDetailsTabComponent implements OnInit {
   mpdependencyPermission: any;
   mpmilestonePermission: any;
   mpcabinetPermission: any;
-  mptesterPermission: any;
+  @Input() mptesterPermission: any;
   mpsetitemPermission: any;
   mplinkedPermission: any;
   mpimpactedPermission: any;
@@ -71,6 +71,7 @@ export class RdapManagePinTestDetailsTabComponent implements OnInit {
   initTesterDDLData: any;
   intTesterDdlFilterData: any;
   initIntTesterDDLData: any;
+  addButtonFlag: boolean = false;
   constructor(private httpClient: HttpClient, private cdr: ChangeDetectorRef,
     private excelExportService: IgxExcelExporterService, private router: Router,
     private masterApiService: RdMasterApiService, private spinner: RdSpinnerService,
@@ -79,50 +80,34 @@ export class RdapManagePinTestDetailsTabComponent implements OnInit {
     this.baseApi = environment.baseapiurl;
     this.extraPinAPi = environment.extrapinreqapiurl;
     this.debuggerflag = environment.debuggerflag;
-    this.addflag = false
+    this.addflag = false;
+    this.addButtonFlag = false;
     this.rolePermissionEnableFlag = environment.enablerolepermission;
     this.rolepermissionmock = environment.enablerolepermissionmock;
   }
   public getPermissionmpMasterByModule() {
     this.pagePermission = [];
-    this.mptesterPermission = [];
-    let rolePermissionMockData;
-    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "mptester").subscribe(res => {
-      if (this.rolepermissionmock == true) {
-        this.pagePermission.push(rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissiontesterplanmock);
-        this.mptesterPermission = rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissiontesterplanmock;
-        //debugger
-        if (this.mptesterPermission.isView == true && this.mptesterPermission.isEdit == false) {
-          this.isViewOnlyPermission();
-        }
-        if (this.mptesterPermission.isEdit == true) {
-          this.grideditflag = true;
-        } else {
-          this.grideditflag = false
-        }
-      } else {
-        this.pagePermission.push(res);
-        this.mptesterPermission = res;
-        if (this.mptesterPermission.isView == true && this.mptesterPermission.isEdit == false) {
-          this.isViewOnlyPermission();
-        }
-        if (this.mptesterPermission.isEdit == true) {
-          this.grideditflag = true;
-        } else {
-          this.grideditflag = false
-        }
-      }
-      this.gridDataLoad();
-      this.spinner.hide();
-    });
+    this.pagePermission.push(this.mptesterPermission);
+    if (this.mptesterPermission.isView == true && this.mptesterPermission.isEdit == false) {
+      this.isViewOnlyPermission();
+    }
+    if (this.mptesterPermission.isEdit == true) {
+      this.grideditflag = true;
+    } else {
+      this.grideditflag = false
+    }
+    this.gridDataLoad();
+    this.spinner.hide();
   }
   isViewOnlyPermission() {
 
   }
   ngOnInit(): void {
-    this.getPermissionmpMasterByModule();
     this.viewExtrapinRequestData = this.testdetailsInput.planitem;
     this.pinId = this.viewExtrapinRequestData.data.planitem;
+    this.getPermissionmpMasterByModule();
+    // this.viewExtrapinRequestData = this.testdetailsInput.planitem;
+    // this.pinId = this.viewExtrapinRequestData.data.planitem;
     //this.planitemId = this.planitem.data.planitem;
     // this.getTestDetails();
     this.spinner.show();
@@ -169,6 +154,7 @@ export class RdapManagePinTestDetailsTabComponent implements OnInit {
         this.testdetails = x;
         //console.log("testerplan", x)
         if (x.length > 0) {
+          this.addButtonFlag = false;
           this.data = x;
           this.data.forEach(y => {
             if (y.descrLong == null) {
@@ -185,6 +171,7 @@ export class RdapManagePinTestDetailsTabComponent implements OnInit {
           this.data = [];
           this.intTesterDdlFilterData = this.initIntTesterDDLData;
           this.testerDdlFilterData = this.initTesterDDLData;
+          this.addButtonFlag = true;
         }
       });
     }
@@ -372,6 +359,7 @@ export class RdapManagePinTestDetailsTabComponent implements OnInit {
 
       this.data = [...this.data];
     }
+    this.editDone(null);
   }
 
   public startEdit(row?): void {
@@ -403,6 +391,7 @@ export class RdapManagePinTestDetailsTabComponent implements OnInit {
       testerDescription: "",
       testerId: 0
     });
+    this.addButtonFlag = false;
   }
 
   public testDetailsRowAddedDone(event) {
@@ -423,6 +412,11 @@ export class RdapManagePinTestDetailsTabComponent implements OnInit {
     this.testdetailsArrObj = [];
     this.masterApiService.debuggerLog(this.debuggerflag, "tester details delete row event.dataRowIndex", event.dataRowIndex);
     this.masterApiService.debuggerLog(this.debuggerflag, "before delete", (this.testdetailsgrid.data.length, this.testdetailsgrid.data));
+    if (event.dataRowIndex > 0) {
+      this.addButtonFlag = false;
+    } else {
+      this.addButtonFlag = true;
+    }
     if (event.dataRowIndex > -1) {
       this.testdetailsgrid.data.splice(event.dataRowIndex, 1);
     }

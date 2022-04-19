@@ -5,7 +5,7 @@ export const environment = {
     stag: false,
     dolly:true,
     ram:false,
-    disha:true,
+    disha:false,
     oktaconfig: { 
         CLIENT_ID: "0oa9t7ifubUwIhATi357", 
         ISSUER: "https://aristocrat.okta.com", 

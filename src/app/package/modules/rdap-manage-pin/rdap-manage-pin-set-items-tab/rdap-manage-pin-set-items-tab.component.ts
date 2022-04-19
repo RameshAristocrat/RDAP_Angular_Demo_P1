@@ -53,7 +53,7 @@ export class RdapManagePinSetItemsTabComponent implements OnInit, OnChanges {
   mpdependencyPermission: any;
   mpmilestonePermission: any;
   mpcabinetPermission: any;
-  mpsetitemPermission: any;
+  @Input() mpsetitemPermission: any;
   mplinkedPermission: any;
   mpimpactedPermission: any;
   mpauditPermission: any;
@@ -81,36 +81,17 @@ export class RdapManagePinSetItemsTabComponent implements OnInit, OnChanges {
 
   public getPermissionmpMasterByModule() {
     this.pagePermission = [];
-    this.mpsetitemPermission= [];
-    let rolePermissionMockData;
-    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "mpsetitem").subscribe(res => {
-      if (this.rolepermissionmock == true) {
-        this.pagePermission.push(rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionsetitemmock);
-        this.mpsetitemPermission = rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionsetitemmock;
-       // debugger
-        if(this.mpsetitemPermission.isView == true && this.mpsetitemPermission.isEdit == false){
-          this.isViewOnlyPermission();
-        }
-        if(this.mpsetitemPermission.isEdit == true){
-          this.grideditflag = true;
-        }else{
-          this.grideditflag = false
-        }
-      } else {
-        this.pagePermission.push(res);
-        this.mpsetitemPermission = res;
-        if(this.mpsetitemPermission.isView == true && this.mpsetitemPermission.isEdit == false){
-          this.isViewOnlyPermission();
-        }
-        if(this.mpsetitemPermission.isEdit == true){
-          this.grideditflag = true;
-        }else{
-          this.grideditflag = false
-        }
-      }      
+    this.pagePermission.push(this.mpsetitemPermission);
+    if(this.mpsetitemPermission.isView == true && this.mpsetitemPermission.isEdit == false){
+      this.isViewOnlyPermission();
+    }
+    if(this.mpsetitemPermission.isEdit == true){
+      this.grideditflag = true;
+    }else{
+      this.grideditflag = false
+    }
     this.gridDataLoad();    
     this.spinner.hide();
-    });
   }
   isViewOnlyPermission(){
 

@@ -23,7 +23,7 @@ import * as APIindex from '../../../api/apiEndpoints/apiIndex';
   templateUrl: './rdap-manage-pin-others-tab.component.html',
   styleUrls: ['./rdap-manage-pin-others-tab.component.scss']
 })
-export class RdapManagePinOthersTabComponent implements OnInit, OnChanges {
+export class RdapManagePinOthersTabComponent implements OnInit {
   @ViewChild('linkedpingrid', { static: true }) public linkedpingrid: IgxGridComponent;
   @ViewChild('impactedpingrid', { static: true }) public impactedpingrid: IgxGridComponent;
   baseApi: any;
@@ -73,8 +73,8 @@ export class RdapManagePinOthersTabComponent implements OnInit, OnChanges {
   mpcabinetPermission: any;
   mptesterPermission: any;
   mpsetitemPermission: any;
-  mplinkedPermission: any;
-  mpimpactedPermission: any;
+  @Input() mplinkedPermission: any;
+  @Input() mpimpactedPermission: any;
   mpauditPermission: any;
   mpclarityPermission: any;
   public pagePermission: any;
@@ -102,78 +102,41 @@ export class RdapManagePinOthersTabComponent implements OnInit, OnChanges {
 
   public getPermissionmpMasterByModule() {
     this.pagePermission = [];
-    this.mpdependencyPermission = [];
-    let rolePermissionMockData;
-    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "mplinked").subscribe(res => {
-      if (this.rolepermissionmock == true) {
-        this.pagePermission.push(rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionlinkedpinmock);
-        this.mplinkedPermission = rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionlinkedpinmock;
-        //debugger
-        if (this.mplinkedPermission.isView == true && this.mplinkedPermission.isEdit == false) {
-          this.isViewOnlyPermission();
-        }
-        if (this.mplinkedPermission.isEdit == true || this.mplinkedPermission.isAdd == true) {
-          this.gridlinkeditflag = true;
-        } else {
-          this.gridlinkeditflag = false
-        }
-      } else {
-        this.pagePermission.push(res);
-        this.mplinkedPermission = res;
-        if (this.mplinkedPermission.isView == true && this.mplinkedPermission.isEdit == false) {
-          this.isViewOnlyPermission();
-        }
-        if (this.mplinkedPermission.isEdit == true || this.mplinkedPermission.isAdd == true) {
-          this.gridlinkeditflag = true;
-        } else {
-          this.gridlinkeditflag = false
-        }
-      }
-
-      this.gridDataLoad();
-      this.spinner.hide();
-    });
-    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "mpimpacted").subscribe(res => {
-      if (this.rolepermissionmock == true) {
-        this.pagePermission.push(rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionimpactedpinmock);
-        this.mpimpactedPermission = rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionimpactedpinmock;
-        // debugger
-        if (this.mpimpactedPermission.isView == true && this.mpimpactedPermission.isEdit == false) {
-          this.isViewOnlyPermission();
-        }
-        if (this.mpimpactedPermission.isEdit == true || this.mpimpactedPermission.isAdd == true) {
-          this.gridimpactededitflag = true;
-        } else {
-          this.gridimpactededitflag = false
-        }
-      } else {
-        this.pagePermission.push(res);
-        this.mpimpactedPermission = res;
-        if (this.mpimpactedPermission.isView == true && this.mpimpactedPermission.isEdit == false) {
-          this.isViewOnlyPermission();
-        }
-        if (this.mpimpactedPermission.isEdit == true || this.mpimpactedPermission.isAdd == true) {
-          this.gridimpactededitflag = true;
-        } else {
-          this.gridimpactededitflag = false
-        }
-      }
-
-      this.gridDataLoad();
-      this.spinner.hide();
-    });
+    this.pagePermission.push(this.mplinkedPermission);
+    if (this.mplinkedPermission.isView == true && this.mplinkedPermission.isEdit == false) {
+      this.isViewOnlyPermission();
+    }
+    if (this.mplinkedPermission.isEdit == true || this.mplinkedPermission.isAdd == true) {
+      this.gridlinkeditflag = true;
+    } else {
+      this.gridlinkeditflag = false
+    }
+   
+    this.pagePermission.push(this.mpimpactedPermission);
+    if (this.mpimpactedPermission.isView == true && this.mpimpactedPermission.isEdit == false) {
+      this.isViewOnlyPermission();
+    }
+    if (this.mpimpactedPermission.isEdit == true || this.mpimpactedPermission.isAdd == true) {
+      this.gridimpactededitflag = true;
+    } else {
+      this.gridimpactededitflag = false
+    }
+    this.gridDataLoad();
+    this.spinner.hide();
   }
   isViewOnlyPermission() {
 
   }
   ngOnInit(): void {
+    this.spinner.show();
+    this.pinId = this.planitem.data.planitem;
     this.getPermissionmpMasterByModule();
     this.linkedpinpagename = "managepin-linkedpin";
     this.managepinpagename = "managepin-impactedpin";
     this.viewExtrapinRequestData = this.planitem;
-    this.pinId = this.planitem.data.planitem;
+    
     // this.getTestDetails();
-    this.spinner.show();
+    
     this.appString = [];
     this.data = [];
     this.loadDdlApi();
@@ -192,13 +155,13 @@ export class RdapManagePinOthersTabComponent implements OnInit, OnChanges {
       this.linkPinDdlFilterData = this.linkedpinsarrobj;
       this.impacPinDdlFilterData = this.linkedpinsarrobj;
     });
-    this.gridDataLoad();
-    this.spinner.hide();
+    // this.gridDataLoad();
+    // this.spinner.hide();
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    this.gridDataLoad();
-  }
+  // ngOnChanges(changes: SimpleChanges) {
+  //   this.gridDataLoad();
+  // }
 
   onSelGridRowData(event) {
     this.selMasterDetailsData = event;
@@ -224,6 +187,10 @@ export class RdapManagePinOthersTabComponent implements OnInit, OnChanges {
           this.linkPinDdlFilterData = this.initLinkPinDDLData;
         }
       });
+    }
+    else
+    {
+      this.linkedpindata = [];
     }
     this.masterApiService.getMasterDataById(this.impactedpinUrl).subscribe(x => {
       this.linkedpindetails = x.data;

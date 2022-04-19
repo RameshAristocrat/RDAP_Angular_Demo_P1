@@ -12,7 +12,7 @@ export const environment = {
     oktaconfig: {
         CLIENT_ID: "0oa9t7ifubUwIhATi357",
         ISSUER: "https://aristocrat.okta.com",
-        LOGIN_REDIRECT_URI: "https://sydc-appdev-01:8080/home/dashboard",
+        LOGIN_REDIRECT_URI: "https://sydc-appdev-01:8080/home",
         LOGOUT_REDIRECT_URI: "https://sydc-appdev-01:8080",
         SCOPE: ['openid', 'email', 'profile']
     },

@@ -10,6 +10,8 @@ export class CommonService {
  
   isAuthenticated: boolean = false;
   private oktaAuthToken = new Subject<any>();
+  private menuJsonData = new Subject<any>();
+  public menuJson:any;
   
   public refData = new Subject<any>();
  
@@ -22,6 +24,15 @@ export class CommonService {
 
   getOktaAuthToken(): Observable<any> {
       return this.oktaAuthToken.asObservable();
+  }
+
+  setMenuJson(data) {
+    this.menuJson = data;
+    this.menuJsonData.next(data);
+  }
+
+  getMenuJson(): Observable<any> {
+    return this.menuJsonData.asObservable();
   }
  
 }

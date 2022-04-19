@@ -25,7 +25,8 @@
         </div>  -->
         <div class="col-md-4 form-group" style="text-align:left;">        
             <mat-label>Upload Blanket Pin Datasheet: </mat-label> <input type="file" class="form-control" (change)="addfile($event)" 
-            placeholder="Upload file" 
+            (click)="fileUploadclick($event)"
+            placeholder="Upload file"  
             accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">        
          
          
@@ -41,8 +42,26 @@
         
         </div> 
         </div>
-
-      </mat-card-actions>
+        <div class="row"  style="margin-top: 5px;">
+            <div class="col-md-12 form-group" > 
+           <span style="color: #e50f7c;font-weight: 500;font-family: 'Titillium Web', sans-serif;font-size: 11px;">Instructions:</span>
+            <span style="font-weight: 500;font-family: 'Titillium Web', sans-serif;font-size: 11px;"> 
+            In case you don't have values for the given below fields then please mention the default values as shown below:
+            
+ </span> 
+   
+        </div>   
+        </div>
+        <div class="row"  style="margin-top: -12px;">
+            <div class="col-md-12 form-group" > 
+          <span style="font-weight: 500;font-family: 'Titillium Web', sans-serif;font-size: 11px;"> 
+             <strong>Family</strong> - TBA (For Studio) , NA (For Technology)  <strong>;&nbsp;&nbsp;  Title</strong> - PL43 <strong>;&nbsp;&nbsp;     XGames</strong> - NR <strong>;&nbsp;&nbsp;  Description</strong> - TBA <strong>;&nbsp;&nbsp;</strong>
+     
+ </span> 
+   
+        </div>   
+        </div>    
+         </mat-card-actions>
       
       <div class="grid__wrapper" *ngIf="showGrid">
         <igx-grid igxPreventDocumentScroll #myGrid 
@@ -55,6 +74,13 @@
         height="auto" 
         [data]="legendData" 
         width="100%" >
+        <igx-grid-toolbar [hidden]="legendData?.length == 0">
+            <igx-grid-toolbar-actions >
+                <igx-grid-toolbar-exporter filename="BlanketpinDatasheet">
+                </igx-grid-toolbar-exporter>
+                <!-- <igx-grid-toolbar-pinning></igx-grid-toolbar-pinning> -->
+            </igx-grid-toolbar-actions>
+        </igx-grid-toolbar>
         <igx-paginator [perPage]="10"></igx-paginator>
             
             <igx-column [field]="'message'" header= "Message"     [width]="auto" [sortable]="true"    [resizable]="true"  ></igx-column>
@@ -63,7 +89,7 @@
             <!-- <igx-column  [field]= "'pinType'" header= "PIN"     [width]="auto" [sortable]="true"    [resizable]="true"  ></igx-column>
             <igx-column [field]="'projectRef'" header= "Project#"     [width]="auto" [sortable]="true"    [resizable]="true"  ></igx-column> -->
             <igx-column [field]="'studios'" header= "Studios"     [width]="auto" [sortable]="true"    [resizable]="true"  ></igx-column>
-            <igx-column [field]="'development'" header= "Developement"     [width]="auto" [sortable]="true"    [resizable]="true"  ></igx-column>
+            
             <igx-column [field]="'devClass'" header= "DevClass"     [width]="auto" [sortable]="true"    [resizable]="true"  ></igx-column>
             <igx-column [field]="'family'" header= "Family"     [width]="auto" [sortable]="true"    [resizable]="true"  ></igx-column>
             <igx-column [field]="'title'" header= "Title"     [width]="auto" [sortable]="true"    [resizable]="true"  ></igx-column>
@@ -72,13 +98,14 @@
             <igx-column [field]="'channelType'" header= "ChannelType"     [width]="auto" [sortable]="true"    [resizable]="true"  ></igx-column>
             <igx-column [field]="'region'" header= "Regions"     [width]="auto" [sortable]="true"    [resizable]="true"  ></igx-column>
             <igx-column [field]="'market'" header= "Market"     [width]="auto" [sortable]="true"    [resizable]="true"  ></igx-column>
-            <igx-column [field]="'XGames'" header= "XGames"     [width]="auto" [sortable]="true"    [resizable]="true"  ></igx-column>
-            <igx-column [field]="'status'" header= "Status"     [width]="auto" [sortable]="true"    [resizable]="true"  ></igx-column>
+            <igx-column [field]="'xGames'" header= "XGames"     [width]="auto" [sortable]="true"    [resizable]="true"  ></igx-column>
             <igx-column [field]="'mrd'" header= "MRD"     [width]="auto" [sortable]="true"    [resizable]="true"  ></igx-column>
             
-            <igx-column [field]="'ead'" header= "EAD"     [width]="auto" [sortable]="true"    [resizable]="true"  ></igx-column>
+            <!--<igx-column [field]="'development'" header= "Developement"     [width]="auto" [sortable]="true"    [resizable]="true"  ></igx-column> 
+                <igx-column [field]="'status'" header= "Status"     [width]="auto" [sortable]="true"    [resizable]="true"  ></igx-column>
+                 <igx-column [field]="'ead'" header= "EAD"     [width]="auto" [sortable]="true"    [resizable]="true"  ></igx-column>
             <igx-column [field]="'tad'" header= "TAD"     [width]="auto" [sortable]="true"    [resizable]="true"  ></igx-column>
-            <!-- <igx-column [field]="'nad'" header= "NAD"     [width]="auto" [sortable]="true"    [resizable]="true"  ></igx-column> 
+             <igx-column [field]="'nad'" header= "NAD"     [width]="auto" [sortable]="true"    [resizable]="true"  ></igx-column> 
             <igx-column [field]="'quarter'" header= "Quarter"     [width]="auto" [sortable]="true"    [resizable]="true"  ></igx-column>
            
             <igx-column [field]="'financialYear'" header= "Financial Year"     [width]="auto" [sortable]="true"    [resizable]="true"  ></igx-column>

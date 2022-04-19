@@ -27,7 +27,6 @@ export class HomeComponent implements OnInit {
       this.onSideNavChange = res;
     });
     this.afterViewCheckedFlag = false;
-    //this.getPermissionByModule();
   }
 
   ngOnInit(): void {
@@ -45,13 +44,6 @@ export class HomeComponent implements OnInit {
     
     this.okta.handleAuthentication();
   }
-
-  // getPermissionByModule() {
-  //   this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "ExtraPin").subscribe(res => {
-  //     this.afterViewCheckedFlag = true;
-  //     this.permissiondata = res;
-  //   });
-  // }
   sideNavClose() {
     this._sidenavService.sideNavState$.subscribe(res => {
       this.onSideNavChange = res;

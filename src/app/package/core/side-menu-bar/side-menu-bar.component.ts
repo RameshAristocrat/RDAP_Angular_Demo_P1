@@ -45,7 +45,7 @@ interface Level1 {
   styleUrls: ['./side-menu-bar.component.scss'],
   animations: [onSideNavChange, animateText],
 })
-export class SideMenuBarComponent implements OnInit, OnChanges {
+export class SideMenuBarComponent implements OnInit {
   public sideNavState: boolean = false;
   public linkText: boolean = false;
   public getPermissionByModule_Var: any;
@@ -386,7 +386,7 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
               type: 'SC',
               header: '0',
               permissionflag: false
-            },{
+            }, {
               modulename: 'platform',
               name: 'platform',
               link: '/home/managepin/master/platform/search',
@@ -548,13 +548,11 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
     private _sidenavService: SidenavService,
     private _router: Router,
     private masterApiService: RdMasterApiService,
-    
+    private commonService: CommonService
+
   ) {
     this.rolePermissionEnableFlag = environment.enablerolepermission;
     this.rolepermissionmock = environment.enablerolepermissionmock;
-  }
-
-  ngOnChanges(event) {
   }
 
   ngOnInit(): void {
@@ -562,9 +560,9 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
       this.getSideMenuPermission()
     }
   }
-  public setPermissiion(permission){
+  public setPermissiion(permission) {
     permission.forEach(pagePermission => {
-      if(pagePermission.module == "version" || pagePermission.module == "cabinet" || pagePermission.module == "channel"
+      if (pagePermission.module == "version" || pagePermission.module == "cabinet" || pagePermission.module == "channel"
         || pagePermission.module == "channeltype" || pagePermission.module == "denom" || pagePermission.module == "devcomplexity"
         || pagePermission.module == "devefforttype" || pagePermission.module == "devtype1" || pagePermission.module == "devtype2"
         || pagePermission.module == "emulation" || pagePermission.module == "epp_ref" || pagePermission.module == "financialyear"
@@ -576,36 +574,37 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
         || pagePermission.module == "studio" || pagePermission.module == "theme" || pagePermission.module == "title"
         || pagePermission.module == "viridianlaunch" || pagePermission.module == "platform" || pagePermission.module == "flag"
         || pagePermission.module == "studiotype" || pagePermission.module == "studio2" || pagePermission.module == "videostepper"
-        ){
-          this.ManagePinMasterModulePermission(this.pagePermission,this.pages, pagePermission.module);
-        }
-        else if(pagePermission.module == 'extrapin'){
-          this.ExtraPinModulePermission(this.pagePermission, this.pages);
-        }
-        else if(pagePermission.module == 'managepin'){
-          this.ManagePinModulePermission(this.pagePermission, this.pages);
-        }
-        else if(pagePermission.module == 'workflow'){
-          this.ManagePinWorkflowModulePermission(this.pagePermission, this.pages);
-        }
-        else if(pagePermission.module == 'blanketpin'){
-          this.blanketPinModulePermission(this.pagePermission, this.pages);
-        }
-      else if( pagePermission.module == 'rework'){
-          this.reworkModulePermission(this.pagePermission, this.pages);
+      ) {
+        this.ManagePinMasterModulePermission(this.pagePermission, this.pages, pagePermission.module);
+      }
+      else if (pagePermission.module == 'extrapin') {
+        this.ExtraPinModulePermission(this.pagePermission, this.pages);
+      }
+      else if (pagePermission.module == 'managepin') {
+        this.ManagePinModulePermission(this.pagePermission, this.pages);
+      }
+      else if (pagePermission.module == 'workflow') {
+        this.ManagePinWorkflowModulePermission(this.pagePermission, this.pages);
+      }
+      else if (pagePermission.module == 'blanketpin') {
+        this.blanketPinModulePermission(this.pagePermission, this.pages);
+      }
+      else if (pagePermission.module == 'rework') {
+        this.reworkModulePermission(this.pagePermission, this.pages);
       }
     })
   }
 
-  public getSideMenuPermission(){
+  public getSideMenuPermission() {
     this.masterApiService.getPermissionSideMenu(APIindex.API.permission_side_menu).subscribe(res => {
       if (res) {
         this.pagePermission = res;
-        this.setPermissiion(this.pagePermission)
+        this.setPermissiion(this.pagePermission);
+        this.commonService.setMenuJson(res);
       }
     });
   }
- 
+
   public ExtraPinModulePermission(permission, pages) {
     let extraPinPermissionData = permission.filter(x => x.module.toLowerCase() == "extrapin")[0];
     if (this.pages) {
@@ -624,7 +623,6 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
     }
   }
   public ManagePinModulePermission(permission, pages) {
-    //debugger
     let managePinPermissionData = permission.filter(x => x.module.toLowerCase() == "managepin")[0];
     if (this.pages) {
       this.pages.forEach(x => {
@@ -639,8 +637,6 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
     }
   }
   public ManagePinWorkflowModulePermission(permission, pages) {
-    //debugger
-    //console.log("permission[y.modulename]", permission.filter(x => x.module.toLowerCase() == "managepin"));
     let managePinWorkflowPermissionData = permission.filter(x => x.module.toLowerCase() == "workflow")[0];
     if (this.pages) {
       this.pages.forEach(x => {
@@ -655,8 +651,6 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
     }
   }
   public blanketPinModulePermission(permission, pages) {
-    //debugger
-    //console.log("permission[y.modulename]", permission.filter(x => x.module.toLowerCase() == "managepin"));
     let managePinWorkflowPermissionData = permission.filter(x => x.module.toLowerCase() == "blanketpin")[0];
     if (this.pages) {
       this.pages.forEach(x => {
@@ -666,15 +660,14 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
               y.permissionflag = managePinWorkflowPermissionData.isAdd
             }
             if (y.modulename.toLowerCase() == "blanketpin" && y.functionality == "list") {
-              y.permissionflag = managePinWorkflowPermissionData.isView            }
+              y.permissionflag = managePinWorkflowPermissionData.isView
+            }
           })
         }
       });
     }
   }
   public reworkModulePermission(permission, pages) {
-    //debugger
-    //console.log("permission[y.modulename]", permission.filter(x => x.module.toLowerCase() == "managepin"));
     let reworkPermissionData = permission.filter(x => x.module.toLowerCase() == "rework")[0];
     if (this.pages) {
       this.pages.forEach(x => {
@@ -698,8 +691,8 @@ export class SideMenuBarComponent implements OnInit, OnChanges {
         if (x.modulename.toLowerCase() == "managepin") {
           x.submenu.forEach(y => {
             if (y.modulename.toLowerCase() == "managepinmaster" && y.functionality == "all") {
-              y.level1.forEach(z=>{
-                if(z.modulename.toLowerCase() == modulename){
+              y.level1.forEach(z => {
+                if (z.modulename.toLowerCase() == modulename) {
                   z.permissionflag = managePinMasterPermissionData.isView;
                 }
               });

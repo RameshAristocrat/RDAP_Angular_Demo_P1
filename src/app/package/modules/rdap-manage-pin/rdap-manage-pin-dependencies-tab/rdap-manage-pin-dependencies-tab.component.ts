@@ -75,7 +75,7 @@ export class RdapManagePinDependenciesTabComponent implements OnInit, OnChanges 
   duplicateplanitemflag: boolean;
   managepin: any;
   mpproductPermission: any;
-  mpdependencyPermission: any;
+  @Input() mpdependencyPermission: any;
   mpmilestonePermission: any;
   mpcabinetPermission: any;
   mptesterPermission: any;
@@ -114,36 +114,17 @@ export class RdapManagePinDependenciesTabComponent implements OnInit, OnChanges 
   }
   public getPermissionmpMasterByModule() {
     this.pagePermission = [];
-    this.mpdependencyPermission = [];
-    let rolePermissionMockData;
-    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "mpdependency").subscribe(res => {
-      if (this.rolepermissionmock == true) {
-        this.pagePermission.push(rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionsetitemmock);
-        this.mpdependencyPermission = rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissiondependencymock;
-        // debugger
-        if (this.mpdependencyPermission.isView == true && this.mpdependencyPermission.isEdit == false) {
-          this.isViewOnlyPermission();
-        }
-        if (this.mpdependencyPermission.isEdit == true) {
-          this.grideditflag = true;
-        } else {
-          this.grideditflag = false
-        }
-      } else {
-        this.pagePermission.push(res);
-        this.mpdependencyPermission = res;
-        if (this.mpdependencyPermission.isView == true && this.mpdependencyPermission.isEdit == false) {
-          this.isViewOnlyPermission();
-        }
-        if (this.mpdependencyPermission.isEdit == true) {
-          this.grideditflag = true;
-        } else {
-          this.grideditflag = false
-        }
-      }
-      this.gridDataLoad();
-      this.spinner.hide();
-    });
+    this.pagePermission.push(this.mpdependencyPermission);
+    if (this.mpdependencyPermission.isView == true && this.mpdependencyPermission.isEdit == false) {
+      this.isViewOnlyPermission();
+    }
+    if (this.mpdependencyPermission.isEdit == true) {
+      this.grideditflag = true;
+    } else {
+      this.grideditflag = false
+    }
+    this.gridDataLoad();
+    this.spinner.hide();
   }
   isViewOnlyPermission() {
 
@@ -180,7 +161,6 @@ export class RdapManagePinDependenciesTabComponent implements OnInit, OnChanges 
       this.appString = appstringdata.appString;
     }
     this.gridDataLoad();
-    console.log("this.data", this.data);
     //this.setFinalFilterDataFunc();
     this.spinner.hide();
   }
@@ -235,8 +215,6 @@ export class RdapManagePinDependenciesTabComponent implements OnInit, OnChanges 
     });
   }
   setFinalFilterDataFunc(){
-    debugger
-    console.log("this.dependenciesgrid.data",this.dependenciesgrid.data);
     this.dependenciesgrid.data.forEach(x => {
       this.dependencyddldata = this.dependencyddldata.filter(y => y.id != x.planitemDep);
       this.dependencyDdlFilterData = this.dependencyddldata;

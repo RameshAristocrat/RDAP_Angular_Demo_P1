@@ -34,6 +34,7 @@ import * as APIindex from '../../../api/apiEndpoints/apiIndex';
 export class RdapManagePinProductTabComponent implements OnInit {
   @ViewChild('decimalalert', { static: true }) public notificationAlert: IgxDialogComponent;
   @Input() isAdmin; 
+  @Input() mpproductPermission; 
   //emitDataprojectref: { data: any, flag: boolean };
   public productform: FormGroup;
   public productformold: FormGroup;
@@ -128,7 +129,6 @@ export class RdapManagePinProductTabComponent implements OnInit {
   public pagePermission: any;
   public rolePermissionEnableFlag: any;
   public rolepermissionmock: boolean = false;
-  mpproductPermission:any;
   permissionApi: string;
   constructor(private httpClient: HttpClient, private router: Router,
     public fb: FormBuilder, private _snackBar: MatSnackBar,
@@ -146,26 +146,14 @@ export class RdapManagePinProductTabComponent implements OnInit {
   }
   public getPermissionmpMasterByModule() {
     this.pagePermission = [];
-    this.mpproductPermission= [];
-    let rolePermissionMockData;
-    this.masterApiService.getPermissionByModule(APIindex.API.permission_Get_By_Module, "mpproduct").subscribe(res => {
-      if (this.rolepermissionmock == true) {
-        this.pagePermission.push(rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionproductmock);
-        this.mpproductPermission = rolePermossionMockJs.rdapRolePermossionMock[0].rolepermissionproductmock;
-        if(this.mpproductPermission.isView == true && this.mpproductPermission.isEdit == false){
-          this.isViewOnlyPermission();
-        }
-      } else {
-        this.pagePermission.push(res);
-        this.mpproductPermission = res;
-        if(this.mpproductPermission.isView == true && this.mpproductPermission.isEdit == false){
-          this.isViewOnlyPermission();
-        }
-      }
-    });
+    this.pagePermission.push(this.mpproductPermission);
+    if(this.mpproductPermission.isView == true && this.mpproductPermission.isEdit == false){
+      this.isViewOnlyPermission();
+    }
   }
 
   ngOnInit(): void {
+    // this.spinner.show();
     if(this.isAdmin)
     {
       this.isReadOnly = false;
@@ -177,6 +165,7 @@ export class RdapManagePinProductTabComponent implements OnInit {
     this.buildForm();
     this.callDdlApi();
     this.viewExtrapinRequestForm();
+    
     // this.productParam.archType = this.viewExtrapinRequestData.versionId;
     // this.productParam.auditTrail = this.viewExtrapinRequestData.versionId;
     // this.productParam.channelId = this.viewExtrapinRequestData.versionId;

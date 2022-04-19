@@ -154,7 +154,6 @@ export class RdapSharedConfigSearchComponent implements OnInit {
       this.stringSearchCriteria = stringsearchdata.stringSearch;
     }
     this.spinner.hide();
-    //appstringdata
   }
   public getPermissionmpMasterByModule(modulename) {
     this.pagePermission = [];
@@ -255,7 +254,6 @@ export class RdapSharedConfigSearchComponent implements OnInit {
       this.route.match('region') &&
       this.route.match('region').length > 0
     ) {
-      //this.searchUrl = this.baseApi;
       this.getPermissionmpMasterByModule("region");
       this.exportfilename = 'region_master_data';
       this.formName = 'regionSearchForm';
@@ -801,19 +799,6 @@ export class RdapSharedConfigSearchComponent implements OnInit {
       this.createFormControl();
     }
   }
-  generateParam() {
-    // this.param = {
-    //   pageNumber: 0,
-    //   pageSize: 0,
-    //   filters: [
-    //     {
-    //       field: "Region",
-    //       operator: "Contains",
-    //       value: ""
-    //     }
-    //   ]
-    // }
-  }
   submit() {
       this.spinner.show();
       this.searchParam = { pageNumber: 1, pageSize: 10, filters: [], sorts: [] };
@@ -979,7 +964,6 @@ export class RdapSharedConfigSearchComponent implements OnInit {
     this.masterApiService.getGridData(this.searchUrl,sortparamarr, this.filterparamarr);
   }
   onPageChangeEvent(pageNumber: number) {
-    //this.spinner.show();
     if(pageNumber == undefined || pageNumber == 0)
     {
       this.searchParam = { pageNumber: 1, pageSize: 10, filters: [], sorts: [] };

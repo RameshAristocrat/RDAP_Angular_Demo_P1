@@ -5,7 +5,7 @@
             style="min-height: 300px;"
             igxOverlayOutlet [autoGenerate]="false" (cellClick)="cellClick($event)" (onCellEdit)="editDone($event)"
                 (rowAdded)="testDetailsRowAddedDone($event)" (rowEditDone)="editDone($event)">
-                <igx-grid-toolbar *ngIf="mptesterPermission && mptesterPermission.isAdd == true">
+                <igx-grid-toolbar *ngIf="mptesterPermission && mptesterPermission.isAdd == true && addButtonFlag == true">
                     <button igxButton="flat" (click)='addNew(actionstrip.context)' class="addProdBtn"
                         style="font-weight: 600 !important; font-size: 0.7rem !important;">
                         <igx-icon>add</igx-icon> Add Tester Plan
@@ -65,7 +65,7 @@
                         </igx-select> -->
                         <!-- <igx-combo #remoteCombo class="combo" [itemsMaxHeight]="250" [itemsMinWidth]="500"
                         [data]="intTesterDdlFilterData" [valueKey]="'id'" [displayKey]="'description'"
-                        placeholder="Select InTester(s)" searchPlaceholder="Search..." [filterable]="true"
+                        placeholder="Select Int Tester(s)" searchPlaceholder="Search..." [filterable]="true"
                         (selectionChanging)="onchangeSelect($event, cell, data, 'inttester',intTesterDdlFilterData)">
                         <ng-template igxComboItem let-display let-key="valueKey">
                             <div class="item">
@@ -117,9 +117,9 @@
                     <button *ngIf="mptesterPermission && mptesterPermission.isDelete == true" title="Delete" igxButton="icon" igxRipple (click)="deleterow(actionstrip.context)">
                         <igx-icon>delete</igx-icon>
                     </button>
-                    <button *ngIf="mptesterPermission && mptesterPermission.isAdd == true" title="Add New" igxButton="icon" igxRipple (click)='addNew(actionstrip.context)'>
+                    <!-- <button *ngIf="mptesterPermission && mptesterPermission.isAdd == true && addButtonFlag == true" title="Add New" igxButton="icon" igxRipple (click)='addNew(actionstrip.context)'>
                         <igx-icon>add</igx-icon>
-                    </button>
+                    </button> -->
                 </igx-action-strip> 
             </igx-grid>
         </div>

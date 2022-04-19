@@ -15,3 +15,12 @@
 :host::ng-deep .igx-page-size{
     display: none !important;
 }
+
+:host::ng-deep .igx-column-actions__buttons{
+    display: none !important;
+  }
+
+  :host::ng-deep .igx-icon {
+    display: block !important;
+  }
+

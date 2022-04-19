@@ -12,7 +12,6 @@ export class MainMenuBarComponent implements OnInit {
   modulesList: Array<any>;
   @Input() sidenav: MatSidenav
   ngOnInit(): void {
-    // this.modulesList = ModulesList;
   }
 
 }

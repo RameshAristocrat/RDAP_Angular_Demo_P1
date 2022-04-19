@@ -5,11 +5,11 @@ export const environment = {
     stag: false,
     dolly: false,
     ram: true,
-    disha: true,
+    disha: false,
     oktaconfig: {
         CLIENT_ID: "0oa9t7ifubUwIhATi357",
         ISSUER: "https://aristocrat.okta.com",
-        LOGIN_REDIRECT_URI: "https://sydc-appdev-01:6060/home/dashboard",
+        LOGIN_REDIRECT_URI: "https://sydc-appdev-01:6060/home",
         LOGOUT_REDIRECT_URI: "https://sydc-appdev-01:6060",
         SCOPE: ['openid','profile','email']
     },

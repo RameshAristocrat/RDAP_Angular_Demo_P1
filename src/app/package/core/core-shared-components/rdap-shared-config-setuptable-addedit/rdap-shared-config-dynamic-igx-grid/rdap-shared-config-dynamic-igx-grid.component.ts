@@ -27,12 +27,10 @@ export class RdapSharedConfigDynamicIgxGridComponent implements OnInit {
   public exactMatch = false;
   public columndata: any;
   public loopGridContent;
-  //commongridmodel:any[];
   @Input() commongridmodel: any;
   @Input() rowitem: any;
   @Input() griddata:any;
   @Input() mode:any;
- // @Input() exportfilename: string;
   @Output() commongridmodelrow = new EventEmitter<any>();
   constructor(private httpClient: HttpClient, private cdr: ChangeDetectorRef,
     private excelExportService: IgxExcelExporterService) { }
@@ -63,8 +61,6 @@ export class RdapSharedConfigDynamicIgxGridComponent implements OnInit {
     }
   }
   onchangeSelect(event, cell, data, field){
- 
-    // cell.update(event.newSelection.value.description);
     let row: IgxGridRowComponent = cell.row;
     row.cells.forEach(function(cell: IgxGridCellComponent) {
       if (cell.column.field === "description2") {

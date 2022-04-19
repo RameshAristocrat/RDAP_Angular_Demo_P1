@@ -20,7 +20,6 @@ import { RdapManagePinListComponent } from '../modules/rdap-manage-pin/rdap-mana
 import { RdapExtraPinRequestIndividualWorkflowComponent } from '../modules/rdap-extra-pin-request/rdap-extra-pin-request-individual-workflow/rdap-extra-pin-request-individual-workflow.component';
 import { RdapReworkRequestComponent } from '../modules/rdap-rework-request/rdap-rework-request.component';
 import { OktaAuthRefreshGuard } from './okta-auth/okta-auth-refresh-guard';
-import { RdapBlanketPinDetailsComponent } from '../modules/rdap-blanketpin-request/rdap-blanketpin-details/rdap-blanketpin-details.component';
 import { RdapBlanketPinRequestComponent } from '../modules/rdap-blanketpin-request/rdap-blanketpin-request.component';
 import { OktaLoginComponent } from './okta-login/okta-login.component';
 
@@ -34,10 +33,6 @@ const routes: Routes = [
     path: "login",
     component: OktaLoginComponent
   },
-  // {
-  //   path: "login",
-  //   component: LoginComponent
-  // },
   {
     path: "home",
     component: HomeComponent,
@@ -68,7 +63,7 @@ const routes: Routes = [
             (m) => m.RdapBlanketpinRequestModule
           ),
       },
-      
+
       {
         path: "configold",
         loadChildren: () =>
@@ -81,7 +76,6 @@ const routes: Routes = [
         children: [
           {
             path: "region",
-            //component: RdapConfigCommonSearchComponent,
             children: [{
               path: "search",
               component: RdapConfigCommonSearchComponent,
@@ -97,7 +91,6 @@ const routes: Routes = [
             }]
           }, {
             path: "market",
-            //component: RdapConfigCommonSearchComponent,
             children: [{
               path: "search",
               component: RdapConfigCommonSearchComponent,
@@ -113,7 +106,7 @@ const routes: Routes = [
             }]
           }, {
             path: "studio",
-            //component: RdapConfigCommonSearchComponent,
+
             children: [
               {
                 path: 'search',
@@ -135,7 +128,7 @@ const routes: Routes = [
           },
           {
             path: 'channeltype',
-            //component: RdapConfigCommonSearchComponent,
+
             children: [
               {
                 path: 'search',
@@ -157,7 +150,7 @@ const routes: Routes = [
           },
           {
             path: 'channel',
-            //component: RdapConfigCommonSearchComponent,
+
             children: [
               {
                 path: 'search',
@@ -179,7 +172,7 @@ const routes: Routes = [
           },
           {
             path: 'cabinets',
-            //component: RdapConfigCommonSearchComponent,
+
             children: [
               {
                 path: 'search',
@@ -201,7 +194,7 @@ const routes: Routes = [
           },
           {
             path: 'devefforttype',
-            //component: RdapConfigCommonSearchComponent,
+
             children: [
               {
                 path: 'search',
@@ -223,7 +216,7 @@ const routes: Routes = [
           },
           {
             path: 'status1',
-            //component: RdapConfigCommonSearchComponent,
+
             children: [
               {
                 path: 'search',
@@ -245,7 +238,7 @@ const routes: Routes = [
           },
           {
             path: 'status2',
-            //component: RdapConfigCommonSearchComponent,
+
             children: [
               {
                 path: 'search',
@@ -267,7 +260,7 @@ const routes: Routes = [
           },
           {
             path: 'status3',
-            //component: RdapConfigCommonSearchComponent,
+
             children: [
               {
                 path: 'search',
@@ -289,7 +282,7 @@ const routes: Routes = [
           },
           {
             path: 'prodcat1',
-            //component: RdapConfigCommonSearchComponent,
+
             children: [
               {
                 path: 'search',
@@ -311,7 +304,7 @@ const routes: Routes = [
           },
           {
             path: 'prodcat2',
-            //component: RdapConfigCommonSearchComponent,
+
             children: [
               {
                 path: 'search',
@@ -333,7 +326,7 @@ const routes: Routes = [
           },
           {
             path: 'prodcat3',
-            //component: RdapConfigCommonSearchComponent,
+
             children: [
               {
                 path: 'search',
@@ -355,7 +348,7 @@ const routes: Routes = [
           },
           {
             path: 'studio',
-            //component: RdapConfigCommonSearchComponent,
+
             children: [
               {
                 path: 'search',
@@ -377,7 +370,7 @@ const routes: Routes = [
           },
           {
             path: 'pool',
-            //component: RdapConfigCommonSearchComponent,
+
             children: [
               {
                 path: 'search',
@@ -399,7 +392,7 @@ const routes: Routes = [
           },
           {
             path: 'gamecomplexity',
-            //component: RdapConfigCommonSearchComponent,
+
             children: [
               {
                 path: 'search',
@@ -421,7 +414,7 @@ const routes: Routes = [
           },
           {
             path: 'gravity',
-            //component: RdapConfigCommonSearchComponent,
+
             children: [
               {
                 path: 'search',
@@ -443,7 +436,7 @@ const routes: Routes = [
           },
           {
             path: 'financialyear',
-            //component: RdapConfigCommonSearchComponent,
+
             children: [
               {
                 path: 'search',
@@ -465,7 +458,7 @@ const routes: Routes = [
           },
           {
             path: 'quarter',
-            //component: RdapConfigCommonSearchComponent,
+
             children: [
               {
                 path: 'search',
@@ -487,7 +480,7 @@ const routes: Routes = [
           },
           {
             path: 'devcomplexity',
-            //component: RdapConfigCommonSearchComponent,
+
             children: [
               {
                 path: 'search',
@@ -509,7 +502,7 @@ const routes: Routes = [
           },
           {
             path: 'productbasket',
-            //component: RdapConfigCommonSearchComponent,
+
             children: [
               {
                 path: 'search',
@@ -531,7 +524,7 @@ const routes: Routes = [
           },
           {
             path: 'productgroup',
-            //component: RdapConfigCommonSearchComponent,
+
             children: [
               {
                 path: 'search',
@@ -552,7 +545,7 @@ const routes: Routes = [
             ],
           }, {
             path: "devtype1",
-            //component: RdapConfigCommonSearchComponent,
+
             children: [{
               path: "search",
               component: RdapConfigCommonSearchComponent,
@@ -568,7 +561,7 @@ const routes: Routes = [
             }]
           }, {
             path: "devtype2",
-            //component: RdapConfigCommonSearchComponent,
+
             children: [{
               path: "search",
               component: RdapConfigCommonSearchComponent,
@@ -584,7 +577,7 @@ const routes: Routes = [
             }]
           }, {
             path: "version",
-            //component: RdapConfigCommonSearchComponent,
+
             children: [{
               path: "search",
               component: RdapConfigCommonSearchComponent,
@@ -600,7 +593,7 @@ const routes: Routes = [
             }]
           }, {
             path: "epp",
-            //component: RdapConfigCommonSearchComponent,
+
             children: [{
               path: "search",
               component: RdapConfigCommonSearchComponent,
@@ -617,7 +610,7 @@ const routes: Routes = [
           },
           {
             path: 'theme',
-            //component: RdapConfigCommonSearchComponent,
+
             children: [
               {
                 path: 'search',
@@ -639,7 +632,7 @@ const routes: Routes = [
           },
           {
             path: 'title',
-            //component: RdapConfigCommonSearchComponent,
+
             children: [
               {
                 path: 'search',
@@ -661,7 +654,7 @@ const routes: Routes = [
           },
           {
             path: 'risk',
-            //component: RdapConfigCommonSearchComponent,
+
             children: [
               {
                 path: 'search',
@@ -683,7 +676,7 @@ const routes: Routes = [
           },
           {
             path: 'viridianlaunch',
-            //component: RdapConfigCommonSearchComponent,
+
             children: [
               {
                 path: 'search',
@@ -705,7 +698,7 @@ const routes: Routes = [
           },
           {
             path: 'emulation',
-            //component: RdapConfigCommonSearchComponent,
+
             children: [
               {
                 path: 'search',
@@ -727,7 +720,7 @@ const routes: Routes = [
           },
           {
             path: 'denom',
-            //component: RdapConfigCommonSearchComponent,
+
             children: [
               {
                 path: 'search',
@@ -749,7 +742,7 @@ const routes: Routes = [
           },
           {
             path: 'studio2',
-            //component: RdapConfigCommonSearchComponent,
+
             children: [
               {
                 path: 'search',
@@ -771,7 +764,7 @@ const routes: Routes = [
           },
           {
             path: 'studiotype',
-            //component: RdapConfigCommonSearchComponent,
+
             children: [
               {
                 path: 'search',
@@ -791,9 +784,9 @@ const routes: Routes = [
               },
             ],
           },
-	   {
+          {
             path: 'vidstep',
-            //component: RdapConfigCommonSearchComponent,
+
             children: [
               {
                 path: 'search',
@@ -815,7 +808,7 @@ const routes: Routes = [
           },
           {
             path: 'flag',
-            //component: RdapConfigCommonSearchComponent,
+
             children: [
               {
                 path: 'search',
@@ -834,9 +827,9 @@ const routes: Routes = [
                 component: RdapConfigCommonAddEditComponent,
               },
             ],
-          },{
+          }, {
             path: 'platform',
-            //component: RdapConfigCommonSearchComponent,
+
             children: [
               {
                 path: 'search',
@@ -883,9 +876,9 @@ const routes: Routes = [
       },
       {
         path: 'transaction/managepin/extrapinrequest/workflow/view',
-        component:RdapExtraPinRequestIndividualWorkflowComponent,
+        component: RdapExtraPinRequestIndividualWorkflowComponent,
       }
-      ,{
+      , {
         path: 'rework/reworkrequest/add',
         component: RdapReworkRequestComponent,
       }, {
@@ -900,7 +893,7 @@ const routes: Routes = [
         path: 'rework/reworkrequest/workflow',
         component: RdapReworkRequestComponent,
       }
-      ,{
+      , {
         path: 'blanketpin/blanketpinreq/add',
         component: RdapBlanketPinRequestComponent,
       },
